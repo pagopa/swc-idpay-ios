@@ -1,0 +1,611 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */; };
+		9811BC092B177C950063E71B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9811BC082B177C950063E71B /* ContentView.swift */; };
+		9811BC0B2B177C970063E71B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9811BC0A2B177C970063E71B /* Assets.xcassets */; };
+		9811BC0E2B177C970063E71B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9811BC0D2B177C970063E71B /* Preview Assets.xcassets */; };
+		9811BC182B177C970063E71B /* SWC_iDPay_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9811BC172B177C970063E71B /* SWC_iDPay_iOSTests.swift */; };
+		9811BC222B177C970063E71B /* SWC_iDPay_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9811BC212B177C970063E71B /* SWC_iDPay_iOSUITests.swift */; };
+		9811BC242B177C970063E71B /* SWC_iDPay_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9811BC232B177C970063E71B /* SWC_iDPay_iOSUITestsLaunchTests.swift */; };
+		9811BC322B177DD20063E71B /* PagoPAUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9811BC312B177DD20063E71B /* PagoPAUIKit */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9811BC142B177C970063E71B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9811BBFB2B177C940063E71B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9811BC022B177C950063E71B;
+			remoteInfo = "SWC-iDPay-iOS";
+		};
+		9811BC1E2B177C970063E71B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9811BBFB2B177C940063E71B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9811BC022B177C950063E71B;
+			remoteInfo = "SWC-iDPay-iOS";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9811BC032B177C950063E71B /* SWC-iDPay-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SWC-iDPay-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWC_iDPay_iOSApp.swift; sourceTree = "<group>"; };
+		9811BC082B177C950063E71B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9811BC0A2B177C970063E71B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9811BC0D2B177C970063E71B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9811BC132B177C970063E71B /* SWC-iDPay-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SWC-iDPay-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9811BC172B177C970063E71B /* SWC_iDPay_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWC_iDPay_iOSTests.swift; sourceTree = "<group>"; };
+		9811BC1D2B177C970063E71B /* SWC-iDPay-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SWC-iDPay-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9811BC212B177C970063E71B /* SWC_iDPay_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWC_iDPay_iOSUITests.swift; sourceTree = "<group>"; };
+		9811BC232B177C970063E71B /* SWC_iDPay_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWC_iDPay_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9811BC002B177C950063E71B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9811BC322B177DD20063E71B /* PagoPAUIKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9811BC102B177C970063E71B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9811BC1A2B177C970063E71B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9811BBFA2B177C940063E71B = {
+			isa = PBXGroup;
+			children = (
+				9811BC052B177C950063E71B /* SWC-iDPay-iOS */,
+				9811BC162B177C970063E71B /* SWC-iDPay-iOSTests */,
+				9811BC202B177C970063E71B /* SWC-iDPay-iOSUITests */,
+				9811BC042B177C950063E71B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9811BC042B177C950063E71B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9811BC032B177C950063E71B /* SWC-iDPay-iOS.app */,
+				9811BC132B177C970063E71B /* SWC-iDPay-iOSTests.xctest */,
+				9811BC1D2B177C970063E71B /* SWC-iDPay-iOSUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9811BC052B177C950063E71B /* SWC-iDPay-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */,
+				9811BC082B177C950063E71B /* ContentView.swift */,
+				9811BC0A2B177C970063E71B /* Assets.xcassets */,
+				9811BC0C2B177C970063E71B /* Preview Content */,
+			);
+			path = "SWC-iDPay-iOS";
+			sourceTree = "<group>";
+		};
+		9811BC0C2B177C970063E71B /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				9811BC0D2B177C970063E71B /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9811BC162B177C970063E71B /* SWC-iDPay-iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				9811BC172B177C970063E71B /* SWC_iDPay_iOSTests.swift */,
+			);
+			path = "SWC-iDPay-iOSTests";
+			sourceTree = "<group>";
+		};
+		9811BC202B177C970063E71B /* SWC-iDPay-iOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9811BC212B177C970063E71B /* SWC_iDPay_iOSUITests.swift */,
+				9811BC232B177C970063E71B /* SWC_iDPay_iOSUITestsLaunchTests.swift */,
+			);
+			path = "SWC-iDPay-iOSUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9811BC022B177C950063E71B /* SWC-iDPay-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9811BC272B177C970063E71B /* Build configuration list for PBXNativeTarget "SWC-iDPay-iOS" */;
+			buildPhases = (
+				9811BBFF2B177C950063E71B /* Sources */,
+				9811BC002B177C950063E71B /* Frameworks */,
+				9811BC012B177C950063E71B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SWC-iDPay-iOS";
+			packageProductDependencies = (
+				9811BC312B177DD20063E71B /* PagoPAUIKit */,
+			);
+			productName = "SWC-iDPay-iOS";
+			productReference = 9811BC032B177C950063E71B /* SWC-iDPay-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9811BC122B177C970063E71B /* SWC-iDPay-iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9811BC2A2B177C970063E71B /* Build configuration list for PBXNativeTarget "SWC-iDPay-iOSTests" */;
+			buildPhases = (
+				9811BC0F2B177C970063E71B /* Sources */,
+				9811BC102B177C970063E71B /* Frameworks */,
+				9811BC112B177C970063E71B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9811BC152B177C970063E71B /* PBXTargetDependency */,
+			);
+			name = "SWC-iDPay-iOSTests";
+			productName = "SWC-iDPay-iOSTests";
+			productReference = 9811BC132B177C970063E71B /* SWC-iDPay-iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9811BC1C2B177C970063E71B /* SWC-iDPay-iOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9811BC2D2B177C970063E71B /* Build configuration list for PBXNativeTarget "SWC-iDPay-iOSUITests" */;
+			buildPhases = (
+				9811BC192B177C970063E71B /* Sources */,
+				9811BC1A2B177C970063E71B /* Frameworks */,
+				9811BC1B2B177C970063E71B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9811BC1F2B177C970063E71B /* PBXTargetDependency */,
+			);
+			name = "SWC-iDPay-iOSUITests";
+			productName = "SWC-iDPay-iOSUITests";
+			productReference = 9811BC1D2B177C970063E71B /* SWC-iDPay-iOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9811BBFB2B177C940063E71B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					9811BC022B177C950063E71B = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					9811BC122B177C970063E71B = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 9811BC022B177C950063E71B;
+					};
+					9811BC1C2B177C970063E71B = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 9811BC022B177C950063E71B;
+					};
+				};
+			};
+			buildConfigurationList = 9811BBFE2B177C940063E71B /* Build configuration list for PBXProject "SWC-iDPay-iOS" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9811BBFA2B177C940063E71B;
+			packageReferences = (
+				9811BC302B177DD10063E71B /* XCLocalSwiftPackageReference "PagoPAUIKit" */,
+			);
+			productRefGroup = 9811BC042B177C950063E71B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9811BC022B177C950063E71B /* SWC-iDPay-iOS */,
+				9811BC122B177C970063E71B /* SWC-iDPay-iOSTests */,
+				9811BC1C2B177C970063E71B /* SWC-iDPay-iOSUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9811BC012B177C950063E71B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9811BC0E2B177C970063E71B /* Preview Assets.xcassets in Resources */,
+				9811BC0B2B177C970063E71B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9811BC112B177C970063E71B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9811BC1B2B177C970063E71B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9811BBFF2B177C950063E71B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9811BC092B177C950063E71B /* ContentView.swift in Sources */,
+				9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9811BC0F2B177C970063E71B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9811BC182B177C970063E71B /* SWC_iDPay_iOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9811BC192B177C970063E71B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9811BC242B177C970063E71B /* SWC_iDPay_iOSUITestsLaunchTests.swift in Sources */,
+				9811BC222B177C970063E71B /* SWC_iDPay_iOSUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9811BC152B177C970063E71B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9811BC022B177C950063E71B /* SWC-iDPay-iOS */;
+			targetProxy = 9811BC142B177C970063E71B /* PBXContainerItemProxy */;
+		};
+		9811BC1F2B177C970063E71B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9811BC022B177C950063E71B /* SWC-iDPay-iOS */;
+			targetProxy = 9811BC1E2B177C970063E71B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9811BC252B177C970063E71B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9811BC262B177C970063E71B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9811BC282B177C970063E71B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"SWC-iDPay-iOS/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "PagoPA.SWC-iDPay-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9811BC292B177C970063E71B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"SWC-iDPay-iOS/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "PagoPA.SWC-iDPay-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9811BC2B2B177C970063E71B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "PagoPA.SWC-iDPay-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SWC-iDPay-iOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SWC-iDPay-iOS";
+			};
+			name = Debug;
+		};
+		9811BC2C2B177C970063E71B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "PagoPA.SWC-iDPay-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SWC-iDPay-iOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SWC-iDPay-iOS";
+			};
+			name = Release;
+		};
+		9811BC2E2B177C970063E71B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "PagoPA.SWC-iDPay-iOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "SWC-iDPay-iOS";
+			};
+			name = Debug;
+		};
+		9811BC2F2B177C970063E71B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "PagoPA.SWC-iDPay-iOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "SWC-iDPay-iOS";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9811BBFE2B177C940063E71B /* Build configuration list for PBXProject "SWC-iDPay-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9811BC252B177C970063E71B /* Debug */,
+				9811BC262B177C970063E71B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9811BC272B177C970063E71B /* Build configuration list for PBXNativeTarget "SWC-iDPay-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9811BC282B177C970063E71B /* Debug */,
+				9811BC292B177C970063E71B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9811BC2A2B177C970063E71B /* Build configuration list for PBXNativeTarget "SWC-iDPay-iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9811BC2B2B177C970063E71B /* Debug */,
+				9811BC2C2B177C970063E71B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9811BC2D2B177C970063E71B /* Build configuration list for PBXNativeTarget "SWC-iDPay-iOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9811BC2E2B177C970063E71B /* Debug */,
+				9811BC2F2B177C970063E71B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		9811BC302B177DD10063E71B /* XCLocalSwiftPackageReference "PagoPAUIKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = PagoPAUIKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9811BC312B177DD20063E71B /* PagoPAUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PagoPAUIKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 9811BBFB2B177C940063E71B /* Project object */;
+}
