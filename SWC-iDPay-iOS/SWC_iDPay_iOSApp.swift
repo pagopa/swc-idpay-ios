@@ -11,7 +11,7 @@ import SwiftUI
 struct SWC_iDPay_iOSApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ComponentsDemoListView()
         }
     }
 }
