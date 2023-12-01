@@ -15,6 +15,7 @@
 		9811BC222B177C970063E71B /* SWC_iDPay_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9811BC212B177C970063E71B /* SWC_iDPay_iOSUITests.swift */; };
 		9811BC242B177C970063E71B /* SWC_iDPay_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9811BC232B177C970063E71B /* SWC_iDPay_iOSUITestsLaunchTests.swift */; };
 		9811BC322B177DD20063E71B /* PagoPAUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9811BC312B177DD20063E71B /* PagoPAUIKit */; };
+		B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		9811BC1D2B177C970063E71B /* SWC-iDPay-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SWC-iDPay-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9811BC212B177C970063E71B /* SWC_iDPay_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWC_iDPay_iOSUITests.swift; sourceTree = "<group>"; };
 		9811BC232B177C970063E71B /* SWC_iDPay_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWC_iDPay_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsDemoListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 		9811BC052B177C950063E71B /* SWC-iDPay-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B8A83D812B1A4B1B006CF4BF /* PagoPAUIKit-Demo */,
 				9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */,
 				9811BC082B177C950063E71B /* ContentView.swift */,
 				9811BC0A2B177C970063E71B /* Assets.xcassets */,
@@ -127,6 +130,14 @@
 				9811BC232B177C970063E71B /* SWC_iDPay_iOSUITestsLaunchTests.swift */,
 			);
 			path = "SWC-iDPay-iOSUITests";
+			sourceTree = "<group>";
+		};
+		B8A83D812B1A4B1B006CF4BF /* PagoPAUIKit-Demo */ = {
+			isa = PBXGroup;
+			children = (
+				B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */,
+			);
+			path = "PagoPAUIKit-Demo";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9811BC092B177C950063E71B /* ContentView.swift in Sources */,
+				B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */,
 				9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
