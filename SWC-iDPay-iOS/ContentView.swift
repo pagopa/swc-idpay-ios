@@ -6,15 +6,16 @@
 //
 
 import SwiftUI
+import PagoPAUIKit
 
 struct ContentView: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
-                .foregroundStyle(.tint)
             Text("Hello, world!")
         }
+        .foregroundStyle(Color.paPrimaryDark)
         .padding()
     }
 }
