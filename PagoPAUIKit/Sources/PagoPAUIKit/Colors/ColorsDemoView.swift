@@ -28,7 +28,7 @@ struct ColorDemoRow: View {
                     .frame(width: 180)
             }
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal, Spacings.small.rawValue)
 
     }
 }
