@@ -14,6 +14,7 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
             Text("Hello, world!")
+                .font(.PAFont.h1)
         }
         .foregroundStyle(Color.paPrimaryDark)
         .padding()
