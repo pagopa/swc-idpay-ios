@@ -43,12 +43,37 @@ struct Loader: ViewModifier {
     }
 }
 
+// MARK: Demo View
+struct LoadingView: View {
+    @State var inProgress: Bool = false
+    
+    var body: some View {
+        VStack {
+            Button {
+                loadData()
+            } label: {
+                Text("Start loading..")
+            }
+            .pagoPAButtonStyle(buttonType: .primary)
+            .padding(.horizontal, 24)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.infoLight)
+        .showLoadingView(message: "Stiamo verificando il tuo portafoglio ID Pay", isLoading: $inProgress)
+        
+    }
+    
+    private func loadData() {
+        inProgress.toggle()
+        DispatchQueue.main.asyncAfter(deadline: .now()+5) {
+            inProgress.toggle()
+        }
+    }
+}
+
+
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        VStack {
-            Color.paPrimary
-        }
-        .showLoadingView(message: "Stiamo verificando il tuo portafoglio ID Pay", isLoading: .constant(true))
-
+        LoadingView()
     }
 }
