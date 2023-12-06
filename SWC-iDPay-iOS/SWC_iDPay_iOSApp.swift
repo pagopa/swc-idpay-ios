@@ -10,9 +10,12 @@ import PagoPAUIKit
 
 @main
 struct SWC_iDPay_iOSApp: App {
-
     @StateObject var appManager = AppStateManager()
-
+    
+    init() {
+        Font.registerPagoPAFonts()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ZStack {
