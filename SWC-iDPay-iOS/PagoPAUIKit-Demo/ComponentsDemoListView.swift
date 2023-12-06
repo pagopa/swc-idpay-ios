@@ -14,18 +14,23 @@ struct Component: Identifiable, Hashable {
     let type: ComponentType
     
     enum ComponentType: CaseIterable {
+        case buttons
         case colors
-        
+
         var name: String {
             switch self {
+            case .buttons:
+                return "Buttons"
             case .colors:
-                return "Colori"
+                return "Colors"
             }
         }
         
         @ViewBuilder
         var viewDestination: some View {
             switch self {
+            case .buttons:
+                ButtonsDemoView()
             case .colors:
                 ColorsDemoView()
             }
@@ -35,24 +40,50 @@ struct Component: Identifiable, Hashable {
 
 struct ComponentsDemoListView: View {
     
+    @State var menuIconOpacity: CGFloat = 0.0
+
     private var components: [Component] =
         Component.ComponentType.allCases.map {
             Component(type: $0)
         }
     
-    
     var body: some View {
         NavigationStack {
-            List(components) { component in
-                NavigationLink(component.type.name, value: component)
+            VStack {
+                Text("UI Kit showcase")
+                    .font(.PAFont.h1Hero)
+                    .foregroundColor(.white)
+                List(components) { component in
+                    NavigationLink(component.type.name, value: component)
+                        .font(.PAFont.cta)
+                        .foregroundColor(.paPrimaryDark)
+                }
+                .listStyle(.plain)
+                .navigationDestination(for: Component.self) {
+                    $0.type.viewDestination
+                        .navigationBarTitleDisplayMode(.inline)
+                }
                 
             }
-            .navigationTitle("UI Kit - Components")
-            .navigationDestination(for: Component.self) {
-                $0.type.viewDestination
-            }
             .background(Color.paPrimary)
-            
+            .navigationBarTitle("", displayMode: .inline)
+            .toolbar(content: {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button{
+                        print("Show menu")
+                    } label: {
+                        Image(icon: .menu)
+                            .foregroundColor(.white)
+                    }
+                    .opacity(menuIconOpacity)
+                }
+                
+            })
+        }
+        .onAppear {
+            withAnimation(.easeIn(duration: 2.0)) {
+                menuIconOpacity = 1.0
+            }
         }
     }
 }
