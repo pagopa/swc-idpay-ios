@@ -32,7 +32,7 @@ struct Divider_Previews: PreviewProvider {
                 Text("Prova")
                 
                 Divider(orientation: .horizontal)
-                    .padding(Spacings.medium.rawValue)
+                    .padding(Constants.mediumSpacing)
                 
                 Text("Horizontal divider")
             }
@@ -46,7 +46,7 @@ struct Divider_Previews: PreviewProvider {
 
                 
                 Divider(orientation: .vertical, color: .infoGraphic)
-                    .padding(Spacings.medium.rawValue)
+                    .padding(Constants.mediumSpacing)
                 
                 Text("Vertical divider")
                     .frame(maxWidth: .infinity)
