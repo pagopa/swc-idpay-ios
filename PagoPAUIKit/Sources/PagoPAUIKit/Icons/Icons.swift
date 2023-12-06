@@ -16,6 +16,7 @@ extension Image {
         case checkmark = "check-filled"
         case eye = "eye"
         case warning = "warning"
+        case menu = "menu-icon"
     }
 
     public init (icon: PAIcon) {

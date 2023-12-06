@@ -59,7 +59,6 @@ public struct CustomLazyLoadingButton<Content: View>: View {
             position: self.position,
             themeType: self.themeType
         )
-        .padding(.horizontal, 24)
     }
     
     private var spinnerColor: Color {
@@ -76,11 +75,12 @@ public struct CustomLazyLoadingButton<Content: View>: View {
 struct CustomLazyLoadingButton_Previews: PreviewProvider {
     
     static var previews: some View {
-        CustomLazyLoadingButton(buttonType: .primary, isLoading: .constant(true)) {
+        CustomLazyLoadingButton(buttonType: .primary, icon: .star, position: .left, isLoading: .constant(false)) {
             
         } label: {
-            Text("Prova")
+            Text("Paga con carta")
         }
+        .padding(.horizontal, 24)
 
     }
 }
