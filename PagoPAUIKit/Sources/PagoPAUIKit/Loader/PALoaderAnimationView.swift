@@ -53,7 +53,6 @@ struct PALoaderDemo: View {
                 } label: {
                     Text("Load")
                 }
-                .pagoPAButtonStyle(buttonType: .primary)
                 .padding(24)
                 .disabled(inProgress)
             }

@@ -54,7 +54,6 @@ struct LoadingView: View {
             } label: {
                 Text("Start loading..")
             }
-            .pagoPAButtonStyle(buttonType: .primary)
             .padding(.horizontal, 24)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
