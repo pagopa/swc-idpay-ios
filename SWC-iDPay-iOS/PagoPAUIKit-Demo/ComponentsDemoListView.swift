@@ -16,6 +16,7 @@ struct Component: Identifiable, Hashable {
     enum ComponentType: CaseIterable {
         case buttons
         case colors
+        case progress
 
         var name: String {
             switch self {
@@ -23,6 +24,8 @@ struct Component: Identifiable, Hashable {
                 return "Buttons"
             case .colors:
                 return "Colors"
+            case .progress:
+                return "Progress"
             }
         }
         
@@ -33,6 +36,8 @@ struct Component: Identifiable, Hashable {
                 ButtonsDemoView()
             case .colors:
                 ColorsDemoView()
+            case .progress:
+                ProgressDemoView()
             }
         }
     }

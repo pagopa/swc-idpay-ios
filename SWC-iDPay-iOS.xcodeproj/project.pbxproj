@@ -100,6 +100,7 @@
 			children = (
 				B8A83D812B1A4B1B006CF4BF /* PagoPAUIKit-Demo */,
 				9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */,
+				B803D8D52B20D85700A7934E /* AppStateManager.swift */,
 				9811BC0A2B177C970063E71B /* Assets.xcassets */,
 				9811BC0C2B177C970063E71B /* Preview Content */,
 			);
@@ -135,7 +136,6 @@
 			isa = PBXGroup;
 			children = (
 				B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */,
-				B803D8D52B20D85700A7934E /* AppStateManager.swift */,
 			);
 			path = "PagoPAUIKit-Demo";
 			sourceTree = "<group>";
