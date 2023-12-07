@@ -7,22 +7,22 @@
 
 import SwiftUI
 
-struct ProgressView: View {
+public struct PAProgressView: View {
     
-    var themeType: ThemeType
+    private var themeType: ThemeType
     private var theme: PagoPATheme
-    private var animationDuration: Double = 1.0
+    private var animationDuration: Double = 2.0
     private var progress: Double = 1.0
     private var loaderWidth: CGFloat { 80 }
 
-    @State var xOffset: CGFloat = -120
+    @State private var xOffset: CGFloat = -120
     
-    init(themeType: ThemeType) {
+    public init(themeType: ThemeType) {
         self.themeType = themeType
         self.theme = ThemeManager.buildTheme(type: themeType)
     }
     
-    var body: some View {
+    public var body: some View {
         GeometryReader { proxy in
             VStack {
                 ZStack {
@@ -33,7 +33,7 @@ struct ProgressView: View {
                     Rectangle()
                         .fill(theme.progressBarColor)
                         .cornerRadius(5.0)
-                        .frame(width: loaderWidth, height: 4)
+                        .frame(width: proxy.size.width/2.0, height: 4)
                         .offset(x: xOffset)
                 }
             }
@@ -49,10 +49,10 @@ struct ProgressView: View {
 
     }
     
-    func animateProgress(_ width: CGFloat) {
+    private func animateProgress(_ width: CGFloat) {
         xOffset = loaderStartPosition(width)
 
-        withAnimation(.easeInOut(duration: animationDuration)) {
+        withAnimation(.spring(duration: animationDuration, blendDuration: animationDuration/2.0)) {
             xOffset = width
         }
     }
@@ -62,18 +62,6 @@ struct ProgressView: View {
     }
 }
 
-struct ProgressView_Previews: PreviewProvider {
-    static var previews: some View {
-        
-        ZStack {
-            Color.infoLight
-                
-            VStack {
-                ProgressView(themeType: .light)
-                    .padding(.horizontal, Constants.mediumSpacing)
-                    .frame(maxWidth: .infinity, maxHeight: 4)
-
-            }
-        }
-    }
+#Preview {
+    ProgressDemoView()
 }
