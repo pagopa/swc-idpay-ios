@@ -32,7 +32,7 @@ public struct ListItem: View {
                 HStack{
                     if let iconLeft = iconLeft {
                         Image(icon: iconLeft)
-                            .padding(.trailing, 4)
+                            .padding(.trailing, Spacings.small.rawValue)
                     }
                     
                     VStack(alignment: .leading){
