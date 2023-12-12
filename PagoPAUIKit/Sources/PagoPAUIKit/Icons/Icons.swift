@@ -17,6 +17,9 @@ extension Image {
         case eye = "eye"
         case warning = "warning"
         case menu = "menu-icon"
+        case pending = "pending"
+        case toBeRefunded = "toBeRefunded"
+        case refunded = "refunded"
     }
 
     public init (icon: PAIcon) {
