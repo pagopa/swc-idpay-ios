@@ -1,18 +1,22 @@
 //
-//  SwiftUIView.swift
-//  
+//  ToastModel.swift
+//
 //
 //  Created by Pier Domenico Bonamassa on 13/12/23.
 //
 
 import SwiftUI
 
-struct SwiftUIView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+public struct ToastModel: Equatable {
+    var id = UUID()
+    var style: ToastStyle
+    var message: String
+    var icon: Image.PAIcon?
+    var duration: Double = 5.0
+    var width: Double = .infinity
+    var theme: PagoPATheme?
+    
+    public static func == (lhs: ToastModel, rhs: ToastModel) -> Bool {
+        return lhs.id == rhs.id
     }
-}
-
-#Preview {
-    SwiftUIView()
 }
