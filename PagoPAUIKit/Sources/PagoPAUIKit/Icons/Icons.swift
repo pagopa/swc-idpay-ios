@@ -24,6 +24,7 @@ extension Image {
         case refunded = "refunded"
         case info = "info"
         case icoEuro = "euro"
+        case checkTic = "checkTic"
     }
 
     public init (icon: PAIcon) {
