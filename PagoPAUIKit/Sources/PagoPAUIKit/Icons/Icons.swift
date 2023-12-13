@@ -13,10 +13,17 @@ extension Image {
         case star = "star"
         case idPayLogo = "id-pay-logo"
         case lock = "lock"
+        case checkmarkDark = "check-filled-dark"
         case checkmark = "check-filled"
         case eye = "eye"
+        case warningDark = "warning-dark"
         case warning = "warning"
         case menu = "menu-icon"
+        case pending = "pending"
+        case toBeRefunded = "toBeRefunded"
+        case refunded = "refunded"
+        case info = "info"
+        case icoEuro = "euro"
     }
 
     public init (icon: PAIcon) {
