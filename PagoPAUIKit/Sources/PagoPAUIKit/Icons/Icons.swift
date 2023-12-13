@@ -24,7 +24,7 @@ extension Image {
         case toBeRefundedDark = "toBeRefunded-dark"
         case refunded = "refunded"
         case info = "info"
-        case infoFilled = "info-filled"
+        case infoFilled = "Info-filled"
         case icoEuro = "euro"
         case checkTic = "checkTic"
     }
