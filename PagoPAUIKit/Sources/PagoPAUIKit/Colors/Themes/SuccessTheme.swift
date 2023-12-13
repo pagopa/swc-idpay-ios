@@ -11,6 +11,10 @@ public struct SuccessTheme: PagoPATheme {
         
     // MARK: - Background color
     public var backgroundColor: Color = .successLight
+    
+    // MARK: - Toast color
+    public var toastBackgroundColor: Color = .successLight
+    public var toastTextBorderBkgColor: Color = .successDark
 
     // MARK: - Default buttons background color
     public var primaryButtonBkgColor: Color = .successDark

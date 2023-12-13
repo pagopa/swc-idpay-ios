@@ -33,4 +33,7 @@ public protocol PagoPATheme {
     
     var progressBarBkgColor: Color { get }
     var progressBarColor: Color { get }
+    
+    var toastBackgroundColor: Color { get }
+    var toastTextBorderBkgColor: Color { get }
 }

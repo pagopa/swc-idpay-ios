@@ -11,6 +11,10 @@ public struct LightTheme: PagoPATheme {
         
     // MARK: - Background color
     public var backgroundColor: Color = .grey100
+    
+    // MARK: - Toast color
+    public var toastBackgroundColor: Color = .turquoiseLight
+    public var toastTextBorderBkgColor: Color = .infoDark
 
     // MARK: - Default buttons background color
     public var primaryButtonBkgColor: Color = .paPrimary

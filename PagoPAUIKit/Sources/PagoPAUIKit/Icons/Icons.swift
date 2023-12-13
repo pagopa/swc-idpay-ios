@@ -21,8 +21,10 @@ extension Image {
         case menu = "menu-icon"
         case pending = "pending"
         case toBeRefunded = "toBeRefunded"
+        case toBeRefundedDark = "toBeRefunded-dark"
         case refunded = "refunded"
         case info = "info"
+        case infoFilled = "info-filled"
         case icoEuro = "euro"
         case checkTic = "checkTic"
     }

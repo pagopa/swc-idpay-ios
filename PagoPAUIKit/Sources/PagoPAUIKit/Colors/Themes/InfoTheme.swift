@@ -8,6 +8,10 @@
 import SwiftUI
 
 public struct InfoTheme: PagoPATheme {
+    
+    // MARK: - Toast color
+    public var toastBackgroundColor: Color = .infoLight
+    public var toastTextBorderBkgColor: Color = .infoDark
         
     // MARK: - Background color
     public var backgroundColor: Color = .infoLight
