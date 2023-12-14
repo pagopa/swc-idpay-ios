@@ -21,9 +21,12 @@ extension Image {
         case menu = "menu-icon"
         case pending = "pending"
         case toBeRefunded = "toBeRefunded"
+        case toBeRefundedDark = "toBeRefunded-dark"
         case refunded = "refunded"
         case info = "info"
+        case infoFilled = "Info-filled"
         case icoEuro = "euro"
+        case checkTic = "checkTic"
     }
 
     public init (icon: PAIcon) {

@@ -11,6 +11,10 @@ public struct WarningTheme: PagoPATheme {
         
     // MARK: - Background color
     public var backgroundColor: Color = .warningLight
+    
+    // MARK: - Toast color
+    public var toastBackgroundColor: Color = .warningLight
+    public var toastTextBorderBkgColor: Color = .warningDark
 
     // MARK: - Default buttons background color
     public var primaryButtonBkgColor: Color = .warningDark

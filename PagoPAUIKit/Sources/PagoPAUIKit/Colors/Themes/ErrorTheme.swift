@@ -11,6 +11,10 @@ public struct ErrorTheme: PagoPATheme {
         
     // MARK: - Background color
     public var backgroundColor: Color = .errorLight
+    
+    // MARK: - Toast color
+    public var toastBackgroundColor: Color = .errorLight
+    public var toastTextBorderBkgColor: Color = .errorDark
 
     // MARK: - Default buttons background color
     public var primaryButtonBkgColor: Color = .errorDark

@@ -8,7 +8,11 @@
 import SwiftUI
 
 public struct DarkTheme: PagoPATheme {
-        
+    
+    // MARK: - Toast color
+    public var toastBackgroundColor: Color = .turquoiseLight
+    public var toastTextBorderBkgColor: Color = .infoDark
+    
     // MARK: - Background color
     public var backgroundColor: Color = .paPrimary
     
