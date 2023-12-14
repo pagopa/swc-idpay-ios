@@ -269,7 +269,7 @@ public struct InputField: View {
     }
 }
 
-struct InputDemoView: View {
+private struct InputListDemo: View {
     @State var username: String = ""
     @State var password: String = ""
     @State var otp: String = ""
@@ -322,5 +322,5 @@ struct InputDemoView: View {
 }
 
 #Preview {
-    InputDemoView()
+    InputListDemo()
 }

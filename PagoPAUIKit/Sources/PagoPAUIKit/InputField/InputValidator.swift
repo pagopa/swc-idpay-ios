@@ -31,7 +31,7 @@ public enum RuleType {
         case .email:
             return "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         case .requiredText:
-            return "/.+/"
+            return "^(\\w)+"
         case .requiredLength(let length, let inputType):
             if inputType == .number {
                 return "^(\\d){\(length)}$"
