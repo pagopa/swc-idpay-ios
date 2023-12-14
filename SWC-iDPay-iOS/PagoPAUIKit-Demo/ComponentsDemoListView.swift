@@ -18,6 +18,7 @@ struct Component: Identifiable, Hashable {
         case colors
         case progress
         case listItem
+        case toastNotification
 
         var name: String {
             switch self {
@@ -29,7 +30,8 @@ struct Component: Identifiable, Hashable {
                 return "Progress"
             case .listItem:
                 return "Items"
-                    
+            case .toastNotification:
+                return "Toast notification"
             }
         }
         
@@ -44,6 +46,8 @@ struct Component: Identifiable, Hashable {
                 ProgressDemoView()
             case .listItem:
                 ItemsDemoView()
+            case .toastNotification:
+                ToastDemoView()
 
             }
         }
