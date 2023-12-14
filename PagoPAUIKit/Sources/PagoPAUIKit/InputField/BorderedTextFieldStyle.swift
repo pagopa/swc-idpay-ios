@@ -17,7 +17,7 @@ struct BorderedTextFieldStyle: TextFieldStyle {
     @Binding var status: InputField.InputStatus
 
     func _body(configuration: TextField<Self._Label>) -> some View {
-        HStack {
+        HStack(alignment: .center) {
             if let icon {
                 Image(icon: icon)
                     .foregroundColor(foregroundColor)

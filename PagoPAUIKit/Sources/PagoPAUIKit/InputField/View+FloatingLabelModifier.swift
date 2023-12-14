@@ -24,7 +24,7 @@ public struct FloatingLabelModifier: ViewModifier {
     
     public func body(content: Content) -> some View {
         content
-            .overlay(alignment: .leading) {
+            .overlay(alignment: .center) {
                 GeometryReader { proxy in
                     Text(title)
                         .foregroundColor(.grey700.opacity(opacity))
@@ -37,10 +37,11 @@ public struct FloatingLabelModifier: ViewModifier {
                         }
                         .padding(.leading, insets.leading)
                         .padding(.trailing, insets.trailing)
-                        .offset(y: displaceLabel == false ? 0 : -proxy.size.height/2.0)
+                        .offset(y: displaceLabel == false ? 0 : -(proxy.size.height/2.0 + 7))
                         .offset(x: displaceLabel == true ? -insets.leading : 0)
                         .scaleEffect(displaceLabel == false ? 1 : 0.8, anchor: .leading)
-                        .padding(12)
+                        .frame(height: proxy.size.height)
+                        .padding(.horizontal, 15)
                         .animation(.spring, value: displaceLabel)
                         .allowsHitTesting(false)
                 }

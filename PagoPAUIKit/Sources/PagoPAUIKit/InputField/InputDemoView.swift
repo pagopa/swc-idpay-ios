@@ -19,59 +19,60 @@ public struct InputDemoView: View {
     public init() {}
     
     public var body: some View {
-        Form {
-            InputField(
-                type: .text,
-                text: $input1,
-                placeholder: "Required input field",
-                validationRule: .requiredText)
-            .focused($focusedField, equals: 1)
-            
-            InputField(
-                type: .text,
-                text: $input2,
-                placeholder: "Text input field with length defined",
-                validationRule: .requiredLength(8, .text)
-            )
-            .focused($focusedField, equals: 2)
-
-            InputField(
-                type: .number,
-                text: $otp,
-                placeholder: "OTP Field",
-                caption: "Field suggestion",
-                validationRule: .otp
-            )
-            .focused($focusedField, equals: 3)
-
-            InputField(
-                type: .password,
-                text: $password,
-                placeholder: "Password",
-                validationRule: .none
-            )
-            .focused($focusedField, equals: 4)
-
-            InputField(
-                type: .text,
-                text: $email,
-                placeholder: "Email",
-                caption: "Field suggestion",
-                validationRule: .email
-            )
-            .focused($focusedField, equals: 5)
-
-            
-            Button {
-                validate()
-            } label: {
-                Text("OK")
+        ScrollView {
+            VStack {
+                InputField(
+                    type: .text,
+                    text: $input1,
+                    placeholder: "Required input field",
+                    validationRule: .requiredText)
+                .focused($focusedField, equals: 1)
+                
+                InputField(
+                    type: .text,
+                    text: $input2,
+                    placeholder: "Text input field with length defined",
+                    validationRule: .requiredLength(8, .text)
+                )
+                .focused($focusedField, equals: 2)
+                
+                InputField(
+                    type: .number,
+                    text: $otp,
+                    placeholder: "OTP Field",
+                    caption: "Field suggestion",
+                    validationRule: .otp
+                )
+                .focused($focusedField, equals: 3)
+                
+                InputField(
+                    type: .password,
+                    text: $password,
+                    placeholder: "Password",
+                    validationRule: .none
+                )
+                .focused($focusedField, equals: 4)
+                
+                InputField(
+                    type: .text,
+                    text: $email,
+                    placeholder: "Email",
+                    caption: "Field suggestion",
+                    validationRule: .email
+                )
+                .focused($focusedField, equals: 5)
+                
+                
+                Button {
+                    validate()
+                } label: {
+                    Text("OK")
+                }
+                .pagoPAButtonStyle(buttonType: .primary)
+                .padding(.vertical, 24)
             }
-            .pagoPAButtonStyle(buttonType: .primary)
-            .padding(.vertical, 24)
+            .padding(24)
         }
-        .formStyle(.columns)
-        .padding(24)
     }
     
     private func validate() {

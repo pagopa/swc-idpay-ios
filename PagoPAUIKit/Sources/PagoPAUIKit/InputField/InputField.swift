@@ -176,7 +176,7 @@ public struct InputField: View {
             // Caption and chars count
             captionLabel
         }
-        .padding(.top, 15)
+        .padding(.top, 12)
         .onChange(of: focused) { newValue in
             guard newValue == false else {
                 status = .unknown
@@ -280,34 +280,37 @@ private struct InputListDemo: View {
     
     var body: some View {
         ScrollView {
-            InputField(type: .text, text: $username, placeholder: "Username")
-                .focused($focusedField, equals: 0)
-            
-            InputField(type: .password, text: $password, placeholder: "Password", errorText: $passwordError)
-                .focused($focusedField, equals: 1)
-            
-            InputField(type: .number, text: $otp, placeholder: "OTP code", validationRule: .otp)
-                .focused($focusedField, equals: 2)
-            
-            Button {
-                focusedField = nil
-                validateForm()
-            } label: {
-                Text("OK")
-            }
-            .pagoPAButtonStyle(buttonType: .primary)
-            .disabled(username.isEmpty || password.isEmpty)
-            .alert("Login done", isPresented: $showLoginSuccess){
-                Button("OK", role: .cancel) {
-                    showLoginSuccess.toggle()
+            VStack(spacing: 24) {
+                InputField(type: .text, text: $username, placeholder: "Username")
+                    .focused($focusedField, equals: 0)
+                
+                InputField(type: .password, text: $password, placeholder: "Password", caption: "Fill with your password", errorText: $passwordError)
+                    .focused($focusedField, equals: 1)
+                
+                InputField(type: .number, text: $otp, placeholder: "OTP code", validationRule: .otp)
+                    .focused($focusedField, equals: 2)
+                
+                Button {
+                    focusedField = nil
+                    validateForm()
+                } label: {
+                    Text("OK")
                 }
+                .pagoPAButtonStyle(buttonType: .primary)
+                .disabled(username.isEmpty || password.isEmpty)
+                .alert("Login done", isPresented: $showLoginSuccess){
+                    Button("OK", role: .cancel) {
+                        showLoginSuccess.toggle()
+                    }
+                }
+                .padding(.vertical, 40)
             }
-            .padding(.vertical, 40)
+            .padding(24)
+
         }
         .onTapGesture {
             focusedField = nil
         }
-        .padding(.horizontal, 24)
     }
     
     func validateForm() {
