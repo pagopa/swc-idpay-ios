@@ -19,7 +19,8 @@ struct Component: Identifiable, Hashable {
         case progress
         case listItem
         case toastNotification
-
+        case input
+        
         var name: String {
             switch self {
             case .buttons:
@@ -32,6 +33,8 @@ struct Component: Identifiable, Hashable {
                 return "Items"
             case .toastNotification:
                 return "Toast notification"
+            case .input:
+                return "Input"
             }
         }
         
@@ -48,11 +51,13 @@ struct Component: Identifiable, Hashable {
                 ItemsDemoView()
             case .toastNotification:
                 ToastDemoView()
-
+            case .input:
+                InputDemoView()
             }
         }
     }
 }
+
 
 struct ComponentsDemoListView: View {
     
