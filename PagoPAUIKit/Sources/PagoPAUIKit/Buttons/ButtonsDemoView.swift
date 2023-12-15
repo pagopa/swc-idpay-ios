@@ -122,7 +122,9 @@ struct LazyLoadingButtonView: View {
             themeType: themeType,
             isLoading: $isLoading,
             action: {
-                isLoading.toggle()
+                Task {
+                    await loadData()
+                }
             }, label: {
                 Text(title)
             }
@@ -130,6 +132,13 @@ struct LazyLoadingButtonView: View {
         .padding(.horizontal,Constants.mediumSpacing)
 
     }
+    
+    private func loadData() async {
+        isLoading = true
+        try? await Task.sleep(nanoseconds: 1 * 4_000_000_000)
+        isLoading = false
+    }
+
 }
 
 
@@ -150,7 +159,9 @@ struct LoadingButtonView: View {
             themeType: themeType,
             isLoading: $isLoading,
             action: {
-                isLoading.toggle()
+                Task {
+                    await loadData()
+                }
             }, label: {
                 Text(title)
             }
@@ -158,6 +169,13 @@ struct LoadingButtonView: View {
         .padding(.horizontal,Constants.mediumSpacing)
 
     }
+    
+    private func loadData() async {
+        isLoading = true
+        try? await Task.sleep(nanoseconds: 1 * 4_000_000_000)
+        isLoading = false
+    }
+
 }
 
 #Preview {

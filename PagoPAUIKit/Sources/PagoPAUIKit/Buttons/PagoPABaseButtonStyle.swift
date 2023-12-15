@@ -54,6 +54,7 @@ struct PagoPABaseButtonStyle: ButtonStyle {
         .font(.PAFont.cta)
         .foregroundColor(isEnabled ? textColor : disabledTextColor)
         .frame(maxWidth: .infinity)
+//        .padding(.horizontal, Constants.mediumSpacing)
         .background(
             RoundedRectangle(cornerRadius: Constants.radius1)
                 .fill(isEnabled ? backgroundColor : disabledBackgroundColor)

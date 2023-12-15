@@ -32,6 +32,7 @@ public struct CustomLazyLoadingButton<Content: View>: View {
     public var body: some View {
         
         Button {
+            guard !isLoading else { return }
             action()
         } label: {
             ZStack {
@@ -75,12 +76,12 @@ public struct CustomLazyLoadingButton<Content: View>: View {
 struct CustomLazyLoadingButton_Previews: PreviewProvider {
     
     static var previews: some View {
-        CustomLazyLoadingButton(buttonType: .primary, icon: .star, position: .left, isLoading: .constant(false)) {
+        CustomLazyLoadingButton(buttonType: .primary, isLoading: .constant(true)) {
             
         } label: {
-            Text("Paga con carta")
+            Text("Prova")
         }
-        .padding(.horizontal, 24)
+        .padding(.horizontal, Constants.mediumSpacing)
 
     }
 }

@@ -32,6 +32,7 @@ public struct CustomLoadingButton<Content: View>: View {
     public var body: some View {
         
         Button {
+            guard !isLoading else { return }
             action()
         } label: {
             if !isLoading { label() } else { Text("") }
@@ -42,7 +43,6 @@ public struct CustomLoadingButton<Content: View>: View {
             position: self.position,
             themeType: self.themeType
         )
-        .frame(maxWidth: isLoading ? 72 : .infinity )
         .animation(.easeInOut(duration: 0.3), value: isLoading)
         .showLoader(size: .cta, color: spinnerColor, isLoading: $isLoading)
     }
@@ -66,6 +66,7 @@ struct CustomLoadingButton_Previews: PreviewProvider {
         } label: {
             Text("Prova")
         }
+        .padding(.horizontal, 24)
 
     }
 }
