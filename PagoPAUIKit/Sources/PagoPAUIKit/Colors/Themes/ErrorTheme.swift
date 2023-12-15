@@ -12,6 +12,9 @@ public struct ErrorTheme: PagoPATheme {
     // MARK: - Background color
     public var backgroundColor: Color = .errorLight
     
+    // MARK: - Default icon (ex: for thankyou page)
+    public var defaultIcon: Image.PAIcon? = .warningDark
+
     // MARK: - Toast color
     public var toastBackgroundColor: Color = .errorLight
     public var toastTextBorderBkgColor: Color = .errorDark
@@ -46,5 +49,9 @@ public struct ErrorTheme: PagoPATheme {
     // MARK: - Progress
     public var progressBarBkgColor: Color = .white
     public var progressBarColor: Color = .errorGraphic
+
+    // MARK: - Generic texts
+    public var titleColor: Color = .errorDark
+    public var subtitleColor: Color = .errorDark
 
 }

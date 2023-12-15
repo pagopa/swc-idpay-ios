@@ -14,6 +14,40 @@ public enum PagoPAButtonType {
     case secondaryBordered
 }
 
+/**
+ Button model to create a custom pagoPAButtonStyle
+ 
+ - parameter type: type of button.
+ - parameter theme: reference theme for color style
+ - parameter icon: icon to show inside the button
+ - parameter iconPosition: icon positioning on button
+ 
+ - # Example #
+ ```
+  ButtonModel(type: .primary, theme: .dark, icon: .star, iconPosition: .left)
+ ```
+ 
+ */
+public struct ButtonModel: Identifiable {
+    
+    public var id = UUID()
+    var type: PagoPAButtonType
+    var themeType: ThemeType
+    var title: String
+    var icon: Image.PAIcon?
+    var iconPosition: ImagePosition?
+    var action: () -> Void
+    
+    public init(type: PagoPAButtonType, themeType: ThemeType, title: String, icon: Image.PAIcon? = nil, iconPosition: ImagePosition? = nil, action: @escaping () -> Void) {
+        self.type = type
+        self.title = title
+        self.themeType = themeType
+        self.icon = icon
+        self.iconPosition = iconPosition
+        self.action = action
+    }
+}
+
 struct PagoPABaseButtonStyle: ButtonStyle {
 
     @Environment(\.isEnabled) private var isEnabled
@@ -25,6 +59,16 @@ struct PagoPABaseButtonStyle: ButtonStyle {
     
     private var isBordered: Bool {
         return buttonType == .primaryBordered || buttonType == .secondaryBordered
+    }
+    
+    public init(buttonModel: ButtonModel){
+        self.buttonType = buttonModel.type
+        self.theme      = ThemeManager.buildTheme(type: buttonModel.themeType)
+        
+        if let icon = buttonModel.icon {
+            self.paImage    = Image(icon: icon)
+        }
+        self.position   = buttonModel.iconPosition ?? .right
     }
     
     public init(buttonType: PagoPAButtonType, icon: Image.PAIcon? = nil, position: ImagePosition = .right, themeType: ThemeType = .light) {
