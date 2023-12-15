@@ -32,16 +32,16 @@ public struct ButtonModel: Identifiable {
     
     public var id = UUID()
     var type: PagoPAButtonType
-    var theme: ThemeType
+    var themeType: ThemeType
     var title: String
     var icon: Image.PAIcon?
     var iconPosition: ImagePosition?
     var action: () -> Void
     
-    public init(type: PagoPAButtonType, theme: ThemeType, title: String, icon: Image.PAIcon? = nil, iconPosition: ImagePosition? = nil, action: @escaping () -> Void) {
+    public init(type: PagoPAButtonType, themeType: ThemeType, title: String, icon: Image.PAIcon? = nil, iconPosition: ImagePosition? = nil, action: @escaping () -> Void) {
         self.type = type
         self.title = title
-        self.theme = theme
+        self.themeType = themeType
         self.icon = icon
         self.iconPosition = iconPosition
         self.action = action
@@ -63,7 +63,7 @@ struct PagoPABaseButtonStyle: ButtonStyle {
     
     public init(buttonModel: ButtonModel){
         self.buttonType = buttonModel.type
-        self.theme      = ThemeManager.buildTheme(type: buttonModel.theme)
+        self.theme      = ThemeManager.buildTheme(type: buttonModel.themeType)
         
         if let icon = buttonModel.icon {
             self.paImage    = Image(icon: icon)

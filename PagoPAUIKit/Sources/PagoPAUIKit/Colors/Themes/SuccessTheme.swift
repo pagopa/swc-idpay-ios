@@ -11,7 +11,10 @@ public struct SuccessTheme: PagoPATheme {
         
     // MARK: - Background color
     public var backgroundColor: Color = .successLight
-    
+
+    // MARK: - Default icon (ex: for thankyou page)
+    public var defaultIcon: Image.PAIcon? = .checkmarkDark
+
     // MARK: - Toast color
     public var toastBackgroundColor: Color = .successLight
     public var toastTextBorderBkgColor: Color = .successDark
@@ -46,5 +49,9 @@ public struct SuccessTheme: PagoPATheme {
     // MARK: - Progress
     public var progressBarBkgColor: Color = .white
     public var progressBarColor: Color = .successGraphic
+
+    // MARK: - Generic texts
+    public var titleColor: Color = .successDark
+    public var subtitleColor: Color = .successDark
 
 }

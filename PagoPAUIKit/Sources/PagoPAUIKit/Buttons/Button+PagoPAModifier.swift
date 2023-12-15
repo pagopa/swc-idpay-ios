@@ -25,7 +25,7 @@ struct PAButtonStyle: ViewModifier {
         self.buttonType = buttonModel.type
         self.icon       = buttonModel.icon
         self.position   = buttonModel.iconPosition ?? .right
-        self.themeType  = buttonModel.theme
+        self.themeType  = buttonModel.themeType
     }
     
     func body(content: Content) -> some View {

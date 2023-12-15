@@ -12,6 +12,9 @@ public struct LightTheme: PagoPATheme {
     // MARK: - Background color
     public var backgroundColor: Color = .grey100
     
+    // MARK: - Default icon (ex: for thankyou page)
+    public var defaultIcon: Image.PAIcon? = nil
+
     // MARK: - Toast color
     public var toastBackgroundColor: Color = .turquoiseLight
     public var toastTextBorderBkgColor: Color = .infoDark
@@ -46,6 +49,10 @@ public struct LightTheme: PagoPATheme {
     // MARK: - Progress
     public var progressBarBkgColor: Color = .white
     public var progressBarColor: Color = .paPrimary
+
+    // MARK: - Generic texts
+    public var titleColor: Color = .paPrimaryDark
+    public var subtitleColor: Color = .paPrimary
 
     
 }
