@@ -14,6 +14,20 @@ struct PAButtonStyle: ViewModifier {
     var position: ImagePosition = .right
     var themeType: ThemeType = .light
     
+    init(buttonType: PagoPAButtonType, icon: Image.PAIcon? = nil, position: ImagePosition, themeType: ThemeType) {
+        self.buttonType = buttonType
+        self.icon = icon
+        self.position = position
+        self.themeType = themeType
+    }
+    
+    init(buttonModel: ButtonModel) {
+        self.buttonType = buttonModel.type
+        self.icon       = buttonModel.icon
+        self.position   = buttonModel.iconPosition ?? .right
+        self.themeType  = buttonModel.themeType
+    }
+    
     func body(content: Content) -> some View {
         content
             .buttonStyle(PagoPABaseButtonStyle(buttonType: buttonType, icon: icon, position: position, themeType: themeType))
@@ -24,4 +38,9 @@ extension Button {
     public func pagoPAButtonStyle(buttonType: PagoPAButtonType, icon: Image.PAIcon? = nil, position: ImagePosition = .right, themeType: ThemeType = .light) -> some View {
         modifier(PAButtonStyle(buttonType: buttonType, icon: icon, position: position, themeType: themeType))
     }
+    
+    public func pagoPAButtonStyle(buttonModel: ButtonModel) -> some View {
+        modifier(PAButtonStyle(buttonModel: buttonModel))
+    }
+
 }

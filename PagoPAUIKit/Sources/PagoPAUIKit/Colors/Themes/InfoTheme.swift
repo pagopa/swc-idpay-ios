@@ -15,6 +15,9 @@ public struct InfoTheme: PagoPATheme {
         
     // MARK: - Background color
     public var backgroundColor: Color = .infoLight
+    
+    // MARK: - Default icon (ex: for thankyou page)
+    public var defaultIcon: Image.PAIcon? = .pendingDark
 
     // MARK: - Default buttons background color
     public var primaryButtonBkgColor: Color = .infoDark
@@ -46,5 +49,9 @@ public struct InfoTheme: PagoPATheme {
     // MARK: - Progress
     public var progressBarBkgColor: Color = .white
     public var progressBarColor: Color = .infoGraphic
+
+    // MARK: - Generic texts
+    public var titleColor: Color = .infoDark
+    public var subtitleColor: Color = .infoDark
 
 }

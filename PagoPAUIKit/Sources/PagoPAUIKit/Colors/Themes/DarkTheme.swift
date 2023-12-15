@@ -16,6 +16,9 @@ public struct DarkTheme: PagoPATheme {
     // MARK: - Background color
     public var backgroundColor: Color = .paPrimary
     
+    // MARK: - Default icon (ex: for thankyou page)
+    public var defaultIcon: Image.PAIcon? = nil
+    
     // MARK: - Default buttons background color
     public var primaryButtonBkgColor: Color = .white
     public var primaryBorderedButtonBkgColor: Color = .clear
@@ -46,6 +49,10 @@ public struct DarkTheme: PagoPATheme {
     // MARK: - Progress
     public var progressBarBkgColor: Color = .white
     public var progressBarColor: Color = .paPrimary
+
+    // MARK: - Generic texts
+    public var titleColor: Color = .white
+    public var subtitleColor: Color = .white
 
 }
 

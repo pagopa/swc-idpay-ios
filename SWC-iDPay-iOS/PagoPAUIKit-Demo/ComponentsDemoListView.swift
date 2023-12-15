@@ -20,6 +20,7 @@ struct Component: Identifiable, Hashable {
         case listItem
         case toastNotification
         case input
+        case thankyouPage
         
         var name: String {
             switch self {
@@ -35,6 +36,8 @@ struct Component: Identifiable, Hashable {
                 return "Toast notification"
             case .input:
                 return "Input"
+            case .thankyouPage:
+                return "Thankyou Page"
             }
         }
         
@@ -53,6 +56,8 @@ struct Component: Identifiable, Hashable {
                 ToastDemoView()
             case .input:
                 InputDemoView()
+            case .thankyouPage:
+                EmptyView()
             }
         }
     }
@@ -62,7 +67,10 @@ struct Component: Identifiable, Hashable {
 struct ComponentsDemoListView: View {
     
     @State var menuIconOpacity: CGFloat = 0.0
-
+    @State var themeType: ThemeType?
+    @State var navigateToThankyouPage: Bool = false
+    @State var showThankyouPageChoiceAlert: Bool = false
+    
     private var components: [Component] =
         Component.ComponentType.allCases.map {
             Component(type: $0)
@@ -75,14 +83,43 @@ struct ComponentsDemoListView: View {
                     .font(.PAFont.h1Hero)
                     .foregroundColor(.white)
                 List(components) { component in
-                    NavigationLink(component.type.name, value: component)
-                        .font(.PAFont.cta)
-                        .foregroundColor(.paPrimaryDark)
+                    if component.type == .thankyouPage {
+                            Button {
+                                showThankyouPageChoiceAlert.toggle()
+                            } label: {
+                                Text(component.type.name)
+                                    .font(.PAFont.cta)
+                                    .foregroundColor(.paPrimaryDark)
+                            }
+                        
+                    } else {
+                        NavigationLink(component.type.name, value: component)
+                            .font(.PAFont.cta)
+                            .foregroundColor(.paPrimaryDark)
+                    }
                 }
                 .listStyle(.plain)
                 .navigationDestination(for: Component.self) {
                     $0.type.viewDestination
                         .navigationBarTitleDisplayMode(.inline)
+                }
+                .navigationDestination(isPresented: $navigateToThankyouPage) {
+                    if let themeType {
+                        switch themeType {
+                        case .error:
+                            ErrorThankyouPageDemo()
+                        case .success:
+                            SuccessThankyouPageDemo()
+                        case .info:
+                            InfoThankyouPageDemo()
+                        case .warning:
+                            WarningThankyouPageDemo()
+                        default:
+                            EmptyView()
+                        }
+                    } else {
+                        EmptyView()
+                    }
                 }
                 
             }
@@ -106,8 +143,32 @@ struct ComponentsDemoListView: View {
                 menuIconOpacity = 1.0
             }
         }
+        .alert("Thankyou page type", isPresented: $showThankyouPageChoiceAlert){
+            
+            VStack {
+                Button("Success") {
+                    showThankyouPage(.success)
+                }
+                Button("Error") {
+                    showThankyouPage(.error)
+                }
+                Button("Info") {
+                    showThankyouPage(.info)
+                }
+                Button("Warning") {
+                    showThankyouPage(.warning)
+                }
+            }
+        }
+    }
+    
+    private func showThankyouPage(_ themeType: ThemeType) {
+        self.themeType = themeType
+        navigateToThankyouPage = true
+        showThankyouPageChoiceAlert.toggle()
     }
 }
+
 
 #Preview {
     ComponentsDemoListView()

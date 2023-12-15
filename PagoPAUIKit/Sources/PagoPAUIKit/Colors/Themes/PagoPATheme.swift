@@ -9,6 +9,7 @@ import SwiftUI
 
 public protocol PagoPATheme {
     var backgroundColor: Color { get }
+    var defaultIcon: Image.PAIcon? { get }
     
     var primaryButtonBkgColor: Color { get }
     var primaryBorderedButtonBkgColor: Color { get }
@@ -36,4 +37,7 @@ public protocol PagoPATheme {
     
     var toastBackgroundColor: Color { get }
     var toastTextBorderBkgColor: Color { get }
+    
+    var titleColor: Color { get }
+    var subtitleColor: Color { get }
 }
