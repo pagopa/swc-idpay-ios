@@ -21,6 +21,7 @@ struct Component: Identifiable, Hashable {
         case toastNotification
         case input
         case thankyouPage
+        case outro
         
         var name: String {
             switch self {
@@ -38,6 +39,8 @@ struct Component: Identifiable, Hashable {
                 return "Input"
             case .thankyouPage:
                 return "Thankyou Page"
+            case .outro:
+                return "Outro"
             }
         }
         
@@ -58,6 +61,8 @@ struct Component: Identifiable, Hashable {
                 InputDemoView()
             case .thankyouPage:
                 EmptyView()
+            case .outro:
+                OutroDemoView()
             }
         }
     }
