@@ -67,87 +67,117 @@ public struct ResultView: View {
 
 }
 
+public struct WarningThankyouPageDemo: View {
+    public init() {}
+    public var body: some View {
+        ResultView(
+            title: "Titolo qualsiasi vvvv Titolo qualsiasi Titolo qualsiasi Titolo qualsiasi",
+            subtitle: "Sottotitolo qulasiasi Sottotitolo qulasiasi ccccc Sottotitolo qulasiasi Sottotitolo qulasiasi Sottotitolo qulasiasi",
+            themeType: .warning,
+            buttons: [
+                ButtonModel(
+                    type: .primary,
+                    themeType: .warning,
+                    title: "Accetta nuovo bonus",
+                    icon: .star,
+                    action: {
+                        print("Accetta nuovo bonus")
+                    }
+                ),
+                ButtonModel(
+                    type: .secondaryBordered,
+                    themeType: .warning,
+                    title: "Riprova",
+                    action: {
+                        print("Riprova")
+                    }
+                )]
+        )
+
+    }
+}
+
+public struct SuccessThankyouPageDemo: View {
+    public init() {}
+    public var body: some View {
+        ResultView(
+            title: "Grazie, l'operazione è stata eseguita con successo!",
+            themeType: .success,
+            buttons: [
+                ButtonModel(
+                    type: .primary,
+                    themeType: .success,
+                    title: "Continua",
+                    icon: .arrowRight,
+                    action: {
+                        print("Continua")
+                    }
+                )]
+        )
+
+    }
+}
+
+public struct ErrorThankyouPageDemo: View {
+    public init() {}
+    public var body: some View {
+        ResultView(
+            title: "L'operazione è stata annullata",
+            subtitle: "Abbiamo riscontrato dei problemi con il pagamento, non è stato addebitato alcun importo.",
+            themeType: .error,
+            buttons: [
+                ButtonModel(
+                    type: .primary,
+                    themeType: .error,
+                    title: "Torna alla home",
+                    action: {
+                        print("Torna alla home")
+                    }
+                )]
+        )
+    }
+}
+
+public struct InfoThankyouPageDemo: View {
+    public init() {}
+    public var body: some View {
+        ResultView(
+            title: "L'operazione è stata presa in carico",
+            subtitle: "Accedi al sito dell’ente per verificare lo stato dell’operazione",
+            themeType: .info,
+            buttons: [
+                ButtonModel(
+                    type: .primary,
+                    themeType: .info,
+                    title: "Riprova",
+                    action: {
+                        print("Riprova")
+                    }
+                ),
+                ButtonModel(
+                    type: .secondaryBordered,
+                    themeType: .info,
+                    title: "Accetta nuovo bonus",
+                    action: {
+                        print("Accetta nuovo bonus")
+                    }
+                )]
+        )
+    }
+}
+
 #Preview("Warning Thankyou Page") {
-    ResultView(
-        title: "Titolo qualsiasi vvvv Titolo qualsiasi Titolo qualsiasi Titolo qualsiasi",
-        subtitle: "Sottotitolo qulasiasi Sottotitolo qulasiasi ccccc Sottotitolo qulasiasi Sottotitolo qulasiasi Sottotitolo qulasiasi",
-        themeType: .warning,
-        buttons: [
-            ButtonModel(
-                type: .primary,
-                themeType: .warning,
-                title: "Accetta nuovo bonus",
-                icon: .star,
-                action: {
-                    print("Accetta nuovo bonus")
-                }
-            ),
-            ButtonModel(
-                type: .secondaryBordered,
-                themeType: .warning,
-                title: "Riprova",
-                action: {
-                    print("Riprova")
-                }
-            )]
-    )
+    WarningThankyouPageDemo()
 }
 
 #Preview("Success Thankyou Page") {
-    ResultView(
-        title: "Grazie, l'operazione è stata eseguita con successo!",
-        themeType: .success,
-        buttons: [
-            ButtonModel(
-                type: .primary,
-                themeType: .success,
-                title: "Continua",
-                icon: .arrowRight,
-                action: {
-                    print("Continua")
-                }
-            )]
-    )
+    SuccessThankyouPageDemo()
 }
 
 #Preview("Error Thankyou Page") {
-    ResultView(
-        title: "L'operazione è stata annullata",
-        subtitle: "Abbiamo riscontrato dei problemi con il pagamento, non è stato addebitato alcun importo.",
-        themeType: .error,
-        buttons: [
-            ButtonModel(
-                type: .primary,
-                themeType: .error,
-                title: "Torna alla home",
-                action: {
-                    print("Torna alla home")
-                }
-            )]
-    )
+    ErrorThankyouPageDemo()
 }
 
 #Preview("Info Thankyou Page") {
-    ResultView(
-        title: "L'operazione è stata presa in carico",
-        subtitle: "Accedi al sito dell’ente per verificare lo stato dell’operazione",
-        themeType: .info,
-        buttons: [
-            ButtonModel(
-                type: .primary,
-                themeType: .info,
-                title: "Riprova",
-                action: {
-                    print("Riprova")
-                }
-            ),
-            ButtonModel(
-                type: .secondaryBordered,
-                themeType: .info,
-                title: "Accetta nuovo bonus",
-                action: {
-                    print("Accetta nuovo bonus")
-                }
-            )]
-    )
+    InfoThankyouPageDemo()
 }
