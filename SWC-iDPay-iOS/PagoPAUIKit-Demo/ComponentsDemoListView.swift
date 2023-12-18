@@ -15,8 +15,10 @@ struct Component: Identifiable, Hashable {
     
     enum ComponentType: CaseIterable {
         case buttons
+        case divider
         case colors
         case progress
+        case loader
         case listItem
         case toastNotification
         case input
@@ -27,10 +29,14 @@ struct Component: Identifiable, Hashable {
             switch self {
             case .buttons:
                 return "Buttons"
+            case .divider:
+                return "Divider"
             case .colors:
                 return "Colors"
             case .progress:
                 return "Progress"
+            case .loader:
+                return "Loader"
             case .listItem:
                 return "Items"
             case .toastNotification:
@@ -49,10 +55,14 @@ struct Component: Identifiable, Hashable {
             switch self {
             case .buttons:
                 ButtonsDemoView()
+            case .divider:
+                DividerDemoView()
             case .colors:
                 ColorsDemoView()
             case .progress:
                 ProgressDemoView()
+            case .loader:
+                LoadingView()
             case .listItem:
                 ItemsDemoView()
             case .toastNotification:
@@ -71,7 +81,6 @@ struct Component: Identifiable, Hashable {
 
 struct ComponentsDemoListView: View {
     
-    @State var menuIconOpacity: CGFloat = 0.0
     @State var themeType: ThemeType?
     @State var navigateToThankyouPage: Bool = false
     @State var showThankyouPageChoiceAlert: Bool = false
@@ -95,12 +104,14 @@ struct ComponentsDemoListView: View {
                                 Text(component.type.name)
                                     .font(.PAFont.cta)
                                     .foregroundColor(.paPrimaryDark)
+                                    .padding(Constants.xsmallSpacing)
                             }
                         
                     } else {
                         NavigationLink(component.type.name, value: component)
                             .font(.PAFont.cta)
                             .foregroundColor(.paPrimaryDark)
+                            .padding(Constants.xsmallSpacing)
                     }
                 }
                 .listStyle(.plain)
@@ -138,15 +149,9 @@ struct ComponentsDemoListView: View {
                         Image(icon: .menu)
                             .foregroundColor(.white)
                     }
-                    .opacity(menuIconOpacity)
                 }
                 
             })
-        }
-        .onAppear {
-            withAnimation(.easeIn(duration: 2.0)) {
-                menuIconOpacity = 1.0
-            }
         }
         .alert("Thankyou page type", isPresented: $showThankyouPageChoiceAlert){
             

@@ -64,7 +64,7 @@ public struct ItemsDemoView: View {
             Divider()
         }
         .scrollIndicators(.hidden)
-        .padding(.horizontal, Spacings.medium.rawValue)
+        .padding(.horizontal, Constants.mediumSpacing)
     }
 }
 

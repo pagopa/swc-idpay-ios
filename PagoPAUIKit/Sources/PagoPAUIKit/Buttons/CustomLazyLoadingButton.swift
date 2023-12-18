@@ -52,7 +52,7 @@ public struct CustomLazyLoadingButton<Content: View>: View {
                     }
                 }
             }
-            .frame(maxHeight: 24)
+            .frame(maxHeight: Constants.mediumSpacing)
         }
         .pagoPAButtonStyle(
             buttonType: self.buttonType,

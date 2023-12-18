@@ -27,6 +27,7 @@ public struct FloatingLabelModifier: ViewModifier {
             .overlay(alignment: .center) {
                 GeometryReader { proxy in
                     Text(title)
+                        .font(.PAFont.body)
                         .foregroundColor(.grey700.opacity(opacity))
                         .background{
                             if displaceLabel == true {

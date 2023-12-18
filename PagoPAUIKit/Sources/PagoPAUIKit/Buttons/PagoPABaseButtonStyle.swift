@@ -117,7 +117,7 @@ struct PagoPABaseButtonStyle: ButtonStyle {
                 .resizable()
                 .scaledToFit()
                 .foregroundColor(isEnabled ? textColor : disabledTextColor)
-                .frame(height: 20)
+                .frame(height: Constants.buttonIconSize)
         } else {
             EmptyView()
         }

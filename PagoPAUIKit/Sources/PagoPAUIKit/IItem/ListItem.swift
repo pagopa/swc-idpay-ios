@@ -32,7 +32,9 @@ public struct ListItem: View {
                 HStack{
                     if let iconLeft = iconLeft {
                         Image(icon: iconLeft)
-                            .padding(.trailing, Spacings.small.rawValue)
+                            .resizable()
+                            .frame(width: Constants.listItemIconSize, height: Constants.listItemIconSize)
+                            .padding(.trailing, Constants.smallSpacing)
                     }
                     
                     VStack(alignment: .leading){
@@ -53,6 +55,8 @@ public struct ListItem: View {
                         actionButtonRight?()
                     } label: {
                         Image(icon: buttonIcon)
+                            .resizable()
+                            .frame(width: Constants.listItemIconSize, height: Constants.listItemIconSize)
                     }
                     
                 } else if let amount = amountText{
@@ -66,7 +70,7 @@ public struct ListItem: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, Spacings.medium.rawValue/2.0)
+        .padding(.vertical, Constants.mediumSpacing/2.0)
     }
 }
 
@@ -107,6 +111,6 @@ public struct ListItem: View {
         Divider()
         
     }
-    .padding(.horizontal, Spacings.medium.rawValue)
+    .padding(.horizontal, Constants.mediumSpacing)
     
 }

@@ -25,7 +25,9 @@ public struct ListItemHistory: View {
             HStack{
                 if let leftIcon = iconLeft{
                     Image(icon:leftIcon)
-                        .padding(.trailing, 4)
+                        .resizable()
+                        .frame(width: Constants.listItemIconSize, height: Constants.listItemIconSize)
+                        .padding(.trailing, Constants.xsmallSpacing)
                 }
                 VStack(alignment: .leading){
                     Text(titleText)
@@ -46,7 +48,7 @@ public struct ListItemHistory: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, Spacings.medium.rawValue/2.0)
+        .padding(.vertical, Constants.mediumSpacing/2.0)
     }
 }
 
@@ -68,6 +70,6 @@ public struct ListItemHistory: View {
         Divider()
         
     }
-    .padding(.horizontal, Spacings.medium.rawValue)
+    .padding(.horizontal, Constants.mediumSpacing)
     
 }

@@ -72,8 +72,8 @@ public struct OperationStatusLabel: View {
         Text(status.description)
             .font(.PAFont.caption)
             .foregroundColor(status.textColor)
-            .padding(.vertical, Spacings.xsmall.rawValue/2.0)
-            .padding(.horizontal, Spacings.xsmall.rawValue)
+            .padding(.vertical, Constants.xsmallSpacing/2.0)
+            .padding(.horizontal, Constants.xsmallSpacing)
             .background{
                 Capsule()
                     .fill(status.backgroundColor)

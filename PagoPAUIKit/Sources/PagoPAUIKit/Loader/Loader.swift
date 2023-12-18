@@ -29,7 +29,7 @@ struct Loader: ViewModifier {
                         
                         VStack {
                             PALoaderAnimationView()
-                                .frame(maxWidth: 64, maxHeight: 64)
+                                .frame(maxWidth: Constants.loaderSize, maxHeight: Constants.loaderSize)
                             
                             Text(text)
                                 .font(.PAFont.h3)
@@ -44,10 +44,12 @@ struct Loader: ViewModifier {
 }
 
 // MARK: Demo View
-struct LoadingView: View {
+public struct LoadingView: View {
     @State var inProgress: Bool = false
     
-    var body: some View {
+    public init() {}
+    
+    public var body: some View {
         VStack {
             Button {
                 loadData()

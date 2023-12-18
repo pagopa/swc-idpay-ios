@@ -215,7 +215,7 @@ extension Font {
         }
 
         private static func relative(_ fontType: PAFontType, size: FontSize) -> Font {
-            return Font.custom(fontType.rawValue, size: size.rawValue, relativeTo: size.textStyle)
+            return Font.custom(fontType.rawValue, size: size.rawValue * Constants.scaleFactor, relativeTo: size.textStyle)
         }
 
     }

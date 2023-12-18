@@ -34,6 +34,8 @@ public struct ResultView: View {
                         .padding(.bottom, Constants.mediumSpacing)
                 } else if let defaultIcon = theme.defaultIcon {
                     Image(icon: defaultIcon)
+                        .resizable()
+                        .frame(width: Constants.topIconSize, height: Constants.topIconSize)
                         .padding(.bottom, Constants.mediumSpacing)
                 }
                 if let title {
