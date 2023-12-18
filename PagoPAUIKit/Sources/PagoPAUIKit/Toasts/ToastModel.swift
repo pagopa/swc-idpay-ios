@@ -12,7 +12,7 @@ public struct ToastModel: Equatable {
     var style: ToastStyle
     var message: String
     var icon: Image.PAIcon?
-    var duration: Double = 5.0
+    var duration: Double = 1.5
     var width: Double = .infinity
     var theme: PagoPATheme?
     
