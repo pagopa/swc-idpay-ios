@@ -24,9 +24,11 @@ struct Divider: View {
     }
 }
 
-struct Divider_Previews: PreviewProvider {
-    static var previews: some View {
-        
+public struct DividerDemoView: View {
+    
+    public init() {}
+    
+    public var body: some View {
         ScrollView {
             VStack {
                 Text("Prova")
@@ -55,4 +57,8 @@ struct Divider_Previews: PreviewProvider {
             .background(Color.infoLight)
         }
     }
+}
+
+#Preview {
+    DividerDemoView()
 }

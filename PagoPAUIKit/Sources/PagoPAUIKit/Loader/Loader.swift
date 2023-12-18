@@ -29,7 +29,7 @@ struct Loader: ViewModifier {
                         
                         VStack {
                             PALoaderAnimationView()
-                                .frame(maxWidth: 64, maxHeight: 64)
+                                .frame(maxWidth: Constants.loaderSize, maxHeight: Constants.loaderSize)
                             
                             Text(text)
                                 .font(.PAFont.h3)

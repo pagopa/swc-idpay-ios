@@ -8,16 +8,14 @@
 import SwiftUI
 
 public struct ToastNotification: View {
-    private var icon: Image?
+    private var icon: Image.PAIcon?
     private var message: String
     private var width = CGFloat.infinity
     private var theme: PagoPATheme
     
     init(style: ToastStyle, message: String) {
         self.theme = style.theme
-        if let icon = style.icon {
-            self.icon = Image(icon: icon)
-        }
+        self.icon = style.icon
         self.message = message
     }
     
@@ -27,7 +25,11 @@ public struct ToastNotification: View {
                 .font(.PAFont.cta)
                 .foregroundColor(theme.toastTextBorderBkgColor)
             Spacer()
-            icon
+            if let icon = self.icon {
+                Image(icon: icon)
+                    .resizable()
+                    .frame(width: Constants.listItemIconSize, height: Constants.listItemIconSize)
+            }
         }
         .frame(maxWidth: .infinity)
         .padding()
@@ -40,7 +42,7 @@ public struct ToastNotification: View {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(theme.toastTextBorderBkgColor, lineWidth: 2)
         )
-        .padding(.horizontal, Spacings.small.rawValue)
+        .padding(.horizontal, Constants.smallSpacing)
     }
 }
 
@@ -62,10 +64,10 @@ public struct ToastDemoView: View {
                    Text("Show animated toast")
                    
                }
-               .padding(Spacings.medium.rawValue)
+               .padding(Constants.mediumSpacing)
            }
            
-           VStack {
+           VStack(spacing: Constants.smallSpacing) {
                ToastNotification(style: .neutral, message: "Lorem ipsum dolor sit amet")
                
                ToastNotification(style: .neutralIcon, message: "Lorem ipsum dolor sit amet")
