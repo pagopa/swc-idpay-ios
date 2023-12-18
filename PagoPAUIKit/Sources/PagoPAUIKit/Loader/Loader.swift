@@ -44,10 +44,12 @@ struct Loader: ViewModifier {
 }
 
 // MARK: Demo View
-struct LoadingView: View {
+public struct LoadingView: View {
     @State var inProgress: Bool = false
     
-    var body: some View {
+    public init() {}
+    
+    public var body: some View {
         VStack {
             Button {
                 loadData()
