@@ -22,18 +22,21 @@ public struct Outro: View {
     
     public var body: some View {
         
-        ResultView(
-            title: title,
-            subtitle: subtitle,
-            themeType: .dark,
-            buttons: [
-                ButtonModel(
-                    type: .primary,
-                    themeType: .dark,
-                    title: actionTitle,
-                    action: action
-                )]
+        ResultView(result:
+                    ResultModel(
+                        title: title,
+                        subtitle: subtitle,
+                        themeType: .dark,
+                        buttons: [
+                            ButtonModel(
+                                type: .primary,
+                                themeType: .dark,
+                                title: actionTitle,
+                                action: action
+                            )]
+                    )
         )
+        .fullScreenBackground(themeType: .dark)
     }
 }
 
