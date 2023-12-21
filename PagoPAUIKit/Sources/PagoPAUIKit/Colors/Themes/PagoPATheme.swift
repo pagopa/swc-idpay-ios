@@ -23,6 +23,7 @@ public protocol PagoPATheme {
     var primaryBorderedButtonTextColor: Color { get }
     var secondaryButtonTextColor: Color { get }
     var secondaryBorderedButtonTextColor: Color { get }
+    var plainButtonTextColor: Color { get }
 
     var defaultButtonDisabledTextColor: Color { get }
     var borderedButtonDisabledTextColor: Color { get }

@@ -34,6 +34,7 @@ public struct SuccessTheme: PagoPATheme {
     public var primaryBorderedButtonTextColor: Color = .successDark
     public var secondaryButtonTextColor: Color = .white
     public var secondaryBorderedButtonTextColor: Color = .successDark
+    public var plainButtonTextColor: Color = .successDark
     
     // MARK: - Button disabled Text colors
     public var defaultButtonDisabledTextColor: Color = .grey700

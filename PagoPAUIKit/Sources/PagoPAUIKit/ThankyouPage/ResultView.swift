@@ -7,179 +7,57 @@
 
 import SwiftUI
 
-public struct ResultView: View {
-    var title: String?
-    var subtitle: String?
-    var icon: Image.PAIcon?
-    var theme: PagoPATheme
-    var buttons: [ButtonModel]
+struct ResultView: View {
+
+    var result: ResultModel
     
-    public init(title: String? = nil, subtitle: String? = nil, icon: Image.PAIcon? = nil, themeType: ThemeType, buttons: [ButtonModel] = []) {
-        self.title = title
-        self.subtitle = subtitle
-        self.icon = icon
-        self.theme = ThemeManager.buildTheme(type: themeType)
-        self.buttons = buttons        
+    init(result: ResultModel) {
+        self.result = result
     }
     
-    public var body: some View {
-        ZStack {
-            theme
-                .backgroundColor
-                .ignoresSafeArea()
-
-            VStack(spacing: 0) {
-                if let icon {
-                    Image(icon: icon)
-                        .padding(.bottom, Constants.mediumSpacing)
-                } else if let defaultIcon = theme.defaultIcon {
-                    Image(icon: defaultIcon)
-                        .resizable()
-                        .frame(width: Constants.topIconSize, height: Constants.topIconSize)
-                        .padding(.bottom, Constants.mediumSpacing)
-                }
-                if let title {
-                    Text(title)
-                        .multilineTextAlignment(.center)
-                        .font(.PAFont.h3)
-                        .foregroundColor(theme.titleColor)
-                        .padding(.bottom, Constants.xsmallSpacing)
-                }
-                if let subtitle {
-                    Text(subtitle)
-                        .multilineTextAlignment(.center)
-                        .font(.PAFont.body)
-                        .foregroundColor(theme.subtitleColor)
-                        .padding(.bottom, Constants.smallSpacing)
-                }
-                if buttons.count > 0 {
-                    ForEach(buttons) { button in
-                        Button(action: button.action, label: {
-                            Text(button.title)
-                        })
-                        .pagoPAButtonStyle(buttonModel: button)
-                        .padding(.top, Constants.mediumSpacing)
-                        .padding(.horizontal, Constants.mediumSpacing)
-                    }
+    var body: some View {
+        
+        VStack(spacing: 0) {
+            if let icon = result.icon {
+                Image(icon: icon)
+                    .resizable()
+                    .frame(width: Constants.topIconSize, height: Constants.topIconSize)
+                    .padding(.bottom, Constants.mediumSpacing)
+            } else if let defaultIcon = result.theme.defaultIcon {
+                Image(icon: defaultIcon)
+                    .resizable()
+                    .frame(width: Constants.topIconSize, height: Constants.topIconSize)
+                    .padding(.bottom, Constants.mediumSpacing)
+            }
+            if let title = result.title {
+                Text(title)
+                    .multilineTextAlignment(.center)
+                    .font(.PAFont.h3)
+                    .foregroundColor(result.theme.titleColor)
+                    .padding(.bottom, Constants.xsmallSpacing)
+            }
+            if let subtitle = result.subtitle {
+                Text(subtitle)
+                    .multilineTextAlignment(.center)
+                    .font(.PAFont.body)
+                    .foregroundColor(result.theme.subtitleColor)
+                    .padding(.bottom, Constants.smallSpacing)
+            }
+            if result.showLoading == true {
+                PAProgressView(themeType: result.themeType)
+                    .padding(.horizontal, Constants.xsmallSpacing)
+                    .frame(maxHeight: 4)
+            }
+            if result.buttons.count > 0 {
+                ForEach(result.buttons) { button in
+                    Button(action: button.action, label: {
+                        Text(button.title)
+                    })
+                    .pagoPAButtonStyle(buttonModel: button)
+                    .padding(.top, Constants.mediumSpacing)
                 }
             }
-            .padding(.horizontal, Constants.mediumSpacing)
         }
+        .padding(.horizontal, Constants.mediumSpacing)
     }
-
-}
-
-public struct WarningThankyouPageDemo: View {
-    public init() {}
-    public var body: some View {
-        ResultView(
-            title: "Titolo qualsiasi vvvv Titolo qualsiasi Titolo qualsiasi Titolo qualsiasi",
-            subtitle: "Sottotitolo qulasiasi Sottotitolo qulasiasi ccccc Sottotitolo qulasiasi Sottotitolo qulasiasi Sottotitolo qulasiasi",
-            themeType: .warning,
-            buttons: [
-                ButtonModel(
-                    type: .primary,
-                    themeType: .warning,
-                    title: "Accetta nuovo bonus",
-                    icon: .star,
-                    action: {
-                        print("Accetta nuovo bonus")
-                    }
-                ),
-                ButtonModel(
-                    type: .secondaryBordered,
-                    themeType: .warning,
-                    title: "Riprova",
-                    action: {
-                        print("Riprova")
-                    }
-                )]
-        )
-
-    }
-}
-
-public struct SuccessThankyouPageDemo: View {
-    public init() {}
-    public var body: some View {
-        ResultView(
-            title: "Grazie, l'operazione è stata eseguita con successo!",
-            themeType: .success,
-            buttons: [
-                ButtonModel(
-                    type: .primary,
-                    themeType: .success,
-                    title: "Continua",
-                    icon: .arrowRight,
-                    action: {
-                        print("Continua")
-                    }
-                )]
-        )
-
-    }
-}
-
-public struct ErrorThankyouPageDemo: View {
-    public init() {}
-    public var body: some View {
-        ResultView(
-            title: "L'operazione è stata annullata",
-            subtitle: "Abbiamo riscontrato dei problemi con il pagamento, non è stato addebitato alcun importo.",
-            themeType: .error,
-            buttons: [
-                ButtonModel(
-                    type: .primary,
-                    themeType: .error,
-                    title: "Torna alla home",
-                    action: {
-                        print("Torna alla home")
-                    }
-                )]
-        )
-    }
-}
-
-public struct InfoThankyouPageDemo: View {
-    public init() {}
-    public var body: some View {
-        ResultView(
-            title: "L'operazione è stata presa in carico",
-            subtitle: "Accedi al sito dell’ente per verificare lo stato dell’operazione",
-            themeType: .info,
-            buttons: [
-                ButtonModel(
-                    type: .primary,
-                    themeType: .info,
-                    title: "Riprova",
-                    action: {
-                        print("Riprova")
-                    }
-                ),
-                ButtonModel(
-                    type: .secondaryBordered,
-                    themeType: .info,
-                    title: "Accetta nuovo bonus",
-                    action: {
-                        print("Accetta nuovo bonus")
-                    }
-                )]
-        )
-    }
-}
-
-#Preview("Warning Thankyou Page") {
-    WarningThankyouPageDemo()
-}
-
-#Preview("Success Thankyou Page") {
-    SuccessThankyouPageDemo()
-}
-
-#Preview("Error Thankyou Page") {
-    ErrorThankyouPageDemo()
-}
-
-#Preview("Info Thankyou Page") {
-    InfoThankyouPageDemo()
 }

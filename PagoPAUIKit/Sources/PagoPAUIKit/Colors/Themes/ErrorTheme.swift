@@ -34,6 +34,7 @@ public struct ErrorTheme: PagoPATheme {
     public var primaryBorderedButtonTextColor: Color = .errorDark
     public var secondaryButtonTextColor: Color = .white
     public var secondaryBorderedButtonTextColor: Color = .errorDark
+    public var plainButtonTextColor: Color = .errorDark
     
     // MARK: - Button disabled Text colors
     public var defaultButtonDisabledTextColor: Color = .grey700

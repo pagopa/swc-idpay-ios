@@ -34,6 +34,8 @@ extension Image {
         case mail = "mail"
         case print = "print"
         case noReceipt = "no-receipt"
+        case close = "close"
+        case io = "iO"
     }
 
     public init (icon: PAIcon) {
