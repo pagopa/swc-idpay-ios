@@ -92,10 +92,11 @@ struct DialogCodeModifier: ViewModifier {
     var onClose: () -> Void
     
     func body(content: Content) -> some View {
-        content
-            .overlay {
-                DialogCodeView(title: title, subtitle: subtitle, codeValue: codeValue, isPresenting: $isPresenting, onClose: onClose)
-            }
+        ZStack {
+            content
+                    
+            DialogCodeView(title: title, subtitle: subtitle, codeValue: codeValue, isPresenting: $isPresenting, onClose: onClose)
+        }
     }
 }
 

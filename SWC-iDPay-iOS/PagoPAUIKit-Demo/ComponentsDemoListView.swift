@@ -91,13 +91,13 @@ struct ComponentsDemoListView: View {
     @State var showThankyouPageChoiceAlert: Bool = false
     @State var isPresentingDialog: Bool = false
     @State var isPresentingDialogCode: Bool = false
-    @State var resultModel: ResultModel?
+    @State var dialogModel: ResultModel?
     @State var codeValue: String?
     
     private var components: [Component] =
-        Component.ComponentType.allCases.map {
-            Component(type: $0)
-        }
+    Component.ComponentType.allCases.map {
+        Component(type: $0)
+    }
     
     var body: some View {
         NavigationStack {
@@ -107,46 +107,28 @@ struct ComponentsDemoListView: View {
                     .foregroundColor(.white)
                 List(components) { component in
                     if component.type == .thankyouPage {
-                            Button {
-                                showThankyouPageChoiceAlert.toggle()
-                            } label: {
-                                Text(component.type.name)
-                                    .font(.PAFont.cta)
-                                    .foregroundColor(.paPrimaryDark)
-                                    .padding(Constants.xsmallSpacing)
-                            }
+                        Button {
+                            showThankyouPageChoiceAlert.toggle()
+                        } label: {
+                            Text(component.type.name)
+                                .font(.PAFont.cta)
+                                .foregroundColor(.paPrimaryDark)
+                                .padding(Constants.xsmallSpacing)
+                        }
                         
                     } else if component.type == .dialog {
-//                        Button {
-//                            isPresentingDialog.toggle()
-//                        } label: {
-//                            Text(component.type.name)
-//                                .font(.PAFont.cta)
-//                                .foregroundColor(.paPrimaryDark)
-//                                .padding(Constants.xsmallSpacing)
-//                        }
-                        HStack{
-                            Menu(component.type.name) {
-                                Button("Info Payment", action: infoAction)
-                                    .font(.PAFont.cta)
-                                    .foregroundColor(.paPrimaryDark)
-                                Button("Warning", action: warningAction)
-                                    .font(.PAFont.cta)
-                                    .foregroundColor(.paPrimaryDark)
-                                Button("Authentication", action: authAction)
-                                    .font(.PAFont.cta)
-                                    .foregroundColor(.paPrimaryDark)
-                                Button("Cancel operation", action: abortAction)
-                                    .font(.PAFont.cta)
-                                    .foregroundColor(.paPrimaryDark)
-                                Button("Code", action: codeAction)
-                                    .font(.PAFont.cta)
-                                    .foregroundColor(.paPrimaryDark)
-                            }
-                            .font(.PAFont.cta)
-                            .foregroundColor(.paPrimaryDark)
-                            
-                        }.padding(.leading, Constants.xsmallSpacing)
+                        
+                        Menu(component.type.name) {
+                            Button("Info Payment", action: infoAction)
+                            Button("Warning", action: warningAction)
+                            Button("Authentication", action: authAction)
+                            Button("Cancel operation", action: abortAction)
+                            Button("Code", action: codeAction)
+                        }
+                        .font(.PAFont.cta)
+                        .foregroundColor(.paPrimaryDark)
+                        .padding(.leading, Constants.xsmallSpacing)
+                        
                     } else {
                         NavigationLink(component.type.name, value: component)
                             .font(.PAFont.cta)
@@ -209,25 +191,31 @@ struct ComponentsDemoListView: View {
                 }
             }
         }
-        .dialog(dialogModel: self.resultModel ?? ResultModel.emptyModel,
-                onClose:{
-                    isPresentingDialog.toggle()
-                },
-                isPresenting: $isPresentingDialog
+        .dialog(
+            dialogModel: self.dialogModel ?? ResultModel.emptyModel,
+            isPresenting: $isPresentingDialog,
+            onClose:{
+                print("Do some action on close")
+            }
         )
-        .dialogCode(dialogModel: self.resultModel ?? ResultModel.emptyModel,
-                    onClose: {
-            isPresentingDialogCode.toggle()
-        }, isPresenting: $isPresentingDialogCode, codeValue: codeValue ?? "")
+        .dialogCode(
+            title: "Problemi con il QR?",
+            subtitle: "Entra sull’app IO, vai nella sezione Inquadra e digita il codice:",
+            codeValue: codeValue ?? "",
+            isPresenting: $isPresentingDialogCode,
+            onClose: {
+                print("Do some action on close")
+            }
+        )
     }
-
+    
     private func infoAction() {
-        self.resultModel = ResultModel(
+        self.dialogModel = ResultModel(
             subtitle: "Se l’importo è diverso rispetto all’avviso, è perché pagoPA aggiorna automaticamente per assicurarti di aver pagato esattamente quanto dovuto ed evitarti così more o altri interessi.",
             icon: .infoFilled,
             themeType: ThemeType.info,
-            buttons:
-                [ButtonModel(
+            buttons:[
+                ButtonModel(
                     type: .primary,
                     themeType: .info,
                     title: "Medium",
@@ -239,13 +227,14 @@ struct ComponentsDemoListView: View {
         
         isPresentingDialog.toggle()
     }
+    
     private func warningAction() {
-        self.resultModel = ResultModel(
+        self.dialogModel = ResultModel(
             title: "Codice errato!",
             subtitle: "Hai a disposizione ancora 2 tentativi.",
             themeType: ThemeType.warning,
-            buttons:
-                [ButtonModel(
+            buttons:[
+                ButtonModel(
                     type: .primary,
                     themeType: .warning,
                     title: "Riprova",
@@ -253,41 +242,42 @@ struct ComponentsDemoListView: View {
                         print("Riprova")
                     }
                 ),
-                 ButtonModel(
+                ButtonModel(
                     type: .plain,
                     themeType: .warning,
                     title: "Esci dal pagamento",
                     action: {
                         print("Accetta nuovo bonus")
                     }
-                 )
-                ]
+                )
+            ]
         )
         
         isPresentingDialog.toggle()
     }
     
     private func authAction() {
-        self.resultModel = ResultModel(
+        self.dialogModel = ResultModel(
             title: "Come vuoi identificarti?",
             themeType: ThemeType.light,
-            buttons:[ButtonModel(
-                type: .primary,
-                themeType: .light,
-                title: "Identificazione con CIE",
-                action: {
-                    print("Riprova")
-                }
-            ),
-                     ButtonModel(
-                        type: .primaryBordered,
-                        themeType: .light,
-                        title: "Accetta nuovo bonus",
-                        icon: .io,
-                        action: {
-                            print("Accetta nuovo bonus")
-                        }
-                     )
+            buttons:[
+                ButtonModel(
+                    type: .primary,
+                    themeType: .light,
+                    title: "Identificazione con CIE",
+                    action: {
+                        print("Riprova")
+                    }
+                ),
+                ButtonModel(
+                    type: .primaryBordered,
+                    themeType: .light,
+                    title: "Accetta nuovo bonus",
+                    icon: .io,
+                    action: {
+                        print("Accetta nuovo bonus")
+                    }
+                )
             ]
         )
         
@@ -295,42 +285,34 @@ struct ComponentsDemoListView: View {
     }
     
     private func abortAction() {
-        self.resultModel = ResultModel(
+        self.dialogModel = ResultModel(
             title: "Vuoi annullare la spesa del bonus ID Pay?",
             subtitle: "La spesa è già stata autorizzata, se annulli l’operazione l’importo verrà riaccreditato sull’iniziativa del cittadino.",
             themeType: ThemeType.light,
-            buttons:[ButtonModel(
-                type: .primary,
-                themeType: .light,
-                title: "Concludi operazione",
-                action: {
-                    print("Riprova")
-                }
-            ),
-                     ButtonModel(
-                        type: .plain,
-                        themeType: .light,
-                        title: "Annulla operazione",
-                        action: {
-                            print("Accetta nuovo bonus")
-                        }
-                     )
+            buttons:[
+                ButtonModel(
+                    type: .primary,
+                    themeType: .light,
+                    title: "Concludi operazione",
+                    action: {
+                        print("Riprova")
+                    }
+                ),
+                ButtonModel(
+                    type: .plain,
+                    themeType: .light,
+                    title: "Annulla operazione",
+                    action: {
+                        print("Accetta nuovo bonus")
+                    }
+                )
             ]
         )
-        
         isPresentingDialog.toggle()
     }
     
     private func codeAction() {
-        self.resultModel = ResultModel(
-            title: "Problemi con il QR?",
-            subtitle: "Entra sull’app IO, vai nella sezione Inquadra e digita il codice:",
-            themeType: ThemeType.light,
-            buttons:[]
-        )
         self.codeValue = "A7U8GHI3"
-        
-        
         isPresentingDialogCode.toggle()
     }
     
