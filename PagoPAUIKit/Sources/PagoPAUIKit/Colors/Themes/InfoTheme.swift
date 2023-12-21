@@ -34,6 +34,7 @@ public struct InfoTheme: PagoPATheme {
     public var primaryBorderedButtonTextColor: Color = .infoDark
     public var secondaryButtonTextColor: Color = .white
     public var secondaryBorderedButtonTextColor: Color = .infoDark
+    public var plainButtonTextColor: Color = .infoDark
     
     // MARK: - Button disabled Text colors
     public var defaultButtonDisabledTextColor: Color = .grey700
