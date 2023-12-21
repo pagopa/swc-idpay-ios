@@ -73,6 +73,11 @@ struct ButtonsDemoSection: View {
                 type: .primaryBordered,
                 icon: .star,
                 themeType: themeType)
+            
+            BaseButtonView(
+                title: "Plain button",
+                type: .plain,
+                themeType: themeType)
 
         }
         .padding(.vertical, Constants.largeSpacing)

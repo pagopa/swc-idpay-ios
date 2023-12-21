@@ -10,7 +10,7 @@ import SwiftUI
 public struct LightTheme: PagoPATheme {
         
     // MARK: - Background color
-    public var backgroundColor: Color = .grey100
+    public var backgroundColor: Color = .white
     
     // MARK: - Default icon (ex: for thankyou page)
     public var defaultIcon: Image.PAIcon? = nil
@@ -21,19 +21,20 @@ public struct LightTheme: PagoPATheme {
 
     // MARK: - Default buttons background color
     public var primaryButtonBkgColor: Color = .paPrimary
-    public var primaryBorderedButtonBkgColor: Color = .white
+    public var primaryBorderedButtonBkgColor: Color = .clear
     public var secondaryButtonBkgColor: Color = .paPrimaryDark
     public var secondaryBorderedButtonBkgColor: Color = .bluItalia05
     
     // MARK: - Default buttons disabled background color
     public var deafultButtonDisabledBkgColor: Color = .grey200
-    public var borderedDisabledButtonBkgColor: Color = .white
+    public var borderedDisabledButtonBkgColor: Color = .clear
 
     // MARK: - Buttons text colors
     public var primaryButtonTextColor: Color = .white
     public var primaryBorderedButtonTextColor: Color = .paPrimary
     public var secondaryButtonTextColor: Color = .white
     public var secondaryBorderedButtonTextColor: Color = .paPrimaryDark
+    public var plainButtonTextColor: Color = .paPrimary
     
     // MARK: - Button disabled Text colors
     public var defaultButtonDisabledTextColor: Color = .grey700
@@ -51,8 +52,8 @@ public struct LightTheme: PagoPATheme {
     public var progressBarColor: Color = .paPrimary
 
     // MARK: - Generic texts
-    public var titleColor: Color = .paPrimaryDark
-    public var subtitleColor: Color = .paPrimary
+    public var titleColor: Color = .blueIODark
+    public var subtitleColor: Color = .blueIODark
 
     
 }

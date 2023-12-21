@@ -12,6 +12,7 @@ public enum PagoPAButtonType {
     case primaryBordered
     case secondary
     case secondaryBordered
+    case plain
 }
 
 /**
@@ -134,6 +135,8 @@ struct PagoPABaseButtonStyle: ButtonStyle {
             return theme.secondaryButtonBkgColor
         case .secondaryBordered:
             return theme.secondaryBorderedButtonBkgColor
+        case .plain:
+            return .clear
         }
     }
     
@@ -159,6 +162,8 @@ struct PagoPABaseButtonStyle: ButtonStyle {
             return theme.secondaryButtonTextColor
         case .secondaryBordered:
             return theme.secondaryBorderedButtonTextColor
+        case .plain:
+            return theme.plainButtonTextColor
         }
     }
     

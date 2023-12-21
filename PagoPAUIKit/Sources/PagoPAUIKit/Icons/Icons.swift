@@ -29,6 +29,7 @@ extension Image {
         case checkTic = "checkTic"
         case arrowRight = "arrow-right"
         case pendingDark = "pending-dark"
+        case io = "iO"
     }
 
     public init (icon: PAIcon) {
