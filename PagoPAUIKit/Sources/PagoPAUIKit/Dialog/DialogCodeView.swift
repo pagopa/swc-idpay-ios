@@ -1,6 +1,6 @@
 //
 //  DialogCodeView.swift
-//  
+//
 //
 //  Created by Pier Domenico Bonamassa on 20/12/23.
 //
@@ -9,119 +9,120 @@ import SwiftUI
 
 struct DialogCodeView: View {
     
-    var dialogModel: ResultModel
-    var onClose: (() -> Void)
+    var title: String
+    var subtitle: String
     var codeValue: String
-    private let pastBoard = UIPasteboard.general
-    
-    public init(dialogModel: ResultModel, onClose: @escaping () -> Void, codeValue: String) {
-        self.dialogModel = dialogModel
+
+    @Binding var isPresenting: Bool
+
+    var onClose: (() -> Void)
+        
+    public init(title: String, subtitle: String, codeValue: String, isPresenting: Binding<Bool>, onClose: @escaping () -> Void) {
+        self.title = title
+        self.subtitle = subtitle
+        _isPresenting = isPresenting
         self.onClose = onClose
         self.codeValue = codeValue
     }
-        
+    
     public var body: some View {
         ZStack {
-            Color.overlay75
-                .edgesIgnoringSafeArea(.all)
-            
-            VStack(spacing: 0) {
+            if isPresenting {
+                Color.overlay75
+                    .ignoresSafeArea()
                 
-                HStack {
-                    Spacer()
-                    Button() {
-                        withAnimation {
+                VStack(spacing: 0) {
+                    HStack {
+                        Spacer()
+                        Button() {
+                            isPresenting = false
                             onClose()
+                        } label: {
+                            Image(icon: .close)
+                                .foregroundColor(.paPrimary)
                         }
-                    }label: {
-                        Image(systemName: "xmark")
-                            .foregroundColor(dialogModel.theme.titleColor)
+                        .padding()
+                        .foregroundColor(.paPrimary)
+                        .cornerRadius(Constants.radius1)
                     }
-                    .padding()
-                    .foregroundColor(.paPrimary)
-                    .cornerRadius(Constants.radius1)
-                }
-                .frame(minHeight: Constants.mediumSpacing)
-                .padding(Constants.xsmallSpacing/2)
-                
-                ResultView(
-                    result:
-                        ResultModel(
-                            title: dialogModel.title,
-                            subtitle: dialogModel.subtitle,
-                            icon: dialogModel.icon,
-                            themeType: dialogModel.themeType,
-                            buttons: dialogModel.buttons,
-                            showLoading:dialogModel.showLoading)
+                    .frame(minHeight: Constants.mediumSpacing)
+                    .padding(Constants.xsmallSpacing/2)
                     
-                )
-                .padding(.bottom, Constants.mediumSpacing)
-                
-                HStack {
-                    VStack{
-                        Text(codeValue)
-                            .onTapGesture(count: 1) {
-                                pastBoard.string = codeValue
-                            }
-                            .font(.PAFont.h1Hero)
-                            .kerning(6)
+                    VStack(spacing: Constants.xsmallSpacing) {
+                        Text(title)
                             .multilineTextAlignment(.center)
-                            .foregroundColor(.paBlack)
+                            .font(.PAFont.h3)
+                            .foregroundColor(.blueIODark)
+                        
+                        Text(subtitle)
+                            .multilineTextAlignment(.center)
+                            .font(.PAFont.body)
+                            .foregroundColor(.blueIODark)
                     }
-                    .padding(Constants.largeSpacing)
-                    .background(Color.grey50)
-                    .cornerRadius(9.0)
-                }.padding(.bottom, Constants.largeSpacing)
+                    .padding(.horizontal, Constants.smallSpacing)
+                    .padding(.bottom, Constants.mediumSpacing)
+                    
+                    Text(codeValue)
+                        .textSelection(.enabled)
+                        .font(.PAFont.h1Hero)
+                        .kerning(6)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.paBlack)
+                        .padding(Constants.mediumSpacing)
+                        .background(Color.grey50)
+                        .cornerRadius(Constants.radius1)
+                        .padding(.bottom, Constants.largeSpacing)
+                }
+                .background(.white)
+                .cornerRadius(Constants.radius2)
+                .padding(Constants.mediumSpacing)
             }
-            .background(dialogModel.theme.backgroundColor)
-            .cornerRadius(16)
-            .padding(Constants.mediumSpacing)
-            
         }
-        
+        .animation(.spring(duration: 0.1), value: isPresenting)
     }
 }
 
 struct DialogCodeModifier: ViewModifier {
-    var dialogModel: ResultModel
-    var onClose: () -> Void
-    @Binding var isPresenting: Bool
+    var title: String
+    var subtitle: String
     var codeValue: String
+    
+    @Binding var isPresenting: Bool
+    
+    var onClose: () -> Void
     
     func body(content: Content) -> some View {
         content
             .overlay {
-            if isPresenting {
-                DialogCodeView(dialogModel: dialogModel, onClose: onClose, codeValue: codeValue)
+                DialogCodeView(title: title, subtitle: subtitle, codeValue: codeValue, isPresenting: $isPresenting, onClose: onClose)
             }
-        }
     }
 }
 
 extension View {
-    public func dialogCode(dialogModel:ResultModel, onClose: @escaping () -> Void, isPresenting: Binding<Bool>, codeValue: String) -> some View {
-        modifier(DialogCodeModifier(dialogModel: dialogModel, onClose: onClose, isPresenting: isPresenting, codeValue: codeValue))
+    public func dialogCode(title: String, subtitle: String, codeValue: String,  isPresenting: Binding<Bool>, onClose: @escaping () -> Void) -> some View {
+        modifier(DialogCodeModifier(title: title, subtitle: subtitle, codeValue: codeValue, isPresenting: isPresenting, onClose: onClose))
     }
 }
 
 public struct CodeDialogDemo: View {
+    
+    @State var isPresenting: Bool = true
+
     public init() {}
     public var body: some View {
-        DialogCodeView(dialogModel:
-                        ResultModel(
-                            title: "Problemi con il QR?",
-                            subtitle: "Entra sull’app IO, vai nella sezione Inquadra e digita il codice:",
-                            themeType: ThemeType.light,
-                            buttons:[]
-                        ),
-                       onClose: {
-            print("test close")
-        },
-                       codeValue: "A7U8GHI3"
+        DialogCodeView(
+            title: "Problemi con il QR?",
+            subtitle: "Entra sull’app IO, vai nella sezione Inquadra e digita il codice:",
+            codeValue: "A7U8GHI3",
+            isPresenting: $isPresenting,
+            onClose: {
+                print("test close")
+            }
         )
     }
 }
 
 #Preview {
-   CodeDialogDemo()
+    CodeDialogDemo()
 }
