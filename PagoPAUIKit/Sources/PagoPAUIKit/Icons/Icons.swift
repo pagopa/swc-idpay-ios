@@ -29,6 +29,7 @@ extension Image {
         case checkTic = "checkTic"
         case arrowRight = "arrow-right"
         case pendingDark = "pending-dark"
+        case close = "close"
         case io = "iO"
     }
 

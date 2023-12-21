@@ -14,7 +14,8 @@ public struct Constants {
     
     // MARK: - Rounding values
     public static let radius1: CGFloat = 8
-    
+    public static let radius2: CGFloat = 16
+
     // MARK: - Spacings
     public static let xsmallSpacing : CGFloat = Spacings.xsmall.rawValue * scaleFactor
     public static let smallSpacing  : CGFloat = Spacings.small.rawValue * scaleFactor
