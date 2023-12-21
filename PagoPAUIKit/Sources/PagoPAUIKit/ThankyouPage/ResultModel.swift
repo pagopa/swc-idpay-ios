@@ -15,8 +15,9 @@ public struct ResultModel {
     var theme: PagoPATheme
     var buttons: [ButtonModel]
     var showLoading: Bool?
+    public static var emptyModel: ResultModel = ResultModel(themeType: .dark)
     
-    public init(title: String? = nil, subtitle: String? = nil, icon: Image.PAIcon? = nil, themeType: ThemeType, buttons: [ButtonModel], showLoading: Bool? = nil) {
+    public init(title: String? = nil, subtitle: String? = nil, icon: Image.PAIcon? = nil, themeType: ThemeType, buttons: [ButtonModel] = [], showLoading: Bool? = nil) {
         self.title = title
         self.subtitle = subtitle
         self.icon = icon

@@ -20,6 +20,8 @@ struct ResultView: View {
         VStack(spacing: 0) {
             if let icon = result.icon {
                 Image(icon: icon)
+                    .resizable()
+                    .frame(width: Constants.topIconSize, height: Constants.topIconSize)
                     .padding(.bottom, Constants.mediumSpacing)
             } else if let defaultIcon = result.theme.defaultIcon {
                 Image(icon: defaultIcon)
@@ -43,7 +45,7 @@ struct ResultView: View {
             }
             if result.showLoading == true {
                 PAProgressView(themeType: result.themeType)
-                    .padding(.horizontal, Constants.mediumSpacing)
+                    .padding(.horizontal, Constants.xsmallSpacing)
                     .frame(maxHeight: 4)
             }
             if result.buttons.count > 0 {
@@ -53,7 +55,6 @@ struct ResultView: View {
                     })
                     .pagoPAButtonStyle(buttonModel: button)
                     .padding(.top, Constants.mediumSpacing)
-                    .padding(.horizontal, Constants.mediumSpacing)
                 }
             }
         }
