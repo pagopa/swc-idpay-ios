@@ -127,10 +127,7 @@ struct ComponentsDemoListView: View {
 //                        }
                         HStack{
                             Menu(component.type.name) {
-                                Button("Info", action: infoAction)
-                                    .font(.PAFont.cta)
-                                    .foregroundColor(.paPrimaryDark)
-                                Button("Info Payment", action: infoPayAction)
+                                Button("Info Payment", action: infoAction)
                                     .font(.PAFont.cta)
                                     .foregroundColor(.paPrimaryDark)
                                 Button("Warning", action: warningAction)
@@ -223,34 +220,8 @@ struct ComponentsDemoListView: View {
             isPresentingDialogCode.toggle()
         }, isPresenting: $isPresentingDialogCode, codeValue: codeValue ?? "")
     }
-    
+
     private func infoAction() {
-        self.resultModel = ResultModel(
-            title: "prova dialog",
-            subtitle: "subtitle",
-            themeType: ThemeType.info,
-            buttons:
-                [ButtonModel(
-                    type: .primary,
-                    themeType: .info,
-                    title: "Riprova",
-                    action: {
-                        print("Riprova")
-                    }
-                ),
-                 ButtonModel(
-                    type: .secondaryBordered,
-                    themeType: .info,
-                    title: "Accetta nuovo bonus",
-                    action: {
-                        print("Accetta nuovo bonus")
-                    }
-                 )
-                ]
-        )
-        isPresentingDialog.toggle()
-    }
-    private func infoPayAction() {
         self.resultModel = ResultModel(
             subtitle: "Se l’importo è diverso rispetto all’avviso, è perché pagoPA aggiorna automaticamente per assicurarti di aver pagato esattamente quanto dovuto ed evitarti così more o altri interessi.",
             icon: .infoFilled,
