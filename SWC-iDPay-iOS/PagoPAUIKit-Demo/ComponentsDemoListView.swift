@@ -27,6 +27,7 @@ struct Component: Identifiable, Hashable {
         case dialog
         case intro
         case receipt
+        case waitingView
         
         var name: String {
             switch self {
@@ -56,6 +57,8 @@ struct Component: Identifiable, Hashable {
                 return "Intro"
             case .receipt:
                 return "Receipt"
+            case .waitingView:
+                return "Schermata di attesa"
             }
         }
         
@@ -90,6 +93,8 @@ struct Component: Identifiable, Hashable {
                 })
             case .receipt:
                 ReceiptDemoView()
+            case .waitingView:
+                EmptyView()
             }
         }
     }
@@ -103,6 +108,7 @@ struct ComponentsDemoListView: View {
     @State var showThankyouPageChoiceAlert: Bool = false
     @State var isPresentingDialog: Bool = false
     @State var isPresentingDialogCode: Bool = false
+    @State var isPresentingWaitingView: Bool = false
     @State var dialogModel: ResultModel?
     @State var codeValue: String?
     
@@ -140,7 +146,17 @@ struct ComponentsDemoListView: View {
                         .font(.PAFont.cta)
                         .foregroundColor(.paPrimaryDark)
                         .padding(.leading, Constants.xsmallSpacing)
+                
+                    } else if component.type == .waitingView {
                         
+                        Button {
+                            isPresentingWaitingView.toggle()
+                        } label: {
+                            Text(component.type.name)
+                                .font(.PAFont.cta)
+                                .foregroundColor(.paPrimaryDark)
+                                .padding(Constants.xsmallSpacing)
+                        }
                     } else {
                         NavigationLink(component.type.name, value: component)
                             .font(.PAFont.cta)
@@ -218,6 +234,15 @@ struct ComponentsDemoListView: View {
             onClose: {
                 print("Do some action on close")
             }
+        )
+        .waitingView(
+            title: "Attendi autorizzazione",
+            subtitle: "Per proseguire è necessario autorizzare l’operazione sull’app IO",
+            buttons: [
+                ButtonModel(type: .plain, themeType: .info, title: "Annulla", action: {
+                isPresentingWaitingView.toggle()
+            })],
+            isPresenting: $isPresentingWaitingView
         )
     }
     
