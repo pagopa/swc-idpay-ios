@@ -11,10 +11,14 @@ public struct ToastModel: Equatable {
     var id = UUID()
     var style: ToastStyle
     var message: String
-    var icon: Image.PAIcon?
-    var duration: Double = 1.5
-    var width: Double = .infinity
+    var duration: Double = 3.0
     var theme: PagoPATheme?
+    
+    public init(style: ToastStyle, message: String, duration: Double = 1.5) {
+        self.style = style
+        self.message = message
+        self.duration = duration
+    }
     
     public static func == (lhs: ToastModel, rhs: ToastModel) -> Bool {
         return lhs.id == rhs.id

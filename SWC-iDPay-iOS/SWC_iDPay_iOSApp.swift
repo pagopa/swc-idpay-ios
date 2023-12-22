@@ -22,7 +22,15 @@ struct SWC_iDPay_iOSApp: App {
                 switch appManager.state {
                 case .splash:
                     SplashView {
-                        appManager.state = .main
+                        DispatchQueue.main.async {
+                            appManager.state = .login
+                        }
+                    }
+                case .login:
+                    LoginView {
+                        DispatchQueue.main.async {
+                            appManager.state = .main
+                        }
                     }
                 case .main:
                     ComponentsDemoListView()

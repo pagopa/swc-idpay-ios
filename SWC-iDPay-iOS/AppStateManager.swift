@@ -9,6 +9,7 @@ import Foundation
 
 enum AppState {
     case splash
+    case login
     case main
 }
 

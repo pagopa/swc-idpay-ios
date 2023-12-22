@@ -15,6 +15,7 @@
 		9811BC242B177C970063E71B /* SWC_iDPay_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9811BC232B177C970063E71B /* SWC_iDPay_iOSUITestsLaunchTests.swift */; };
 		9811BC322B177DD20063E71B /* PagoPAUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9811BC312B177DD20063E71B /* PagoPAUIKit */; };
 		B803D8D62B20D85700A7934E /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B803D8D52B20D85700A7934E /* AppStateManager.swift */; };
+		B864279D2B35D62000804A02 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B864279C2B35D61F00804A02 /* LoginView.swift */; };
 		B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		9811BC212B177C970063E71B /* SWC_iDPay_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWC_iDPay_iOSUITests.swift; sourceTree = "<group>"; };
 		9811BC232B177C970063E71B /* SWC_iDPay_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWC_iDPay_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B803D8D52B20D85700A7934E /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
+		B864279C2B35D61F00804A02 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsDemoListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +100,7 @@
 		9811BC052B177C950063E71B /* SWC-iDPay-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B89F15D52B35D022000E0B3C /* LoginView */,
 				B8A83D812B1A4B1B006CF4BF /* PagoPAUIKit-Demo */,
 				9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */,
 				B803D8D52B20D85700A7934E /* AppStateManager.swift */,
@@ -130,6 +133,14 @@
 				9811BC232B177C970063E71B /* SWC_iDPay_iOSUITestsLaunchTests.swift */,
 			);
 			path = "SWC-iDPay-iOSUITests";
+			sourceTree = "<group>";
+		};
+		B89F15D52B35D022000E0B3C /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				B864279C2B35D61F00804A02 /* LoginView.swift */,
+			);
+			path = LoginView;
 			sourceTree = "<group>";
 		};
 		B8A83D812B1A4B1B006CF4BF /* PagoPAUIKit-Demo */ = {
@@ -224,11 +235,12 @@
 			};
 			buildConfigurationList = 9811BBFE2B177C940063E71B /* Build configuration list for PBXProject "SWC-iDPay-iOS" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = it;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				it,
 			);
 			mainGroup = 9811BBFA2B177C940063E71B;
 			packageReferences = (
@@ -278,6 +290,7 @@
 			files = (
 				B803D8D62B20D85700A7934E /* AppStateManager.swift in Sources */,
 				B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */,
+				B864279D2B35D62000804A02 /* LoginView.swift in Sources */,
 				9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
