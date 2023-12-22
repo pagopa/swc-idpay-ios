@@ -29,6 +29,11 @@ extension Image {
         case checkTic = "checkTic"
         case arrowRight = "arrow-right"
         case pendingDark = "pending-dark"
+        case bonus = "bonus"
+        case receipt = "receipt"
+        case mail = "mail"
+        case print = "print"
+        case noReceipt = "no-receipt"
         case close = "close"
         case io = "iO"
     }
