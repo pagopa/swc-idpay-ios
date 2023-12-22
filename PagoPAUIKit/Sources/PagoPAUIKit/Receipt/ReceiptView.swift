@@ -33,40 +33,49 @@ public struct ReceiptView: View {
     }
 }
 
+public struct ReceiptDemoView: View {
+    
+    public init() {}
+    
+    public var body: some View {
+        ReceiptView (
+            title: "Serve la ricevuta?",
+            subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
+            buttons: [
+                ButtonModel(
+                    type: .primary,
+                    themeType: .dark,
+                    title: "Invia via e-mail",
+                    icon: .mail,
+                    iconPosition: .left,
+                    action: {
+                        print("Invia via e-mail")
+                    }
+                ),
+                ButtonModel(
+                    type: .primaryBordered,
+                    themeType: .dark,
+                    title: "Stampa",
+                    icon: .print,
+                    iconPosition: .left,
+                    action: {
+                        print("Stampa")
+                    }
+                ),
+                ButtonModel(
+                    type: .primaryBordered,
+                    themeType: .dark,
+                    title: "No grazie",
+                    icon: .noReceipt,
+                    iconPosition: .left,
+                    action: {
+                        print("Dismiss")
+                    }
+                )]
+        )
+    }
+}
+
 #Preview("Receipt") {
-    ReceiptView (
-        title: "Serve la ricevuta?",
-        subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
-        buttons: [
-            ButtonModel(
-                type: .primary,
-                themeType: .dark,
-                title: "Invia via e-mail",
-                icon: .mail,
-                iconPosition: .left,
-                action: {
-                    print("Invia via e-mail")
-                }
-            ),
-            ButtonModel(
-                type: .primaryBordered,
-                themeType: .dark,
-                title: "Stampa",
-                icon: .print,
-                iconPosition: .left,
-                action: {
-                    print("Stampa")
-                }
-            ),
-            ButtonModel(
-                type: .primaryBordered,
-                themeType: .dark,
-                title: "No grazie",
-                icon: .noReceipt,
-                iconPosition: .left,
-                action: {
-                    print("Dismiss")
-                }
-            )]
-    )
+    ReceiptDemoView()
 }

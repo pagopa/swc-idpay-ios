@@ -26,6 +26,7 @@ struct Component: Identifiable, Hashable {
         case outro
         case dialog
         case intro
+        case receipt
         
         var name: String {
             switch self {
@@ -53,6 +54,8 @@ struct Component: Identifiable, Hashable {
                 return "Dialog"
             case .intro:
                 return "Intro"
+            case .receipt:
+                return "Receipt"
             }
         }
         
@@ -85,6 +88,8 @@ struct Component: Identifiable, Hashable {
                 IntroView(title: "Accetta un bonus ID Pay", subtitle: "Inserisci i dettagli del pagamento e permetti ai tuoi clienti di utilizzare un bonus ID Pay.", actionTitle: "Accetta bonus ID Pay", action: {
                     print("Inizia flusso bonus")
                 })
+            case .receipt:
+                ReceiptDemoView()
             }
         }
     }
