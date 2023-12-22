@@ -149,14 +149,14 @@ struct ComponentsDemoListView: View {
                 
                     } else if component.type == .waitingView {
                         
-                        Menu(component.type.name) {
-                            Button("Base", action: loadingAction)
-                            Button("Con pulsante", action: loadingPlainAction)
+                        Button {
+                            isPresentingWaitingView.toggle()
+                        } label: {
+                            Text(component.type.name)
+                                .font(.PAFont.cta)
+                                .foregroundColor(.paPrimaryDark)
+                                .padding(Constants.xsmallSpacing)
                         }
-                        .font(.PAFont.cta)
-                        .foregroundColor(.paPrimaryDark)
-                        .padding(.leading, Constants.xsmallSpacing)
-                        
                     } else {
                         NavigationLink(component.type.name, value: component)
                             .font(.PAFont.cta)
@@ -236,7 +236,12 @@ struct ComponentsDemoListView: View {
             }
         )
         .waitingView(
-            waitingModel: self.dialogModel ?? ResultModel.emptyModel,
+            title: "Attendi autorizzazione",
+            subtitle: "Per proseguire è necessario autorizzare l’operazione sull’app IO",
+            buttons: [
+                ButtonModel(type: .plain, themeType: .info, title: "Annulla", action: {
+                isPresentingWaitingView.toggle()
+            })],
             isPresenting: $isPresentingWaitingView
         )
     }
@@ -346,42 +351,6 @@ struct ComponentsDemoListView: View {
     private func codeAction() {
         self.codeValue = "A7U8GHI3"
         isPresentingDialogCode.toggle()
-    }
-    
-    private func loadingPlainAction() {
-        self.dialogModel = ResultModel(
-            title: "Attendi autorizzazione",
-            subtitle: "Per proseguire è necessario autorizzare l’operazione sull’app IO",
-            themeType: ThemeType.info,
-            buttons:[
-                ButtonModel(
-                    type: .plain,
-                    themeType: .info,
-                    title: "Annulla",
-                    action: {
-                        isPresentingWaitingView.toggle()
-                    }
-                )],
-            showLoading: true
-        )
-        
-        isPresentingWaitingView.toggle()
-    }
-    
-    private func loadingAction() {
-        self.dialogModel = ResultModel(
-            title: "Attendi autorizzazione",
-            subtitle: "Per proseguire è necessario autorizzare l’operazione sull’app IO",
-            themeType: ThemeType.info,
-            buttons:[],
-            showLoading: true
-        )
-        
-        isPresentingWaitingView.toggle()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
-            isPresentingWaitingView.toggle()
-        }
     }
     
     private func showThankyouPage(_ themeType: ThemeType) {
