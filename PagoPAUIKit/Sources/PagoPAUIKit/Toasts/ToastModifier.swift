@@ -58,7 +58,7 @@ struct ToastModifier: ViewModifier {
         
         workItem = task
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + toast.duration, execute: task)
+        DispatchQueue.main.asyncAfter(deadline: .now() + toast.duration + 1.0, execute: task)
     }
     
     private func dismissToast() {
@@ -75,7 +75,7 @@ struct ToastModifier: ViewModifier {
 
 extension View {
     
-    func toastView(toast: Binding<ToastModel?>) -> some View {
+    public func toastView(toast: Binding<ToastModel?>) -> some View {
         self.modifier(ToastModifier(toast: toast))
     }
 }

@@ -2,30 +2,27 @@
 //  LoginView.swift
 //
 //
-//  Created by Stefania Castiglioni on 05/12/23.
+//  Created by Stefania Castiglioni on 22/12/23.
 //
 
 import SwiftUI
+import PagoPAUIKit
 
 public struct LoginView: View {
     
-    var title: String
-    var topImage: Image?
-
     @State var username: String = ""
     @State var password: String = ""
     @State private var isLoading: Bool = false
     
     private var onLoggedIn: () -> Void = { }
+    @State private var toastError: ToastModel? = nil
     @FocusState private var focusedField: Field?
     
     private enum Field: Int, CaseIterable, Hashable {
         case username, password, loginButton
     }
     
-    public init(title: String, topImage: Image? = nil, onLoggedIn: @escaping () -> Void) {
-        self.title = title
-        self.topImage  = topImage
+    public init(onLoggedIn: @escaping () -> Void) {
         self.onLoggedIn = onLoggedIn
     }
     
@@ -40,10 +37,10 @@ public struct LoginView: View {
                         }
                     
                     VStack {
-                        topImage
+                        Image(icon: .idPayLogo)
                             .foregroundColor(.paPrimary)
                         
-                        Text(title)
+                        Text("Ambiente di test")
                             .font(.PAFont.h4)
                             .padding(Constants.largeSpacing)
                         loginForm
@@ -57,9 +54,11 @@ public struct LoginView: View {
                 proxy.scrollTo(newValue)
             }
             .background(Color.white)
+            .toastView(toast: $toastError)
         }
     }
     
+    #warning("Add network call to login")
     private func login() async -> Bool {
         print("Call login in viewmodel with user:\(username), password: \(password)")
         isLoading = true
@@ -110,7 +109,7 @@ public struct LoginView: View {
             if await login(){
                 onLoggedIn()
             } else {
-                print("Display error")
+                toastError = ToastModel(style: .error, message: "Accesso non riuscito. Hai inserito il nome utente e la password corretti?")
             }
         }
     }
@@ -121,6 +120,6 @@ public struct LoginView: View {
 }
 
 #Preview {
-    LoginView(title: "Ambiente di test", topImage: Image(icon: .idPayLogo) , onLoggedIn: {})
+    LoginView(onLoggedIn: {})
 }
 
