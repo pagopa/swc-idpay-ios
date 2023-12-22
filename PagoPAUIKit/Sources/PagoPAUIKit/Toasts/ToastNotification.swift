@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct ToastNotification: View {
+struct ToastNotification: View {
     private var icon: Image.PAIcon?
     private var message: String
     private var width = CGFloat.infinity
@@ -19,7 +19,7 @@ public struct ToastNotification: View {
         self.message = message
     }
     
-    public var body: some View {
+    var body: some View {
         HStack(alignment: .center, spacing: 8){
             Text(message)
                 .font(.PAFont.cta)
@@ -99,20 +99,5 @@ public struct ToastDemoView: View {
 }
 
 #Preview {
-    
     ToastDemoView()
-
-//    VStack {
-//        ToastNotification(style: .neutral, message: "Lorem ipsum dolor sit amet")
-//        
-//        ToastNotification(style: .neutralIcon, message: "Lorem ipsum dolor sit amet")
-//        
-//        ToastNotification(style: .infoFilled, message: "Lorem ipsum dolor sit amet")
-//        
-//        ToastNotification(style: .error, message: "Fatal error, blue screen level fatal l")
-//        
-//        ToastNotification(style: .success, message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit")
-//        ToastNotification(style: .warning, message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet nulla congue odio euismod")
-//        
-//    }
 }
