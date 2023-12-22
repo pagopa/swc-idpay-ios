@@ -27,6 +27,7 @@ struct Component: Identifiable, Hashable {
         case dialog
         case intro
         case receipt
+        case waitingView
         
         var name: String {
             switch self {
@@ -56,6 +57,8 @@ struct Component: Identifiable, Hashable {
                 return "Intro"
             case .receipt:
                 return "Receipt"
+            case .waitingView:
+                return "Schermata di attesa"
             }
         }
         
@@ -90,6 +93,8 @@ struct Component: Identifiable, Hashable {
                 })
             case .receipt:
                 ReceiptDemoView()
+            case .waitingView:
+                EmptyView()
             }
         }
     }
@@ -103,6 +108,7 @@ struct ComponentsDemoListView: View {
     @State var showThankyouPageChoiceAlert: Bool = false
     @State var isPresentingDialog: Bool = false
     @State var isPresentingDialogCode: Bool = false
+    @State var isPresentingWaitingView: Bool = false
     @State var dialogModel: ResultModel?
     @State var codeValue: String?
     
@@ -136,6 +142,16 @@ struct ComponentsDemoListView: View {
                             Button("Authentication", action: authAction)
                             Button("Cancel operation", action: abortAction)
                             Button("Code", action: codeAction)
+                        }
+                        .font(.PAFont.cta)
+                        .foregroundColor(.paPrimaryDark)
+                        .padding(.leading, Constants.xsmallSpacing)
+                
+                    } else if component.type == .waitingView {
+                        
+                        Menu(component.type.name) {
+                            Button("Base", action: loadingAction)
+                            Button("Con pulsante", action: loadingPlainAction)
                         }
                         .font(.PAFont.cta)
                         .foregroundColor(.paPrimaryDark)
@@ -218,6 +234,10 @@ struct ComponentsDemoListView: View {
             onClose: {
                 print("Do some action on close")
             }
+        )
+        .waitingView(
+            waitingModel: self.dialogModel ?? ResultModel.emptyModel,
+            isPresenting: $isPresentingWaitingView
         )
     }
     
@@ -326,6 +346,42 @@ struct ComponentsDemoListView: View {
     private func codeAction() {
         self.codeValue = "A7U8GHI3"
         isPresentingDialogCode.toggle()
+    }
+    
+    private func loadingPlainAction() {
+        self.dialogModel = ResultModel(
+            title: "Attendi autorizzazione",
+            subtitle: "Per proseguire è necessario autorizzare l’operazione sull’app IO",
+            themeType: ThemeType.info,
+            buttons:[
+                ButtonModel(
+                    type: .plain,
+                    themeType: .info,
+                    title: "Annulla",
+                    action: {
+                        isPresentingWaitingView.toggle()
+                    }
+                )],
+            showLoading: true
+        )
+        
+        isPresentingWaitingView.toggle()
+    }
+    
+    private func loadingAction() {
+        self.dialogModel = ResultModel(
+            title: "Attendi autorizzazione",
+            subtitle: "Per proseguire è necessario autorizzare l’operazione sull’app IO",
+            themeType: ThemeType.info,
+            buttons:[],
+            showLoading: true
+        )
+        
+        isPresentingWaitingView.toggle()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+            isPresentingWaitingView.toggle()
+        }
     }
     
     private func showThankyouPage(_ themeType: ThemeType) {
