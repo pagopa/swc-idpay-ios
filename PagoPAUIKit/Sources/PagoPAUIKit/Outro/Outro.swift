@@ -21,23 +21,31 @@ public struct Outro: View {
     }
     
     public var body: some View {
-        
-        ResultView(result:
-                    ResultModel(
-                        title: title,
-                        subtitle: subtitle,
-                        themeType: .dark,
-                        buttons: [
-                            ButtonModel(
-                                type: .primary,
-                                themeType: .dark,
-                                title: actionTitle,
-                                action: action
-                            )]
-                    )
-        )
+        VStack(spacing: 0) {
+            Text(title)
+                .multilineTextAlignment(.center)
+                .font(.PAFont.h3)
+                .foregroundColor(.white)
+                .padding(.bottom, Constants.xsmallSpacing)
+            
+            if let subtitle = subtitle {
+                Text(subtitle)
+                    .multilineTextAlignment(.center)
+                    .font(.PAFont.body)
+                    .foregroundColor(.white)
+                    .padding(.bottom, Constants.smallSpacing)
+            }
+            
+            Button(action: action, label: {
+                Text(actionTitle)
+            })
+            .pagoPAButtonStyle(buttonType: .primary, fullwidth: false, themeType: .dark)
+            .padding(.top, Constants.mediumSpacing)
+        }
+        .padding(.horizontal, Constants.mediumSpacing)
         .fullScreenBackground(themeType: .dark)
     }
+
 }
 
 #Preview("Outro") {
@@ -45,6 +53,6 @@ public struct Outro: View {
         title: "Operazione conclusa",
         subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
         actionTitle: "Paga l'importo residuo") {
-        print("Paga l'importo residuo")
-    }
+            print("Paga l'importo residuo")
+        }
 }

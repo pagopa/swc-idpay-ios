@@ -255,9 +255,9 @@ struct ComponentsDemoListView: View {
                 ButtonModel(
                     type: .primary,
                     themeType: .info,
-                    title: "Medium",
+                    title: "Ok",
                     action: {
-                        print("Riprova")
+                        print("Ok")
                     }
                 )]
         )
@@ -284,7 +284,7 @@ struct ComponentsDemoListView: View {
                     themeType: .warning,
                     title: "Esci dal pagamento",
                     action: {
-                        print("Accetta nuovo bonus")
+                        print("Esci dal pagamento")
                     }
                 )
             ]
@@ -303,7 +303,7 @@ struct ComponentsDemoListView: View {
                     themeType: .light,
                     title: "Identificazione con CIE",
                     action: {
-                        print("Riprova")
+                        print("Identificazione con CIE")
                     }
                 ),
                 ButtonModel(
@@ -332,7 +332,7 @@ struct ComponentsDemoListView: View {
                     themeType: .light,
                     title: "Concludi operazione",
                     action: {
-                        print("Riprova")
+                        print("Concludi operazione")
                     }
                 ),
                 ButtonModel(
@@ -340,7 +340,7 @@ struct ComponentsDemoListView: View {
                     themeType: .light,
                     title: "Annulla operazione",
                     action: {
-                        print("Accetta nuovo bonus")
+                        print("Annulla operazione")
                     }
                 )
             ]

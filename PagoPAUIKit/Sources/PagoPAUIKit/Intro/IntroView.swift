@@ -62,7 +62,7 @@ public struct IntroView: View {
                 Button(action: action, label: {
                         Text(actionTitle)
                 })
-                .pagoPAButtonStyle(buttonType: .primary, themeType: .dark)
+                .pagoPAButtonStyle(buttonType: .primary, fullwidth: false, themeType: .dark)
                 .padding(.top, Constants.mediumSpacing)
                 .padding(.horizontal, Constants.mediumSpacing)
                 .opacity(buttonOpacity)

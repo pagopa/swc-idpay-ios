@@ -10,19 +10,22 @@ import SwiftUI
 struct PAButtonStyle: ViewModifier {
     
     var buttonType: PagoPAButtonType
+    var fullwidth: Bool
     var icon: Image.PAIcon? = nil
     var position: ImagePosition = .right
     var themeType: ThemeType = .light
     
-    init(buttonType: PagoPAButtonType, icon: Image.PAIcon? = nil, position: ImagePosition, themeType: ThemeType) {
+    init(buttonType: PagoPAButtonType, fullwidth: Bool = true, icon: Image.PAIcon? = nil, position: ImagePosition, themeType: ThemeType) {
         self.buttonType = buttonType
+        self.fullwidth = fullwidth
         self.icon = icon
         self.position = position
         self.themeType = themeType
     }
     
-    init(buttonModel: ButtonModel) {
+    init(buttonModel: ButtonModel, fullwidth: Bool = true) {
         self.buttonType = buttonModel.type
+        self.fullwidth = fullwidth
         self.icon       = buttonModel.icon
         self.position   = buttonModel.iconPosition ?? .right
         self.themeType  = buttonModel.themeType
@@ -30,13 +33,13 @@ struct PAButtonStyle: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .buttonStyle(PagoPABaseButtonStyle(buttonType: buttonType, icon: icon, position: position, themeType: themeType))
+            .buttonStyle(PagoPABaseButtonStyle(buttonType: buttonType, fullwidth: fullwidth, icon: icon, position: position, themeType: themeType))
     }
 }
 
 extension Button {
-    public func pagoPAButtonStyle(buttonType: PagoPAButtonType, icon: Image.PAIcon? = nil, position: ImagePosition = .right, themeType: ThemeType = .light) -> some View {
-        modifier(PAButtonStyle(buttonType: buttonType, icon: icon, position: position, themeType: themeType))
+    public func pagoPAButtonStyle(buttonType: PagoPAButtonType, fullwidth: Bool = true, icon: Image.PAIcon? = nil, position: ImagePosition = .right, themeType: ThemeType = .light) -> some View {
+        modifier(PAButtonStyle(buttonType: buttonType, fullwidth: fullwidth, icon: icon, position: position, themeType: themeType))
     }
     
     public func pagoPAButtonStyle(buttonModel: ButtonModel) -> some View {

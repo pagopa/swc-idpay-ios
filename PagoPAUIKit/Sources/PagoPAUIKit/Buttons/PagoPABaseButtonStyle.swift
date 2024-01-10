@@ -54,16 +54,18 @@ struct PagoPABaseButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
     
     private var buttonType: PagoPAButtonType
+    private var fullwidth: Bool
     private var theme: PagoPATheme
     private var paImage: Image?
     private var position: ImagePosition = .right
-    
+
     private var isBordered: Bool {
         return buttonType == .primaryBordered || buttonType == .secondaryBordered
     }
     
-    public init(buttonModel: ButtonModel){
+    public init(buttonModel: ButtonModel, fullwidth: Bool = true){
         self.buttonType = buttonModel.type
+        self.fullwidth = fullwidth
         self.theme      = ThemeManager.buildTheme(type: buttonModel.themeType)
         
         if let icon = buttonModel.icon {
@@ -72,9 +74,10 @@ struct PagoPABaseButtonStyle: ButtonStyle {
         self.position   = buttonModel.iconPosition ?? .right
     }
     
-    public init(buttonType: PagoPAButtonType, icon: Image.PAIcon? = nil, position: ImagePosition = .right, themeType: ThemeType = .light) {
+    public init(buttonType: PagoPAButtonType, fullwidth: Bool = true, icon: Image.PAIcon? = nil, position: ImagePosition = .right, themeType: ThemeType = .light) {
         self.buttonType = buttonType
         self.theme      = ThemeManager.buildTheme(type: themeType)
+        self.fullwidth = fullwidth
         
         if let icon = icon {
             self.paImage    = Image(icon: icon)
@@ -83,6 +86,35 @@ struct PagoPABaseButtonStyle: ButtonStyle {
     }
     
     public func makeBody(configuration: Configuration) -> some View {
+        
+        if fullwidth {
+            buttonStack(configuration: configuration)
+                .frame(maxWidth: .infinity)
+                .background(
+                    RoundedRectangle(cornerRadius: Constants.radius1)
+                        .fill(isEnabled ? backgroundColor : disabledBackgroundColor)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: Constants.radius1)
+                        .stroke(isBordered ? (isEnabled ? borderColor : disabledBorderColor) : Color.clear, lineWidth: 2)
+                )
+                .opacity(isEnabled ? 1 : 0.5)
+        } else {
+            buttonStack(configuration: configuration)
+                .padding(.horizontal, Constants.mediumSpacing)
+                .background(
+                    RoundedRectangle(cornerRadius: Constants.radius1)
+                        .fill(isEnabled ? backgroundColor : disabledBackgroundColor)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: Constants.radius1)
+                        .stroke(isBordered ? (isEnabled ? borderColor : disabledBorderColor) : Color.clear, lineWidth: 2)
+                )
+                .opacity(isEnabled ? 1 : 0.5)
+        }
+    }
+    
+    private func buttonStack(configuration: Configuration) -> some View {
         HStack(alignment: .center, spacing: 8) {
             if position == .left {
                 icon
@@ -98,17 +130,6 @@ struct PagoPABaseButtonStyle: ButtonStyle {
         }
         .font(.PAFont.cta)
         .foregroundColor(isEnabled ? textColor : disabledTextColor)
-        .frame(maxWidth: .infinity)
-//        .padding(.horizontal, Constants.mediumSpacing)
-        .background(
-            RoundedRectangle(cornerRadius: Constants.radius1)
-                .fill(isEnabled ? backgroundColor : disabledBackgroundColor)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: Constants.radius1)
-                .stroke(isBordered ? (isEnabled ? borderColor : disabledBorderColor) : Color.clear, lineWidth: 2)
-        )
-        .opacity(isEnabled ? 1 : 0.5)
     }
         
     @ViewBuilder

@@ -10,6 +10,7 @@ import SwiftUI
 public struct CustomLoadingButton<Content: View>: View {
     
     private var buttonType: PagoPAButtonType
+    private var fullwidth: Bool
     private var icon: Image.PAIcon? = nil
     private var position: ImagePosition = .right
     private var themeType: ThemeType = .light
@@ -18,8 +19,9 @@ public struct CustomLoadingButton<Content: View>: View {
     var action: () -> Void
     var label: () -> Content
 
-    public init(buttonType: PagoPAButtonType,icon: Image.PAIcon? = nil, position: ImagePosition = .right, themeType: ThemeType = .light,  isLoading: Binding<Bool>, action: @escaping () -> Void, label: @escaping () -> Content) {
+    public init(buttonType: PagoPAButtonType, fullwidth: Bool = true, icon: Image.PAIcon? = nil, position: ImagePosition = .right, themeType: ThemeType = .light,  isLoading: Binding<Bool>, action: @escaping () -> Void, label: @escaping () -> Content) {
         self.buttonType = buttonType
+        self.fullwidth = fullwidth
         self.icon = icon
         self.position = position
         self.themeType = themeType
@@ -39,6 +41,7 @@ public struct CustomLoadingButton<Content: View>: View {
         }
         .pagoPAButtonStyle(
             buttonType: self.buttonType,
+            fullwidth: fullwidth,
             icon: isLoading ? nil : self.icon,
             position: self.position,
             themeType: self.themeType
