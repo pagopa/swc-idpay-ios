@@ -103,6 +103,7 @@ extension Font {
         case callout = 14
         case body = 16
         case caption = 12
+        case receiptTitle2 = 11
         
         var textStyle: Font.TextStyle {
             switch self {
@@ -122,6 +123,8 @@ extension Font {
                 return .body
             case .caption:
                 return .caption
+            case .receiptTitle2:
+                return .caption2
             }
         }
     }
@@ -207,6 +210,26 @@ extension Font {
         
         public static var labelMiniSB: Font {
             PAFont.relative(.titilliumWebSemiBold, size: .caption)
+        }
+        
+        public static var receiptTitle: Font {
+            PAFont.fixed(.titilliumWebBold, size: 12)
+        }
+        
+        public static var receiptTitle2: Font {
+            PAFont.fixed(.titilliumWebRegular, size: 11)
+        }
+        
+        public static var receiptLabelB: Font {
+            PAFont.fixed(.titilliumWebBold, size: 11)
+        }
+        
+        public static var receiptAmountLabelB: Font {
+            PAFont.fixed(.titilliumWebBold, size: 16)
+        }
+        
+        public static var receiptMetadata: Font {
+            PAFont.fixed(.robotoMono, size: 11)
         }
         
         /// Create font with a fixed size
