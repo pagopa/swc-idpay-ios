@@ -17,6 +17,7 @@
 		B803D8D62B20D85700A7934E /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B803D8D52B20D85700A7934E /* AppStateManager.swift */; };
 		B864279D2B35D62000804A02 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B864279C2B35D61F00804A02 /* LoginView.swift */; };
 		B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */; };
+		B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		B803D8D52B20D85700A7934E /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
 		B864279C2B35D61F00804A02 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsDemoListView.swift; sourceTree = "<group>"; };
+		B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTicketView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 		9811BC052B177C950063E71B /* SWC-iDPay-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B8AE58932B4EA047006FB26C /* Receipt */,
 				B89F15D52B35D022000E0B3C /* LoginView */,
 				B8A83D812B1A4B1B006CF4BF /* PagoPAUIKit-Demo */,
 				9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */,
@@ -149,6 +152,14 @@
 				B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */,
 			);
 			path = "PagoPAUIKit-Demo";
+			sourceTree = "<group>";
+		};
+		B8AE58932B4EA047006FB26C /* Receipt */ = {
+			isa = PBXGroup;
+			children = (
+				B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */,
+			);
+			path = Receipt;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B803D8D62B20D85700A7934E /* AppStateManager.swift in Sources */,
+				B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */,
 				B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */,
 				B864279D2B35D62000804A02 /* LoginView.swift in Sources */,
 				9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */,
