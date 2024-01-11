@@ -22,6 +22,8 @@ struct ReceiptTicketView: View {
                 TicketField(title: "Data e ora", value: "15 Marzo 2023, 16:44")
                 
                 TicketField(title: "Iniziativa", value: "Bonus Vacanza")
+                
+                TicketField(title: "Importo del bene", value: "59,99 €")
 
                 TicketAmountRow(title: "Bonus ID Pay", amount: "59,99 €")
                 
@@ -38,7 +40,7 @@ struct ReceiptTicketView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 16.0)
         }
-        .frame(maxWidth: 400)
+        .frame(maxWidth: 214)
 
     }
 }
@@ -56,6 +58,16 @@ public struct ReceiptTicketDemoView: View {
             buttons: [
                 ButtonModel(
                     type: .primary,
+                    themeType: .dark,
+                    title: "Invia via e-mail",
+                    icon: .mail,
+                    iconPosition: .left,
+                    action: {
+                        print("Invia via e-mail")
+                    }
+                ),
+                ButtonModel(
+                    type: .primaryBordered,
                     themeType: .dark,
                     title: "Condividi",
                     icon: .share,

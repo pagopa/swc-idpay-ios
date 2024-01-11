@@ -19,8 +19,6 @@ public struct TicketHeaderView: View {
     public var body: some View {
         VStack {
             image
-                .resizable()
-                .frame(width: 76, height: 76)
             
             Text(title)
                 .font(.PAFont.receiptTitle)

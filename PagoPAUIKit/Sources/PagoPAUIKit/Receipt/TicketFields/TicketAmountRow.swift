@@ -17,20 +17,27 @@ public struct TicketAmountRow: View {
     }
     
     public var body: some View {
-        Divider()
-        
-        HStack {
-            Text(title)
-            Spacer()
-            Text(amount)
+        VStack(spacing: 13) {
+            Divider()
+            
+            HStack {
+                Text(title)
+                Spacer()
+                Text(amount)
+            }
+            .font(.PAFont.receiptAmountLabelB)
+            .frame(maxWidth: .infinity)
+
+            Divider()
         }
         .font(.PAFont.receiptAmountLabelB)
         .frame(maxWidth: .infinity)
-        
-        Divider()
+        .frame(minHeight: 60.0)
     }
 }
 
 #Preview {
     TicketAmountRow(title: "Bonus ID Pay", amount: "59,99 €")
+        .frame(width: 213)
+        .padding(.horizontal, 16.0)
 }

@@ -24,7 +24,7 @@ public struct TicketFooterView: View {
                 Text("Ricevuta trasmessa da")
                     .font(.PAFont.receiptTitle2)
                     .foregroundColor(.paBlack)
-                    .padding(.bottom, 18.0)
+                    .padding(.bottom, 8.0)
                 Text(paymentProvider.name)
                     .font(.PAFont.receiptLabelB)
                     .foregroundColor(.paBlack)
@@ -32,24 +32,26 @@ public struct TicketFooterView: View {
                     .font(.PAFont.receiptTitle2)
                     .foregroundColor(.grey650)
             }
-            .padding(.bottom, 30.0)
+            .padding(.bottom, 20.0)
             
-            VStack {
-                Text("ID Transazione:")
-                Text(transactionID)
-                    .padding(.bottom, 8.0)
+            VStack(spacing: 0.0) {
+                Group {
+                    Text("ID Transazione:")
+                    Text(transactionID)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
                 
                 HStack {
                     Text("Terminale:")
                     Text(terminalID)
                 }
+                .padding(.top, 8.0)
             }
             .font(.PAFont.receiptMetadata)
         }
         .foregroundColor(.paBlack)
         .frame(maxWidth: .infinity)
-        .padding(.top, 20.0)
-        .padding(.bottom, 40.0)
+        .padding(.bottom, 30.0)
     }
 }
 
