@@ -1,5 +1,5 @@
 //
-//  Int+CurrencyFormatter.swift
+//  Int+Extensions.swift
 //
 //
 //  Created by Stefania Castiglioni on 11/01/24.

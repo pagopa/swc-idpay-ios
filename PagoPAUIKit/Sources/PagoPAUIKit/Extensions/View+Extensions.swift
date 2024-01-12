@@ -1,5 +1,5 @@
 //
-//  View+PdfRender.swift
+//  View+Extensions.swift
 //
 //
 //  Created by Stefania Castiglioni on 10/01/24.

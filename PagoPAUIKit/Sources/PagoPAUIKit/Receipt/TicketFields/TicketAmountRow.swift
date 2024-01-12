@@ -10,12 +10,12 @@ import SwiftUI
 public struct TicketAmountRow: View {
     var title: String
     var amount: String
-    var transactionStatus: OperationStatus
+    var isSuccess: Bool
     
-    public init(title: String, amount: String, transactionStatus: OperationStatus) {
+    public init(title: String, amount: String, isSuccess: Bool) {
         self.title = title
         self.amount = amount
-        self.transactionStatus = transactionStatus
+        self.isSuccess = isSuccess
     }
     
     public var body: some View {
@@ -30,7 +30,7 @@ public struct TicketAmountRow: View {
             .font(.PAFont.receiptAmountLabelB)
             .frame(maxWidth: .infinity)
 
-            if transactionStatus == .refunded {
+            if !isSuccess {
                 Text("Il pagamento è stato annullato e riaccreditato sul tuo portafoglio ID Pay.")
                     .font(.PAFont.receiptTitle2)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -44,7 +44,13 @@ public struct TicketAmountRow: View {
 }
 
 #Preview {
-    TicketAmountRow(title: "Bonus ID Pay", amount: "59,99 €", transactionStatus: .refunded)
-        .frame(width: 213)
-        .padding(.horizontal, 16.0)
+    VStack(spacing: 20) {
+        TicketAmountRow(title: "Bonus ID Pay", amount: "59,99 €", isSuccess: true)
+            .frame(width: 213)
+            .padding(.horizontal, 16.0)
+        
+        TicketAmountRow(title: "Bonus ID Pay", amount: "59,99 €", isSuccess: false)
+            .frame(width: 213)
+            .padding(.horizontal, 16.0)
+    }
 }

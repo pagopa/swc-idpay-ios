@@ -9,29 +9,25 @@ import SwiftUI
 import PagoPAUIKit
 
 struct ReceiptTicketView: View {
-    private var transaction: TransactionModel
-
-    init(transaction: TransactionModel) {
-        self.transaction = transaction
-    }
+    var receiptTicketVM: ReceiptTicketViewModel
     
     var body: some View {
         VStack {
-            TicketHeaderView(image: Image(icon: .idPayLogo), title: transaction.status == .success ? "RICEVUTA DI PAGAMENTO" : "RICEVUTA DI ANNULLAMENTO" )
+            TicketHeaderView(image: Image(icon: .idPayLogo), title: receiptTicketVM.transaction.status.ticketDescription)
             
             VStack(alignment: .leading, spacing: 10.0) {
                 
-                TicketField(title: "Data e ora", value: transaction.date)
+                TicketField(title: "Data e ora", value: receiptTicketVM.transaction.date)
                 
-                TicketField(title: "Iniziativa", value: transaction.description)
+                TicketField(title: "Iniziativa", value: receiptTicketVM.initiative.name)
                 
-                TicketField(title: "Importo del bene", value: transaction.amount.formattedCurrency
+                TicketField(title: "Importo del bene", value: receiptTicketVM.transaction.goodsCost.formattedCurrency
                 )
 
                 TicketAmountRow(
                     title: "Bonus ID Pay",
-                    amount: transaction.bonusAmount.formattedCurrency,
-                    transactionStatus: transaction.status
+                    amount: receiptTicketVM.transaction.bonusAmount.formattedCurrency,
+                    isSuccess: receiptTicketVM.transaction.status.isSuccess
                 )
                 
                 TicketFooterView(
@@ -40,8 +36,8 @@ struct ReceiptTicketView: View {
                             name: "PagoPA S.p.A.",
                             address: "Piazza Colonna, 370 · 00187, Roma"
                         ),
-                    transactionID: transaction.transactionID,
-                    terminalID: transaction.terminalID
+                    transactionID: receiptTicketVM.transaction.transactionID,
+                    terminalID: receiptTicketVM.transaction.terminalID
                 )
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -98,21 +94,17 @@ public struct ReceiptTicketDemoView: View {
             ActivityViewController(
                 activityItems: [
                     ReceiptTicketView(
-                        transaction:
-                            TransactionModel(
-                                status: .success,
-                                date: "15 Marzo 2023, 16:44",
-                                description: "Bonus Vacanza",
-                                amount: 5999,
-                                bonusAmount: 5999,
-                                transactionID: "517a-4216-840E-461f-B011-036A-0fd1-34E1",
-                                terminalID: "g64tg3ryu"
+                        receiptTicketVM: 
+                            ReceiptTicketViewModel(
+                                initiative: Initiative.mocked,
+                                transaction:
+                            TransactionModel.mockedSuccessTransaction
                             )
                     )
-                        .renderToPdf(
-                            filename: "receipt.pdf",
-                            location: URL.temporaryDirectory
-                        )
+                    .renderToPdf(
+                        filename: "receipt.pdf",
+                        location: URL.temporaryDirectory
+                    )
                 ]
             )
         })
@@ -122,31 +114,22 @@ public struct ReceiptTicketDemoView: View {
 
 #Preview {
     ReceiptTicketView(
-        transaction:
-            TransactionModel(
-                status: .success,
-                date: "15 Marzo 2023, 16:44",
-                description: "Bonus Vacanza",
-                amount: 5999,
-                bonusAmount: 5999,
-                transactionID: "517a-4216-840E-461f-B011-036A-0fd1-34E1",
-                terminalID: "g64tg3ryu"
+        receiptTicketVM:
+            ReceiptTicketViewModel(
+                initiative: Initiative.mocked,
+                transaction:
+            TransactionModel.mockedSuccessTransaction
             )
     )
 }
 
 #Preview {
     ReceiptTicketView(
-        transaction:
-            TransactionModel(
-                status: .refunded,
-                date: "15 Marzo 2023, 16:44",
-                description: "Bonus Vacanza",
-                amount: 5999,
-                bonusAmount: 5999,
-                transactionID: "517a-4216-840E-461f-B011-036A-0fd1-34E1",
-                terminalID: "g64tg3ryu"
+        receiptTicketVM:
+            ReceiptTicketViewModel(
+                initiative: Initiative.mocked,
+                transaction:
+            TransactionModel.mockedCancelledTransaction
             )
     )
 }
-
