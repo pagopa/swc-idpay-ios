@@ -44,6 +44,7 @@ struct ReceiptTicketView: View {
             .padding(.horizontal, 16.0)
         }
         .frame(maxWidth: 214)
+        .padding(.vertical, 20.0)
 
     }
 }

@@ -22,6 +22,7 @@ public struct TicketField: View {
                 .font(.PAFont.receiptTitle2)
             Text(value)
                 .font(.PAFont.receiptLabelB)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .foregroundColor(.paBlack)
     }

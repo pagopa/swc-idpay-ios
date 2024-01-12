@@ -32,6 +32,7 @@ public struct TicketFooterView: View {
                     .font(.PAFont.receiptTitle2)
                     .foregroundColor(.grey650)
             }
+            .fixedSize(horizontal: false, vertical: true)
             .padding(.bottom, 20.0)
             
             VStack(spacing: 0.0) {
