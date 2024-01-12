@@ -16,7 +16,14 @@
 		9811BC322B177DD20063E71B /* PagoPAUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9811BC312B177DD20063E71B /* PagoPAUIKit */; };
 		B803D8D62B20D85700A7934E /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B803D8D52B20D85700A7934E /* AppStateManager.swift */; };
 		B864279D2B35D62000804A02 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B864279C2B35D61F00804A02 /* LoginView.swift */; };
+		B86D992C2B514BD4006B4D53 /* TransactionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */; };
+		B86D992F2B5154CE006B4D53 /* AuthorizedTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = B86D992E2B5154CE006B4D53 /* AuthorizedTransaction.json */; };
+		B86D99312B51593A006B4D53 /* CancelledTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = B86D99302B51593A006B4D53 /* CancelledTransaction.json */; };
+		B86D99352B515C10006B4D53 /* Initiative.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D99342B515C10006B4D53 /* Initiative.swift */; };
+		B86D99382B5175B9006B4D53 /* ReceiptTicketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D99372B5175B9006B4D53 /* ReceiptTicketViewModel.swift */; };
 		B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */; };
+		B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */; };
+		B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE589A2B50445C006FB26C /* TransactionModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +55,14 @@
 		9811BC232B177C970063E71B /* SWC_iDPay_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWC_iDPay_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B803D8D52B20D85700A7934E /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
 		B864279C2B35D61F00804A02 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionStatus.swift; sourceTree = "<group>"; };
+		B86D992E2B5154CE006B4D53 /* AuthorizedTransaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AuthorizedTransaction.json; sourceTree = "<group>"; };
+		B86D99302B51593A006B4D53 /* CancelledTransaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CancelledTransaction.json; sourceTree = "<group>"; };
+		B86D99342B515C10006B4D53 /* Initiative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initiative.swift; sourceTree = "<group>"; };
+		B86D99372B5175B9006B4D53 /* ReceiptTicketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTicketViewModel.swift; sourceTree = "<group>"; };
 		B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsDemoListView.swift; sourceTree = "<group>"; };
+		B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTicketView.swift; sourceTree = "<group>"; };
+		B8AE589A2B50445C006FB26C /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +114,9 @@
 		9811BC052B177C950063E71B /* SWC-iDPay-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B86D99322B515BF6006B4D53 /* Initiative */,
+				B86D992A2B514BA0006B4D53 /* Transaction */,
+				B8AE58932B4EA047006FB26C /* Receipt */,
 				B89F15D52B35D022000E0B3C /* LoginView */,
 				B8A83D812B1A4B1B006CF4BF /* PagoPAUIKit-Demo */,
 				9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */,
@@ -135,6 +152,48 @@
 			path = "SWC-iDPay-iOSUITests";
 			sourceTree = "<group>";
 		};
+		B86D992A2B514BA0006B4D53 /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				B86D992D2B51543D006B4D53 /* Mocks */,
+				B8AE58982B50443B006FB26C /* Model */,
+			);
+			path = Transaction;
+			sourceTree = "<group>";
+		};
+		B86D992D2B51543D006B4D53 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				B86D99302B51593A006B4D53 /* CancelledTransaction.json */,
+				B86D992E2B5154CE006B4D53 /* AuthorizedTransaction.json */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		B86D99322B515BF6006B4D53 /* Initiative */ = {
+			isa = PBXGroup;
+			children = (
+				B86D99332B515C00006B4D53 /* Model */,
+			);
+			path = Initiative;
+			sourceTree = "<group>";
+		};
+		B86D99332B515C00006B4D53 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B86D99342B515C10006B4D53 /* Initiative.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B86D99362B5175A9006B4D53 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B86D99372B5175B9006B4D53 /* ReceiptTicketViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		B89F15D52B35D022000E0B3C /* LoginView */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +208,32 @@
 				B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */,
 			);
 			path = "PagoPAUIKit-Demo";
+			sourceTree = "<group>";
+		};
+		B8AE58932B4EA047006FB26C /* Receipt */ = {
+			isa = PBXGroup;
+			children = (
+				B86D99362B5175A9006B4D53 /* ViewModel */,
+				B8AE58992B50443F006FB26C /* View */,
+			);
+			path = Receipt;
+			sourceTree = "<group>";
+		};
+		B8AE58982B50443B006FB26C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B8AE589A2B50445C006FB26C /* TransactionModel.swift */,
+				B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B8AE58992B50443F006FB26C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +348,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9811BC0E2B177C970063E71B /* Preview Assets.xcassets in Resources */,
+				B86D992F2B5154CE006B4D53 /* AuthorizedTransaction.json in Resources */,
+				B86D99312B51593A006B4D53 /* CancelledTransaction.json in Resources */,
 				9811BC0B2B177C970063E71B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,7 +375,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */,
+				B86D99352B515C10006B4D53 /* Initiative.swift in Sources */,
 				B803D8D62B20D85700A7934E /* AppStateManager.swift in Sources */,
+				B86D99382B5175B9006B4D53 /* ReceiptTicketViewModel.swift in Sources */,
+				B86D992C2B514BD4006B4D53 /* TransactionStatus.swift in Sources */,
+				B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */,
 				B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */,
 				B864279D2B35D62000804A02 /* LoginView.swift in Sources */,
 				9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */,

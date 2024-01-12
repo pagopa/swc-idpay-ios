@@ -36,6 +36,7 @@ extension Image {
         case noReceipt = "no-receipt"
         case close = "close"
         case io = "iO"
+        case share = "share"
     }
 
     public init (icon: PAIcon) {

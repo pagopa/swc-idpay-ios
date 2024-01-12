@@ -92,7 +92,7 @@ struct Component: Identifiable, Hashable {
                     print("Inizia flusso bonus")
                 })
             case .receipt:
-                ReceiptDemoView()
+                ReceiptTicketDemoView()
             case .waitingView:
                 EmptyView()
             }

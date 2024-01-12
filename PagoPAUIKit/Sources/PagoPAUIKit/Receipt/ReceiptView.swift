@@ -55,11 +55,11 @@ public struct ReceiptDemoView: View {
                 ButtonModel(
                     type: .primaryBordered,
                     themeType: .dark,
-                    title: "Stampa",
-                    icon: .print,
+                    title: "Condividi",
+                    icon: .share,
                     iconPosition: .left,
                     action: {
-                        print("Stampa")
+                        print("Condividi")
                     }
                 ),
                 ButtonModel(
