@@ -27,4 +27,23 @@ final class LoginViewUITests: XCTestCase {
         XCTAssert(loginButton.waitForExistence(timeout: 5.0))
         XCTAssertFalse(loginButton.isEnabled, "Login button should be disabled if textfields are empty")
     }
+        
+    func test_access_button_enabling_when_textfields_are_filled() throws {
+        sleep(6)
+        let loginButton = app.buttons["Accedi"]
+        XCTAssertFalse(loginButton.isEnabled, "Login button should be disabled if textfields are empty")
+
+        let elementsQuery = app.scrollViews.otherElements
+        let usernameTextfield = elementsQuery.textFields["Username textfield"]
+        usernameTextfield.tap()
+        usernameTextfield.typeText("aaa")
+        XCTAssertFalse(loginButton.isEnabled, "Login button should be disabled if password textfield is empty")
+
+        let passwordTextfield = elementsQuery.secureTextFields["Password textfield"]
+        passwordTextfield.tap()
+        passwordTextfield.typeText("bbb")
+        XCTAssertTrue(loginButton.isEnabled, "Login button should be enabled if textfields are filled in")
+    }
+
+    
 }

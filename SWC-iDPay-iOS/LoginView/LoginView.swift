@@ -78,6 +78,7 @@ public struct LoginView: View {
                 }
                 .disabled(isLoading)
                 .id(Field.username)
+                .accessibilityIdentifier("Username textfield")
             
             InputField(type: .password, text: $password, placeholder: "Password", autofocus: false)
                 .focused($focusedField, equals: .password)
@@ -88,7 +89,8 @@ public struct LoginView: View {
                     submitForm()
                 }
                 .id(Field.password)
-            
+                .accessibilityIdentifier("Password textfield")
+
             CustomLoadingButton(buttonType: .primary, isLoading: $isLoading) {
                 submitForm()
             } label: {
