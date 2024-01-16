@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import SWC_iDPay_iOS
 
 final class LoginViewUITests: XCTestCase {
 
@@ -45,5 +46,22 @@ final class LoginViewUITests: XCTestCase {
         XCTAssertTrue(loginButton.isEnabled, "Login button should be enabled if textfields are filled in")
     }
 
+    func test_initial_view_is_visible_when_login_succeeds() {
+        sleep(4)
+        let elementsQuery = app.scrollViews.otherElements
+        let usernameTextfield = elementsQuery.textFields["Username textfield"]
+        usernameTextfield.tap()
+        usernameTextfield.typeText("aaa")
+
+        let passwordTextfield = elementsQuery.secureTextFields["Password textfield"]
+        passwordTextfield.tap()
+        passwordTextfield.typeText("access")
+
+        let loginButton = app.buttons["Accedi"]
+        loginButton.tap()
+
+        let navigationBar = app.navigationBars.firstMatch.waitForExistence(timeout: 5)
+        XCTAssert(navigationBar, "Should show first view with NavigationStack")
+    }
     
 }
