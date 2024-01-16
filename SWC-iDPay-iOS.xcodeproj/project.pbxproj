@@ -25,6 +25,8 @@
 		B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */; };
 		B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */; };
 		B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE589A2B50445C006FB26C /* TransactionModel.swift */; };
+		B8D708C82B56D81A00AF02A0 /* UITestingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D708C72B56D81A00AF02A0 /* UITestingHelper.swift */; };
+		B8D708CB2B56E09300AF02A0 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D708CA2B56E09300AF02A0 /* LoginViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsDemoListView.swift; sourceTree = "<group>"; };
 		B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTicketView.swift; sourceTree = "<group>"; };
 		B8AE589A2B50445C006FB26C /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
+		B8D708C72B56D81A00AF02A0 /* UITestingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestingHelper.swift; sourceTree = "<group>"; };
+		B8D708CA2B56E09300AF02A0 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,10 +120,11 @@
 		9811BC052B177C950063E71B /* SWC-iDPay-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B8D708C62B56D80200AF02A0 /* UITesting */,
 				B86D99322B515BF6006B4D53 /* Initiative */,
 				B86D992A2B514BA0006B4D53 /* Transaction */,
 				B8AE58932B4EA047006FB26C /* Receipt */,
-				B89F15D52B35D022000E0B3C /* LoginView */,
+				B89F15D52B35D022000E0B3C /* Login */,
 				B8A83D812B1A4B1B006CF4BF /* PagoPAUIKit-Demo */,
 				9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */,
 				B803D8D52B20D85700A7934E /* AppStateManager.swift */,
@@ -205,12 +210,13 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		B89F15D52B35D022000E0B3C /* LoginView */ = {
+		B89F15D52B35D022000E0B3C /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				B864279C2B35D61F00804A02 /* LoginView.swift */,
+				B8D708CD2B56E0CE00AF02A0 /* ViewModel */,
+				B8D708CC2B56E0C400AF02A0 /* View */,
 			);
-			path = LoginView;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		B8A83D812B1A4B1B006CF4BF /* PagoPAUIKit-Demo */ = {
@@ -245,6 +251,30 @@
 				B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		B8D708C62B56D80200AF02A0 /* UITesting */ = {
+			isa = PBXGroup;
+			children = (
+				B8D708C72B56D81A00AF02A0 /* UITestingHelper.swift */,
+			);
+			path = UITesting;
+			sourceTree = "<group>";
+		};
+		B8D708CC2B56E0C400AF02A0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B864279C2B35D61F00804A02 /* LoginView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B8D708CD2B56E0CE00AF02A0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B8D708CA2B56E09300AF02A0 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,12 +418,14 @@
 			files = (
 				B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */,
 				B86D99352B515C10006B4D53 /* Initiative.swift in Sources */,
+				B8D708CB2B56E09300AF02A0 /* LoginViewModel.swift in Sources */,
 				B803D8D62B20D85700A7934E /* AppStateManager.swift in Sources */,
 				B86D99382B5175B9006B4D53 /* ReceiptTicketViewModel.swift in Sources */,
 				B86D992C2B514BD4006B4D53 /* TransactionStatus.swift in Sources */,
 				B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */,
 				B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */,
 				B864279D2B35D62000804A02 /* LoginView.swift in Sources */,
+				B8D708C82B56D81A00AF02A0 /* UITestingHelper.swift in Sources */,
 				9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
