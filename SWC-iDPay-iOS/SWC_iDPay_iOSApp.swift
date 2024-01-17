@@ -10,6 +10,8 @@ import PagoPAUIKit
 
 @main
 struct SWC_iDPay_iOSApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate: AppDelegate
+   
     @StateObject var appManager = AppStateManager()
     
     init() {
@@ -27,7 +29,7 @@ struct SWC_iDPay_iOSApp: App {
                         }
                     }
                 case .login:
-                    LoginView {
+                    LoginView(viewModel: LoginViewModel()) {
                         DispatchQueue.main.async {
                             appManager.state = .main
                         }
@@ -39,5 +41,17 @@ struct SWC_iDPay_iOSApp: App {
 //            .animation(.easeInOut(duration: 2.0), value: appManager.state)
             .environmentObject(appManager)
         }
+    }
+}
+
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        #if DEBUG
+        if UITestingHelper.isUITesting {
+            print("---- Running UI Tests -----")
+        }
+        #endif
+        return true
     }
 }

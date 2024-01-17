@@ -8,13 +8,13 @@
 import SwiftUI
 import PagoPAUIKit
 
-public struct LoginView: View {
+struct LoginView: View {
     
-    @State var username: String = ""
-    @State var password: String = ""
     @State private var isLoading: Bool = false
+    @ObservedObject var viewModel: LoginViewModel
     
     private var onLoggedIn: () -> Void = { }
+    
     @State private var toastError: ToastModel? = nil
     @FocusState private var focusedField: Field?
     
@@ -22,11 +22,12 @@ public struct LoginView: View {
         case username, password, loginButton
     }
     
-    public init(onLoggedIn: @escaping () -> Void) {
+    init(viewModel: LoginViewModel, onLoggedIn: @escaping () -> Void) {
+        self.viewModel = viewModel
         self.onLoggedIn = onLoggedIn
     }
     
-    public var body: some View {
+    var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
                 ZStack {
@@ -58,19 +59,10 @@ public struct LoginView: View {
         }
     }
     
-    #warning("Add network call to login")
-    private func login() async -> Bool {
-        print("Call login in viewmodel with user:\(username), password: \(password)")
-        isLoading = true
-        try? await Task.sleep(nanoseconds: 1 * 4_000_000_000) // 4 second
-        isLoading = false
-        return password == "access"
-    }
-    
     @ViewBuilder
     private var loginForm: some View {
         Form {
-            InputField(type: .text, text: $username, placeholder: "Username", autofocus: true)
+            InputField(type: .text, text: $viewModel.username, placeholder: "Username", autofocus: true)
                 .focused($focusedField, equals: .username)
                 .submitLabel(.next)
                 .onSubmit {
@@ -78,23 +70,25 @@ public struct LoginView: View {
                 }
                 .disabled(isLoading)
                 .id(Field.username)
+                .accessibilityIdentifier("Username textfield")
             
-            InputField(type: .password, text: $password, placeholder: "Password", autofocus: false)
+            InputField(type: .password, text: $viewModel.password, placeholder: "Password", autofocus: false)
                 .focused($focusedField, equals: .password)
                 .submitLabel(.done)
                 .disabled(isLoading)
                 .onSubmit {
-                    guard isFormValid else { return }
+                    guard viewModel.isFormValid else { return }
                     submitForm()
                 }
                 .id(Field.password)
+                .accessibilityIdentifier("Password textfield")
             
             CustomLoadingButton(buttonType: .primary, isLoading: $isLoading) {
                 submitForm()
             } label: {
                 Text("Accedi")
             }
-            .disabled(!isFormValid)
+            .disabled(!viewModel.isFormValid)
             .padding(.vertical, Constants.smallSpacing)
             .id(Field.loginButton)
         }
@@ -106,20 +100,20 @@ public struct LoginView: View {
     private func submitForm() {
         focusedField = nil
         Task {
-            if await login(){
+            isLoading = true
+            let isUserLoggedIn = await viewModel.login()
+            isLoading = false
+            
+            if isUserLoggedIn {
                 onLoggedIn()
             } else {
                 toastError = ToastModel(style: .error, message: "Accesso non riuscito. Hai inserito il nome utente e la password corretti?")
             }
         }
     }
-    
-    private var isFormValid: Bool {
-        !(username.isEmpty || password.isEmpty)
-    }
 }
 
 #Preview {
-    LoginView(onLoggedIn: {})
+    LoginView(viewModel: LoginViewModel(), onLoggedIn: {})
 }
 

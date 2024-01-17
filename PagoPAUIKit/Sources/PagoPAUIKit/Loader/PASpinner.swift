@@ -78,6 +78,7 @@ public struct PASpinner: View {
                     }.fire()
                 }
         }
+        .accessibilityIdentifier("spinner")
     }
 
     private var gradientColors: [Color] {
