@@ -16,6 +16,8 @@ final class LoginViewModel: ObservableObject {
         
         #if DEBUG
         if UITestingHelper.isUITesting {
+            print("Wait to login")
+            try? await Task.sleep(nanoseconds: 1 * 4_000_000_000) // 4 second
             return UITestingHelper.isUserLoginSuccess
         } else {
             print("Call login in viewmodel with user:\(username), password: \(password)")
