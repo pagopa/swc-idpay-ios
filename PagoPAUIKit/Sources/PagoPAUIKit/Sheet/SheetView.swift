@@ -16,8 +16,6 @@ public struct SheetView<Content: View>: View {
     private var content: () -> Content
     
     public init(showSheetPage: Binding<Bool>, maxHeight: CGFloat? = nil, @ViewBuilder content: @escaping () -> Content) {
-        offset = .zero
-        showSheet = false
         _showSheetPage = showSheetPage
         self.content = content
         self.maxHeight = maxHeight
@@ -54,6 +52,9 @@ public struct SheetView<Content: View>: View {
                         showSheet = true
                 }
             }
+            .onDisappear(perform: {
+                hideSheet()
+            })
             .onChange(of: showSheet) { newValue in
                 if newValue == false {
                     hideSheet()
@@ -73,6 +74,7 @@ public struct SheetView<Content: View>: View {
                         }
                     }
             )
+
         }
 
     }
@@ -82,7 +84,9 @@ public struct SheetView<Content: View>: View {
         showSheet = false
         
         Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
-            showSheetPage = false
+            if showSheetPage {
+                showSheetPage = false
+            }
             offset = .zero
         }
     }
