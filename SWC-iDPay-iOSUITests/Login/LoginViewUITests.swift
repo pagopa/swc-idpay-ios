@@ -128,34 +128,13 @@ final class LoginViewUITests: XCTestCase {
     }
 
     func test_initial_view_is_visible_when_login_succeeds() {
-        signIn(success: true)
+        app.signIn(success: true)
         let navigationBar = app.navigationBars.firstMatch.waitForExistence(timeout: 5)
         XCTAssert(navigationBar, "Should show first view with NavigationStack")
     }
     
     func test_error_alert_is_visible_when_login_fails() {
-        signIn(success: false)
+        app.signIn(success: false)
         XCTAssertTrue(app.staticTexts["Accesso non riuscito. Hai inserito il nome utente e la password corretti?"].waitForExistence(timeout: 5), "Login error should be shown")
-    }
-}
-
-extension LoginViewUITests {
-    
-    func signIn(success: Bool) {
-        app.launchEnvironment["-user-login-success"] = success ? "1" : "0"
-        app.launch()
-        
-        sleep(4)
-        let elementsQuery = app.scrollViews.otherElements
-        let usernameTextfield = elementsQuery.textFields["Username textfield"]
-        usernameTextfield.tap()
-        usernameTextfield.typeText("aaa")
-
-        let passwordTextfield = elementsQuery.secureTextFields["Password textfield"]
-        passwordTextfield.tap()
-        passwordTextfield.typeText("ddd")
-
-        let loginButton = app.buttons["Accedi"]
-        loginButton.tap()
     }
 }

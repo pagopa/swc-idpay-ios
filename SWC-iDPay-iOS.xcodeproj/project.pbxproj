@@ -15,6 +15,8 @@
 		B803D8D62B20D85700A7934E /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B803D8D52B20D85700A7934E /* AppStateManager.swift */; };
 		B81261242B57F1D4003304C8 /* XCUIElement+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81261232B57F1D4003304C8 /* XCUIElement+Extensions.swift */; };
 		B81261272B581512003304C8 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81261262B581512003304C8 /* MenuView.swift */; };
+		B812612A2B5834A4003304C8 /* MenuViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81261292B5834A4003304C8 /* MenuViewUITests.swift */; };
+		B812612C2B583EBB003304C8 /* XCUIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812612B2B583EBA003304C8 /* XCUIApplication+Extensions.swift */; };
 		B81FBDE32B5588A500BDB580 /* LoginViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81FBDE22B5588A500BDB580 /* LoginViewUITests.swift */; };
 		B864279D2B35D62000804A02 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B864279C2B35D61F00804A02 /* LoginView.swift */; };
 		B86D992C2B514BD4006B4D53 /* TransactionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */; };
@@ -57,6 +59,8 @@
 		B803D8D52B20D85700A7934E /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
 		B81261232B57F1D4003304C8 /* XCUIElement+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Extensions.swift"; sourceTree = "<group>"; };
 		B81261262B581512003304C8 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		B81261292B5834A4003304C8 /* MenuViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewUITests.swift; sourceTree = "<group>"; };
+		B812612B2B583EBA003304C8 /* XCUIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		B81FBDE22B5588A500BDB580 /* LoginViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewUITests.swift; sourceTree = "<group>"; };
 		B864279C2B35D61F00804A02 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionStatus.swift; sourceTree = "<group>"; };
@@ -154,8 +158,10 @@
 		9811BC202B177C970063E71B /* SWC-iDPay-iOSUITests */ = {
 			isa = PBXGroup;
 			children = (
+				B81261282B583488003304C8 /* Menu */,
 				B81FBDE12B55888B00BDB580 /* Login */,
 				B81261232B57F1D4003304C8 /* XCUIElement+Extensions.swift */,
+				B812612B2B583EBA003304C8 /* XCUIApplication+Extensions.swift */,
 			);
 			path = "SWC-iDPay-iOSUITests";
 			sourceTree = "<group>";
@@ -164,6 +170,14 @@
 			isa = PBXGroup;
 			children = (
 				B81261262B581512003304C8 /* MenuView.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		B81261282B583488003304C8 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				B81261292B5834A4003304C8 /* MenuViewUITests.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -452,6 +466,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B81FBDE32B5588A500BDB580 /* LoginViewUITests.swift in Sources */,
+				B812612A2B5834A4003304C8 /* MenuViewUITests.swift in Sources */,
+				B812612C2B583EBB003304C8 /* XCUIApplication+Extensions.swift in Sources */,
 				B81261242B57F1D4003304C8 /* XCUIElement+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

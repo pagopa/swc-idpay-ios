@@ -63,6 +63,7 @@ private struct MenuItem: View {
         .foregroundColor(color)
         .padding(.top, 14)
         .padding(.bottom, 12)
+        .accessibilityIdentifier("menu item")
     }
 }
 
