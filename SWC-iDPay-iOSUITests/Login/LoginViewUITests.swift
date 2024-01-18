@@ -25,22 +25,21 @@ final class LoginViewUITests: XCTestCase {
     
     func test_username_is_focused_when_entering_login_view() {
         app.launch()
-        sleep(6)
-        
         let elementsQuery = app.scrollViews.otherElements
         let usernameTextfield = elementsQuery.textFields["Username textfield"]
-
+        XCTAssert(usernameTextfield.waitForExistence(timeout: 6))
+        waitUntilElementHasFocus(element: usernameTextfield)
         XCTAssertTrue(usernameTextfield.hasKeyboardFocus(), "Username should be selected when entering login view")
     }
     
     func test_unfocus_textfields_when_tapping_on_view() {
         app.launch()
-        sleep(6)
         
         let elementsQuery = app.scrollViews.otherElements
         let usernameTextfield = elementsQuery.textFields["Username textfield"]
         let passwordTextfield = elementsQuery.secureTextFields["Password textfield"]
-
+        XCTAssert(usernameTextfield.waitForExistence(timeout: 6))
+        waitUntilElementHasFocus(element: usernameTextfield)
         XCTAssertTrue(usernameTextfield.hasKeyboardFocus(), "Username should be selected when entering login view")
 
         app.scrollViews.firstMatch.tap()
@@ -59,13 +58,13 @@ final class LoginViewUITests: XCTestCase {
     func test_access_button_enabling_when_textfields_are_filled() throws {
         app.launch()
 
-        sleep(6)
         let loginButton = app.buttons["Accedi"]
+        XCTAssert(loginButton.waitForExistence(timeout: 6))
         XCTAssertFalse(loginButton.isEnabled, "Login button should be disabled if textfields are empty")
 
         let elementsQuery = app.scrollViews.otherElements
         let usernameTextfield = elementsQuery.textFields["Username textfield"]
-        usernameTextfield.tap()
+        waitUntilElementHasFocus(element: usernameTextfield)
         usernameTextfield.typeText("aaa")
         XCTAssertFalse(loginButton.isEnabled, "Login button should be disabled if password textfield is empty")
 
@@ -79,12 +78,12 @@ final class LoginViewUITests: XCTestCase {
         
         app.launch()
 
-        sleep(6)
         let elementsQuery = app.scrollViews.otherElements
         let usernameTextfield = elementsQuery.textFields["Username textfield"]
+        XCTAssert(usernameTextfield.waitForExistence(timeout: 6))
         let passwordTextfield = elementsQuery.secureTextFields["Password textfield"]
 
-        usernameTextfield.tap()
+        waitUntilElementHasFocus(element: usernameTextfield)
         let aKey = app.keys["a"]
         aKey.tap()
         aKey.tap()
@@ -99,12 +98,12 @@ final class LoginViewUITests: XCTestCase {
         app.launchEnvironment["-user-login-success"] = "1"
         app.launch()
 
-        sleep(6)
         let elementsQuery = app.scrollViews.otherElements
         let usernameTextfield = elementsQuery.textFields["Username textfield"]
+        XCTAssert(usernameTextfield.waitForExistence(timeout: 6))
         let passwordTextfield = elementsQuery.secureTextFields["Password textfield"]
 
-        usernameTextfield.tap()
+        waitUntilElementHasFocus(element: usernameTextfield)
         let aKey = app.keys["a"]
         aKey.tap()
         aKey.tap()
@@ -121,41 +120,20 @@ final class LoginViewUITests: XCTestCase {
         app.keys["s"].tap()
         app.keyboards.buttons["fine"].tap()
 
-        XCTAssertFalse((passwordTextfield.hasKeyboardFocus() && passwordTextfield.hasKeyboardFocus()), "Should unfocuse textfields in form on next button tapped")
+        XCTAssertFalse((passwordTextfield.hasKeyboardFocus() && passwordTextfield.hasKeyboardFocus()), "Should unfocus textfields in form on next button tapped from password textfield")
 
         let spinner = app.windows.otherElements.matching(identifier: "spinner").element
         XCTAssert(spinner.waitForExistence(timeout: 2), "Should show loading spinner")
     }
 
     func test_initial_view_is_visible_when_login_succeeds() {
-        signIn(success: true)
+        app.signIn(success: true)
         let navigationBar = app.navigationBars.firstMatch.waitForExistence(timeout: 5)
         XCTAssert(navigationBar, "Should show first view with NavigationStack")
     }
     
     func test_error_alert_is_visible_when_login_fails() {
-        signIn(success: false)
+        app.signIn(success: false)
         XCTAssertTrue(app.staticTexts["Accesso non riuscito. Hai inserito il nome utente e la password corretti?"].waitForExistence(timeout: 5), "Login error should be shown")
-    }
-}
-
-extension LoginViewUITests {
-    
-    func signIn(success: Bool) {
-        app.launchEnvironment["-user-login-success"] = success ? "1" : "0"
-        app.launch()
-        
-        sleep(4)
-        let elementsQuery = app.scrollViews.otherElements
-        let usernameTextfield = elementsQuery.textFields["Username textfield"]
-        usernameTextfield.tap()
-        usernameTextfield.typeText("aaa")
-
-        let passwordTextfield = elementsQuery.secureTextFields["Password textfield"]
-        passwordTextfield.tap()
-        passwordTextfield.typeText("ddd")
-
-        let loginButton = app.buttons["Accedi"]
-        loginButton.tap()
     }
 }

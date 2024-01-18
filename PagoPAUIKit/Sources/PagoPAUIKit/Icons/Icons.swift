@@ -37,6 +37,9 @@ extension Image {
         case close = "close"
         case io = "iO"
         case share = "share"
+        case transactions = "transactions"
+        case faq = "faq"
+        case logout = "logout"
     }
 
     public init (icon: PAIcon) {

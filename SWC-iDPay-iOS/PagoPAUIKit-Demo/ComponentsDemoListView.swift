@@ -111,7 +111,8 @@ struct ComponentsDemoListView: View {
     @State var isPresentingWaitingView: Bool = false
     @State var dialogModel: ResultModel?
     @State var codeValue: String?
-    
+    @State var showMenu: Bool = false
+
     private var components: [Component] =
     Component.ComponentType.allCases.map {
         Component(type: $0)
@@ -193,7 +194,7 @@ struct ComponentsDemoListView: View {
             .toolbar(content: {
                 ToolbarItem(placement: .topBarLeading) {
                     Button{
-                        print("Show menu")
+                        showMenu.toggle()
                     } label: {
                         Image(icon: .menu)
                             .foregroundColor(.white)
@@ -244,6 +245,9 @@ struct ComponentsDemoListView: View {
             })],
             isPresenting: $isPresentingWaitingView
         )
+        .showSheet(isVisibile: $showMenu, maxHeight: 300) {
+            MenuView(showMenu: $showMenu)
+        }
     }
     
     private func infoAction() {
