@@ -13,10 +13,11 @@ extension XCUIApplication {
         self.launchEnvironment["-user-login-success"] = success ? "1" : "0"
         self.launch()
         
-        sleep(4)
         let elementsQuery = self.scrollViews.otherElements
         let usernameTextfield = elementsQuery.textFields["Username textfield"]
-        usernameTextfield.tap()
+        XCTAssert(usernameTextfield.waitForExistence(timeout: 6))
+        sleep(2)
+        XCTAssert(usernameTextfield.hasKeyboardFocus(), "Username textfield should be selected automatically")
         usernameTextfield.typeText("aaa")
 
         let passwordTextfield = elementsQuery.secureTextFields["Password textfield"]
