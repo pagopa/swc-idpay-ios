@@ -41,6 +41,7 @@ extension Image {
         case faq = "faq"
         case logout = "logout"
         case backspace = "backspace"
+        case arrowLeft = "arrow-left"
     }
 
     public init (icon: PAIcon) {
