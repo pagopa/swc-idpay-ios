@@ -48,6 +48,7 @@ public struct NumberPad: View {
             KeyPadButton("0")
             KeyPadButton("cancel", icon: .backspace)
         }
+        .frame(height: 56)
     }
     
     @ViewBuilder
@@ -61,6 +62,7 @@ public struct NumberPad: View {
             KeyPadButton("0")
             KeyPadButton("cancel", icon: .backspace)
         }
+        .frame(height: 56)
     }
     
 }
