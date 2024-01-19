@@ -19,6 +19,7 @@
 		B812612C2B583EBB003304C8 /* XCUIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812612B2B583EBA003304C8 /* XCUIApplication+Extensions.swift */; };
 		B81FBDE32B5588A500BDB580 /* LoginViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81FBDE22B5588A500BDB580 /* LoginViewUITests.swift */; };
 		B824E6BE2B59290F0050265D /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E6BD2B59290F0050265D /* XCTestCase+Extension.swift */; };
+		B824E6C12B5987840050265D /* BonusAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E6C02B5987840050265D /* BonusAmountView.swift */; };
 		B864279D2B35D62000804A02 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B864279C2B35D61F00804A02 /* LoginView.swift */; };
 		B86D992C2B514BD4006B4D53 /* TransactionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */; };
 		B86D992F2B5154CE006B4D53 /* AuthorizedTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = B86D992E2B5154CE006B4D53 /* AuthorizedTransaction.json */; };
@@ -28,6 +29,8 @@
 		B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */; };
 		B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */; };
 		B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE589A2B50445C006FB26C /* TransactionModel.swift */; };
+		B8CE22C22B5A937C00A4BC67 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE22C12B5A937C00A4BC67 /* MainView.swift */; };
+		B8CE22C42B5A944B00A4BC67 /* BonusAmountViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE22C32B5A944B00A4BC67 /* BonusAmountViewUITests.swift */; };
 		B8D708C82B56D81A00AF02A0 /* UITestingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D708C72B56D81A00AF02A0 /* UITestingHelper.swift */; };
 		B8D708CB2B56E09300AF02A0 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D708CA2B56E09300AF02A0 /* LoginViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -64,6 +67,7 @@
 		B812612B2B583EBA003304C8 /* XCUIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		B81FBDE22B5588A500BDB580 /* LoginViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewUITests.swift; sourceTree = "<group>"; };
 		B824E6BD2B59290F0050265D /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
+		B824E6C02B5987840050265D /* BonusAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusAmountView.swift; sourceTree = "<group>"; };
 		B864279C2B35D61F00804A02 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionStatus.swift; sourceTree = "<group>"; };
 		B86D992E2B5154CE006B4D53 /* AuthorizedTransaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AuthorizedTransaction.json; sourceTree = "<group>"; };
@@ -73,6 +77,8 @@
 		B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsDemoListView.swift; sourceTree = "<group>"; };
 		B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTicketView.swift; sourceTree = "<group>"; };
 		B8AE589A2B50445C006FB26C /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
+		B8CE22C12B5A937C00A4BC67 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		B8CE22C32B5A944B00A4BC67 /* BonusAmountViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusAmountViewUITests.swift; sourceTree = "<group>"; };
 		B8D708C72B56D81A00AF02A0 /* UITestingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestingHelper.swift; sourceTree = "<group>"; };
 		B8D708CA2B56E09300AF02A0 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,6 +132,7 @@
 		9811BC052B177C950063E71B /* SWC-iDPay-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B824E6BF2B5987500050265D /* BonusPayment */,
 				B81261252B581326003304C8 /* Menu */,
 				B8D708C62B56D80200AF02A0 /* UITesting */,
 				B86D99322B515BF6006B4D53 /* Initiative */,
@@ -137,6 +144,7 @@
 				B803D8D52B20D85700A7934E /* AppStateManager.swift */,
 				9811BC0A2B177C970063E71B /* Assets.xcassets */,
 				9811BC0C2B177C970063E71B /* Preview Content */,
+				B8CE22C12B5A937C00A4BC67 /* MainView.swift */,
 			);
 			path = "SWC-iDPay-iOS";
 			sourceTree = "<group>";
@@ -160,6 +168,7 @@
 		9811BC202B177C970063E71B /* SWC-iDPay-iOSUITests */ = {
 			isa = PBXGroup;
 			children = (
+				B8CE22C02B5A92AC00A4BC67 /* NumberPad */,
 				B81261282B583488003304C8 /* Menu */,
 				B81FBDE12B55888B00BDB580 /* Login */,
 				B81261232B57F1D4003304C8 /* XCUIElement+Extensions.swift */,
@@ -191,6 +200,14 @@
 				B81FBDE22B5588A500BDB580 /* LoginViewUITests.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		B824E6BF2B5987500050265D /* BonusPayment */ = {
+			isa = PBXGroup;
+			children = (
+				B824E6C02B5987840050265D /* BonusAmountView.swift */,
+			);
+			path = BonusPayment;
 			sourceTree = "<group>";
 		};
 		B86D992A2B514BA0006B4D53 /* Transaction */ = {
@@ -276,6 +293,14 @@
 				B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		B8CE22C02B5A92AC00A4BC67 /* NumberPad */ = {
+			isa = PBXGroup;
+			children = (
+				B8CE22C32B5A944B00A4BC67 /* BonusAmountViewUITests.swift */,
+			);
+			path = NumberPad;
 			sourceTree = "<group>";
 		};
 		B8D708C62B56D80200AF02A0 /* UITesting */ = {
@@ -442,11 +467,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */,
+				B8CE22C22B5A937C00A4BC67 /* MainView.swift in Sources */,
 				B81261272B581512003304C8 /* MenuView.swift in Sources */,
 				B86D99352B515C10006B4D53 /* Initiative.swift in Sources */,
 				B8D708CB2B56E09300AF02A0 /* LoginViewModel.swift in Sources */,
 				B803D8D62B20D85700A7934E /* AppStateManager.swift in Sources */,
 				B86D99382B5175B9006B4D53 /* ReceiptTicketViewModel.swift in Sources */,
+				B824E6C12B5987840050265D /* BonusAmountView.swift in Sources */,
 				B86D992C2B514BD4006B4D53 /* TransactionStatus.swift in Sources */,
 				B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */,
 				B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */,
@@ -468,6 +495,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8CE22C42B5A944B00A4BC67 /* BonusAmountViewUITests.swift in Sources */,
 				B81FBDE32B5588A500BDB580 /* LoginViewUITests.swift in Sources */,
 				B812612A2B5834A4003304C8 /* MenuViewUITests.swift in Sources */,
 				B812612C2B583EBB003304C8 /* XCUIApplication+Extensions.swift in Sources */,

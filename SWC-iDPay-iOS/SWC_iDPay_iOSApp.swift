@@ -20,26 +20,8 @@ struct SWC_iDPay_iOSApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ZStack {
-                switch appManager.state {
-                case .splash:
-                    SplashView {
-                        DispatchQueue.main.async {
-                            appManager.state = .login
-                        }
-                    }
-                case .login:
-                    LoginView(viewModel: LoginViewModel()) {
-                        DispatchQueue.main.async {
-                            appManager.state = .main
-                        }
-                    }
-                case .main:
-                    ComponentsDemoListView()
-                }
-            }
-//            .animation(.easeInOut(duration: 2.0), value: appManager.state)
-            .environmentObject(appManager)
+            MainView()
+                .environmentObject(appManager)
         }
     }
 }

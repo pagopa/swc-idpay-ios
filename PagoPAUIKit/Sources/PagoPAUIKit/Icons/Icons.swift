@@ -40,6 +40,7 @@ extension Image {
         case transactions = "transactions"
         case faq = "faq"
         case logout = "logout"
+        case backspace = "backspace"
     }
 
     public init (icon: PAIcon) {
