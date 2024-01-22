@@ -171,14 +171,15 @@ struct SheetDemoView: View {
                 }
             }
         }
-        .showSheet(isVisibile: $showSheet, maxHeight: 300.0) {
-            List {
+        .showSheet(isVisibile: $showSheet) {
+            VStack {
                 Text("Item 1")
                 Text("Item 2")
+                Text("Item 3")
             }
-            .listStyle(.plain)
-            .scrollDisabled(true)
-            .padding(40)
+            .padding(24)
+            .frame(maxWidth: .infinity)
+            .background(Color.grey50)
         }
     }
 }
