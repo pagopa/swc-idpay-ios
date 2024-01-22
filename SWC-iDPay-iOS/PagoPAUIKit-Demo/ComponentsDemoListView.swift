@@ -29,6 +29,7 @@ struct Component: Identifiable, Hashable {
         case receipt
         case waitingView
         case numberPad
+        case pinPad
         
         var name: String {
             switch self {
@@ -62,6 +63,8 @@ struct Component: Identifiable, Hashable {
                 return "Schermata di attesa"
             case .numberPad:
                 return "Numeric pad"
+            case .pinPad:
+                return "Pin pad"
             }
         }
         
@@ -100,6 +103,8 @@ struct Component: Identifiable, Hashable {
                 EmptyView()
             case .numberPad:
                 BonusAmountView()
+            case .pinPad:
+                CIEPinView()
             }
         }
     }
