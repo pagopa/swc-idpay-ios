@@ -12,10 +12,12 @@ public struct NumberPad: View {
     @Binding var string: String
     
     var type: PadType = .numeric
+    var pinLength: Int
     
-    public init(_ type: PadType, string: Binding<String>) {
+    public init(_ type: PadType, string: Binding<String>, pinLength: Int = 6) {
         self.type = type
         _string = string
+        self.pinLength = pinLength
     }
     
     public enum PadType {
@@ -86,7 +88,7 @@ extension NumberPad {
                 string.removeLast()
                 return
             }
-            guard string.count < 6 else {
+            guard string.count < pinLength else {
                 break
             }
             string += key
