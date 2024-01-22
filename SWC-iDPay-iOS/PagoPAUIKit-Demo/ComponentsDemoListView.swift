@@ -250,7 +250,7 @@ struct ComponentsDemoListView: View {
             })],
             isPresenting: $isPresentingWaitingView
         )
-        .showSheet(isVisibile: $showMenu, maxHeight: 300) {
+        .showSheet(isVisibile: $showMenu) {
             MenuView(showMenu: $showMenu)
         }
     }
