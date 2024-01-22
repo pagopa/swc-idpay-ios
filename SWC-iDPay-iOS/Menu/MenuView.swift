@@ -12,7 +12,7 @@ struct MenuView: View {
     @Binding var showMenu: Bool
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: Constants.xxlargeSpacing) {
             
             VStack(alignment: .leading, spacing: 0) {
                 MenuItem(title: "Accetta bonus ID Pay", icon: .bonus, showMenu: $showMenu) {
@@ -30,7 +30,6 @@ struct MenuView: View {
                 }
                 
             }
-            .padding(.bottom, Constants.xxlargeSpacing)
             
             MenuItem(title: "Esci", icon: .logout, color: .errorGraphic, showMenu: $showMenu) {
             }
@@ -84,14 +83,16 @@ struct MenuDemoView: View {
                 }
             }
         }
-        .showSheet(isVisibile: $showSheet, maxHeight: 300) {
+        .showSheet(isVisibile: $showSheet) {
             MenuView(showMenu: $showSheet)
         }
     }
 }
 
 #Preview {
-    MenuView(showMenu: .constant(true))
+    VStack {
+        MenuView(showMenu: .constant(true))
+    }
 }
 
 #Preview {

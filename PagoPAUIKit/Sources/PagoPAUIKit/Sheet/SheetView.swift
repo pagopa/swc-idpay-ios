@@ -9,16 +9,14 @@ import SwiftUI
 public struct SheetView<Content: View>: View {
     
     @Binding var showSheetPage: Bool
-    var maxHeight: CGFloat?
     @State private var showSheet: Bool = false
     @State private var offset: CGSize = .zero
     
     private var content: () -> Content
     
-    public init(showSheetPage: Binding<Bool>, maxHeight: CGFloat? = nil, @ViewBuilder content: @escaping () -> Content) {
+    public init(showSheetPage: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) {
         _showSheetPage = showSheetPage
         self.content = content
-        self.maxHeight = maxHeight
     }
     
     public var body: some View {
@@ -37,11 +35,10 @@ public struct SheetView<Content: View>: View {
                         Spacer()
                         
                         Sheet(
-                            maxHeight: maxHeight ?? proxy.size.height/2.0,
                             show: $showSheet,
                             content: content
                         )
-                        .offset(y: showSheet ? offset.height : (maxHeight ?? proxy.size.height/2.0))
+                        .offset(y: showSheet ? offset.height : proxy.size.height)
                         .animation(.easeInOut(duration: 0.4), value: showSheet)
                     }
                     .ignoresSafeArea()
@@ -94,12 +91,10 @@ public struct SheetView<Content: View>: View {
 
 private struct Sheet<Content: View>: View {
     
-    var maxHeight: CGFloat
     @Binding var show: Bool
     var content: Content
 
-    init(maxHeight: CGFloat, show: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) {
-        self.maxHeight = maxHeight
+    init(show: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) {
         _show = show
         self.content = content()
     }
@@ -125,7 +120,7 @@ private struct Sheet<Content: View>: View {
 
             content
         }
-        .frame(maxWidth: .infinity, maxHeight: maxHeight)
+        .frame(maxWidth: .infinity)
         .background(Color.white)
         .clipShape (
             .rect(
@@ -148,14 +143,14 @@ struct SheetModifier<V>: ViewModifier where V: View {
         
         content
             .overlay {
-                SheetView(showSheetPage: $show, maxHeight: maxHeight, content: sheetContent)
+                SheetView(showSheetPage: $show, content: sheetContent)
             }
     }
 }
 
 extension View {
-    public func showSheet<Content>(isVisibile: Binding<Bool>, maxHeight: CGFloat? = nil, content: @escaping () -> Content) -> some View where Content:View {
-        modifier(SheetModifier(show: isVisibile, maxHeight: maxHeight, sheetContent: content))
+    public func showSheet<Content>(isVisibile: Binding<Bool>, content: @escaping () -> Content) -> some View where Content:View {
+        modifier(SheetModifier(show: isVisibile, sheetContent: content))
     }
 }
 
@@ -176,14 +171,15 @@ struct SheetDemoView: View {
                 }
             }
         }
-        .showSheet(isVisibile: $showSheet, maxHeight: 300.0) {
-            List {
+        .showSheet(isVisibile: $showSheet) {
+            VStack {
                 Text("Item 1")
                 Text("Item 2")
+                Text("Item 3")
             }
-            .listStyle(.plain)
-            .scrollDisabled(true)
-            .padding(40)
+            .padding(24)
+            .frame(maxWidth: .infinity)
+            .background(Color.grey50)
         }
     }
 }
