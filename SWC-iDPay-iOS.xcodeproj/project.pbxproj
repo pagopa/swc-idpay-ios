@@ -26,6 +26,7 @@
 		B86D99312B51593A006B4D53 /* CancelledTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = B86D99302B51593A006B4D53 /* CancelledTransaction.json */; };
 		B86D99352B515C10006B4D53 /* Initiative.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D99342B515C10006B4D53 /* Initiative.swift */; };
 		B86D99382B5175B9006B4D53 /* ReceiptTicketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D99372B5175B9006B4D53 /* ReceiptTicketViewModel.swift */; };
+		B871E5CA2B5EA439008B67DD /* CIEPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871E5C92B5EA439008B67DD /* CIEPinView.swift */; };
 		B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */; };
 		B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */; };
 		B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE589A2B50445C006FB26C /* TransactionModel.swift */; };
@@ -76,6 +77,7 @@
 		B86D99302B51593A006B4D53 /* CancelledTransaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CancelledTransaction.json; sourceTree = "<group>"; };
 		B86D99342B515C10006B4D53 /* Initiative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initiative.swift; sourceTree = "<group>"; };
 		B86D99372B5175B9006B4D53 /* ReceiptTicketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTicketViewModel.swift; sourceTree = "<group>"; };
+		B871E5C92B5EA439008B67DD /* CIEPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIEPinView.swift; sourceTree = "<group>"; };
 		B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsDemoListView.swift; sourceTree = "<group>"; };
 		B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTicketView.swift; sourceTree = "<group>"; };
 		B8AE589A2B50445C006FB26C /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
@@ -136,6 +138,8 @@
 		9811BC052B177C950063E71B /* SWC-iDPay-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B871E5C82B5EA423008B67DD /* CIE */,
+				B8CE22CB2B5ADAA000A4BC67 /* Home */,
 				B8CE22C82B5ACCA100A4BC67 /* Utilities */,
 				B8CE22C52B5ACAEF00A4BC67 /* Assistenza */,
 				B824E6BF2B5987500050265D /* BonusPayment */,
@@ -258,6 +262,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		B871E5C82B5EA423008B67DD /* CIE */ = {
+			isa = PBXGroup;
+			children = (
+				B871E5C92B5EA439008B67DD /* CIEPinView.swift */,
+			);
+			path = CIE;
+			sourceTree = "<group>";
+		};
 		B89F15D52B35D022000E0B3C /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,6 +335,13 @@
 				B8CE22C92B5ACCCD00A4BC67 /* WebView.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		B8CE22CB2B5ADAA000A4BC67 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		B8D708C62B56D80200AF02A0 /* UITesting */ = {
@@ -503,6 +522,7 @@
 				B864279D2B35D62000804A02 /* LoginView.swift in Sources */,
 				B8D708C82B56D81A00AF02A0 /* UITestingHelper.swift in Sources */,
 				B8CE22C72B5ACB0200A4BC67 /* HelpView.swift in Sources */,
+				B871E5CA2B5EA439008B67DD /* CIEPinView.swift in Sources */,
 				9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
