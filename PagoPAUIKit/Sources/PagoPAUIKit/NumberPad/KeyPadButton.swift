@@ -52,7 +52,7 @@ struct KeyPadButtonStyle: ButtonStyle {
         ZStack {
             Circle()
                 .fill(configuration.isPressed ? Color.grey200 : Color.grey50)
-                .frame(width: 56, height: 56.0)
+                .frame(width: Constants.padButtonSize, height: Constants.padButtonSize)
             configuration.label
                 .font(.PAFont.h3)
                 .foregroundColor(.paPrimary)

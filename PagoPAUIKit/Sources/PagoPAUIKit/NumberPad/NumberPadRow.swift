@@ -20,6 +20,6 @@ struct NumberPadRow: View {
                 KeyPadButton(k)
             }
         }
-        .frame(height: 56.0)
+        .frame(height: Constants.padButtonSize)
     }
 }
