@@ -122,6 +122,7 @@ struct ComponentsDemoListView: View {
     @State var dialogModel: ResultModel?
     @State var codeValue: String?
     @State var showMenu: Bool = false
+    @State var showHelp: Bool = false
 
     private var components: [Component] =
     Component.ComponentType.allCases.map {
@@ -256,7 +257,11 @@ struct ComponentsDemoListView: View {
             isPresenting: $isPresentingWaitingView
         )
         .showSheet(isVisibile: $showMenu) {
-            MenuView(showMenu: $showMenu)
+            MenuView(showMenu: $showMenu, showHelp: $showHelp)
+        }
+        .fullScreenCover(isPresented: $showHelp) {
+            HelpView()
+                .ignoresSafeArea()
         }
     }
     
