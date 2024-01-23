@@ -10,6 +10,7 @@ import PagoPAUIKit
 
 struct MenuView: View {
     @Binding var showMenu: Bool
+    @Binding var showHelp: Bool
     
     var body: some View {
         VStack(alignment: .leading, spacing: Constants.xxlargeSpacing) {
@@ -26,9 +27,8 @@ struct MenuView: View {
                 Divider()
                 
                 MenuItem(title: "Assistenza", icon: .faq, showMenu: $showMenu) {
-                    
+                    showHelp.toggle()
                 }
-                
             }
             
             MenuItem(title: "Esci", icon: .logout, color: .errorGraphic, showMenu: $showMenu) {
@@ -69,7 +69,8 @@ private struct MenuItem: View {
 struct MenuDemoView: View {
     
     @State var showSheet: Bool = false
-    
+    @State var showHelp: Bool = false
+
     var body: some View {
         ZStack {
             Color.yellow
@@ -84,14 +85,14 @@ struct MenuDemoView: View {
             }
         }
         .showSheet(isVisibile: $showSheet) {
-            MenuView(showMenu: $showSheet)
+            MenuView(showMenu: $showSheet, showHelp: $showHelp)
         }
     }
 }
 
 #Preview {
     VStack {
-        MenuView(showMenu: .constant(true))
+        MenuView(showMenu: .constant(true), showHelp: .constant(false))
     }
 }
 
