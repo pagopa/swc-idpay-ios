@@ -30,7 +30,7 @@ struct BonusAmountView : View {
             paymentView
             
         }
-        .padding(24.0)
+        .padding(Constants.mediumSpacing)
     }
     
     @ViewBuilder

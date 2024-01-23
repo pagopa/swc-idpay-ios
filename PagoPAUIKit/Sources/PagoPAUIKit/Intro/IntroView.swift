@@ -44,6 +44,7 @@ public struct IntroView: View {
                     .frame(width: Constants.topIconSize, height: Constants.topIconSize)
                     .padding(.bottom, Constants.mediumSpacing)
                     .opacity(iconOpacity)
+                    .foregroundColor(theme.titleColor)
                 
                 Text(title)
                     .multilineTextAlignment(.center)

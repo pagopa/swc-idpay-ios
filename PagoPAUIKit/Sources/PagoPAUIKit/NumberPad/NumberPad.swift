@@ -50,7 +50,7 @@ public struct NumberPad: View {
             KeyPadButton("0")
             KeyPadButton("cancel", icon: .backspace)
         }
-        .frame(height: 56)
+        .frame(height: Constants.padButtonSize)
     }
     
     @ViewBuilder
@@ -58,13 +58,13 @@ public struct NumberPad: View {
         HStack {
             Circle()
                 .fill(.clear)
-                .frame(width: 56, height: 56.0)
+                .frame(width: Constants.padButtonSize, height: Constants.padButtonSize)
                 .padding()
             
             KeyPadButton("0")
             KeyPadButton("cancel", icon: .backspace)
         }
-        .frame(height: 56)
+        .frame(height: Constants.padButtonSize)
     }
     
 }

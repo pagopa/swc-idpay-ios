@@ -21,7 +21,7 @@ struct CIEPinView: View {
                 .font(.PAFont.h6)
                 .padding(.bottom, Constants.largeSpacing)
 
-            HStack {
+            HStack(spacing: Constants.smallSpacing) {
                 ForEach(0..<length, id:\.self) { n in
                     PinDot(filled: Binding<Bool> (
                         get: { pinString.count > n },
@@ -33,7 +33,7 @@ struct CIEPinView: View {
             Spacer()
             pinView
         }
-        .padding(24.0)
+        .padding(Constants.mediumSpacing)
 
     }
     
@@ -45,7 +45,9 @@ struct CIEPinView: View {
         CustomLoadingButton(
             buttonType: .primary,
             isLoading: $isLoading) {
+                #if DEBUG
                 print("PIN: \(pinString)")
+                #endif
             } label: {
                 Text("Conferma")
             }
@@ -59,9 +61,9 @@ private struct PinDot: View {
     
     var body: some View {
         Circle()
-            .stroke(filled ? Color.clear : Color.paPrimary, lineWidth: 2.0)
+            .stroke(filled ? Color.clear : Color.paPrimary, lineWidth: 2.0 * Constants.scaleFactor)
             .background(dotBackground)
-            .frame(width: 16)
+            .frame(width: Constants.pinDotSize)
     }
     
     @ViewBuilder

@@ -29,6 +29,9 @@ public struct Constants {
     public static let listItemIconSize   : CGFloat = Sizes.listItemIcon.rawValue * scaleFactor
     public static let topIconSize        : CGFloat = Sizes.topIcon.rawValue * scaleFactor
     public static let loaderSize         : CGFloat = Sizes.loader.rawValue * scaleFactor
+    public static let padButtonSize      : CGFloat = Sizes.padButton.rawValue * scaleFactor
+    public static let pinDotSize         : CGFloat = Sizes.pinDot.rawValue * scaleFactor
+
 }
 
 extension UIDevice {
