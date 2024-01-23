@@ -157,7 +157,7 @@ struct ComponentsDemoListView: View {
                         }
                         .font(.PAFont.cta)
                         .foregroundColor(.paPrimaryDark)
-                        .padding(.leading, Constants.xsmallSpacing)
+                        .padding(Constants.xsmallSpacing)
                 
                     } else if component.type == .waitingView {
                         
