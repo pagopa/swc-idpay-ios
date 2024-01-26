@@ -6,11 +6,14 @@
 //
 import SwiftUI
 import PagoPAUIKit
+import CIEScanner
 
 struct BonusAmountView : View {
     @State var isLoading: Bool = false
     @State var amountText: String = "0,00"
     
+    private var reader = CIEReader()
+
     var body: some View {
         VStack {
             Text("IMPORTO DEL BENE")
@@ -41,10 +44,25 @@ struct BonusAmountView : View {
         CustomLoadingButton(
             buttonType: .primary,
             isLoading: $isLoading) {
-                
+                Task {
+                    do {
+                        let publicKey = try await reader.scan()
+                        print("----- Public key found: ------\n\(String.binToHexRep(publicKey, asArray:true))")
+                    } catch {
+                        guard let cieError = error as? CIEReaderError else { return }
+                        switch cieError {
+                        case .scanNotSupported:
+                            print("NFC not available")
+                        default:
+                            break
+                        }
+                    }
+                }
+
             } label: {
                 Text("Conferma")
             }
+            .disabled(amountText == "0,00")
     }
 }
 
