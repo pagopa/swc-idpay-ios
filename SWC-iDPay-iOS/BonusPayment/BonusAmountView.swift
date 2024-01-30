@@ -46,8 +46,11 @@ struct BonusAmountView : View {
             isLoading: $isLoading) {
                 Task {
                     do {
-                        let publicKey = try await reader.scan()
-                        print("----- Public key found: ------\n\(String.binToHexRep(publicKey, asArray:true))")
+                        guard let nisAuthenticated = try await reader.scan() else {
+                            print("No NISAuthenticated found")
+                            return
+                        }
+                        print(nisAuthenticated.toString())
                     } catch {
                         guard let cieError = error as? CIEReaderError else { return }
                         switch cieError {

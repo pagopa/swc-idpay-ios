@@ -28,9 +28,9 @@ public enum CIEReaderError: Error, CustomStringConvertible {
 public class CIEReader: NSObject {
     
     private var session: NFCTagReaderSession?
-    private var activeContinuation: CheckedContinuation<[UInt8], Error>?
+    private var activeContinuation: CheckedContinuation<NisAuthenticated?, Error>?
     
-    public func scan() async throws -> [UInt8] {
+    public func scan() async throws -> NisAuthenticated? {
         guard NFCTagReaderSession.readingAvailable else {
             throw CIEReaderError.scanNotSupported
         }
@@ -57,7 +57,7 @@ extension CIEReader: NFCTagReaderSessionDelegate {
     public func tagReaderSession(_ session: NFCTagReaderSession, didInvalidateWithError error: Error) {
         
         if let readerError = error as? NFCReaderError, readerError.code == NFCReaderError.readerSessionInvalidationErrorUserCanceled {
-            activeContinuation?.resume(returning: [])
+            activeContinuation?.resume(returning: nil)
             activeContinuation = nil
         } else {
             activeContinuation?.resume(throwing: error)
@@ -116,8 +116,19 @@ extension CIEReader: NFCTagReaderSessionDelegate {
                 print("NIS:\(String(bytes: efIntServ1001, encoding: .utf8))")
                 
                 let publicKey = try await tagReader.readPublicKey()
+                
+                let sod = try await tagReader.readSODFile()
+                print("SOD response:\n \(String.hexStringFromBinary(sod, asArray:true))")
+
+                let nisAuthenticated = NisAuthenticated(
+                    nis: String.base64StringFromBinary(efIntServ1001),
+                    kpubIntServ: String.base64StringFromBinary(publicKey),
+                    haskKpubIntServ: "",
+                    sod: String.base64StringFromBinary(sod),
+                    challengeSigned: ""
+                )
                 session.alertMessage = "Lettura carta OK"
-                activeContinuation?.resume(returning: publicKey)
+                activeContinuation?.resume(returning: nisAuthenticated)
                 activeContinuation = nil
             } catch {
                 if let error = error as? CIEReaderError {

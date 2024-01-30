@@ -10,12 +10,15 @@ import CoreNFC
 
 class TagReader {
     
+    // MARK: - Variables
     private var tag: NFCISO7816Tag
     
+    // MARK: - Init method
     init( tag: NFCISO7816Tag ) {
         self.tag = tag
     }
     
+    // MARK: - Selections
     func selectMasterFile() async throws  {
         print("Select Master File -->")
         let apdu = NFCISO7816APDU(instructionClass: 0x00, instructionCode: 0xA4, p1Parameter: 0x00, p2Parameter: 0x0C, data: Data([0x3f,0x00]), expectedResponseLength: -1)
@@ -41,6 +44,7 @@ class TagReader {
         return try await send(cmd: apdu)
     }
     
+    // MARK: - Reading
     func readNIS() async throws -> ResponseAPDU {
         print("Read NIS -->")
         guard let apdu = NFCISO7816APDU(data: Data([0x00, 0xB0, 0x81, 0x00, 0x0C])) else {
@@ -60,11 +64,11 @@ class TagReader {
         do {
             let firstResponse = try await tag.sendCommand(apdu: firstApdu)
             var firstRep = ResponseAPDU(data: [UInt8](firstResponse.0), sw1: firstResponse.1, sw2: firstResponse.2)
-            print(String(format:"Public key - First APDU response:\n \(String.binToHexRep(firstRep.data, asArray:true)), sw1:0x%02x sw2:0x%02x", firstRep.sw1, firstRep.sw2))
+            print(String(format:"Public key - First APDU response:\n \(String.hexStringFromBinary(firstRep.data, asArray:true)), sw1:0x%02x sw2:0x%02x", firstRep.sw1, firstRep.sw2))
             
             let secondResponse = try await tag.sendCommand(apdu: secondApdu)
             var secondRep = ResponseAPDU(data: [UInt8](secondResponse.0), sw1: secondResponse.1, sw2: secondResponse.2)
-            print(String(format:"Public key - Second APDU response:\n \(String.binToHexRep(secondRep.data, asArray:true)), sw1:0x%02x sw2:0x%02x", secondRep.sw1, secondRep.sw2))
+            print(String(format:"Public key - Second APDU response:\n \(String.hexStringFromBinary(secondRep.data, asArray:true)), sw1:0x%02x sw2:0x%02x", secondRep.sw1, secondRep.sw2))
             
             let mergedBytes = firstRep.data + secondRep.data
             return mergedBytes
@@ -75,18 +79,55 @@ class TagReader {
             throw error
         }
     }
+
+    func readSODFile() async throws -> [UInt8] {
+        var sodIASData = [UInt8]()
+        var idx = 0
+        var size = 0xe4
+        var sodLoaded = false
+        
+        var apdu: [UInt8] = [0x00, 0xB1, 0x00, 0x06]
+        
+        while !sodLoaded {
+            var offset =  idx.toByteArray(pad: 4)
+            var dataInput = [0x54, 0x02, offset[0], offset[1]]
+            
+            let resp = try await sendApdu(head: apdu, data: dataInput, le: [0xe7])
+            var chn = resp.data
+
+            var newOffset = 2
+            
+            if (chn[1] > 0x80) {
+                newOffset += Int(chn[1] - 0x80)
+            }
+            
+            var buf = chn[newOffset..<chn.count]
+            var combined = sodIASData + buf
+            sodIASData = combined
+            
+            if resp.sw1 != 0x90 && resp.sw2 != 0x00 {
+                sodLoaded = true
+            } else {
+                idx += size
+            }
+
+        }
+        print("SOD size:\(sodIASData.count)")
+        return sodIASData
+    }
     
-    func send( cmd: NFCISO7816APDU ) async throws -> ResponseAPDU {
+    // MARK: - Commands
+    func send(cmd: NFCISO7816APDU) async throws -> ResponseAPDU {
         print( "TagReader - sending \(cmd)" )
         var toSend = cmd
         
         let (data, sw1, sw2) = try await tag.sendCommand(apdu: toSend)
         var rep = ResponseAPDU(data: [UInt8](data), sw1: sw1, sw2: sw2)
         
-        print("\(String(format:"TagReader response: \(String.binToHexRep(rep.data, asArray:true)), sw1:0x%02x sw2:0x%02x", rep.sw1, rep.sw2))" )
-            
+        print("\(String(format:"TagReader response: \(String.hexStringFromBinary(rep.data, asArray:true)), sw1:0x%02x sw2:0x%02x", rep.sw1, rep.sw2))" )
+        
         if rep.sw1 != 0x90 && rep.sw2 != 0x00 {
-            print( "Error reading tag: sw1 - 0x\(String.binToHexRep(sw1)), sw2 - 0x\(String.binToHexRep(sw2))" )
+            print( "Error reading tag: sw1 - 0x\(String.hexStringFromBinary(sw1)), sw2 - 0x\(String.hexStringFromBinary(sw2))" )
             let tagError: CIEReaderError
             
             if (rep.sw1 == 0x63 && rep.sw2 == 0x00) {
@@ -98,10 +139,103 @@ class TagReader {
             }
             throw tagError
         }
-
+        
         return rep
     }
     
+    private func sendApdu(head: [UInt8], data: [UInt8], le: [UInt8]?) async throws -> ResponseAPDU {
+
+            var apdu = [UInt8]()
+            var headMod = head
+            var ds: Int = data.count
+            
+            if(ds > 255){
+                var i = 0
+                var cla: UInt8 = head[0]
+                
+                while(true){
+                    var s: [UInt8] = Utils.getSubArray(from: data, start: i, end: min((data.count-i), 255))
+                    i += s.count
+                    if(i != data.count) {
+                        headMod[0] = (UInt8)(cla | 0x10)
+                    }
+                    else {
+                        headMod[0] = cla
+                    }
+                    
+                    apdu.append(contentsOf: headMod)
+                    apdu.append(contentsOf: s.count.toByteArray(pad: 2))
+                    apdu.append(contentsOf: s)
+                    if(le != nil) {
+                        apdu += le!
+                    }
+                    
+                    guard var modApdu = NFCISO7816APDU(data: Data(apdu)) else {
+                        throw CIEReaderError.responseError("Error constructing apdu")
+                    }
+                    
+                    let (data, sw1, sw2) = try await tag.sendCommand(apdu: modApdu)
+                    var rep = ResponseAPDU(data: [UInt8](data), sw1: sw1, sw2: sw2)
+                    
+                    print("\(String(format:"TagReader response: \(String.hexStringFromBinary(rep.data, asArray:true)), sw1:0x%02x sw2:0x%02x", rep.sw1, rep.sw2))" )
+                    
+                    
+                    if rep.sw1 != 0x90 && rep.sw2 != 0x00 {
+                        print( "Error reading tag: sw1 - 0x\(String.hexStringFromBinary(sw1)), sw2 - 0x\(String.hexStringFromBinary(sw2))" )
+                        let tagError: CIEReaderError
+                        
+                        if (rep.sw1 == 0x63 && rep.sw2 == 0x00) {
+                            tagError = .invalidTag
+                        } else {
+                            let errorMsg = self.decodeError(sw1: rep.sw1, sw2: rep.sw2)
+                            print("reason: \(errorMsg)" )
+                            tagError = CIEReaderError.responseError(errorMsg)
+                        }
+                        throw tagError
+                    }
+                    
+                    if i == data.count {
+                        print("getResp....")
+                        return rep
+                    }
+
+                }
+            } else {
+                #if DEBUG
+                print("data lenght <= 255")
+                #endif
+                if(data.isEmpty == false){
+                    apdu.append(contentsOf: headMod)
+                    apdu.append(contentsOf: data.count.toByteArray(pad: 2))
+                    apdu += data
+
+                    if(le != nil) {
+                        apdu += le!
+                    }
+                    
+                } else {
+                    apdu += head
+                    
+                    if(le != nil) {
+                        apdu += le!
+                    }
+                }
+                
+                guard var modApdu = NFCISO7816APDU(data: Data(apdu)) else {
+                    throw CIEReaderError.responseError("Error constructing apdu")
+                }
+                
+                let (data, sw1, sw2) = try await tag.sendCommand(apdu: modApdu)
+                var rep = ResponseAPDU(data: [UInt8](data), sw1: sw1, sw2: sw2)
+                
+                print("\(String(format:"TagReader response: \(String.hexStringFromBinary(rep.data, asArray:true)), sw1:0x%02x sw2:0x%02x", rep.sw1, rep.sw2))" )
+                
+                print("chunk response < 255")
+                return rep
+                
+            }
+    }
+
 }
 
 // MARK: - Error Helper
@@ -173,7 +307,7 @@ extension TagReader {
             return errorMsg
         }
         
-        return "Unknown error - sw1: 0x\(String.binToHexRep(sw1)), sw2 - 0x\(String.binToHexRep(sw2)) "
+        return "Unknown error - sw1: 0x\(String.hexStringFromBinary(sw1)), sw2 - 0x\(String.hexStringFromBinary(sw2)) "
     }
     
     
