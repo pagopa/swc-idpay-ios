@@ -30,6 +30,14 @@ public class CIEReader: NSObject {
     private var session: NFCTagReaderSession?
     private var activeContinuation: CheckedContinuation<NisAuthenticated?, Error>?
     
+    private var readCardMessage: String
+    private var confirmCardReadMessage: String
+    
+    public init(readCardMessage: String = "Avvicina la CIE al lettore", confirmCardReadMessage: String = "Lettura carta OK") {
+        self.readCardMessage = readCardMessage
+        self.confirmCardReadMessage = confirmCardReadMessage
+    }
+    
     public func scan() async throws -> NisAuthenticated? {
         guard NFCTagReaderSession.readingAvailable else {
             throw CIEReaderError.scanNotSupported
@@ -38,7 +46,7 @@ public class CIEReader: NSObject {
         let publicKey = try await withCheckedThrowingContinuation { continuation in
             activeContinuation = continuation
             session = NFCTagReaderSession(pollingOption: [.iso14443], delegate: self, queue: DispatchQueue.main)
-            session?.alertMessage = "Avvicina la CIE al lettore"
+            session?.alertMessage = readCardMessage
             session?.begin()
         }
         
@@ -127,7 +135,7 @@ extension CIEReader: NFCTagReaderSessionDelegate {
                     sod: String.base64StringFromBinary(sod),
                     challengeSigned: ""
                 )
-                session.alertMessage = "Lettura carta OK"
+                session.alertMessage = confirmCardReadMessage
                 activeContinuation?.resume(returning: nisAuthenticated)
                 activeContinuation = nil
             } catch {
