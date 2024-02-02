@@ -76,29 +76,29 @@ extension CIEReader: NFCTagReaderSessionDelegate {
     
     public func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
         
-            if tags.count > 1 {
-                // Restart polling in 500ms
-                let retryInterval = DispatchTimeInterval.milliseconds(500)
-                session.alertMessage = "More than 1 tag is detected, please remove all tags and try again."
-                Task(priority: .userInitiated) {
-                    session.restartPolling()
-                }
-                return
+        if tags.count > 1 {
+            // Restart polling in 500ms
+            let retryInterval = DispatchTimeInterval.milliseconds(500)
+            session.alertMessage = "More than 1 tag is detected, please remove all tags and try again."
+            Task(priority: .userInitiated) {
+                session.restartPolling()
             }
-            
-            let tag = tags.first!
-
-            var cieTag: NFCISO7816Tag
-            switch tags.first! {
-            case let .iso7816(tag):
-                cieTag = tag
-            default:
-                print( "tagReaderSession: invalid tag detected!!!" )
-                session.invalidate(errorMessage: "Error reading CIE: Invalid tag detected")
-                activeContinuation?.resume(throwing: CIEReaderError.invalidTag)
-                activeContinuation = nil
-                return
-            }
+            return
+        }
+        
+        let tag = tags.first!
+        
+        var cieTag: NFCISO7816Tag
+        switch tags.first! {
+        case let .iso7816(tag):
+            cieTag = tag
+        default:
+            print( "tagReaderSession: invalid tag detected!!!" )
+            session.invalidate(errorMessage: "Error reading CIE: Invalid tag detected")
+            activeContinuation?.resume(throwing: CIEReaderError.invalidTag)
+            activeContinuation = nil
+            return
+        }
         
         Task { [cieTag] in
             do {
@@ -150,19 +150,5 @@ extension CIEReader: NFCTagReaderSessionDelegate {
                 activeContinuation = nil
             }
         }
-    }
-    
-    
-}
-
-extension Data {
-    struct HexEncodingOptions: OptionSet {
-        let rawValue: Int
-        static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
-    }
-
-    func hexEncodedString(options: HexEncodingOptions = []) -> String {
-        let format = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
-        return map { String(format: format, $0) }.joined()
     }
 }
