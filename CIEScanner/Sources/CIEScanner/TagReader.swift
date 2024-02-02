@@ -71,8 +71,14 @@ class TagReader {
             print(String(format:"Public key - Second APDU response:\n \(String.hexStringFromBinary(secondRep.data, asArray:true)), sw1:0x%02x sw2:0x%02x", secondRep.sw1, secondRep.sw2))
             
             let mergedBytes = firstRep.data + secondRep.data
+            
+            print("\n------------ START PUBLIC KEY ------------------")
+            var publicKeyData: Data = mergedBytes.withUnsafeBufferPointer { Data(buffer: $0) }
+            let hexPublicKey: String = publicKeyData.hexEncodedString(options: .upperCase)
+            print("\(hexPublicKey)")
+            print("------------ END PUBLIC KEY ------------------\n\n")
+            
             return mergedBytes
-            // TODO: mergedBytes contiene la chiave pubblica completa, forse è necessario estrapolare l'esponente
             
         } catch {
             print("Error:\(error)")
@@ -115,6 +121,34 @@ class TagReader {
         print("SOD size:\(sodIASData.count)")
         return sodIASData
     }
+    
+    func intAuth(challenge: String) async throws -> [UInt8] {
+        // REAL CHALLENGE
+//        var challengeByte: [UInt8] = challenge.byteArrayFromHexString()
+        // TEST CHALLENGE:
+        var challengeByte: [UInt8] = [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07]
+        return try await signIntAuth(challengeByte)
+    }
+
+    private func signIntAuth(_ dataToSign: [UInt8]) async throws -> [UInt8]  {
+        guard let settingAuth = NFCISO7816APDU(data: Data([0x00, 0x22, 0x41, 0xA4, 0x06, 0x80, 0x01, 0x02, 0x84, 0x01, 0x83])) else { return [] }
+        let respSettingAuth = try await send(cmd: settingAuth)
+//        print(String(format:"respSettingAuth:\n \(String.hexStringFromBinary(respSettingAuth.data, asArray:true)), sw1:0x%02x sw2:0x%02x", respSettingAuth.sw1, respSettingAuth.sw2))
+        
+        let intAuthApdu = NFCISO7816APDU(instructionClass: 0x00, instructionCode: 0x88, p1Parameter: 0x00, p2Parameter: 0x00, data: Data(dataToSign), expectedResponseLength: 256)
+        let responseAuthChallenge = try await send(cmd: intAuthApdu)
+        
+        // Debug prints
+        print("\n\n------- START AUTH CHALLENGE RESPONSE --------")
+        print(String(format:"\(String.hexStringFromBinary(responseAuthChallenge.data, asArray:true)), sw1:0x%02x sw2:0x%02x", responseAuthChallenge.sw1, responseAuthChallenge.sw2))
+        let hexIntAuth: String = Data(responseAuthChallenge.data).hexEncodedString(options: .upperCase)
+        print("------- HEX STRING --------")
+        print("\(hexIntAuth)")
+        print("------- END AUTH CHALLENGE RESPONSE --------\n\n")
+        
+        return responseAuthChallenge.data
+    }
+
     
     // MARK: - Commands
     func send(cmd: NFCISO7816APDU) async throws -> ResponseAPDU {

@@ -128,12 +128,14 @@ extension CIEReader: NFCTagReaderSessionDelegate {
                 let sod = try await tagReader.readSODFile()
                 print("SOD response:\n \(String.hexStringFromBinary(sod, asArray:true))")
 
+                let challengeSigned = try await tagReader.intAuth(challenge: "")
+
                 let nisAuthenticated = NisAuthenticated(
                     nis: String.base64StringFromBinary(efIntServ1001),
                     kpubIntServ: String.base64StringFromBinary(publicKey),
                     haskKpubIntServ: "",
                     sod: String.base64StringFromBinary(sod),
-                    challengeSigned: ""
+                    challengeSigned: String.base64StringFromBinary(challengeSigned)
                 )
                 session.alertMessage = confirmCardReadMessage
                 activeContinuation?.resume(returning: nisAuthenticated)
@@ -150,4 +152,17 @@ extension CIEReader: NFCTagReaderSessionDelegate {
         }
     }
     
+    
+}
+
+extension Data {
+    struct HexEncodingOptions: OptionSet {
+        let rawValue: Int
+        static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
+    }
+
+    func hexEncodedString(options: HexEncodingOptions = []) -> String {
+        let format = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
+        return map { String(format: format, $0) }.joined()
+    }
 }
