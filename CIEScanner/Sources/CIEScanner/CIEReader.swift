@@ -68,13 +68,21 @@ extension CIEReader: NFCTagReaderSessionDelegate {
         loggerManager.log("-------------------------------------\n" +
                         "          Session STARTED            \n" +
                         "-------------------------------------")
+        session.alertMessage = "LETTURA IN CORSO\ntieni ferma la carta per qualche secondo..."
     }
     
     public func tagReaderSession(_ session: NFCTagReaderSession, didInvalidateWithError error: Error) {
         
-        if let readerError = error as? NFCReaderError, readerError.code == NFCReaderError.readerSessionInvalidationErrorUserCanceled {
-            activeContinuation?.resume(returning: nil)
-            activeContinuation = nil
+        if let readerError = error as? NFCReaderError{
+            switch readerError.code {
+            case .readerSessionInvalidationErrorUserCanceled:
+                activeContinuation?.resume(returning: nil)
+                activeContinuation = nil
+            default:
+                session.alertMessage = NFCReaderError.decodeError(readerError) ?? ""
+                activeContinuation?.resume(throwing: error)
+                activeContinuation = nil
+            }
         } else {
             activeContinuation?.resume(throwing: error)
             activeContinuation = nil
@@ -103,8 +111,8 @@ extension CIEReader: NFCTagReaderSessionDelegate {
         case let .iso7816(tag):
             cieTag = tag
         default:
-            print( "tagReaderSession: invalid tag detected!!!" )
-            session.invalidate(errorMessage: "Error reading CIE: Invalid tag detected")
+            loggerManager.log(CIEReaderError.invalidTag.description)
+            session.invalidate(errorMessage: CIEReaderError.invalidTag.description)
             activeContinuation?.resume(throwing: CIEReaderError.invalidTag)
             activeContinuation = nil
             return
@@ -132,7 +140,6 @@ extension CIEReader: NFCTagReaderSessionDelegate {
                 let publicKey = try await tagReader.readPublicKey()
                 
                 let sod = try await tagReader.readSODFile()
-                print("SOD response:\n \(String.hexStringFromBinary(sod, asArray:true))")
 
                 let challengeSigned = try await tagReader.intAuth(challenge: "")
 
@@ -147,14 +154,33 @@ extension CIEReader: NFCTagReaderSessionDelegate {
                 activeContinuation?.resume(returning: nisAuthenticated)
                 activeContinuation = nil
             } catch {
-                if let error = error as? CIEReaderError {
-                    session.invalidate(errorMessage: "Error reading CIE: \(error.description)")
-                } else {
-                    session.invalidate(errorMessage: "Error reading CIE: \(error.localizedDescription)")
+                if let CIE_error = error as? CIEReaderError {
+                    session.invalidate(errorMessage: "Error reading CIE: \(CIE_error.description)")
+                } else if let NFC_error = error as? NFCReaderError {
+                    if let message = NFCReaderError.decodeError(NFC_error) {
+                        session.invalidate(errorMessage: message)
+                    } else {
+                        session.invalidate()
+                    }
                 }
-                activeContinuation?.resume(throwing: CIEReaderError.responseError("error"))
+                activeContinuation?.resume(throwing: error)
                 activeContinuation = nil
             }
         }
     }
+}
+
+extension NFCReaderError {
+    
+    public static func decodeError(_ error: NFCReaderError) -> String? {
+        switch error.code {
+        case .readerTransceiveErrorTagConnectionLost, .readerTransceiveErrorTagResponseError:
+            return "Hai rimosso la carta troppo presto"
+        case .readerSessionInvalidationErrorUserCanceled:
+            return nil
+        default:
+            return "Lettura carta non riuscita"
+        }
+    }
+
 }

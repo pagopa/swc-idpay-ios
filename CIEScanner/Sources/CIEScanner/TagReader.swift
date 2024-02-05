@@ -60,7 +60,6 @@ class TagReader {
         let NISResponse = try await send(cmd: apdu)
         
         loggerManager.log_APDU_response(NISResponse, message: "Response NIS: ")
-        
         loggerManager.log("NIS string value: \(String.hexStringFromBinary(NISResponse.data))")
         return NISResponse
         
@@ -82,13 +81,13 @@ class TagReader {
             loggerManager.log_APDU_response(secondRep, message: "Public key - Second APDU response:")
             
             let mergedBytes = firstRep.data + secondRep.data
-            loggerManager.log("Public key - MERGED:\n \(String.hexStringFromBinary(mergedBytes, asArray:true))")
+//            loggerManager.log("Public key - MERGED:\n \(String.hexStringFromBinary(mergedBytes, asArray:true))")
             
-            print("\n------------ START PUBLIC KEY ------------------")
+            loggerManager.log("\n------------ START PUBLIC KEY ------------------")
             var publicKeyData: Data = mergedBytes.withUnsafeBufferPointer { Data(buffer: $0) }
             let hexPublicKey: String = publicKeyData.hexEncodedString(options: .upperCase)
-            print("\(hexPublicKey)")
-            print("------------ END PUBLIC KEY ------------------\n\n")
+            loggerManager.log("\(hexPublicKey)")
+            loggerManager.log("------------ END PUBLIC KEY ------------------\n\n")
             
             return mergedBytes
             
@@ -132,7 +131,10 @@ class TagReader {
 
         }
         
-        loggerManager.log("Response SOD: \(String.hexStringFromBinary(sodIASData, asArray:true))")
+        loggerManager.log("\n------------ START SOD ------------------")
+        loggerManager.log(String.hexStringFromBinary(sodIASData, asArray:true))
+        loggerManager.log("------------ END SOD ------------------\n\n")
+
         return sodIASData
     }
     
@@ -147,18 +149,17 @@ class TagReader {
     private func signIntAuth(_ dataToSign: [UInt8]) async throws -> [UInt8]  {
         guard let settingAuth = NFCISO7816APDU(data: Data([0x00, 0x22, 0x41, 0xA4, 0x06, 0x80, 0x01, 0x02, 0x84, 0x01, 0x83])) else { return [] }
         let respSettingAuth = try await send(cmd: settingAuth)
-//        print(String(format:"respSettingAuth:\n \(String.hexStringFromBinary(respSettingAuth.data, asArray:true)), sw1:0x%02x sw2:0x%02x", respSettingAuth.sw1, respSettingAuth.sw2))
         
         let intAuthApdu = NFCISO7816APDU(instructionClass: 0x00, instructionCode: 0x88, p1Parameter: 0x00, p2Parameter: 0x00, data: Data(dataToSign), expectedResponseLength: 256)
         let responseAuthChallenge = try await send(cmd: intAuthApdu)
         
         // Debug prints
-        print("\n\n------- START AUTH CHALLENGE RESPONSE --------")
-        print(String(format:"\(String.hexStringFromBinary(responseAuthChallenge.data, asArray:true)), sw1:0x%02x sw2:0x%02x", responseAuthChallenge.sw1, responseAuthChallenge.sw2))
+        loggerManager.log("\n\n------- START AUTH CHALLENGE RESPONSE --------")
+        loggerManager.log(String(format:"\(String.hexStringFromBinary(responseAuthChallenge.data, asArray:true)), sw1:0x%02x sw2:0x%02x", responseAuthChallenge.sw1, responseAuthChallenge.sw2))
         let hexIntAuth: String = Data(responseAuthChallenge.data).hexEncodedString(options: .upperCase)
-        print("------- HEX STRING --------")
-        print("\(hexIntAuth)")
-        print("------- END AUTH CHALLENGE RESPONSE --------\n\n")
+        loggerManager.log("------- HEX STRING --------")
+        loggerManager.log("\(hexIntAuth)")
+        loggerManager.log("------- END AUTH CHALLENGE RESPONSE --------\n\n")
         
         return responseAuthChallenge.data
     }
@@ -166,13 +167,11 @@ class TagReader {
     
     // MARK: - Commands
     func send(cmd: NFCISO7816APDU) async throws -> ResponseAPDU {
-//        logger.print_CIE( "TagReader - sending \(cmd)" )
         var toSend = cmd
         
         let (data, sw1, sw2) = try await tag.sendCommand(apdu: toSend)
         var rep = ResponseAPDU(data: [UInt8](data), sw1: sw1, sw2: sw2)
         
-//        logger.print_CIE_response(rep, domain: .TAG_Reader, message: "TagReader response: ")
         if rep.sw1 != 0x90 && rep.sw2 != 0x00 {
             loggerManager.log( "🔴 [ERROR] reading tag: sw1 - 0x\(String.hexStringFromBinary(sw1)), sw2 - 0x\(String.hexStringFromBinary(sw2))" )
             let tagError: CIEReaderError
@@ -223,10 +222,7 @@ class TagReader {
                     
                     let (data, sw1, sw2) = try await tag.sendCommand(apdu: modApdu)
                     var rep = ResponseAPDU(data: [UInt8](data), sw1: sw1, sw2: sw2)
-                    
-//                    loggerManager.print_CIE_response(rep, domain: .TAG_Reader, message: "TagReader response: ")
-
-                    
+                                        
                     if rep.sw1 != 0x90 && rep.sw2 != 0x00 {
                         loggerManager.log( "🔴 [ERROR] reading tag: sw1 - 0x\(String.hexStringFromBinary(sw1)), sw2 - 0x\(String.hexStringFromBinary(sw2))" )
                         let tagError: CIEReaderError
@@ -242,14 +238,12 @@ class TagReader {
                     }
                     
                     if i == data.count {
-//                        loggerManager.print_CIE("GetResp....")
                         return rep
                     }
 
                 }
             } else {
                 
-//                loggerManager.print_CIE("Data lenght <= 255")
                 if(data.isEmpty == false){
                     apdu.append(contentsOf: headMod)
                     apdu.append(contentsOf: data.count.toByteArray(pad: 2))
@@ -274,11 +268,7 @@ class TagReader {
                 let (data, sw1, sw2) = try await tag.sendCommand(apdu: modApdu)
                 var rep = ResponseAPDU(data: [UInt8](data), sw1: sw1, sw2: sw2)
                 
-//                loggerManager.print_CIE_response(rep, domain: .TAG_Reader, message: "TagReader response: ")
-
-//                loggerManager.print_CIE("Chunk response lenght < 255")
                 return rep
-                
             }
     }
 
