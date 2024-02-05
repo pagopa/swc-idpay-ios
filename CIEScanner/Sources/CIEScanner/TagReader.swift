@@ -12,50 +12,62 @@ class TagReader {
     
     // MARK: - Variables
     private var tag: NFCISO7816Tag
+    var loggerManager: CIELogger
     
     // MARK: - Init method
-    init( tag: NFCISO7816Tag ) {
+    init( tag: NFCISO7816Tag, logger: CIELogger ) {
         self.tag = tag
+        self.loggerManager = logger
     }
     
     // MARK: - Selections
     func selectMasterFile() async throws  {
-        print("Select Master File -->")
+        loggerManager.log("\nRead Master File -->")
         let apdu = NFCISO7816APDU(instructionClass: 0x00, instructionCode: 0xA4, p1Parameter: 0x00, p2Parameter: 0x0C, data: Data([0x3f,0x00]), expectedResponseLength: -1)
         
         _ = try await send( cmd: apdu)
     }
     
     func selectIAS() async throws -> ResponseAPDU {
-        print("Select IAS -->")
+        loggerManager.log("\nRead IAS -->")
         guard let apdu = NFCISO7816APDU(data: Data([0x00, 0xA4, 0x04, 0x0C, 0x0d, 0xA0, 0x00, 0x00, 0x00, 0x30, 0x80, 0x00, 0x00, 0x00, 0x09, 0x81, 0x60, 0x01])) else {
             fatalError("Wrong APDU command")
         }
         
-        return try await send(cmd: apdu)
+        let IASResponse = try await send(cmd: apdu)
+        
+        loggerManager.log_APDU_response(IASResponse, message: "Response IAS: ")
+        return IASResponse
     }
     
     func selectCIE() async throws -> ResponseAPDU {
-        print("Select CIE -->")
+        loggerManager.log("\nRead CIE -->")
         guard let apdu = NFCISO7816APDU(data: Data([0x00, 0xA4, 0x04, 0x0C, 0x06, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x39])) else {
             fatalError("Wrong APDU command")
         }
+        let CIEResponse = try await send(cmd: apdu)
         
-        return try await send(cmd: apdu)
+        loggerManager.log_APDU_response(CIEResponse, message: "Response CIE: ")
+        return CIEResponse
     }
     
     // MARK: - Reading
     func readNIS() async throws -> ResponseAPDU {
-        print("Read NIS -->")
+        loggerManager.log("\nRead NIS -->")
         guard let apdu = NFCISO7816APDU(data: Data([0x00, 0xB0, 0x81, 0x00, 0x0C])) else {
             fatalError("Wrong APDU command")
         }
+        let NISResponse = try await send(cmd: apdu)
         
-        return try await send(cmd: apdu)
+        loggerManager.log_APDU_response(NISResponse, message: "Response NIS: ")
+        
+        loggerManager.log("NIS string value: \(String.hexStringFromBinary(NISResponse.data))")
+        return NISResponse
+        
     }
     
     func readPublicKey() async throws -> [UInt8] {
-        print("Select Public key -->")
+        loggerManager.log("\nRead Public key -->")
         
         guard let firstApdu = NFCISO7816APDU(data: Data([0x00, 0xB0, 0x85, 0x00, 0x00])),
               let secondApdu = NFCISO7816APDU(data: Data([0x00, 0xB0, 0x85, 0xE7, 0x00])) else {
@@ -64,13 +76,13 @@ class TagReader {
         do {
             let firstResponse = try await tag.sendCommand(apdu: firstApdu)
             var firstRep = ResponseAPDU(data: [UInt8](firstResponse.0), sw1: firstResponse.1, sw2: firstResponse.2)
-            print(String(format:"Public key - First APDU response:\n \(String.hexStringFromBinary(firstRep.data, asArray:true)), sw1:0x%02x sw2:0x%02x", firstRep.sw1, firstRep.sw2))
-            
+            loggerManager.log_APDU_response(firstRep, message: "Public key - First APDU response:")
             let secondResponse = try await tag.sendCommand(apdu: secondApdu)
             var secondRep = ResponseAPDU(data: [UInt8](secondResponse.0), sw1: secondResponse.1, sw2: secondResponse.2)
-            print(String(format:"Public key - Second APDU response:\n \(String.hexStringFromBinary(secondRep.data, asArray:true)), sw1:0x%02x sw2:0x%02x", secondRep.sw1, secondRep.sw2))
+            loggerManager.log_APDU_response(secondRep, message: "Public key - Second APDU response:")
             
             let mergedBytes = firstRep.data + secondRep.data
+            loggerManager.log("Public key - MERGED:\n \(String.hexStringFromBinary(mergedBytes, asArray:true))")
             
             print("\n------------ START PUBLIC KEY ------------------")
             var publicKeyData: Data = mergedBytes.withUnsafeBufferPointer { Data(buffer: $0) }
@@ -81,7 +93,7 @@ class TagReader {
             return mergedBytes
             
         } catch {
-            print("Error:\(error)")
+            loggerManager.log("ERROR read Public Key: \(error)")
             throw error
         }
     }
@@ -94,6 +106,7 @@ class TagReader {
         
         var apdu: [UInt8] = [0x00, 0xB1, 0x00, 0x06]
         
+        loggerManager.log("\nRead SOD -->")
         while !sodLoaded {
             var offset =  idx.toByteArray(pad: 4)
             var dataInput = [0x54, 0x02, offset[0], offset[1]]
@@ -118,7 +131,8 @@ class TagReader {
             }
 
         }
-        print("SOD size:\(sodIASData.count)")
+        
+        loggerManager.log("Response SOD: \(String.hexStringFromBinary(sodIASData, asArray:true))")
         return sodIASData
     }
     
@@ -152,23 +166,22 @@ class TagReader {
     
     // MARK: - Commands
     func send(cmd: NFCISO7816APDU) async throws -> ResponseAPDU {
-        print( "TagReader - sending \(cmd)" )
+//        logger.print_CIE( "TagReader - sending \(cmd)" )
         var toSend = cmd
         
         let (data, sw1, sw2) = try await tag.sendCommand(apdu: toSend)
         var rep = ResponseAPDU(data: [UInt8](data), sw1: sw1, sw2: sw2)
         
-        print("\(String(format:"TagReader response: \(String.hexStringFromBinary(rep.data, asArray:true)), sw1:0x%02x sw2:0x%02x", rep.sw1, rep.sw2))" )
-        
+//        logger.print_CIE_response(rep, domain: .TAG_Reader, message: "TagReader response: ")
         if rep.sw1 != 0x90 && rep.sw2 != 0x00 {
-            print( "Error reading tag: sw1 - 0x\(String.hexStringFromBinary(sw1)), sw2 - 0x\(String.hexStringFromBinary(sw2))" )
+            loggerManager.log( "🔴 [ERROR] reading tag: sw1 - 0x\(String.hexStringFromBinary(sw1)), sw2 - 0x\(String.hexStringFromBinary(sw2))" )
             let tagError: CIEReaderError
             
             if (rep.sw1 == 0x63 && rep.sw2 == 0x00) {
                 tagError = .invalidTag
             } else {
                 let errorMsg = self.decodeError(sw1: rep.sw1, sw2: rep.sw2)
-                print("reason: \(errorMsg)" )
+                loggerManager.log("🔴 [ERROR] reason: \(errorMsg)" )
                 tagError = CIEReaderError.responseError(errorMsg)
             }
             throw tagError
@@ -211,33 +224,32 @@ class TagReader {
                     let (data, sw1, sw2) = try await tag.sendCommand(apdu: modApdu)
                     var rep = ResponseAPDU(data: [UInt8](data), sw1: sw1, sw2: sw2)
                     
-                    print("\(String(format:"TagReader response: \(String.hexStringFromBinary(rep.data, asArray:true)), sw1:0x%02x sw2:0x%02x", rep.sw1, rep.sw2))" )
-                    
+//                    loggerManager.print_CIE_response(rep, domain: .TAG_Reader, message: "TagReader response: ")
+
                     
                     if rep.sw1 != 0x90 && rep.sw2 != 0x00 {
-                        print( "Error reading tag: sw1 - 0x\(String.hexStringFromBinary(sw1)), sw2 - 0x\(String.hexStringFromBinary(sw2))" )
+                        loggerManager.log( "🔴 [ERROR] reading tag: sw1 - 0x\(String.hexStringFromBinary(sw1)), sw2 - 0x\(String.hexStringFromBinary(sw2))" )
                         let tagError: CIEReaderError
                         
                         if (rep.sw1 == 0x63 && rep.sw2 == 0x00) {
                             tagError = .invalidTag
                         } else {
                             let errorMsg = self.decodeError(sw1: rep.sw1, sw2: rep.sw2)
-                            print("reason: \(errorMsg)" )
+                            loggerManager.log("🔴 [ERROR] reason: \(errorMsg)" )
                             tagError = CIEReaderError.responseError(errorMsg)
                         }
                         throw tagError
                     }
                     
                     if i == data.count {
-                        print("getResp....")
+//                        loggerManager.print_CIE("GetResp....")
                         return rep
                     }
 
                 }
             } else {
-                #if DEBUG
-                print("data lenght <= 255")
-                #endif
+                
+//                loggerManager.print_CIE("Data lenght <= 255")
                 if(data.isEmpty == false){
                     apdu.append(contentsOf: headMod)
                     apdu.append(contentsOf: data.count.toByteArray(pad: 2))
@@ -262,9 +274,9 @@ class TagReader {
                 let (data, sw1, sw2) = try await tag.sendCommand(apdu: modApdu)
                 var rep = ResponseAPDU(data: [UInt8](data), sw1: sw1, sw2: sw2)
                 
-                print("\(String(format:"TagReader response: \(String.hexStringFromBinary(rep.data, asArray:true)), sw1:0x%02x sw2:0x%02x", rep.sw1, rep.sw2))" )
-                
-                print("chunk response < 255")
+//                loggerManager.print_CIE_response(rep, domain: .TAG_Reader, message: "TagReader response: ")
+
+//                loggerManager.print_CIE("Chunk response lenght < 255")
                 return rep
                 
             }

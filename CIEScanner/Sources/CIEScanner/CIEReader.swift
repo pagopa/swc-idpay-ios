@@ -32,10 +32,13 @@ public class CIEReader: NSObject {
     
     private var readCardMessage: String
     private var confirmCardReadMessage: String
+    var loggerManager: CIELogger
+    var urlLogFile: URL? = nil
     
-    public init(readCardMessage: String = "Avvicina la CIE al lettore", confirmCardReadMessage: String = "Lettura carta OK") {
+    public init(readCardMessage: String = "Avvicina la CIE al lettore", confirmCardReadMessage: String = "Lettura carta OK", logMode: LogMode = .disabled) {
         self.readCardMessage = readCardMessage
         self.confirmCardReadMessage = confirmCardReadMessage
+        loggerManager = CIELogger(mode: logMode)
     }
     
     public func scan() async throws -> NisAuthenticated? {
@@ -51,6 +54,9 @@ public class CIEReader: NSObject {
         }
         
         session?.invalidate()
+        loggerManager.log("-------------------------------------\n" +
+                        "          Session ENDED              \n" +
+                        "-------------------------------------\n")
         return publicKey
     }
     
@@ -59,7 +65,9 @@ public class CIEReader: NSObject {
 extension CIEReader: NFCTagReaderSessionDelegate {
     
     public func tagReaderSessionDidBecomeActive(_ session: NFCTagReaderSession) {
-        print("-----  Session started -------")
+        loggerManager.log("-------------------------------------\n" +
+                        "          Session STARTED            \n" +
+                        "-------------------------------------")
     }
     
     public func tagReaderSession(_ session: NFCTagReaderSession, didInvalidateWithError error: Error) {
@@ -71,7 +79,9 @@ extension CIEReader: NFCTagReaderSessionDelegate {
             activeContinuation?.resume(throwing: error)
             activeContinuation = nil
         }
-        print("-----  Session ended -------")
+        loggerManager.log("-------------------------------------\n" +
+                        "          Session ENDED              \n" +
+                        "-------------------------------------\n")
     }
     
     public func tagReaderSession(_ session: NFCTagReaderSession, didDetect tags: [NFCTag]) {
@@ -103,25 +113,21 @@ extension CIEReader: NFCTagReaderSessionDelegate {
         Task { [cieTag] in
             do {
                 try await session.connect(to: tag)
-                let tagReader = TagReader(tag:cieTag)
+                let tagReader = TagReader(tag:cieTag, logger: self.loggerManager)
                 
                 do {
                     let responseIAS = try await tagReader.selectIAS()
-                    print("ResponseIAS:\(responseIAS)")
                 } catch {
                     // In some CIEs, IAS reading returns a file not found error. In these cases continue anyway
-                    print("--- IAS file not found in TAG --> Continue reading --->")
+                    loggerManager.log("IAS file not found in TAG\n\nContinue reading --->")
 //                    try await tagReader.selectMasterFile()
                 }
                 
                 let responseCIE = try await tagReader.selectCIE()
-                print("ResponseCIE:\(responseCIE)")
                 
                 let responseNIS = try await tagReader.readNIS()
-                print("ResponseNIS:\(responseNIS)")
                 
                 let efIntServ1001 = responseNIS.data
-                print("NIS:\(String(bytes: efIntServ1001, encoding: .utf8))")
                 
                 let publicKey = try await tagReader.readPublicKey()
                 
