@@ -30,6 +30,7 @@
 		B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */; };
 		B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */; };
 		B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE589A2B50445C006FB26C /* TransactionModel.swift */; };
+		B8AFC6122B63CD6400FEE74C /* CIEScanner in Frameworks */ = {isa = PBXBuildFile; productRef = B8AFC6112B63CD6400FEE74C /* CIEScanner */; };
 		B8CE22C22B5A937C00A4BC67 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE22C12B5A937C00A4BC67 /* MainView.swift */; };
 		B8CE22C42B5A944B00A4BC67 /* BonusAmountViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE22C32B5A944B00A4BC67 /* BonusAmountViewUITests.swift */; };
 		B8CE22C72B5ACB0200A4BC67 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE22C62B5ACB0200A4BC67 /* HelpView.swift */; };
@@ -81,6 +82,8 @@
 		B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsDemoListView.swift; sourceTree = "<group>"; };
 		B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTicketView.swift; sourceTree = "<group>"; };
 		B8AE589A2B50445C006FB26C /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
+		B8AFC6132B63CEB900FEE74C /* SWC-iDPay-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SWC-iDPay-iOS.entitlements"; sourceTree = "<group>"; };
+		B8AFC6142B63CF0C00FEE74C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B8CE22C12B5A937C00A4BC67 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B8CE22C32B5A944B00A4BC67 /* BonusAmountViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusAmountViewUITests.swift; sourceTree = "<group>"; };
 		B8CE22C62B5ACB0200A4BC67 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
@@ -95,6 +98,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9811BC322B177DD20063E71B /* PagoPAUIKit in Frameworks */,
+				B8AFC6122B63CD6400FEE74C /* CIEScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +142,8 @@
 		9811BC052B177C950063E71B /* SWC-iDPay-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B8AFC6142B63CF0C00FEE74C /* Info.plist */,
+				B8AFC6132B63CEB900FEE74C /* SWC-iDPay-iOS.entitlements */,
 				B871E5C82B5EA423008B67DD /* CIE */,
 				B8CE22CB2B5ADAA000A4BC67 /* Home */,
 				B8CE22C82B5ACCA100A4BC67 /* Utilities */,
@@ -386,6 +392,7 @@
 			name = "SWC-iDPay-iOS";
 			packageProductDependencies = (
 				9811BC312B177DD20063E71B /* PagoPAUIKit */,
+				B8AFC6112B63CD6400FEE74C /* CIEScanner */,
 			);
 			productName = "SWC-iDPay-iOS";
 			productReference = 9811BC032B177C950063E71B /* SWC-iDPay-iOS.app */;
@@ -462,6 +469,7 @@
 			mainGroup = 9811BBFA2B177C940063E71B;
 			packageReferences = (
 				9811BC302B177DD10063E71B /* XCLocalSwiftPackageReference "PagoPAUIKit" */,
+				B8AFC6102B63CD6400FEE74C /* XCLocalSwiftPackageReference "CIEScanner" */,
 			);
 			productRefGroup = 9811BC042B177C950063E71B /* Products */;
 			projectDirPath = "";
@@ -616,7 +624,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -673,7 +681,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -688,15 +696,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SWC-iDPay-iOS/SWC-iDPay-iOS.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SWC-iDPay-iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = M2X5YQ4BJ7;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = M2X5YQ4BJ7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SWC-iDPay-iOS/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "ID Pay";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "Consenti l'utilizzo dell'NFC tag per poter utilizzare la CIE";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -724,15 +735,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SWC-iDPay-iOS/SWC-iDPay-iOS.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SWC-iDPay-iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = M2X5YQ4BJ7;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = M2X5YQ4BJ7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SWC-iDPay-iOS/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "ID Pay";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "Consenti l'utilizzo dell'NFC tag per poter utilizzare la CIE";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -877,12 +892,20 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = PagoPAUIKit;
 		};
+		B8AFC6102B63CD6400FEE74C /* XCLocalSwiftPackageReference "CIEScanner" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = CIEScanner;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		9811BC312B177DD20063E71B /* PagoPAUIKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PagoPAUIKit;
+		};
+		B8AFC6112B63CD6400FEE74C /* CIEScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CIEScanner;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
