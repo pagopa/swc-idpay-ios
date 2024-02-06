@@ -96,9 +96,7 @@ struct BonusAmountView : View {
                     .font(.PAFont.h4)
                     .padding(.bottom, Constants.xsmallSpacing)
                 
-                Spacer()
                 Image("cie", bundle: nil)
-                Spacer()
                 
                 Button("Riprova") {
                     startCIEScan()
