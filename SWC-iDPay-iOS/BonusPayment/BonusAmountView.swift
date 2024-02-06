@@ -11,7 +11,7 @@ import CIEScanner
 struct BonusAmountView : View {
     @State var isLoading: Bool = false
     @State var amountText: String = "0,00"
-    @State var isReadingCIE: Bool = true
+    @State var isReadingCIE: Bool = false
     
     private var reader = CIEReader(readCardMessage: "Appoggia la CIE sul dispositivo, in alto", confirmCardReadMessage: "Lettura completata")
     
@@ -91,8 +91,9 @@ struct BonusAmountView : View {
                     .font(.PAFont.caption)
                 
                 Text("Appoggia la CIE sul dispositivo, in alto")
+                    .multilineTextAlignment(.center)
                     .foregroundColor(.paBlack)
-                    .font(.PAFont.h2)
+                    .font(.PAFont.h4)
                     .padding(.bottom, Constants.xsmallSpacing)
                 
                 Spacer()
