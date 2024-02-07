@@ -32,6 +32,7 @@ struct BonusAmountView : View {
                     Text(" €")
                         .font(.PAFont.caption)
                 }
+                .foregroundColor(.paBlack)
                 .padding(Constants.smallSpacing)
                 
                 if isReadingCIE {
