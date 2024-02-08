@@ -11,12 +11,7 @@ import PagoPAUIKit
 struct InitiativesList: View {
     
     @EnvironmentObject var router: Router
-    
     @StateObject var viewModel: InitiativesViewModel = InitiativesViewModel()
-    
-    init() {
-        Font.registerPagoPAFonts()
-    }
     
     var body: some View {
          
@@ -64,7 +59,7 @@ fileprivate struct InitiativeRow: View {
             Spacer()
             Image(icon: .chevron)
         }
-        .frame(minHeight: 38)
+        .frame(minHeight: Constants.listRowHeight)
     }
 }
 

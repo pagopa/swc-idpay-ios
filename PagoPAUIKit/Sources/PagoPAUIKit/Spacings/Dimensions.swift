@@ -23,4 +23,5 @@ public enum Sizes: CGFloat {
     case buttonIcon   = 20.0
     case padButton    = 56.0
     case pinDot       = 16.0
+    case listRowHeight = 38.0
 }

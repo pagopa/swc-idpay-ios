@@ -31,7 +31,7 @@ public struct Constants {
     public static let loaderSize         : CGFloat = Sizes.loader.rawValue * scaleFactor
     public static let padButtonSize      : CGFloat = Sizes.padButton.rawValue * scaleFactor
     public static let pinDotSize         : CGFloat = Sizes.pinDot.rawValue * scaleFactor
-
+    public static let listRowHeight      : CGFloat = Sizes.listRowHeight.rawValue * scaleFactor
 }
 
 extension UIDevice {
