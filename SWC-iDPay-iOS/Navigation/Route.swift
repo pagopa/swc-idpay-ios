@@ -31,7 +31,7 @@ enum Route: View {
     var body: some View {
         switch self {
         case .initiatives:
-            EmptyView()
+            InitiativesList()
         case .bonusAmount:
             BonusAmountView()
         }

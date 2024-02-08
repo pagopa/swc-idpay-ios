@@ -11,7 +11,6 @@ enum AppState {
     case splash
     case login
     case acceptBonus
-    case initiatives
     case transactionHistory
     #if DEBUG
     case uiKit

@@ -36,6 +36,7 @@ struct CustomToolbarModifier: ViewModifier {
                     }
                 }
             }
+            .toolbarBackground(.white, for: .navigationBar)
     }
     
     enum BackVisibleKey: EnvironmentKey {

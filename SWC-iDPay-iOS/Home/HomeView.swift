@@ -17,7 +17,7 @@ struct HomeView: View {
             title: "Accetta un bonus ID Pay",
             subtitle: "Inserisci i dettagli del pagamento e permetti ai tuoi clienti di utilizzare un bonus ID Pay.",
             actionTitle: "Accetta bonus ID Pay") {
-                router.pushTo(.bonusAmount)
+                router.pushTo(.initiatives)
             }
     }
 }

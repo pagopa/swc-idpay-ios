@@ -41,13 +41,13 @@ final class MenuViewUITests: XCTestCase {
         XCTAssert(menuButton.waitForExistence(timeout: 4))
         menuButton.tap()
         
-        let firstMenuItem = app.buttons["Accetta bonus ID Pay"]
-        XCTAssert(firstMenuItem.waitForExistence(timeout: 4))
+        let menuItem = app.buttons["Storico operazioni"]
+        XCTAssert(menuItem.waitForExistence(timeout: 4))
         
-        firstMenuItem.tap()
+        menuItem.tap()
         sleep(2)
-        let firstMenuItemExists = app.buttons["Accetta bonus ID Pay"].exists
-        XCTAssertFalse(firstMenuItemExists)
+        let menuExists = app.buttons["Storico operazioni"].exists
+        XCTAssertFalse(menuExists)
     }
 
     func test_close_menu_when_transaction_menu_item_is_tapped() {

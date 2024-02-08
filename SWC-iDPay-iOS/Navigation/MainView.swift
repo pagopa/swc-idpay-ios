@@ -25,10 +25,6 @@ struct MainView: View {
             RootView {
                 HomeView()
             }
-        case .initiatives:
-            RootView {
-                InitiativesList()
-            }
         case .transactionHistory:
             RootView(barTintColor: Color.paPrimary) {
                 TransactionsHistoryList()
