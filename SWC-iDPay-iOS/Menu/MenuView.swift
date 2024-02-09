@@ -9,6 +9,8 @@ import SwiftUI
 import PagoPAUIKit
 
 struct MenuView: View {
+    
+    @EnvironmentObject var appManager: AppStateManager
     @Binding var showMenu: Bool
     @Binding var showHelp: Bool
     
@@ -17,21 +19,29 @@ struct MenuView: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 MenuItem(title: "Accetta bonus ID Pay", icon: .bonus, showMenu: $showMenu) {
-                    
+                    appManager.moveTo(.acceptBonus)
                 }
                 Divider()
                 
                 MenuItem(title: "Storico operazioni", icon: .transactions, showMenu: $showMenu) {
-                    
+                    appManager.moveTo(.transactionHistory)
                 }
                 Divider()
                 
                 MenuItem(title: "Assistenza", icon: .faq, showMenu: $showMenu) {
                     showHelp.toggle()
                 }
+                
+                #if DEBUG
+                Divider()
+                MenuItem(title: "UI Kit Showcase", icon: .eye, showMenu: $showMenu) {
+                    appManager.moveTo(.uiKit)
+                }
+                #endif
             }
             
             MenuItem(title: "Esci", icon: .logout, color: .errorGraphic, showMenu: $showMenu) {
+                appManager.logout()
             }
             .padding(.bottom, Constants.mediumSpacing)
         }

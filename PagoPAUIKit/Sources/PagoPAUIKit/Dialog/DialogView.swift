@@ -73,13 +73,25 @@ public struct DialogView: View {
 struct DialogModifier: ViewModifier {
     var dialogModel: ResultModel
     @Binding var isPresenting: Bool
+    @State private var showDialog: Bool = false
     var onClose: (() -> Void)?
     
     func body(content: Content) -> some View {
-        ZStack {
-            content
-            DialogView(dialogModel: dialogModel, isPresenting: $isPresenting, onClose: onClose)
+        content
+        .onChange(of: isPresenting) { newValue in
+            var transaction = Transaction()
+            transaction.disablesAnimations = true
+            withTransaction(transaction) {
+                showDialog = newValue
+            }
         }
+        .fullScreenCover(isPresented: $showDialog) {
+            ZStack {
+                content
+                DialogView(dialogModel: dialogModel, isPresenting: $isPresenting, onClose: onClose)
+            }
+        }
+        
     }
 }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Initiative: Codable {
+struct Initiative: Codable, Identifiable, Equatable {
     var id: String
     var name: String
     var organization: String
@@ -21,6 +21,6 @@ struct Initiative: Codable {
 
 extension Initiative {
     static var mocked: Self {
-        Initiative(id: "649c50b5a03f655e6543af06", name: "Test funzionali Sconto tipo 6", organization: "Ente di test IDPay")
+        Initiative(id: "\(UUID())", name: "Test funzionali Sconto tipo 6", organization: "Ente di test IDPay")
     }
 }

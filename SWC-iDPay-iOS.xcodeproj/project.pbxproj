@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		980107872B765F3C00A58325 /* BonusAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980107862B765F3C00A58325 /* BonusAmountViewModel.swift */; };
 		9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */; };
 		9811BC0B2B177C970063E71B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9811BC0A2B177C970063E71B /* Assets.xcassets */; };
 		9811BC0E2B177C970063E71B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9811BC0D2B177C970063E71B /* Preview Assets.xcassets */; };
@@ -27,6 +28,15 @@
 		B86D99352B515C10006B4D53 /* Initiative.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D99342B515C10006B4D53 /* Initiative.swift */; };
 		B86D99382B5175B9006B4D53 /* ReceiptTicketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D99372B5175B9006B4D53 /* ReceiptTicketViewModel.swift */; };
 		B871E5CA2B5EA439008B67DD /* CIEPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871E5C92B5EA439008B67DD /* CIEPinView.swift */; };
+		B882BF032B7293A40040C6A6 /* ToolbarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882BF012B7293A40040C6A6 /* ToolbarButtons.swift */; };
+		B882BF042B7293A40040C6A6 /* AppToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882BF022B7293A40040C6A6 /* AppToolbar.swift */; };
+		B882BF072B7293B80040C6A6 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882BF052B7293B70040C6A6 /* Route.swift */; };
+		B882BF082B7293B80040C6A6 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882BF062B7293B80040C6A6 /* Router.swift */; };
+		B882BF0A2B7296C40040C6A6 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882BF092B7296C40040C6A6 /* HomeView.swift */; };
+		B882BF0C2B739F700040C6A6 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882BF0B2B739F700040C6A6 /* RootView.swift */; };
+		B882BF0E2B73D1530040C6A6 /* InitiativesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882BF0D2B73D1530040C6A6 /* InitiativesList.swift */; };
+		B882BF112B73D86C0040C6A6 /* TransactionsHistoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882BF102B73D86C0040C6A6 /* TransactionsHistoryList.swift */; };
+		B882BF142B7519460040C6A6 /* InitiativesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882BF132B7519460040C6A6 /* InitiativesViewModel.swift */; };
 		B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */; };
 		B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */; };
 		B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE589A2B50445C006FB26C /* TransactionModel.swift */; };
@@ -57,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		980107862B765F3C00A58325 /* BonusAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusAmountViewModel.swift; sourceTree = "<group>"; };
 		9811BC032B177C950063E71B /* SWC-iDPay-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SWC-iDPay-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWC_iDPay_iOSApp.swift; sourceTree = "<group>"; };
 		9811BC0A2B177C970063E71B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,6 +90,15 @@
 		B86D99342B515C10006B4D53 /* Initiative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initiative.swift; sourceTree = "<group>"; };
 		B86D99372B5175B9006B4D53 /* ReceiptTicketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTicketViewModel.swift; sourceTree = "<group>"; };
 		B871E5C92B5EA439008B67DD /* CIEPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIEPinView.swift; sourceTree = "<group>"; };
+		B882BF012B7293A40040C6A6 /* ToolbarButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarButtons.swift; sourceTree = "<group>"; };
+		B882BF022B7293A40040C6A6 /* AppToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppToolbar.swift; sourceTree = "<group>"; };
+		B882BF052B7293B70040C6A6 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		B882BF062B7293B80040C6A6 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		B882BF092B7296C40040C6A6 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B882BF0B2B739F700040C6A6 /* RootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		B882BF0D2B73D1530040C6A6 /* InitiativesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiativesList.swift; sourceTree = "<group>"; };
+		B882BF102B73D86C0040C6A6 /* TransactionsHistoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsHistoryList.swift; sourceTree = "<group>"; };
+		B882BF132B7519460040C6A6 /* InitiativesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiativesViewModel.swift; sourceTree = "<group>"; };
 		B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsDemoListView.swift; sourceTree = "<group>"; };
 		B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTicketView.swift; sourceTree = "<group>"; };
 		B8AE589A2B50445C006FB26C /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
@@ -119,10 +139,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		980107842B765F1600A58325 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B824E6C02B5987840050265D /* BonusAmountView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		980107852B765F2500A58325 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				980107862B765F3C00A58325 /* BonusAmountViewModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		9811BBFA2B177C940063E71B = {
 			isa = PBXGroup;
 			children = (
 				9811BC052B177C950063E71B /* SWC-iDPay-iOS */,
+				B8CE22C82B5ACCA100A4BC67 /* Utilities */,
 				9811BC162B177C970063E71B /* SWC-iDPay-iOSTests */,
 				9811BC202B177C970063E71B /* SWC-iDPay-iOSUITests */,
 				9811BC042B177C950063E71B /* Products */,
@@ -144,23 +181,22 @@
 			children = (
 				B8AFC6142B63CF0C00FEE74C /* Info.plist */,
 				B8AFC6132B63CEB900FEE74C /* SWC-iDPay-iOS.entitlements */,
+				B882BEFF2B72935F0040C6A6 /* Navigation */,
 				B871E5C82B5EA423008B67DD /* CIE */,
+				B89F15D52B35D022000E0B3C /* Login */,
 				B8CE22CB2B5ADAA000A4BC67 /* Home */,
-				B8CE22C82B5ACCA100A4BC67 /* Utilities */,
-				B8CE22C52B5ACAEF00A4BC67 /* Assistenza */,
+				B882BF0F2B73D7CE0040C6A6 /* TransactionsHistory */,
 				B824E6BF2B5987500050265D /* BonusPayment */,
+				B8AE58932B4EA047006FB26C /* Receipt */,
+				B8CE22C52B5ACAEF00A4BC67 /* Assistenza */,
 				B81261252B581326003304C8 /* Menu */,
-				B8D708C62B56D80200AF02A0 /* UITesting */,
 				B86D99322B515BF6006B4D53 /* Initiative */,
 				B86D992A2B514BA0006B4D53 /* Transaction */,
-				B8AE58932B4EA047006FB26C /* Receipt */,
-				B89F15D52B35D022000E0B3C /* Login */,
+				B8D708C62B56D80200AF02A0 /* UITesting */,
 				B8A83D812B1A4B1B006CF4BF /* PagoPAUIKit-Demo */,
 				9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */,
-				B803D8D52B20D85700A7934E /* AppStateManager.swift */,
 				9811BC0A2B177C970063E71B /* Assets.xcassets */,
 				9811BC0C2B177C970063E71B /* Preview Content */,
-				B8CE22C12B5A937C00A4BC67 /* MainView.swift */,
 			);
 			path = "SWC-iDPay-iOS";
 			sourceTree = "<group>";
@@ -221,7 +257,8 @@
 		B824E6BF2B5987500050265D /* BonusPayment */ = {
 			isa = PBXGroup;
 			children = (
-				B824E6C02B5987840050265D /* BonusAmountView.swift */,
+				980107852B765F2500A58325 /* Model */,
+				980107842B765F1600A58325 /* View */,
 			);
 			path = BonusPayment;
 			sourceTree = "<group>";
@@ -230,7 +267,8 @@
 			isa = PBXGroup;
 			children = (
 				B86D992D2B51543D006B4D53 /* Mocks */,
-				B8AE58982B50443B006FB26C /* Model */,
+				B8AE589A2B50445C006FB26C /* TransactionModel.swift */,
+				B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -247,25 +285,11 @@
 		B86D99322B515BF6006B4D53 /* Initiative */ = {
 			isa = PBXGroup;
 			children = (
-				B86D99332B515C00006B4D53 /* Model */,
+				B86D99342B515C10006B4D53 /* Initiative.swift */,
+				B882BF0D2B73D1530040C6A6 /* InitiativesList.swift */,
+				B882BF132B7519460040C6A6 /* InitiativesViewModel.swift */,
 			);
 			path = Initiative;
-			sourceTree = "<group>";
-		};
-		B86D99332B515C00006B4D53 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				B86D99342B515C10006B4D53 /* Initiative.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		B86D99362B5175A9006B4D53 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				B86D99372B5175B9006B4D53 /* ReceiptTicketViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B871E5C82B5EA423008B67DD /* CIE */ = {
@@ -276,11 +300,41 @@
 			path = CIE;
 			sourceTree = "<group>";
 		};
+		B882BEFF2B72935F0040C6A6 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				B803D8D52B20D85700A7934E /* AppStateManager.swift */,
+				B8CE22C12B5A937C00A4BC67 /* MainView.swift */,
+				B882BF052B7293B70040C6A6 /* Route.swift */,
+				B882BF062B7293B80040C6A6 /* Router.swift */,
+				B882BF0B2B739F700040C6A6 /* RootView.swift */,
+				B882BF002B7293A40040C6A6 /* Toolbar */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		B882BF002B7293A40040C6A6 /* Toolbar */ = {
+			isa = PBXGroup;
+			children = (
+				B882BF012B7293A40040C6A6 /* ToolbarButtons.swift */,
+				B882BF022B7293A40040C6A6 /* AppToolbar.swift */,
+			);
+			path = Toolbar;
+			sourceTree = "<group>";
+		};
+		B882BF0F2B73D7CE0040C6A6 /* TransactionsHistory */ = {
+			isa = PBXGroup;
+			children = (
+				B882BF102B73D86C0040C6A6 /* TransactionsHistoryList.swift */,
+			);
+			path = TransactionsHistory;
+			sourceTree = "<group>";
+		};
 		B89F15D52B35D022000E0B3C /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				B8D708CD2B56E0CE00AF02A0 /* ViewModel */,
-				B8D708CC2B56E0C400AF02A0 /* View */,
+				B864279C2B35D61F00804A02 /* LoginView.swift */,
+				B8D708CA2B56E09300AF02A0 /* LoginViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -296,27 +350,10 @@
 		B8AE58932B4EA047006FB26C /* Receipt */ = {
 			isa = PBXGroup;
 			children = (
-				B86D99362B5175A9006B4D53 /* ViewModel */,
-				B8AE58992B50443F006FB26C /* View */,
+				B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */,
+				B86D99372B5175B9006B4D53 /* ReceiptTicketViewModel.swift */,
 			);
 			path = Receipt;
-			sourceTree = "<group>";
-		};
-		B8AE58982B50443B006FB26C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				B8AE589A2B50445C006FB26C /* TransactionModel.swift */,
-				B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		B8AE58992B50443F006FB26C /* View */ = {
-			isa = PBXGroup;
-			children = (
-				B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		B8CE22C02B5A92AC00A4BC67 /* NumberPad */ = {
@@ -346,6 +383,7 @@
 		B8CE22CB2B5ADAA000A4BC67 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				B882BF092B7296C40040C6A6 /* HomeView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -356,22 +394,6 @@
 				B8D708C72B56D81A00AF02A0 /* UITestingHelper.swift */,
 			);
 			path = UITesting;
-			sourceTree = "<group>";
-		};
-		B8D708CC2B56E0C400AF02A0 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				B864279C2B35D61F00804A02 /* LoginView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		B8D708CD2B56E0CE00AF02A0 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				B8D708CA2B56E09300AF02A0 /* LoginViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -516,16 +538,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */,
+				B882BF0C2B739F700040C6A6 /* RootView.swift in Sources */,
 				B8CE22CA2B5ACCCD00A4BC67 /* WebView.swift in Sources */,
 				B8CE22C22B5A937C00A4BC67 /* MainView.swift in Sources */,
 				B81261272B581512003304C8 /* MenuView.swift in Sources */,
 				B86D99352B515C10006B4D53 /* Initiative.swift in Sources */,
+				980107872B765F3C00A58325 /* BonusAmountViewModel.swift in Sources */,
+				B882BF0A2B7296C40040C6A6 /* HomeView.swift in Sources */,
 				B8D708CB2B56E09300AF02A0 /* LoginViewModel.swift in Sources */,
+				B882BF112B73D86C0040C6A6 /* TransactionsHistoryList.swift in Sources */,
 				B803D8D62B20D85700A7934E /* AppStateManager.swift in Sources */,
+				B882BF042B7293A40040C6A6 /* AppToolbar.swift in Sources */,
 				B86D99382B5175B9006B4D53 /* ReceiptTicketViewModel.swift in Sources */,
 				B824E6C12B5987840050265D /* BonusAmountView.swift in Sources */,
+				B882BF082B7293B80040C6A6 /* Router.swift in Sources */,
+				B882BF0E2B73D1530040C6A6 /* InitiativesList.swift in Sources */,
 				B86D992C2B514BD4006B4D53 /* TransactionStatus.swift in Sources */,
 				B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */,
+				B882BF032B7293A40040C6A6 /* ToolbarButtons.swift in Sources */,
+				B882BF142B7519460040C6A6 /* InitiativesViewModel.swift in Sources */,
+				B882BF072B7293B80040C6A6 /* Route.swift in Sources */,
 				B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */,
 				B864279D2B35D62000804A02 /* LoginView.swift in Sources */,
 				B8D708C82B56D81A00AF02A0 /* UITestingHelper.swift in Sources */,

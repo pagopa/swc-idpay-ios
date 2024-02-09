@@ -11,9 +11,11 @@ import CIEScanner
 struct BonusAmountView : View {
     @State var isLoading: Bool = false
     @State var amountText: String = "0,00"
+    @State var dialogModel: ResultModel = ResultModel.emptyModel
+    @State var isPresentingDialog: Bool = false
     @State var isReadingCIE: Bool = false
+    @StateObject var viewModel: BonusAmountViewModel = BonusAmountViewModel()
     
-    private var reader = CIEReader(readCardMessage: "Appoggia la CIE sul dispositivo, in alto", confirmCardReadMessage: "Lettura completata")
     
     var body: some View {
         ZStack {
@@ -32,6 +34,7 @@ struct BonusAmountView : View {
                     Text(" €")
                         .font(.PAFont.caption)
                 }
+                .foregroundColor(.paBlack)
                 .padding(Constants.smallSpacing)
                 
                 if isReadingCIE {
@@ -45,6 +48,13 @@ struct BonusAmountView : View {
                 
             }
             .padding(Constants.mediumSpacing)
+            .dialog(
+                dialogModel: dialogModel,
+                isPresenting: $isPresentingDialog,
+                onClose:{
+                    print("Do some action on close")
+                }
+            )
         }
     }
     
@@ -68,12 +78,11 @@ struct BonusAmountView : View {
         Spacer()
         CustomLoadingButton(
             buttonType: .primary,
-            isLoading: $isLoading) {
-                isReadingCIE = true
-
-                // TODO: call backend first, hide paymentView and show retry view
-                startCIEScan()
-                
+            isLoading: $viewModel.isLoading) {
+                Task {
+                    await viewModel.createTransaction()
+                    self.showAuthModeDialog()
+                }
             } label: {
                 Text("Conferma")
             }
@@ -82,39 +91,38 @@ struct BonusAmountView : View {
     
     @ViewBuilder
     private var retryCIEScanView: some View {
+        VStack(spacing: Constants.smallSpacing) {
             
+            Text("IDENTIFICAZIONE CON CIE")
+                .foregroundColor(.paPrimary)
+                .font(.PAFont.caption)
             
-            VStack(spacing: Constants.smallSpacing) {
-                
-                Text("IDENTIFICAZIONE CON CIE")
-                    .foregroundColor(.paPrimary)
-                    .font(.PAFont.caption)
-                
-                Text("Appoggia la CIE sul dispositivo, in alto")
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.paBlack)
-                    .font(.PAFont.h4)
-                    .padding(.bottom, Constants.xsmallSpacing)
-                
-                Image("cie", bundle: nil)
-                
-                Button("Riprova") {
-                    startCIEScan()
-                }
-                .pagoPAButtonStyle(buttonType: .primary)
-                .padding(.vertical, Constants.xsmallSpacing)
+            Text("Appoggia la CIE sul dispositivo, in alto")
+                .multilineTextAlignment(.center)
+                .foregroundColor(.paBlack)
+                .font(.PAFont.h4)
+                .padding(.bottom, Constants.xsmallSpacing)
+            
+            Image("cie", bundle: nil)
+            
+            Button("Riprova") {
+                startCIEScan()
             }
-            .padding(Constants.mediumSpacing)
-            .background(
-                RoundedRectangle(cornerRadius: 10.0)
-                    .fill(Color.white)
-            )
+            .pagoPAButtonStyle(buttonType: .primary)
+            .padding(.vertical, Constants.xsmallSpacing)
+        }
+        .padding(Constants.mediumSpacing)
+        .background(
+            RoundedRectangle(cornerRadius: 10.0)
+                .fill(Color.white)
+        )
     }
     
     private func startCIEScan() {
         Task {
+            self.isReadingCIE = true
             do {
-                guard let nisAuthenticated = try await reader.scan() else {
+                guard let nisAuthenticated = try await viewModel.reader.scan() else {
                     print("No NISAuthenticated found")
                     return
                 }
@@ -131,6 +139,36 @@ struct BonusAmountView : View {
             }
         }
         
+    }
+    
+    private func showAuthModeDialog() {
+        self.dialogModel = ResultModel(
+            title: "Come vuoi identificarti?",
+            themeType: ThemeType.light,
+            buttons:[
+                ButtonModel(
+                    type: .primary,
+                    themeType: .light,
+                    title: "Identificazione con CIE",
+                    action: {
+                        print("Identificazione con CIE")
+                        self.isPresentingDialog = false
+                        startCIEScan()
+                    }
+                ),
+                ButtonModel(
+                    type: .primaryBordered,
+                    themeType: .light,
+                    title: "Identificazione con ",
+                    icon: .io,
+                    action: {
+                        print("Accetta nuovo bonus")
+                    }
+                )
+            ]
+        )
+        
+        isPresentingDialog = true
     }
 }
 
