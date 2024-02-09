@@ -37,6 +37,11 @@
 		B882BF0E2B73D1530040C6A6 /* InitiativesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882BF0D2B73D1530040C6A6 /* InitiativesList.swift */; };
 		B882BF112B73D86C0040C6A6 /* TransactionsHistoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882BF102B73D86C0040C6A6 /* TransactionsHistoryList.swift */; };
 		B882BF142B7519460040C6A6 /* InitiativesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882BF132B7519460040C6A6 /* InitiativesViewModel.swift */; };
+		B88E8FCA2B768093005A3737 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88E8FC92B768093005A3737 /* HTTPMethod.swift */; };
+		B88E8FCC2B7680B5005A3737 /* HTTPResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88E8FCB2B7680B5005A3737 /* HTTPResponseError.swift */; };
+		B88E8FCE2B768919005A3737 /* URLRequest+Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88E8FCD2B768919005A3737 /* URLRequest+Encoding.swift */; };
+		B88E8FD02B768AF6005A3737 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88E8FCF2B768AF6005A3737 /* Endpoint.swift */; };
+		B88E8FD22B768CFB005A3737 /* ParametersEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88E8FD12B768CFB005A3737 /* ParametersEncoding.swift */; };
 		B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */; };
 		B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */; };
 		B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE589A2B50445C006FB26C /* TransactionModel.swift */; };
@@ -99,6 +104,11 @@
 		B882BF0D2B73D1530040C6A6 /* InitiativesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiativesList.swift; sourceTree = "<group>"; };
 		B882BF102B73D86C0040C6A6 /* TransactionsHistoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsHistoryList.swift; sourceTree = "<group>"; };
 		B882BF132B7519460040C6A6 /* InitiativesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiativesViewModel.swift; sourceTree = "<group>"; };
+		B88E8FC92B768093005A3737 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		B88E8FCB2B7680B5005A3737 /* HTTPResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPResponseError.swift; sourceTree = "<group>"; };
+		B88E8FCD2B768919005A3737 /* URLRequest+Encoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Encoding.swift"; sourceTree = "<group>"; };
+		B88E8FCF2B768AF6005A3737 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		B88E8FD12B768CFB005A3737 /* ParametersEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersEncoding.swift; sourceTree = "<group>"; };
 		B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsDemoListView.swift; sourceTree = "<group>"; };
 		B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTicketView.swift; sourceTree = "<group>"; };
 		B8AE589A2B50445C006FB26C /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
@@ -182,6 +192,7 @@
 				B8AFC6142B63CF0C00FEE74C /* Info.plist */,
 				B8AFC6132B63CEB900FEE74C /* SWC-iDPay-iOS.entitlements */,
 				B882BEFF2B72935F0040C6A6 /* Navigation */,
+				B88E8FC82B767E9E005A3737 /* Networking */,
 				B871E5C82B5EA423008B67DD /* CIE */,
 				B89F15D52B35D022000E0B3C /* Login */,
 				B8CE22CB2B5ADAA000A4BC67 /* Home */,
@@ -328,6 +339,18 @@
 				B882BF102B73D86C0040C6A6 /* TransactionsHistoryList.swift */,
 			);
 			path = TransactionsHistory;
+			sourceTree = "<group>";
+		};
+		B88E8FC82B767E9E005A3737 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				B88E8FC92B768093005A3737 /* HTTPMethod.swift */,
+				B88E8FCB2B7680B5005A3737 /* HTTPResponseError.swift */,
+				B88E8FCD2B768919005A3737 /* URLRequest+Encoding.swift */,
+				B88E8FCF2B768AF6005A3737 /* Endpoint.swift */,
+				B88E8FD12B768CFB005A3737 /* ParametersEncoding.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		B89F15D52B35D022000E0B3C /* Login */ = {
@@ -544,21 +567,26 @@
 				B81261272B581512003304C8 /* MenuView.swift in Sources */,
 				B86D99352B515C10006B4D53 /* Initiative.swift in Sources */,
 				980107872B765F3C00A58325 /* BonusAmountViewModel.swift in Sources */,
+				B88E8FD02B768AF6005A3737 /* Endpoint.swift in Sources */,
 				B882BF0A2B7296C40040C6A6 /* HomeView.swift in Sources */,
 				B8D708CB2B56E09300AF02A0 /* LoginViewModel.swift in Sources */,
 				B882BF112B73D86C0040C6A6 /* TransactionsHistoryList.swift in Sources */,
 				B803D8D62B20D85700A7934E /* AppStateManager.swift in Sources */,
 				B882BF042B7293A40040C6A6 /* AppToolbar.swift in Sources */,
 				B86D99382B5175B9006B4D53 /* ReceiptTicketViewModel.swift in Sources */,
+				B88E8FD22B768CFB005A3737 /* ParametersEncoding.swift in Sources */,
 				B824E6C12B5987840050265D /* BonusAmountView.swift in Sources */,
 				B882BF082B7293B80040C6A6 /* Router.swift in Sources */,
 				B882BF0E2B73D1530040C6A6 /* InitiativesList.swift in Sources */,
+				B88E8FCA2B768093005A3737 /* HTTPMethod.swift in Sources */,
 				B86D992C2B514BD4006B4D53 /* TransactionStatus.swift in Sources */,
+				B88E8FCE2B768919005A3737 /* URLRequest+Encoding.swift in Sources */,
 				B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */,
 				B882BF032B7293A40040C6A6 /* ToolbarButtons.swift in Sources */,
 				B882BF142B7519460040C6A6 /* InitiativesViewModel.swift in Sources */,
 				B882BF072B7293B80040C6A6 /* Route.swift in Sources */,
 				B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */,
+				B88E8FCC2B7680B5005A3737 /* HTTPResponseError.swift in Sources */,
 				B864279D2B35D62000804A02 /* LoginView.swift in Sources */,
 				B8D708C82B56D81A00AF02A0 /* UITestingHelper.swift in Sources */,
 				B8CE22C72B5ACB0200A4BC67 /* HelpView.swift in Sources */,
