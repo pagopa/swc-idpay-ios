@@ -248,7 +248,8 @@
 			isa = PBXGroup;
 			children = (
 				B86D992D2B51543D006B4D53 /* Mocks */,
-				B8AE58982B50443B006FB26C /* Model */,
+				B8AE589A2B50445C006FB26C /* TransactionModel.swift */,
+				B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -265,27 +266,11 @@
 		B86D99322B515BF6006B4D53 /* Initiative */ = {
 			isa = PBXGroup;
 			children = (
-				B882BF122B75160D0040C6A6 /* ViewModel */,
-				B86D99332B515C00006B4D53 /* Model */,
+				B86D99342B515C10006B4D53 /* Initiative.swift */,
 				B882BF0D2B73D1530040C6A6 /* InitiativesList.swift */,
+				B882BF132B7519460040C6A6 /* InitiativesViewModel.swift */,
 			);
 			path = Initiative;
-			sourceTree = "<group>";
-		};
-		B86D99332B515C00006B4D53 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				B86D99342B515C10006B4D53 /* Initiative.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		B86D99362B5175A9006B4D53 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				B86D99372B5175B9006B4D53 /* ReceiptTicketViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B871E5C82B5EA423008B67DD /* CIE */ = {
@@ -326,19 +311,11 @@
 			path = TransactionsHistory;
 			sourceTree = "<group>";
 		};
-		B882BF122B75160D0040C6A6 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				B882BF132B7519460040C6A6 /* InitiativesViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		B89F15D52B35D022000E0B3C /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				B8D708CD2B56E0CE00AF02A0 /* ViewModel */,
-				B8D708CC2B56E0C400AF02A0 /* View */,
+				B864279C2B35D61F00804A02 /* LoginView.swift */,
+				B8D708CA2B56E09300AF02A0 /* LoginViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -354,27 +331,10 @@
 		B8AE58932B4EA047006FB26C /* Receipt */ = {
 			isa = PBXGroup;
 			children = (
-				B86D99362B5175A9006B4D53 /* ViewModel */,
-				B8AE58992B50443F006FB26C /* View */,
+				B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */,
+				B86D99372B5175B9006B4D53 /* ReceiptTicketViewModel.swift */,
 			);
 			path = Receipt;
-			sourceTree = "<group>";
-		};
-		B8AE58982B50443B006FB26C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				B8AE589A2B50445C006FB26C /* TransactionModel.swift */,
-				B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		B8AE58992B50443F006FB26C /* View */ = {
-			isa = PBXGroup;
-			children = (
-				B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		B8CE22C02B5A92AC00A4BC67 /* NumberPad */ = {
@@ -415,22 +375,6 @@
 				B8D708C72B56D81A00AF02A0 /* UITestingHelper.swift */,
 			);
 			path = UITesting;
-			sourceTree = "<group>";
-		};
-		B8D708CC2B56E0C400AF02A0 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				B864279C2B35D61F00804A02 /* LoginView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		B8D708CD2B56E0CE00AF02A0 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				B8D708CA2B56E09300AF02A0 /* LoginViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

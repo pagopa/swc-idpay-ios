@@ -14,35 +14,66 @@ struct InitiativesList: View {
     @StateObject var viewModel: InitiativesViewModel = InitiativesViewModel()
     
     var body: some View {
-         
+        
         ZStack {
             Color.white
                 .ignoresSafeArea()
             
-            ScrollView {
-                VStack(alignment: .leading) {
-                    Text("Scegli l'iniziativa")
-                        .font(.PAFont.h3)
-                        .foregroundColor(.paBlack)
-                        .padding(.vertical, Constants.mediumSpacing)
-                    
-                    ForEach(viewModel.initiatives) { initiative in
+            if viewModel.initiatives.count > 0 {
+                
+                ScrollView {
+                    VStack {
+                        Text("Scegli l'iniziativa")
+                            .font(.PAFont.h3)
+                            .foregroundColor(.paBlack)
+                            .padding(.vertical, Constants.mediumSpacing)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        VStack {
-                            InitiativeRow(initiative: initiative)
-
-                            if initiative != viewModel.initiatives.last {
-                                Divider()
+                        ForEach(viewModel.initiatives) { initiative in
+                            
+                            VStack {
+                                InitiativeRow(initiative: initiative)
+                                
+                                if initiative != viewModel.initiatives.last {
+                                    Divider()
+                                }
+                            }
+                            .onTapGesture {
+                                router.pushTo(.bonusAmount)
                             }
                         }
-                        .onTapGesture {
-                            router.pushTo(.bonusAmount)
-                        }
+                        
                     }
+                    .padding(.horizontal, Constants.mediumSpacing)
                 }
-                .padding(.horizontal, Constants.mediumSpacing)
+            } else {
+                emptyStateView
             }
         }
+        .showLoadingView(message: "Aspetta qualche istante..", isLoading: $viewModel.isLoading)
+    }
+    
+    private var emptyStateView: some View {
+        VStack {
+            Spacer()
+            
+            Text("Non ci sono iniziative attive")
+                .font(.PAFont.h3)
+            Text("Al momento non sono disponibili iniziative")
+                .font(.PAFont.body)
+            
+            Button {
+                viewModel.loadInitiatives()
+            } label: {
+                Text("Riprova")
+            }
+            .pagoPAButtonStyle(buttonType: .primaryBordered, fullwidth: false)
+            .padding(.vertical, Constants.xlargeSpacing)
+            
+            Spacer()
+        }
+        .foregroundColor(.paBlack)
+        .padding(Constants.mediumSpacing)
     }
     
 }

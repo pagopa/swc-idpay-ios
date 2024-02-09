@@ -38,6 +38,7 @@ struct RootView<Content:View>: View {
                         }
                         .foregroundColor(barTintColor)
                         .disabled(showSheet)
+                        .opacity(showSheet ? 0.5 : 1.0)
                     }
                 }
                 .navigationBarTitleDisplayMode(.inline)
@@ -48,7 +49,6 @@ struct RootView<Content:View>: View {
                     HelpView()
                         .ignoresSafeArea()
                 }
-                .environmentObject(router)
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
