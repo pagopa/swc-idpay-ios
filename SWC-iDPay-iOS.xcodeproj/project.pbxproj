@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		980107872B765F3C00A58325 /* BonusAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980107862B765F3C00A58325 /* BonusAmountViewModel.swift */; };
 		9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */; };
 		9811BC0B2B177C970063E71B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9811BC0A2B177C970063E71B /* Assets.xcassets */; };
 		9811BC0E2B177C970063E71B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9811BC0D2B177C970063E71B /* Preview Assets.xcassets */; };
@@ -66,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		980107862B765F3C00A58325 /* BonusAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusAmountViewModel.swift; sourceTree = "<group>"; };
 		9811BC032B177C950063E71B /* SWC-iDPay-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SWC-iDPay-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWC_iDPay_iOSApp.swift; sourceTree = "<group>"; };
 		9811BC0A2B177C970063E71B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -137,6 +139,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		980107842B765F1600A58325 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B824E6C02B5987840050265D /* BonusAmountView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		980107852B765F2500A58325 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				980107862B765F3C00A58325 /* BonusAmountViewModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		9811BBFA2B177C940063E71B = {
 			isa = PBXGroup;
 			children = (
@@ -239,7 +257,8 @@
 		B824E6BF2B5987500050265D /* BonusPayment */ = {
 			isa = PBXGroup;
 			children = (
-				B824E6C02B5987840050265D /* BonusAmountView.swift */,
+				980107852B765F2500A58325 /* Model */,
+				980107842B765F1600A58325 /* View */,
 			);
 			path = BonusPayment;
 			sourceTree = "<group>";
@@ -524,6 +543,7 @@
 				B8CE22C22B5A937C00A4BC67 /* MainView.swift in Sources */,
 				B81261272B581512003304C8 /* MenuView.swift in Sources */,
 				B86D99352B515C10006B4D53 /* Initiative.swift in Sources */,
+				980107872B765F3C00A58325 /* BonusAmountViewModel.swift in Sources */,
 				B882BF0A2B7296C40040C6A6 /* HomeView.swift in Sources */,
 				B8D708CB2B56E09300AF02A0 /* LoginViewModel.swift in Sources */,
 				B882BF112B73D86C0040C6A6 /* TransactionsHistoryList.swift in Sources */,
