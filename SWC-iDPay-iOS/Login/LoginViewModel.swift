@@ -11,8 +11,14 @@ final class LoginViewModel: ObservableObject {
     @Published var username: String = ""
     @Published var password: String = ""
     
+    let client: Requestable
+    
+    init(client: Requestable) {
+        self.client = client
+    }
+    
     #warning("Add network call to login")
-    func login() async -> Bool {
+    func login() async throws -> Bool {
         
         #if DEBUG
         if UITestingHelper.isUITesting {
@@ -20,9 +26,15 @@ final class LoginViewModel: ObservableObject {
             try? await Task.sleep(nanoseconds: 1 * 4_000_000_000) // 4 second
             return UITestingHelper.isUserLoginSuccess
         } else {
-            print("Call login in viewmodel with user:\(username), password: \(password)")
-            try? await Task.sleep(nanoseconds: 1 * 4_000_000_000) // 4 second
-            return password == "access"
+            do {
+                try await client.login(username: username, password: password)
+                return true
+            } catch {
+                return false
+            }
+//            print("Call login in viewmodel with user:\(username), password: \(password)")
+//            try? await Task.sleep(nanoseconds: 1 * 4_000_000_000) // 4 second
+//            return password == "access"
         }
         #else
         return false

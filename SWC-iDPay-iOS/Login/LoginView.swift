@@ -13,7 +13,7 @@ struct LoginView: View {
     @State private var isLoading: Bool = false
     @ObservedObject var viewModel: LoginViewModel
     
-    private var onLoggedIn: () -> Void = { }
+    private var onLoggedIn: (Requestable) -> Void = { _ in }
     
     @State private var toastError: ToastModel? = nil
     @FocusState private var focusedField: Field?
@@ -22,7 +22,7 @@ struct LoginView: View {
         case username, password, loginButton
     }
     
-    init(viewModel: LoginViewModel, onLoggedIn: @escaping () -> Void) {
+    init(viewModel: LoginViewModel, onLoggedIn: @escaping (Requestable) -> Void) {
         self.viewModel = viewModel
         self.onLoggedIn = onLoggedIn
     }
@@ -101,11 +101,11 @@ struct LoginView: View {
         focusedField = nil
         Task {
             isLoading = true
-            let isUserLoggedIn = await viewModel.login()
+            let isUserLoggedIn = try await viewModel.login()
             isLoading = false
             
             if isUserLoggedIn {
-                onLoggedIn()
+                onLoggedIn(viewModel.client)
             } else {
                 toastError = ToastModel(style: .error, message: "Accesso non riuscito. Hai inserito il nome utente e la password corretti?")
             }
@@ -114,6 +114,6 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView(viewModel: LoginViewModel(), onLoggedIn: {})
+    LoginView(viewModel: LoginViewModel(client: NetworkClient(environment: .staging)), onLoggedIn: { _ in })
 }
 

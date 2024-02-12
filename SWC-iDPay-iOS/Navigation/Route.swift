@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Route: View {
-    case initiatives
+    case initiatives(viewModel: InitiativesViewModel)
     case bonusAmount
     
     var showBackButton: Bool {
@@ -30,8 +30,8 @@ enum Route: View {
     
     var body: some View {
         switch self {
-        case .initiatives:
-            InitiativesList()
+        case .initiatives(let viewModel):
+            InitiativesList(viewModel: viewModel)
         case .bonusAmount:
             BonusAmountView()
         }

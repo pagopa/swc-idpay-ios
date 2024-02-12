@@ -11,7 +11,11 @@ import PagoPAUIKit
 struct InitiativesList: View {
     
     @EnvironmentObject var router: Router
-    @StateObject var viewModel: InitiativesViewModel = InitiativesViewModel()
+    @ObservedObject var viewModel: InitiativesViewModel
+
+    init(viewModel: InitiativesViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         
@@ -49,6 +53,9 @@ struct InitiativesList: View {
             } else {
                 emptyStateView
             }
+        }
+        .onAppear {
+            viewModel.loadInitiatives()
         }
         .showLoadingView(message: "Aspetta qualche istante..", isLoading: $viewModel.isLoading)
     }
@@ -95,6 +102,6 @@ fileprivate struct InitiativeRow: View {
 }
 
 #Preview {
-    InitiativesList()
+    InitiativesList(viewModel: InitiativesViewModel(networkClient: NetworkClient(environment: .staging)))
         .environmentObject(Router())
 }

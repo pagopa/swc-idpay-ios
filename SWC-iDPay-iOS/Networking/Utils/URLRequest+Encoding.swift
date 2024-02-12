@@ -12,15 +12,69 @@ typealias Headers    = [String: String]
 
 extension URLRequest {
     
+    static func buildRequest(baseUrl: URL, endpoint: Endpoint, parameters: Parameters? = nil) -> URLRequest {
+        
+        var encodedURLRequest = URLRequest(url: baseUrl.appendingPathComponent(endpoint.path))
+        encodedURLRequest.httpMethod = endpoint.method.rawValue
+        encodedURLRequest.addHeaders(endpoint.headers)
+        
+        if let parameters = parameters, let url = encodedURLRequest.url {
+            let body = endpoint.body.merging(parameters) { $1 }
+
+            // Adding parameters
+            switch endpoint.encoding {
+            case .urlEncoding:
+                if let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),
+                    !parameters.isEmpty {
+                    var newUrlComponents = urlComponents
+                    let queryItems: [URLQueryItem] = body.compactMap {
+                        var value = $0.value
+                        if $0.value is String {
+                            value = ($0.value as! String).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? $0.value
+                        }
+                        return URLQueryItem(name: $0.key, value: "\(value)")
+                    }
+                    newUrlComponents.queryItems = queryItems
+                    encodedURLRequest.url = newUrlComponents.url
+                }
+            case .formUrlEncoded:
+                var array : [String] = []
+
+                array.append(contentsOf: body.compactMap {
+                    let key = $0.key
+                    var value = $0.value
+                    if $0.value is String {
+                        value = ($0.value as! String).addingPercentEncoding(withAllowedCharacters: .afURLQueryAllowed) ?? $0.value
+                    }
+                    return "\(key)=\(value)"
+                })
+
+                let encodedParameters = array.joined(separator: "&")
+                encodedURLRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+                encodedURLRequest.httpBody = encodedParameters.data(using: .utf8)
+            case .jsonEncoding:
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+                    encodedURLRequest.httpBody = jsonData
+                    encodedURLRequest.httpMethod = endpoint.method.rawValue
+                                                    
+                } catch (let error) {
+                    print("JSONENcoder error:\(error.localizedDescription)")
+                }
+            }
+
+        }
+        
+        return encodedURLRequest
+    }
+    
+    
     static func buildRequest<T:Codable>(baseUrl: URL, endpoint: Endpoint, parameters: Parameters? = nil, object: T? = nil) -> URLRequest {
         
         var encodedURLRequest = URLRequest(url: baseUrl.appendingPathComponent(endpoint.path))
         encodedURLRequest.httpMethod = endpoint.method.rawValue
+        encodedURLRequest.addHeaders(endpoint.headers)
         
-        for (key, value) in endpoint.headers {
-            encodedURLRequest.addValue(value, forHTTPHeaderField: key)
-        }
-
         if let parameters = parameters, let url = encodedURLRequest.url {
             // Adding parameters
             switch endpoint.encoding {
@@ -76,8 +130,19 @@ extension URLRequest {
         
         return encodedURLRequest
     }
+    
+
 }
 
+extension URLRequest {
+    
+    mutating func addHeaders(_ headers: HTTPHeaders) {
+        for (key, value) in headers {
+            self.addValue(value, forHTTPHeaderField: key)
+        }
+    }
+
+}
 
 extension CharacterSet {
     // Creates a CharacterSet from RFC 3986 allowed characters.

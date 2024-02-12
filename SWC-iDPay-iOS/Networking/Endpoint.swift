@@ -11,6 +11,7 @@ typealias HTTPHeaders = [String:String]
 
 enum Endpoint {
     case login
+    case refreshToken
     case initiatives
     case transactions
     case transactionDetail(_ id: String)
@@ -21,7 +22,7 @@ enum Endpoint {
     
     var path: String {
         switch self {
-        case .login:
+        case .login, .refreshToken:
             return "/mil-auth/token"
         case .initiatives:
             return "/mil-idpay/initiatives"
@@ -42,7 +43,7 @@ enum Endpoint {
     
     var method: HTTPMethod {
         switch self {
-        case .login, .createTransaction, .verifyCIE(_), .authorize(_):
+        case .login, .refreshToken, .createTransaction, .verifyCIE(_), .authorize(_):
             return .post
         case .initiatives, .transactions, .transactionDetail(_):
             return .get
@@ -53,7 +54,7 @@ enum Endpoint {
     
     var encoding: ParametersEncoding {
         switch self {
-        case .login:
+        case .login, .refreshToken:
             return .formUrlEncoded
         default:
             return .jsonEncoding
@@ -66,14 +67,42 @@ enum Endpoint {
             return defaultHeaders.merging([
                 "milTransactionId": transactionId
             ], uniquingKeysWith: +)
+        case .login, .refreshToken:
+            return defaultHeaders.merging([
+                "Content-Type": "application/x-www-form-urlencoded",
+            ], uniquingKeysWith: +)
         default:
-            return defaultHeaders
+            return defaultHeaders.merging([
+                "Content-Type": "application/json"
+            ], uniquingKeysWith: +)
+        }
+    }
+    
+    var body: Parameters {
+        switch self {
+        case .login:
+            return [
+                "scope" : "offline_access",
+                "client_id": "5254f087-1214-45cd-94ae-fda53c835197",
+                "grant_type" : "password"
+            ]
+        case .refreshToken:
+            return [
+                "client_id": "5254f087-1214-45cd-94ae-fda53c835197",
+                "grant_type" : "password"
+            ]
+        default:
+            return [:]
         }
     }
 
     private var defaultHeaders: HTTPHeaders {
         return [
-            "RequestId": String("\(UUID())")
+            "RequestId": String("\(UUID())"),
+            "AcquirerId": "4585625",
+            "Channel": "POS",
+            "TerminalId": "30390022",
+            "MerchantId": "12346789"
         ]
     }
 }

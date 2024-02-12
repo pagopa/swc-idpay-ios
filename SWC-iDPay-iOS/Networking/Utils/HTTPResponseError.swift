@@ -16,6 +16,7 @@ enum HTTPResponseError: Error {
     case noData
     case decodeError
     case unauthorized
+    case expired
     case networkError(String)
     case genericError
     
@@ -33,4 +34,25 @@ enum HTTPResponseError: Error {
             return "Generic error"
         }
     }
+    
+    static func decodeError(status: Int, data: Data) -> HTTPResponseError {
+        
+        if let responseError = try? JSONDecoder().decode(APIResponseError.self, from: data) {
+            // RETURN HTTPResponseError based on errors array in response
+            return HTTPResponseError.networkError("Service error retrieved: \(responseError.errors?.joined(separator: ", ") ?? "")")
+        } else {
+            switch status {
+            case 401:
+                return .unauthorized
+            default:
+                return HTTPResponseError.genericError
+            }
+        }
+    }
+}
+
+struct APIResponseError: Decodable {
+    var statusCode: Int
+    var errors: [String]?
+    var descriptions: [String]?
 }

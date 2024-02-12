@@ -10,6 +10,7 @@ import PagoPAUIKit
 
 struct MainView: View {
     @EnvironmentObject var appManager: AppStateManager
+    @State var networkClient: Requestable?
     
     var body: some View {
         switch appManager.state {
@@ -18,12 +19,15 @@ struct MainView: View {
                 appManager.moveTo(.login)
             })
         case .login:
-            LoginView(viewModel: LoginViewModel(), onLoggedIn: {
+            LoginView(viewModel: LoginViewModel(client: NetworkClient(environment: .staging)), onLoggedIn: { client in
+                self.networkClient = client
                 appManager.login()
             })
         case .acceptBonus:
-            RootView {
-                HomeView()
+            if let networkClient = networkClient {
+                RootView {
+                    HomeView(networkClient: networkClient)
+                }
             }
         case .transactionHistory:
             RootView(barTintColor: Color.paPrimary) {
