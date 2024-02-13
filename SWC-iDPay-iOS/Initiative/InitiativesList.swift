@@ -43,7 +43,7 @@ struct InitiativesList: View {
                                 }
                             }
                             .onTapGesture {
-                                router.pushTo(.bonusAmount)
+                                router.pushTo(.bonusAmount(viewModel: BonusAmountViewModel(networkClient: viewModel.networkClient)))
                             }
                         }
                         

@@ -6,18 +6,11 @@
 //
 import SwiftUI
 
-final class LoginViewModel: ObservableObject {
+final class LoginViewModel: BaseVM {
     
     @Published var username: String = ""
     @Published var password: String = ""
-    
-    let client: Requestable
-    
-    init(client: Requestable) {
-        self.client = client
-    }
-    
-    #warning("Add network call to login")
+        
     func login() async throws -> Bool {
         
         #if DEBUG
@@ -27,7 +20,7 @@ final class LoginViewModel: ObservableObject {
             return UITestingHelper.isUserLoginSuccess
         } else {
             do {
-                try await client.login(username: username, password: password)
+                try await networkClient.login(username: username, password: password)
                 return true
             } catch {
                 return false

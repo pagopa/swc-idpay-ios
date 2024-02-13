@@ -14,8 +14,7 @@ struct BonusAmountView : View {
     @State var dialogModel: ResultModel = ResultModel.emptyModel
     @State var isPresentingDialog: Bool = false
     @State var isReadingCIE: Bool = false
-    @StateObject var viewModel: BonusAmountViewModel = BonusAmountViewModel()
-    
+    @ObservedObject var viewModel: BonusAmountViewModel
     
     var body: some View {
         ZStack {
@@ -173,5 +172,5 @@ struct BonusAmountView : View {
 }
 
 #Preview {
-    BonusAmountView()
+    BonusAmountView(viewModel: BonusAmountViewModel(networkClient: NetworkClient(environment: .staging)))
 }

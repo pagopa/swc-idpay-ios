@@ -9,7 +9,8 @@ import Foundation
 import CIEScanner
 
 @MainActor
-class BonusAmountViewModel: ObservableObject {
+class BonusAmountViewModel: BaseVM {
+    
     @Published var isLoading: Bool = false
     @Published var reader = CIEReader(readCardMessage: "Appoggia la CIE sul dispositivo, in alto", confirmCardReadMessage: "Lettura completata")
 

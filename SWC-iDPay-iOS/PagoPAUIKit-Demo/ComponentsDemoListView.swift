@@ -102,7 +102,7 @@ struct Component: Identifiable, Hashable {
             case .waitingView:
                 EmptyView()
             case .numberPad:
-                BonusAmountView()
+                BonusAmountView(viewModel: BonusAmountViewModel(networkClient: NetworkClient(environment: .staging)))
             case .pinPad:
                 CIEPinView()
             }

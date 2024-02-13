@@ -9,17 +9,11 @@ import Foundation
 import Combine
 
 @MainActor
-class InitiativesViewModel: ObservableObject {
+class InitiativesViewModel: BaseVM {
     
     @Published var initiatives: [Initiative] = []
     @Published var isLoading: Bool = false
-    
-    private var networkClient: Requestable
-    
-    init(networkClient: Requestable) {
-        self.networkClient = networkClient
-    }
-    
+        
     func loadInitiatives() {
         Task {
             isLoading = true

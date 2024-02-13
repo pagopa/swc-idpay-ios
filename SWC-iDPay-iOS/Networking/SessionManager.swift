@@ -10,8 +10,8 @@ import JWTDecode
 
 class SessionManager {
     
-    private let ACCESS_TOKEN_KEY = "_ACCESS_TOKEN"
-    private let REFRESH_TOKEN_KEY = "_REFRESH_TOKEN"
+    private let ACCESS_TOKEN_KEY    = "idpay_access_token"
+    private let REFRESH_TOKEN_KEY   = "idpay_refresh_token"
     
     private var keychainManager: KeychainManager?
     
@@ -19,12 +19,11 @@ class SessionManager {
         self.keychainManager = try? KeychainManager(privateLabel: "ipday-security")
     }
     
-    func saveSessionData(_ loginData: LoginResponse, username: String) throws {
+    func saveSessionData(_ loginData: LoginResponse) throws {
         
         if keychainManager != nil {
-            self.saveUsername(username)
-            try keychainManager!.saveString(string: loginData.accessToken, for: "\(username)\(ACCESS_TOKEN_KEY)")
-            try keychainManager!.saveString(string: loginData.refreshToken, for: "\(username)\(REFRESH_TOKEN_KEY)")
+            try keychainManager!.saveString(string: loginData.accessToken, for: ACCESS_TOKEN_KEY)
+            try keychainManager!.saveString(string: loginData.refreshToken, for: REFRESH_TOKEN_KEY)
         } else {
             throw KeychainManagerError.genericError(description: "Keychain Manager not found")
         }
@@ -36,7 +35,7 @@ class SessionManager {
             throw KeychainManagerError.genericError(description: "Keychain Manager not found")
         }
         
-        guard let username = self.getUsername(), let accessToken = try keychainManager.getString(for: username + ACCESS_TOKEN_KEY) else {
+        guard let accessToken = try keychainManager.getString(for: ACCESS_TOKEN_KEY) else {
             throw KeychainManagerError.itemNotFound
         }
         
@@ -52,22 +51,8 @@ class SessionManager {
         guard let keychainManager = keychainManager else {
             throw KeychainManagerError.genericError(description: "Keychain Manager not found")
         }
-        
-        guard let username = self.getUsername() else {
-            return nil
-        }
-                
-        return try keychainManager.getString(for: username + REFRESH_TOKEN_KEY)
-    }
-
-    
-    private func saveUsername(_ username: String) {
-        let defaults = UserDefaults.standard
-        defaults.setValue(username, forKey: "username")
+                        
+        return try keychainManager.getString(for: REFRESH_TOKEN_KEY)
     }
     
-    func getUsername() -> String? {
-        let defaults = UserDefaults.standard
-        return defaults.string(forKey: "username")
-    }
 }

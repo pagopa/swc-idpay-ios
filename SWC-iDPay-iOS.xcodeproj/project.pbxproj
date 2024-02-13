@@ -21,6 +21,9 @@
 		B81FBDE32B5588A500BDB580 /* LoginViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81FBDE22B5588A500BDB580 /* LoginViewUITests.swift */; };
 		B824E6BE2B59290F0050265D /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E6BD2B59290F0050265D /* XCTestCase+Extension.swift */; };
 		B824E6C12B5987840050265D /* BonusAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E6C02B5987840050265D /* BonusAmountView.swift */; };
+		B861AAFC2B7BA4C2007A86E5 /* BaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */; };
+		B861AAFE2B7BA566007A86E5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */; };
+		B861AB002B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFF2B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift */; };
 		B864279D2B35D62000804A02 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B864279C2B35D61F00804A02 /* LoginView.swift */; };
 		B86D992C2B514BD4006B4D53 /* TransactionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */; };
 		B86D992F2B5154CE006B4D53 /* AuthorizedTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = B86D992E2B5154CE006B4D53 /* AuthorizedTransaction.json */; };
@@ -97,6 +100,9 @@
 		B81FBDE22B5588A500BDB580 /* LoginViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewUITests.swift; sourceTree = "<group>"; };
 		B824E6BD2B59290F0050265D /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
 		B824E6C02B5987840050265D /* BonusAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusAmountView.swift; sourceTree = "<group>"; };
+		B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVM.swift; sourceTree = "<group>"; };
+		B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		B861AAFF2B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewModel.swift; sourceTree = "<group>"; };
 		B864279C2B35D61F00804A02 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionStatus.swift; sourceTree = "<group>"; };
 		B86D992E2B5154CE006B4D53 /* AuthorizedTransaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AuthorizedTransaction.json; sourceTree = "<group>"; };
@@ -167,22 +173,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		980107842B765F1600A58325 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				B824E6C02B5987840050265D /* BonusAmountView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		980107852B765F2500A58325 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				980107862B765F3C00A58325 /* BonusAmountViewModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		9811BBFA2B177C940063E71B = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +197,7 @@
 		9811BC052B177C950063E71B /* SWC-iDPay-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B861AAFA2B7BA4AF007A86E5 /* Shared */,
 				B8AFC6142B63CF0C00FEE74C /* Info.plist */,
 				B8AFC6132B63CEB900FEE74C /* SWC-iDPay-iOS.entitlements */,
 				B882BEFF2B72935F0040C6A6 /* Navigation */,
@@ -287,10 +278,18 @@
 		B824E6BF2B5987500050265D /* BonusPayment */ = {
 			isa = PBXGroup;
 			children = (
-				980107852B765F2500A58325 /* Model */,
-				980107842B765F1600A58325 /* View */,
+				980107862B765F3C00A58325 /* BonusAmountViewModel.swift */,
+				B824E6C02B5987840050265D /* BonusAmountView.swift */,
 			);
 			path = BonusPayment;
+			sourceTree = "<group>";
+		};
+		B861AAFA2B7BA4AF007A86E5 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		B86D992A2B514BA0006B4D53 /* Transaction */ = {
@@ -356,6 +355,7 @@
 			isa = PBXGroup;
 			children = (
 				B882BF102B73D86C0040C6A6 /* TransactionsHistoryList.swift */,
+				B861AAFF2B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift */,
 			);
 			path = TransactionsHistory;
 			sourceTree = "<group>";
@@ -428,6 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				B882BF092B7296C40040C6A6 /* HomeView.swift */,
+				B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -636,6 +637,7 @@
 				B803D8D62B20D85700A7934E /* AppStateManager.swift in Sources */,
 				B8DF96352B7A285000113D4B /* APIEnvironment.swift in Sources */,
 				B882BF042B7293A40040C6A6 /* AppToolbar.swift in Sources */,
+				B861AAFC2B7BA4C2007A86E5 /* BaseVM.swift in Sources */,
 				B86D99382B5175B9006B4D53 /* ReceiptTicketViewModel.swift in Sources */,
 				B8DF962C2B7A110C00113D4B /* NetworkClient.swift in Sources */,
 				B8DF962E2B7A11AA00113D4B /* Requestable.swift in Sources */,
@@ -649,6 +651,7 @@
 				B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */,
 				B882BF032B7293A40040C6A6 /* ToolbarButtons.swift in Sources */,
 				B8FAB1F62B7A5FCA0097E7A1 /* InitiativesResponse.swift in Sources */,
+				B861AB002B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift in Sources */,
 				B882BF142B7519460040C6A6 /* InitiativesViewModel.swift in Sources */,
 				B882BF072B7293B80040C6A6 /* Route.swift in Sources */,
 				B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */,
@@ -656,6 +659,7 @@
 				B864279D2B35D62000804A02 /* LoginView.swift in Sources */,
 				B8D708C82B56D81A00AF02A0 /* UITestingHelper.swift in Sources */,
 				B8DF96382B7A2AC800113D4B /* URLSessionProtocol.swift in Sources */,
+				B861AAFE2B7BA566007A86E5 /* HomeViewModel.swift in Sources */,
 				B8CE22C72B5ACB0200A4BC67 /* HelpView.swift in Sources */,
 				B871E5CA2B5EA439008B67DD /* CIEPinView.swift in Sources */,
 				9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */,

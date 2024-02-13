@@ -35,20 +35,21 @@ class NetworkClient: Requestable {
     
     func login(username: String, password: String) async throws {
         let response: LoginResponse = try await sendRequest(for: .login, params: ["username": username, "password": password])
-        try sessionManager.saveSessionData(response, username: username)
+        try sessionManager.saveSessionData(response)
         
     }
     
     func refreshToken() async throws {
-        guard let refreshToken = try sessionManager.getRefreshToken(), let username = sessionManager.getUsername() else {
+        guard let refreshToken = try sessionManager.getRefreshToken()else {
             throw HTTPResponseError.unauthorized
         }
+        
         let response: LoginResponse = try await sendRequest(
             for: .refreshToken,
             params: ["refresh_token": refreshToken],
             headers: ["Authorization": "Bearer \(sessionManager.getAccessToken())"]
         )
-        try sessionManager.saveSessionData(response, username: username)
+        try sessionManager.saveSessionData(response)
     }
     
     func getInitiatives() async throws -> [Initiative] {
