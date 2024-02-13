@@ -43,7 +43,11 @@ class NetworkClient: Requestable {
         guard let refreshToken = try sessionManager.getRefreshToken(), let username = sessionManager.getUsername() else {
             throw HTTPResponseError.unauthorized
         }
-        let response: LoginResponse = try await sendRequest(for: .refreshToken, params: ["refresh_token": refreshToken])
+        let response: LoginResponse = try await sendRequest(
+            for: .refreshToken,
+            params: ["refresh_token": refreshToken],
+            headers: ["Authorization": "Bearer \(sessionManager.getAccessToken())"]
+        )
         try sessionManager.saveSessionData(response, username: username)
     }
     
@@ -57,25 +61,27 @@ class NetworkClient: Requestable {
 
 extension NetworkClient {
     
-    private func sendRequest<T:Decodable>(for endpoint: Endpoint, params: Parameters? = nil) async throws -> T {
+    private func sendRequest<T:Decodable>(for endpoint: Endpoint, params: Parameters? = nil, headers: Headers? = nil) async throws -> T {
         
         var apiRequest: URLRequest = URLRequest.buildRequest(baseUrl: baseURL, endpoint: endpoint, parameters: params)
         
+        if let headers = headers {
+            apiRequest.addHeaders(headers)
+        }
+        
         switch endpoint {
-        case .login:
+        case .login, .refreshToken:
             break
         default:
-            if let accessToken = try sessionManager.getAccessToken() {
-                apiRequest.addHeaders(["Authorization": "Bearer \(accessToken)"])
-            } else {
+            var accessToken = try sessionManager.getAccessToken()
+                
+            if try sessionManager.isExpired(accessToken: accessToken) {
                 // REFRESH TOKEN
                 try await refreshToken()
-                if let accessToken = try sessionManager.getAccessToken() {
-                    apiRequest.addHeaders(["Authorization": "Bearer \(accessToken)"])
-                } else {
-                    throw HTTPResponseError.unauthorized
-                }
+                accessToken = try sessionManager.getAccessToken()
             }
+            
+            apiRequest.addHeaders(["Authorization": "Bearer \(accessToken)"])
         }
         
         print("----------------------------------------INPUT----------------------------------------------------------")

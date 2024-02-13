@@ -30,28 +30,27 @@ class SessionManager {
         }
     }
     
-    //TODO: Return error on access token expired, to call refreshToken
-    func getAccessToken() throws -> String? {
+    func getAccessToken() throws -> String {
+        
         guard let keychainManager = keychainManager else {
-            throw KeychainManagerError.genericError(description: "Keychaing Manager not found")
+            throw KeychainManagerError.genericError(description: "Keychain Manager not found")
         }
         
         guard let username = self.getUsername(), let accessToken = try keychainManager.getString(for: username + ACCESS_TOKEN_KEY) else {
-            return nil
-        }
-        
-        let jwt = try decode(jwt: accessToken)
-        
-        guard !jwt.expired else {
-            throw HTTPResponseError.expired
+            throw KeychainManagerError.itemNotFound
         }
         
         return accessToken
     }
     
+    func isExpired(accessToken: String) throws -> Bool {
+        let jwt = try decode(jwt: accessToken)
+        return jwt.expired
+    }
+    
     func getRefreshToken() throws -> String? {
         guard let keychainManager = keychainManager else {
-            throw KeychainManagerError.genericError(description: "Keychaing Manager not found")
+            throw KeychainManagerError.genericError(description: "Keychain Manager not found")
         }
         
         guard let username = self.getUsername() else {

@@ -89,7 +89,7 @@ enum Endpoint {
         case .refreshToken:
             return [
                 "client_id": "5254f087-1214-45cd-94ae-fda53c835197",
-                "grant_type" : "password"
+                "grant_type" : "refresh_token"
             ]
         default:
             return [:]
