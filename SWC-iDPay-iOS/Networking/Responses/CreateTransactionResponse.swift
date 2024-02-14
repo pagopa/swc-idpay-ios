@@ -28,12 +28,12 @@ struct CreateTransactionResponse: Decodable {
             self.transactionStatusPollingURL = location
         }
         
-        if let retryAfter = headers["Retry-After"] as? Int {
-            self.retryAfter = retryAfter
+        if let retryAfter = headers["retry-after"] as? String {
+            self.retryAfter = Int(retryAfter)
         }
         
-        if let maxRetries = headers["Max-Retries"] as? Int {
-            self.maxRetries = maxRetries
+        if let maxRetries = headers["max-retries"] as? String {
+            self.maxRetries = Int(maxRetries)
         }
     }
 }
