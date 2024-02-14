@@ -17,7 +17,7 @@ enum Endpoint {
     case transactionDetail(_ id: String)
     case createTransaction(initiativeId: String, amount: Int)
     case deleteTransaction(_ id: String)
-    case verifyCIE(transactionId: String)
+    case verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String)
     case authorize(transactionId: String)
     
     var path: String {
@@ -34,8 +34,8 @@ enum Endpoint {
             return "/mil-idpay/transactions"
         case .deleteTransaction(let id):
             return "/mil-idpay/transactions/\(id)"
-        case .verifyCIE(let transactionId):
-            return "/mil-idpay/transactions/\(transactionId)/verifyCIE"
+        case .verifyCIE(let milTransactionId, _, _, _, _):
+            return "/mil-idpay/transactions/\(milTransactionId)/verifyCie"
         case .authorize(let transactionId):
             return "/mil-idpay/transactions/\(transactionId)/authorize"
         }
@@ -43,7 +43,7 @@ enum Endpoint {
     
     var method: HTTPMethod {
         switch self {
-        case .login, .refreshToken, .createTransaction, .verifyCIE(_), .authorize(_):
+        case .login, .refreshToken, .createTransaction, .verifyCIE, .authorize:
             return .post
         case .initiatives, .transactions, .transactionDetail(_):
             return .get
@@ -63,9 +63,10 @@ enum Endpoint {
     
     var headers: HTTPHeaders {
         switch self {
-        case .authorize(let transactionId):
+        case .authorize(let milTransactionId), .verifyCIE(let milTransactionId, _, _, _, _):
             return defaultHeaders.merging([
-                "milTransactionId": transactionId
+                "Content-Type": "application/json",
+                "milTransactionId": milTransactionId
             ], uniquingKeysWith: +)
         case .login, .refreshToken:
             return defaultHeaders.merging([
@@ -99,6 +100,13 @@ enum Endpoint {
                 "initiativeId": initiativeId,
                 "timestamp": Date().toUTCString(),
                 "goodsCost": amount
+            ]
+        case .verifyCIE(_, let nis, let ciePublicKey, let signature, let sod):
+            return [
+                "nis": nis,
+                "ciePublicKey": ciePublicKey,
+                "signature": signature,
+                "sod": sod
             ]
         default:
             return [:]

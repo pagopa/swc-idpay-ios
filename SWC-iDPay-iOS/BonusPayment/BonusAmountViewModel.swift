@@ -17,6 +17,7 @@ class BonusAmountViewModel: BaseVM {
 
     var reader = CIEReader(readCardMessage: "Appoggia la CIE sul dispositivo, in alto", confirmCardReadMessage: "Lettura completata")
     var initiative: Initiative
+    var transactionData: CreateTransactionResponse?
     
     init(networkClient: Requestable, initiative: Initiative) {
         self.initiative = initiative
@@ -32,13 +33,17 @@ class BonusAmountViewModel: BaseVM {
         
     func createTransaction() async throws {
         isLoading = true
-        let response = try await networkClient.createTransaction(initiativeId: initiative.id, amount: Int(amountText.replacingOccurrences(of: ",", with: ""))!)
+        transactionData = try await networkClient.createTransaction(initiativeId: initiative.id, amount: Int(amountText.replacingOccurrences(of: ",", with: ""))!)
         isLoading = false
     }
     
     func verifyCIE(nisAuthenticated: NisAuthenticated) async throws {
         isLoading = true
         loadingStateMessage = "Stiamo verificando la CIE"
+        guard let milTransactionId = transactionData?.milTransactionId else {
+            return
+        }
+        try await networkClient.verifyCIE(milTransactionId: milTransactionId, nis: nisAuthenticated.nis, ciePublicKey: nisAuthenticated.kpubIntServ, signature: nisAuthenticated.challengeSigned, sod: nisAuthenticated.sod)
         try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
         isLoading = false
     }

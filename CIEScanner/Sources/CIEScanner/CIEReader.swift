@@ -11,6 +11,7 @@ import CoreNFC
 public enum CIEReaderError: Error, CustomStringConvertible {
     case scanNotSupported
     case invalidTag
+    case sendCommandForResponse
     case responseError(String)
     
     public var description: String {
@@ -19,8 +20,12 @@ public enum CIEReaderError: Error, CustomStringConvertible {
             return "This device doesn't support tag scanning"
         case .responseError(let message):
             return message
-        default:
+        case .invalidTag:
             return "Error reading tag"
+        case .sendCommandForResponse:
+            return "Send command to read response"
+        default:
+            return "Generic error retrived reading tag"
         }
     }
 }
