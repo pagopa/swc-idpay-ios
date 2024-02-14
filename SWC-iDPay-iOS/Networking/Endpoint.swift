@@ -10,12 +10,12 @@ import Foundation
 typealias HTTPHeaders = [String:String]
 
 enum Endpoint {
-    case login
-    case refreshToken
+    case login(username: String, password: String)
+    case refreshToken(_ refreshToken: String)
     case initiatives
     case transactions
     case transactionDetail(_ id: String)
-    case createTransaction
+    case createTransaction(initiativeId: String, amount: Int)
     case deleteTransaction(_ id: String)
     case verifyCIE(transactionId: String)
     case authorize(transactionId: String)
@@ -80,16 +80,25 @@ enum Endpoint {
     
     var body: Parameters {
         switch self {
-        case .login:
+        case .login(let username, let password):
             return [
                 "scope" : "offline_access",
                 "client_id": "5254f087-1214-45cd-94ae-fda53c835197",
-                "grant_type" : "password"
+                "grant_type" : "password",
+                "username": username,
+                "password": password
             ]
-        case .refreshToken:
+        case .refreshToken(let refreshToken):
             return [
+                "refresh_token": refreshToken,
                 "client_id": "5254f087-1214-45cd-94ae-fda53c835197",
                 "grant_type" : "refresh_token"
+            ]
+        case .createTransaction(let initiativeId, let amount):
+            return [
+                "initiativeId": initiativeId,
+                "timestamp": Date().toUTCString(),
+                "goodsCost": amount
             ]
         default:
             return [:]

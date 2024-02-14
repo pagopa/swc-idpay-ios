@@ -9,8 +9,6 @@ import PagoPAUIKit
 import CIEScanner
 
 struct BonusAmountView : View {
-    @State var isLoading: Bool = false
-    @State var amountText: String = "0,00"
     @State var dialogModel: ResultModel = ResultModel.emptyModel
     @State var isPresentingDialog: Bool = false
     @State var isReadingCIE: Bool = false
@@ -27,7 +25,7 @@ struct BonusAmountView : View {
                     .padding(.top, Constants.mediumSpacing)
                 
                 Group {
-                    Text(amountText)
+                    Text(viewModel.amountText)
                         .font(.PAFont.h1Hero)
                     +
                     Text(" €")
@@ -54,6 +52,7 @@ struct BonusAmountView : View {
                     print("Do some action on close")
                 }
             )
+            .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         }
     }
     
@@ -73,19 +72,19 @@ struct BonusAmountView : View {
     @ViewBuilder
     private var paymentView: some View {
         Spacer()
-        NumberPad(.numeric, string: $amountText)
+        NumberPad(.numeric, string: $viewModel.amountText)
         Spacer()
         CustomLoadingButton(
             buttonType: .primary,
             isLoading: $viewModel.isLoading) {
                 Task {
-                    await viewModel.createTransaction()
+                    try await viewModel.createTransaction()
                     self.showAuthModeDialog()
                 }
             } label: {
                 Text("Conferma")
             }
-            .disabled(amountText == "0,00")
+            .disabled(viewModel.amountText == "0,00")
     }
     
     @ViewBuilder
@@ -126,6 +125,7 @@ struct BonusAmountView : View {
                     return
                 }
                 print(nisAuthenticated.toString())
+                try await viewModel.verifyCIE(nisAuthenticated: nisAuthenticated)
             } catch {
                 guard let cieError = error as? CIEReaderError else { return }
                 switch cieError {
@@ -172,5 +172,5 @@ struct BonusAmountView : View {
 }
 
 #Preview {
-    BonusAmountView(viewModel: BonusAmountViewModel(networkClient: NetworkClient(environment: .staging)))
+    BonusAmountView(viewModel: BonusAmountViewModel(networkClient: NetworkClient(environment: .staging), initiative: Initiative.mocked))
 }

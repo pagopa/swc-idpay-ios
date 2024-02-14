@@ -37,13 +37,18 @@ struct InitiativesList: View {
                             
                             VStack {
                                 InitiativeRow(initiative: initiative)
+                                    .onTapGesture {
+                                        router.pushTo(
+                                            .bonusAmount(
+                                                viewModel: BonusAmountViewModel(
+                                                    networkClient: viewModel.networkClient,
+                                                    initiative: initiative)
+                                            ))
+                                    }
                                 
                                 if initiative != viewModel.initiatives.last {
                                     Divider()
                                 }
-                            }
-                            .onTapGesture {
-                                router.pushTo(.bonusAmount(viewModel: BonusAmountViewModel(networkClient: viewModel.networkClient)))
                             }
                         }
                         
@@ -57,7 +62,7 @@ struct InitiativesList: View {
         .onAppear {
             viewModel.loadInitiatives()
         }
-        .showLoadingView(message: "Aspetta qualche istante..", isLoading: $viewModel.isLoading)
+        .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
     }
     
     private var emptyStateView: some View {

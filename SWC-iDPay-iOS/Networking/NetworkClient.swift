@@ -27,44 +27,52 @@ class NetworkClient: Requestable {
         return session
     }()
     
-    
     init(environment: APIEnvironment, session: URLSession? = nil) {
         self.baseURL = URL(string: environment.baseURLString)!
         self.session = session ?? defaultSession
     }
     
     func login(username: String, password: String) async throws {
-        let response: LoginResponse = try await sendRequest(for: .login, params: ["username": username, "password": password])
-        try sessionManager.saveSessionData(response)
-        
-    }
-    
-    func refreshToken() async throws {
-        guard let refreshToken = try sessionManager.getRefreshToken()else {
-            throw HTTPResponseError.unauthorized
-        }
-        
-        let response: LoginResponse = try await sendRequest(
-            for: .refreshToken,
-            params: ["refresh_token": refreshToken],
-            headers: ["Authorization": "Bearer \(sessionManager.getAccessToken())"]
-        )
+        let response: LoginResponse = try await sendRequest(for: .login(username: username, password: password))
         try sessionManager.saveSessionData(response)
     }
     
     func getInitiatives() async throws -> [Initiative] {
         let response: InitiativesResponse = try await sendRequest(for: .initiatives)
         return response.initiatives
+    }
+    
+    func createTransaction(initiativeId: String, amount: Int) async throws -> CreateTransactionResponse{
+        let response: CreateTransactionResponse = try await sendRequest(for: .createTransaction(initiativeId: initiativeId, amount: amount))
+        return response
+    }
+    
+    func verifyCIE(nis: String, ciePublicKey: String, signature: String, sod: String) {
         
     }
     
+    func authorizeTransaction() {
+        // TODO: verificare parametri
+    }
 }
 
 extension NetworkClient {
     
+    private func refreshToken() async throws {
+        guard let refreshToken = try sessionManager.getRefreshToken()else {
+            throw HTTPResponseError.unauthorized
+        }
+        
+        let response: LoginResponse = try await sendRequest(
+            for: .refreshToken(refreshToken),
+            headers: ["Authorization": "Bearer \(sessionManager.getAccessToken())"]
+        )
+        try sessionManager.saveSessionData(response)
+    }
+    
     private func sendRequest<T:Decodable>(for endpoint: Endpoint, params: Parameters? = nil, headers: Headers? = nil) async throws -> T {
         
-        var apiRequest: URLRequest = URLRequest.buildRequest(baseUrl: baseURL, endpoint: endpoint, parameters: params)
+        var apiRequest: URLRequest = URLRequest.buildRequest(baseUrl: baseURL, endpoint: endpoint)
         
         if let headers = headers {
             apiRequest.addHeaders(headers)
@@ -113,8 +121,18 @@ extension NetworkClient {
                 throw HTTPResponseError.decodeError(status: httpResponse.statusCode, data: data)
             }
             
-            // Return data
-            return try self.jsonDecoder.decode(T.self, from: data)
+            switch endpoint {
+            case .createTransaction:
+                var transactionResponse = try self.jsonDecoder.decode(T.self, from: data)
+                if var response = transactionResponse as? CreateTransactionResponse {
+                    response.addValuesFrom(headers: httpResponse.allHeaderFields)
+                    transactionResponse = (response as! T)
+                }
+                return transactionResponse
+            default:
+                // Return data
+                return try self.jsonDecoder.decode(T.self, from: data)
+            }
         } else {
             throw HTTPResponseError.genericError
         }

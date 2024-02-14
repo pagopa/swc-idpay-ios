@@ -13,7 +13,8 @@ class InitiativesViewModel: BaseVM {
     
     @Published var initiatives: [Initiative] = []
     @Published var isLoading: Bool = false
-        
+    @Published var loadingStateMessage: String = "Aspetta qualche istante.."
+    
     func loadInitiatives() {
         Task {
             isLoading = true

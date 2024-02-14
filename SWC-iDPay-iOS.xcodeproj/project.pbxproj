@@ -24,6 +24,8 @@
 		B861AAFC2B7BA4C2007A86E5 /* BaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */; };
 		B861AAFE2B7BA566007A86E5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */; };
 		B861AB002B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFF2B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift */; };
+		B861AB022B7BBA29007A86E5 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AB012B7BBA29007A86E5 /* Date+Extensions.swift */; };
+		B861AB042B7BBC2A007A86E5 /* CreateTransactionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AB032B7BBC2A007A86E5 /* CreateTransactionResponse.swift */; };
 		B864279D2B35D62000804A02 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B864279C2B35D61F00804A02 /* LoginView.swift */; };
 		B86D992C2B514BD4006B4D53 /* TransactionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */; };
 		B86D992F2B5154CE006B4D53 /* AuthorizedTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = B86D992E2B5154CE006B4D53 /* AuthorizedTransaction.json */; };
@@ -103,6 +105,8 @@
 		B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVM.swift; sourceTree = "<group>"; };
 		B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		B861AAFF2B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewModel.swift; sourceTree = "<group>"; };
+		B861AB012B7BBA29007A86E5 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		B861AB032B7BBC2A007A86E5 /* CreateTransactionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTransactionResponse.swift; sourceTree = "<group>"; };
 		B864279C2B35D61F00804A02 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionStatus.swift; sourceTree = "<group>"; };
 		B86D992E2B5154CE006B4D53 /* AuthorizedTransaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AuthorizedTransaction.json; sourceTree = "<group>"; };
@@ -177,7 +181,6 @@
 			isa = PBXGroup;
 			children = (
 				9811BC052B177C950063E71B /* SWC-iDPay-iOS */,
-				B8CE22C82B5ACCA100A4BC67 /* Utilities */,
 				9811BC162B177C970063E71B /* SWC-iDPay-iOSTests */,
 				9811BC202B177C970063E71B /* SWC-iDPay-iOSUITests */,
 				9811BC042B177C950063E71B /* Products */,
@@ -416,14 +419,6 @@
 			path = Assistenza;
 			sourceTree = "<group>";
 		};
-		B8CE22C82B5ACCA100A4BC67 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				B8CE22C92B5ACCCD00A4BC67 /* WebView.swift */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
 		B8CE22CB2B5ADAA000A4BC67 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -444,7 +439,9 @@
 		B8DF96312B7A1D9400113D4B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B8CE22C92B5ACCCD00A4BC67 /* WebView.swift */,
 				B8DF96322B7A1DAF00113D4B /* KeychainManager.swift */,
+				B861AB012B7BBA29007A86E5 /* Date+Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -474,6 +471,7 @@
 			children = (
 				B8FAB1F12B7A5CB70097E7A1 /* LoginResponse.swift */,
 				B8FAB1F52B7A5FCA0097E7A1 /* InitiativesResponse.swift */,
+				B861AB032B7BBC2A007A86E5 /* CreateTransactionResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -622,11 +620,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */,
+				B861AB022B7BBA29007A86E5 /* Date+Extensions.swift in Sources */,
 				B882BF0C2B739F700040C6A6 /* RootView.swift in Sources */,
 				B8CE22CA2B5ACCCD00A4BC67 /* WebView.swift in Sources */,
 				B8CE22C22B5A937C00A4BC67 /* MainView.swift in Sources */,
 				B81261272B581512003304C8 /* MenuView.swift in Sources */,
 				B86D99352B515C10006B4D53 /* Initiative.swift in Sources */,
+				B861AB042B7BBC2A007A86E5 /* CreateTransactionResponse.swift in Sources */,
 				B8FAB1F22B7A5CB70097E7A1 /* LoginResponse.swift in Sources */,
 				980107872B765F3C00A58325 /* BonusAmountViewModel.swift in Sources */,
 				B88E8FD02B768AF6005A3737 /* Endpoint.swift in Sources */,

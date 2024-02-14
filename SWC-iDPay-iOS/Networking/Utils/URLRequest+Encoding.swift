@@ -12,14 +12,14 @@ typealias Headers    = [String: String]
 
 extension URLRequest {
     
-    static func buildRequest(baseUrl: URL, endpoint: Endpoint, parameters: Parameters? = nil) -> URLRequest {
+    static func buildRequest(baseUrl: URL, endpoint: Endpoint) -> URLRequest {
         
         var encodedURLRequest = URLRequest(url: baseUrl.appendingPathComponent(endpoint.path))
         encodedURLRequest.httpMethod = endpoint.method.rawValue
         encodedURLRequest.addHeaders(endpoint.headers)
         
-        if let parameters = parameters, let url = encodedURLRequest.url {
-            let body = endpoint.body.merging(parameters) { $1 }
+        if let url = encodedURLRequest.url, !endpoint.body.isEmpty {
+            let parameters = endpoint.body
 
             // Adding parameters
             switch endpoint.encoding {
@@ -27,7 +27,7 @@ extension URLRequest {
                 if let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),
                     !parameters.isEmpty {
                     var newUrlComponents = urlComponents
-                    let queryItems: [URLQueryItem] = body.compactMap {
+                    let queryItems: [URLQueryItem] = parameters.compactMap {
                         var value = $0.value
                         if $0.value is String {
                             value = ($0.value as! String).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? $0.value
@@ -40,7 +40,7 @@ extension URLRequest {
             case .formUrlEncoded:
                 var array : [String] = []
 
-                array.append(contentsOf: body.compactMap {
+                array.append(contentsOf: parameters.compactMap {
                     let key = $0.key
                     var value = $0.value
                     if $0.value is String {
@@ -54,7 +54,7 @@ extension URLRequest {
                 encodedURLRequest.httpBody = encodedParameters.data(using: .utf8)
             case .jsonEncoding:
                 do {
-                    let jsonData = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+                    let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
                     encodedURLRequest.httpBody = jsonData
                     encodedURLRequest.httpMethod = endpoint.method.rawValue
                                                     

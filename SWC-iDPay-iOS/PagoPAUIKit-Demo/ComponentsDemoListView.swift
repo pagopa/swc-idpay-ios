@@ -80,7 +80,7 @@ struct Component: Identifiable, Hashable {
             case .progress:
                 ProgressDemoView()
             case .loader:
-                LoadingView()
+                LoadingDemoView()
             case .listItem:
                 ItemsDemoView()
             case .toastNotification:
@@ -102,7 +102,7 @@ struct Component: Identifiable, Hashable {
             case .waitingView:
                 EmptyView()
             case .numberPad:
-                BonusAmountView(viewModel: BonusAmountViewModel(networkClient: NetworkClient(environment: .staging)))
+                BonusAmountView(viewModel: BonusAmountViewModel(networkClient: NetworkClient(environment: .staging), initiative: Initiative.mocked))
             case .pinPad:
                 CIEPinView()
             }
