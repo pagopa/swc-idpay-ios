@@ -60,7 +60,7 @@ class TagReader {
         let NISResponse = try await send(cmd: apdu)
         
         loggerManager.log_APDU_response(NISResponse, message: "Response NIS: ")
-        loggerManager.log("NIS string value: \(String.hexStringFromBinary(NISResponse.data))")
+        loggerManager.log("NIS string value: \(String(data: Data(NISResponse.data), encoding: .utf8))")
         return NISResponse
         
     }

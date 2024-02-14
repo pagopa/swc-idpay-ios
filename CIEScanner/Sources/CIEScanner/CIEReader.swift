@@ -135,7 +135,7 @@ extension CIEReader: NFCTagReaderSessionDelegate {
                 
                 let responseNIS = try await tagReader.readNIS()
                 
-                let efIntServ1001 = responseNIS.data
+                let efIntServ1001 = Data(responseNIS.data)
                 
                 let publicKey = try await tagReader.readPublicKey()
                 
@@ -143,8 +143,12 @@ extension CIEReader: NFCTagReaderSessionDelegate {
 
                 let challengeSigned = try await tagReader.intAuth(challenge: "")
 
+                guard let nis = String(data: efIntServ1001, encoding: .utf8) else {
+                    throw CIEReaderError.responseError("Cannot encode NIS")
+                }
+                
                 let nisAuthenticated = NisAuthenticated(
-                    nis: String.base64StringFromBinary(efIntServ1001),
+                    nis: nis,
                     kpubIntServ: String.base64StringFromBinary(publicKey),
                     haskKpubIntServ: "",
                     sod: String.base64StringFromBinary(sod),
