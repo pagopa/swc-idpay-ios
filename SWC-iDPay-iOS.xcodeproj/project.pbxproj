@@ -26,6 +26,7 @@
 		B861AB002B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFF2B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift */; };
 		B861AB022B7BBA29007A86E5 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AB012B7BBA29007A86E5 /* Date+Extensions.swift */; };
 		B861AB042B7BBC2A007A86E5 /* CreateTransactionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AB032B7BBC2A007A86E5 /* CreateTransactionResponse.swift */; };
+		B861AB062B7CD04B007A86E5 /* VerifyCIEResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AB052B7CD04B007A86E5 /* VerifyCIEResponse.swift */; };
 		B864279D2B35D62000804A02 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B864279C2B35D61F00804A02 /* LoginView.swift */; };
 		B86D992C2B514BD4006B4D53 /* TransactionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */; };
 		B86D992F2B5154CE006B4D53 /* AuthorizedTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = B86D992E2B5154CE006B4D53 /* AuthorizedTransaction.json */; };
@@ -107,6 +108,7 @@
 		B861AAFF2B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewModel.swift; sourceTree = "<group>"; };
 		B861AB012B7BBA29007A86E5 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		B861AB032B7BBC2A007A86E5 /* CreateTransactionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTransactionResponse.swift; sourceTree = "<group>"; };
+		B861AB052B7CD04B007A86E5 /* VerifyCIEResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyCIEResponse.swift; sourceTree = "<group>"; };
 		B864279C2B35D61F00804A02 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionStatus.swift; sourceTree = "<group>"; };
 		B86D992E2B5154CE006B4D53 /* AuthorizedTransaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AuthorizedTransaction.json; sourceTree = "<group>"; };
@@ -472,6 +474,7 @@
 				B8FAB1F12B7A5CB70097E7A1 /* LoginResponse.swift */,
 				B8FAB1F52B7A5FCA0097E7A1 /* InitiativesResponse.swift */,
 				B861AB032B7BBC2A007A86E5 /* CreateTransactionResponse.swift */,
+				B861AB052B7CD04B007A86E5 /* VerifyCIEResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -650,6 +653,7 @@
 				B88E8FCE2B768919005A3737 /* URLRequest+Encoding.swift in Sources */,
 				B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */,
 				B882BF032B7293A40040C6A6 /* ToolbarButtons.swift in Sources */,
+				B861AB062B7CD04B007A86E5 /* VerifyCIEResponse.swift in Sources */,
 				B8FAB1F62B7A5FCA0097E7A1 /* InitiativesResponse.swift in Sources */,
 				B861AB002B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift in Sources */,
 				B882BF142B7519460040C6A6 /* InitiativesViewModel.swift in Sources */,
