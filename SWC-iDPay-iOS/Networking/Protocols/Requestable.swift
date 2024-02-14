@@ -11,6 +11,7 @@ protocol Requestable {
     func login(username: String, password: String)  async throws
     func getInitiatives() async throws -> [Initiative]
     func createTransaction(initiativeId: String, amount: Int) async throws -> CreateTransactionResponse
-    func verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String) async throws
-    func authorizeTransaction() 
+    func verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String) async throws -> VerifyCIEResponse
+    func verifyTransactionStatus(milTransactionId: String) async throws
+    func authorizeTransaction()
 }

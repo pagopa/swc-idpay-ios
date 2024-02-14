@@ -47,8 +47,13 @@ class NetworkClient: Requestable {
         return response
     }
     
-    func verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String) async throws {
+    func verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String) async throws -> VerifyCIEResponse {
         let response: VerifyCIEResponse = try await sendRequest(for: .verifyCIE(milTransactionId: milTransactionId, nis: nis, ciePublicKey: ciePublicKey, signature: signature, sod: sod))
+        return response
+    }
+    
+    func verifyTransactionStatus(milTransactionId: String) async throws {
+        let response: CreateTransactionResponse = try await sendRequest(for: .transactionDetail(milTransactionId))
     }
     
     func authorizeTransaction() {

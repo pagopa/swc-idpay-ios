@@ -120,12 +120,8 @@ struct BonusAmountView : View {
         Task {
             self.isReadingCIE = true
             do {
-                guard let nisAuthenticated = try await viewModel.reader.scan() else {
-                    print("No NISAuthenticated found")
-                    return
-                }
-                print(nisAuthenticated.toString())
-                try await viewModel.verifyCIE(nisAuthenticated: nisAuthenticated)
+                try await viewModel.readCIE()
+                try await viewModel.verifyCIE()
             } catch {
                 guard let cieError = error as? CIEReaderError else { return }
                 switch cieError {

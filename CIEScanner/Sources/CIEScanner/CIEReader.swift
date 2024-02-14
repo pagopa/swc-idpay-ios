@@ -39,6 +39,7 @@ public class CIEReader: NSObject {
     private var confirmCardReadMessage: String
     var loggerManager: CIELogger
     var urlLogFile: URL? = nil
+    var challenge: String?
     
     public init(readCardMessage: String = "Avvicina la CIE al lettore", confirmCardReadMessage: String = "Lettura carta OK", logMode: LogMode = .disabled) {
         self.readCardMessage = readCardMessage
@@ -46,11 +47,12 @@ public class CIEReader: NSObject {
         loggerManager = CIELogger(mode: logMode)
     }
     
-    public func scan() async throws -> NisAuthenticated? {
+    public func scan(challenge: String) async throws -> NisAuthenticated? {
         guard NFCTagReaderSession.readingAvailable else {
             throw CIEReaderError.scanNotSupported
         }
         
+        self.challenge = challenge
         let publicKey = try await withCheckedThrowingContinuation { continuation in
             activeContinuation = continuation
             session = NFCTagReaderSession(pollingOption: [.iso14443], delegate: self, queue: DispatchQueue.main)
@@ -146,7 +148,11 @@ extension CIEReader: NFCTagReaderSessionDelegate {
                 
                 let sod = try await tagReader.readSODFile()
 
-                let challengeSigned = try await tagReader.intAuth(challenge: "")
+                guard let challenge = challenge else {
+                    throw CIEReaderError.responseError("Challenge is nil")
+                }
+                
+                let challengeSigned = try await tagReader.intAuth(challenge: challenge)
 
                 guard let nis = String(data: efIntServ1001, encoding: .utf8) else {
                     throw CIEReaderError.responseError("Cannot encode NIS")

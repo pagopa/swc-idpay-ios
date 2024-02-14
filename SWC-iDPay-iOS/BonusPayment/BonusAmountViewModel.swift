@@ -8,7 +8,6 @@
 import Foundation
 import CIEScanner
 
-
 class BonusAmountViewModel: BaseVM {
     
     @Published var isLoading: Bool = false
@@ -17,11 +16,22 @@ class BonusAmountViewModel: BaseVM {
 
     var reader = CIEReader(readCardMessage: "Appoggia la CIE sul dispositivo, in alto", confirmCardReadMessage: "Lettura completata")
     var initiative: Initiative
+    
+    var nisAuthenticated: NisAuthenticated?
     var transactionData: CreateTransactionResponse?
+    var verifyCieData: VerifyCIEResponse?
     
     init(networkClient: Requestable, initiative: Initiative) {
         self.initiative = initiative
         super.init(networkClient: networkClient)
+    }
+    
+    func readCIE() async throws {
+        guard let challenge = transactionData?.challenge else {
+            return
+        }
+        
+        nisAuthenticated = try await reader.scan(challenge: challenge)
     }
     
     func authorizeTransaction() {
@@ -37,15 +47,23 @@ class BonusAmountViewModel: BaseVM {
         isLoading = false
     }
     
-    func verifyCIE(nisAuthenticated: NisAuthenticated) async throws {
+    func verifyCIE() async throws {
+        guard let nisAuthenticated = nisAuthenticated else {
+            // TODO: Manage error
+            return
+        }
         isLoading = true
         loadingStateMessage = "Stiamo verificando la CIE"
         guard let milTransactionId = transactionData?.milTransactionId else {
             return
         }
-        try await networkClient.verifyCIE(milTransactionId: milTransactionId, nis: nisAuthenticated.nis, ciePublicKey: nisAuthenticated.kpubIntServ, signature: nisAuthenticated.challengeSigned, sod: nisAuthenticated.sod)
+        verifyCieData = try await networkClient.verifyCIE(milTransactionId: milTransactionId, nis: nisAuthenticated.nis, ciePublicKey: nisAuthenticated.kpubIntServ, signature: nisAuthenticated.challengeSigned, sod: nisAuthenticated.sod)
         try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
         isLoading = false
+    }
+    
+    func pollTransactionStatus() {
+        
     }
     
     func authorizeTransaction() async throws {
