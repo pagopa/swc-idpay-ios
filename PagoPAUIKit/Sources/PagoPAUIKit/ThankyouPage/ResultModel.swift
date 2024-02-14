@@ -8,6 +8,7 @@
 import SwiftUI
 
 public struct ResultModel {
+    public let id = UUID()
     var title: String?
     var subtitle: String?
     var icon: Image.PAIcon?

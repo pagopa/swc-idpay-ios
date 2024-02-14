@@ -13,7 +13,7 @@ struct TransactionModel: Codable {
     var status: TransactionStatus
     var date: String
     var goodsCost: Int
-    var bonusAmount: Int
+    var bonusAmount: Int?
     var transactionID: String
     var terminalID: String
     var initiativeId: String
@@ -44,7 +44,7 @@ struct TransactionModel: Codable {
         let timestamp = try container.decode(String.self, forKey: TransactionModel.CodingKeys.timestamp)
         self.date = timestamp.formattedDateTime ?? timestamp
         self.goodsCost = try container.decode(Int.self, forKey: TransactionModel.CodingKeys.goodsCost)
-        self.bonusAmount = try container.decode(Int.self, forKey: TransactionModel.CodingKeys.coveredAmount)
+        self.bonusAmount = try? container.decodeIfPresent(Int.self, forKey: TransactionModel.CodingKeys.coveredAmount)
         self.transactionID = try container.decode(String.self, forKey: TransactionModel.CodingKeys.milTransactionId)
         self.terminalID = try container.decode(String.self, forKey: TransactionModel.CodingKeys.trxCode)
         self.initiativeId = try container.decode(String.self, forKey: TransactionModel.CodingKeys.initiativeId)

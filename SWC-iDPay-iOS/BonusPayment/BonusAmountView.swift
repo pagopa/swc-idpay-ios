@@ -9,10 +9,11 @@ import PagoPAUIKit
 import CIEScanner
 
 struct BonusAmountView : View {
+    @EnvironmentObject var router: Router
+    @ObservedObject var viewModel: BonusAmountViewModel
     @State var dialogModel: ResultModel = ResultModel.emptyModel
     @State var isPresentingDialog: Bool = false
     @State var isReadingCIE: Bool = false
-    @ObservedObject var viewModel: BonusAmountViewModel
     
     var body: some View {
         ZStack {
@@ -121,15 +122,26 @@ struct BonusAmountView : View {
             self.isReadingCIE = true
             do {
                 try await viewModel.readCIE()
-                try await viewModel.verifyCIE()
+                let verifyCIEResponse = try await viewModel.verifyCIE()
+                let transaction = try await viewModel.pollTransactionStatus()
+                // TODO: router.push(to: .transactionDetail(transaction: transaction, verifyCIEResponse: verifyCIEResponse))
             } catch {
-                guard let cieError = error as? CIEReaderError else { return }
-                switch cieError {
-                case .scanNotSupported:
-                    // TODO: Show error NFC not available
-                    print("NFC not available")
-                default:
-                    break
+                if let cieError = error as? CIEReaderError {
+                    switch cieError {
+                    case .scanNotSupported:
+                        // TODO: Show error NFC not available
+                        print("NFC not available")
+                    default:
+                        break
+                    }
+                } else if let cieAuthError = error as? CIEAuthError {
+                    router.pushTo(.thankyouPage(result: ResultModel(title: "Errore nella verifica della transazione", subtitle:"Non è stato possibile verificare la transazione", themeType: .info, buttons: [
+                        ButtonModel(type: .primaryBordered, themeType: .info, title: "Accetta nuovo bonus", action: {
+                            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                        })
+                    ])))
+                } else {
+                    print("Error:\(error.localizedDescription)")
                 }
             }
         }

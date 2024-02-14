@@ -52,8 +52,9 @@ class NetworkClient: Requestable {
         return response
     }
     
-    func verifyTransactionStatus(milTransactionId: String) async throws {
-        let response: CreateTransactionResponse = try await sendRequest(for: .transactionDetail(milTransactionId))
+    func verifyTransactionStatus(milTransactionId: String) async throws -> TransactionModel {
+        let transaction: TransactionModel = try await sendRequest(for: .transactionDetail(milTransactionId))
+        return transaction
     }
     
     func authorizeTransaction() {

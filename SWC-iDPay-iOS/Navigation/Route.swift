@@ -6,17 +6,29 @@
 //
 
 import SwiftUI
+import PagoPAUIKit
 
 enum Route: View {
     case initiatives(viewModel: InitiativesViewModel)
     case bonusAmount(viewModel: BonusAmountViewModel)
+    case thankyouPage(result: ResultModel)
     
     var showBackButton: Bool {
-        return true
+        switch self {
+        case .thankyouPage:
+            return false
+        default:
+            return true
+        }
     }
     
     var showHomeButton: Bool {
-        return true
+        switch self {
+        case .thankyouPage:
+            return false
+        default:
+            return true
+        }
     }
     
     var tintColor: Color {
@@ -24,6 +36,8 @@ enum Route: View {
         case .initiatives:
             return .paPrimary
         case .bonusAmount:
+            return .paPrimary
+        default:
             return .paPrimary
         }
     }
@@ -34,6 +48,8 @@ enum Route: View {
             InitiativesList(viewModel: viewModel)
         case .bonusAmount(let viewModel):
             BonusAmountView(viewModel: viewModel)
+        case .thankyouPage(let result):
+            ThankyouPage(result: result)
         }
     }
 
@@ -51,6 +67,8 @@ extension Route: Hashable {
             return true
         case (.bonusAmount, .bonusAmount):
             return true
+        case (.thankyouPage(let lhsResult), .thankyouPage(let rhsResult)):
+            return lhsResult.id == rhsResult.id
         default:
             return false
         }
