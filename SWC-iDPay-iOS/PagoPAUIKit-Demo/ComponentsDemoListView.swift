@@ -68,7 +68,7 @@ struct Component: Identifiable, Hashable {
             }
         }
         
-        @ViewBuilder
+        @ViewBuilder @MainActor
         var viewDestination: some View {
             switch self {
             case .buttons:

@@ -1,24 +1,25 @@
 //
-//  BonusAmountView.swift
+//  CIEAuthView.swift
 //  SWC-iDPay-iOS
 //
-//  Created by Stefania Castiglioni on 18/01/24.
+//  Created by Stefania Castiglioni on 15/02/24.
 //
+
 import SwiftUI
 import PagoPAUIKit
 import CIEScanner
 
-struct BonusAmountView : View {
+struct CIEAuthView: View {
+    
     @EnvironmentObject var router: Router
-    @ObservedObject var viewModel: BonusAmountViewModel
-    @State var dialogModel: ResultModel = ResultModel.emptyModel
-    @State var isPresentingDialog: Bool = false
-    @State var isReadingCIE: Bool = false
+    @ObservedObject var viewModel: CIEAuthViewModel
     
     var body: some View {
         ZStack {
-            backgroundView
-            
+            Color
+                .grey50
+                .ignoresSafeArea()
+
             VStack {
                 Text("IMPORTO DEL BENE")
                     .font(.PAFont.caption)
@@ -26,7 +27,7 @@ struct BonusAmountView : View {
                     .padding(.top, Constants.mediumSpacing)
                 
                 Group {
-                    Text(viewModel.amountText)
+                    Text(viewModel.transactionData.goodsCost.formattedAmountNoCurrency)
                         .font(.PAFont.h1Hero)
                     +
                     Text(" €")
@@ -35,57 +36,17 @@ struct BonusAmountView : View {
                 .foregroundColor(.paBlack)
                 .padding(Constants.smallSpacing)
                 
-                if isReadingCIE {
                     Spacer()
                     retryCIEScanView
                     Spacer()
-
-                } else {
-                    paymentView
-                }
                 
             }
             .padding(Constants.mediumSpacing)
-            .dialog(
-                dialogModel: dialogModel,
-                isPresenting: $isPresentingDialog,
-                onClose:{
-                    print("Do some action on close")
-                }
-            )
             .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         }
-    }
-    
-    @ViewBuilder
-    private var backgroundView: some View {
-        if isReadingCIE {
-            Color
-                .grey50
-                .ignoresSafeArea()
-        } else {
-            Color
-                .white
-                .ignoresSafeArea()
+        .onAppear {
+            startCIEScan()
         }
-    }
-    
-    @ViewBuilder
-    private var paymentView: some View {
-        Spacer()
-        NumberPad(.numeric, string: $viewModel.amountText)
-        Spacer()
-        CustomLoadingButton(
-            buttonType: .primary,
-            isLoading: $viewModel.isLoading) {
-                Task {
-                    try await viewModel.createTransaction()
-                    self.showAuthModeDialog()
-                }
-            } label: {
-                Text("Conferma")
-            }
-            .disabled(viewModel.amountText == "0,00")
     }
     
     @ViewBuilder
@@ -116,15 +77,19 @@ struct BonusAmountView : View {
                 .fill(Color.white)
         )
     }
-    
+
     private func startCIEScan() {
         Task {
-            self.isReadingCIE = true
             do {
                 try await viewModel.readCIE()
                 let verifyCIEResponse = try await viewModel.verifyCIE()
-                let transaction = try await viewModel.pollTransactionStatus()
-                // TODO: router.push(to: .transactionDetail(transaction: transaction, verifyCIEResponse: verifyCIEResponse))
+                guard let transaction = try await viewModel.pollTransactionStatus() else {
+                    // TODO: Show error
+                    return
+                }
+                await MainActor.run {
+                    router.pushTo(.transactionConfirm(viewModel: TransactionDetailViewModel(networkClient: viewModel.networkClient, transaction: transaction, initiative: viewModel.initiative, verifyCIEResponse: verifyCIEResponse)))
+                }
             } catch {
                 if let cieError = error as? CIEReaderError {
                     switch cieError {
@@ -147,38 +112,15 @@ struct BonusAmountView : View {
         }
         
     }
-    
-    private func showAuthModeDialog() {
-        self.dialogModel = ResultModel(
-            title: "Come vuoi identificarti?",
-            themeType: ThemeType.light,
-            buttons:[
-                ButtonModel(
-                    type: .primary,
-                    themeType: .light,
-                    title: "Identificazione con CIE",
-                    action: {
-                        print("Identificazione con CIE")
-                        self.isPresentingDialog = false
-                        startCIEScan()
-                    }
-                ),
-                ButtonModel(
-                    type: .primaryBordered,
-                    themeType: .light,
-                    title: "Identificazione con ",
-                    icon: .io,
-                    action: {
-                        print("Accetta nuovo bonus")
-                    }
-                )
-            ]
-        )
-        
-        isPresentingDialog = true
-    }
 }
 
 #Preview {
-    BonusAmountView(viewModel: BonusAmountViewModel(networkClient: NetworkClient(environment: .staging), initiative: Initiative.mocked))
+    CIEAuthView(
+        viewModel:
+            CIEAuthViewModel(
+                networkClient: NetworkClient(environment: .staging),
+                transactionData: CreateTransactionResponse.mockedCreated,
+                initiative: Initiative.mocked
+            )
+    )
 }

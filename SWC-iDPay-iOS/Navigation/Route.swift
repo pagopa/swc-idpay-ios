@@ -11,6 +11,8 @@ import PagoPAUIKit
 enum Route: View {
     case initiatives(viewModel: InitiativesViewModel)
     case bonusAmount(viewModel: BonusAmountViewModel)
+    case cieAuth(viewModel: CIEAuthViewModel)
+    case transactionConfirm(viewModel: TransactionDetailViewModel)
     case thankyouPage(result: ResultModel)
     
     var showBackButton: Bool {
@@ -48,6 +50,10 @@ enum Route: View {
             InitiativesList(viewModel: viewModel)
         case .bonusAmount(let viewModel):
             BonusAmountView(viewModel: viewModel)
+        case .cieAuth(let viewModel):
+            CIEAuthView(viewModel: viewModel)
+        case .transactionConfirm(let viewModel):
+            TransactionDetailView(viewModel: viewModel)
         case .thankyouPage(let result):
             ThankyouPage(result: result)
         }
@@ -67,6 +73,10 @@ extension Route: Hashable {
             return true
         case (.bonusAmount, .bonusAmount):
             return true
+        case (.cieAuth, .cieAuth):
+            return true
+        case (.transactionConfirm(let lhsVM), .transactionConfirm(let rhsVM)):
+            return lhsVM.transaction.transactionID == rhsVM.transaction.transactionID
         case (.thankyouPage(let lhsResult), .thankyouPage(let rhsResult)):
             return lhsResult.id == rhsResult.id
         default:

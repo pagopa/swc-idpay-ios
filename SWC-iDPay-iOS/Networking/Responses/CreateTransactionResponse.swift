@@ -37,3 +37,30 @@ struct CreateTransactionResponse: Decodable {
         }
     }
 }
+
+extension CreateTransactionResponse {
+
+    static var mockedCreated: Self {
+        return CreateTransactionResponse(
+            idpayTransactionId: "613691ec-15d5-456e-a41c-e469fa4dd060_QRCODE_1694181289491",
+            milTransactionId: "ccadc1c4-3913-431e-a569-6cf2ce60946c",
+            initiativeId: "649c50b5a03f655e6543af06",
+            timestamp: "2023-09-11T12:45:33",
+            goodsCost: 50054,
+            challenge: "NzI3NzZCNkQ2NTZCMzE3OA==",
+            trxCode: "rwkmek1x",
+            status: "CREATED")
+    }
+    
+    static var mockedIdentified: Self {
+        return CreateTransactionResponse(
+            idpayTransactionId: "613691ec-15d5-456e-a41c-e469fa4dd060_QRCODE_1694181289491",
+            milTransactionId: "ccadc1c4-3913-431e-a569-6cf2ce60946c",
+            initiativeId: "649c50b5a03f655e6543af06",
+            timestamp: "2023-09-11T12:45:33",
+            goodsCost: 50054,
+            challenge: "NzI3NzZCNkQ2NTZCMzE3OA==",
+            trxCode: "rwkmek1x",
+            status: "IDENTIFIED")
+    }
+}
