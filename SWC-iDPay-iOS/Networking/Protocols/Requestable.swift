@@ -14,4 +14,5 @@ protocol Requestable {
     func verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String) async throws -> VerifyCIEResponse
     func verifyTransactionStatus(milTransactionId: String) async throws -> TransactionModel
     func authorizeTransaction()
+    func deleteTransaction(milTransactionId: String) async throws -> Bool
 }

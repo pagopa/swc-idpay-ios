@@ -32,13 +32,18 @@ class CIEAuthViewModel: BaseVM {
     }
     
     func verifyCIE() async throws -> VerifyCIEResponse {
-        guard let nisAuthenticated = nisAuthenticated else {
+        do {
+            guard let nisAuthenticated = nisAuthenticated else {
+                isLoading = false
+                throw CIEReaderError.responseError("")
+            }
+            isLoading = true
+            loadingStateMessage = "Stiamo verificando la CIE"
+            return try await networkClient.verifyCIE(milTransactionId: transactionData.milTransactionId, nis: nisAuthenticated.nis, ciePublicKey: nisAuthenticated.kpubIntServ, signature: nisAuthenticated.challengeSigned, sod: nisAuthenticated.sod)
+        } catch {
             isLoading = false
-            throw CIEReaderError.responseError("")
+            throw error
         }
-        isLoading = true
-        loadingStateMessage = "Stiamo verificando la CIE"
-        return try await networkClient.verifyCIE(milTransactionId: transactionData.milTransactionId, nis: nisAuthenticated.nis, ciePublicKey: nisAuthenticated.kpubIntServ, signature: nisAuthenticated.challengeSigned, sod: nisAuthenticated.sod)
     }
     
     func pollTransactionStatus(retries: Int? = nil) async throws -> TransactionModel? {

@@ -60,6 +60,17 @@ class NetworkClient: Requestable {
     func authorizeTransaction() {
         // TODO: verificare parametri
     }
+    
+    func deleteTransaction(milTransactionId: String) async throws -> Bool {
+        do {
+            let _: EmptyResponse = try await sendRequest(for: .deleteTransaction(milTransactionId))
+            return true
+        } catch {
+            print("Error:\(error.localizedDescription)")
+        }
+        return false
+    }
+
 }
 
 extension NetworkClient {
@@ -137,7 +148,14 @@ extension NetworkClient {
                 return transactionResponse
             default:
                 // Return data
-                return try self.jsonDecoder.decode(T.self, from: data)
+                if data.isEmpty {
+                    guard let emptyJson = "{}".data(using: .utf8) else {
+                        throw HTTPResponseError.genericError
+                    }
+                    return try self.jsonDecoder.decode(T.self, from: emptyJson)
+                } else {
+                    return try self.jsonDecoder.decode(T.self, from: data)
+                }
             }
         } else {
             throw HTTPResponseError.genericError

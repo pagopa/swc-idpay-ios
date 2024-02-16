@@ -21,7 +21,7 @@ public struct DialogView: View {
     
     public var body: some View {
         ZStack {
-            if isPresenting {
+//            if isPresenting {
                 Color.overlay75
                     .ignoresSafeArea()
                 
@@ -60,9 +60,9 @@ public struct DialogView: View {
                 .background(dialogModel.theme.backgroundColor)
                 .cornerRadius(Constants.radius2)
                 .padding(Constants.mediumSpacing)
-            }
+//            }
         }
-        .animation(.spring(duration: 0.1), value: isPresenting)
+//        .animation(.spring(duration: 0.1), value: isPresenting)
         
     }
 }
@@ -86,10 +86,7 @@ struct DialogModifier: ViewModifier {
             }
         }
         .fullScreenCover(isPresented: $showDialog) {
-            ZStack {
-                content
-                DialogView(dialogModel: dialogModel, isPresenting: $isPresenting, onClose: onClose)
-            }
+            DialogView(dialogModel: dialogModel, isPresenting: $isPresenting, onClose: onClose)
         }
         
     }

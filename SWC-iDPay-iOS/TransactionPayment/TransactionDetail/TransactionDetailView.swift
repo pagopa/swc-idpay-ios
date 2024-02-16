@@ -11,6 +11,10 @@ import PagoPAUIKit
 struct TransactionDetailView: View {
     
     @ObservedObject var viewModel: TransactionDetailViewModel
+    @EnvironmentObject var router: Router
+    @State var showDeleteTransactionDialog: Bool = false
+    @State var showDenyTransactionDialog: Bool = false
+    @State private var routeRedirect: Route?
     
     init(viewModel: TransactionDetailViewModel) {
         self.viewModel = viewModel
@@ -29,8 +33,8 @@ struct TransactionDetailView: View {
                         Divider()
                         ListItem(title: "INIZIATIVA", subtitle: viewModel.initiative.name)
                         Divider()
-//                        ListItem(title: "CREDITO DISPONIBILE", subtitle: "Sottotitolo")
-//                        Divider()
+                        //                        ListItem(title: "CREDITO DISPONIBILE", subtitle: "Sottotitolo")
+                        //                        Divider()
                     }
                     .padding([.leading, .trailing], Constants.mediumSpacing)
                     
@@ -58,7 +62,12 @@ struct TransactionDetailView: View {
                         themeType: .light,
                         title: "Nega",
                         action: {
-                            print("Nega")
+                            Task {
+                                try await viewModel.deleteTransaction()
+                                await MainActor.run {
+                                    showDenyTransactionDialog = true
+                                }
+                            }
                         }
                     ),
                      ButtonModel(
@@ -72,7 +81,52 @@ struct TransactionDetailView: View {
             )
         }
         .background(Color.grey100)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                HomeButton {
+                    print("Home btn tapped")
+                    showDeleteTransactionDialog = true
+                }
+                .foregroundColor(.paPrimary)
+            }
+        }
+        .toolbarBackground(.white, for: .navigationBar)
+        .showDeleteTransactionDialog(
+            isPresenting: $showDeleteTransactionDialog,
+            transactionId: viewModel.transaction.transactionID,
+            networkClient: viewModel.networkClient,
+            onDeleted: {
+                showDenyTransactionDialog = false
+                if let routeRedirect = routeRedirect {
+                    router.pop(to: routeRedirect)
+                } else {
+                    router.popToRoot()
+                }
+            })
+        .dialog(dialogModel:
+                    ResultModel(
+                        title: "L'operazione è stata annullata",
+                        themeType: .light,
+                        buttons: [
+                            ButtonModel(
+                                type: .primary,
+                                themeType: .light,
+                                title: "Accetta nuovo bonus",
+                                action: {
+                                    router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                                }),
+                            ButtonModel(
+                                type: .primaryBordered,
+                                themeType: .light,
+                                title: "Riprova",
+                                action: {
+                                    // TODO: Repeat createTransaction and go to verifyCIE
+                                })
+                        ]), isPresenting: $showDenyTransactionDialog
+        )
     }
+    
 }
 
 #Preview {

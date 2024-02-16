@@ -17,7 +17,7 @@ enum Route: View {
     
     var showBackButton: Bool {
         switch self {
-        case .thankyouPage:
+        case .thankyouPage, .transactionConfirm:
             return false
         default:
             return true
@@ -26,7 +26,7 @@ enum Route: View {
     
     var showHomeButton: Bool {
         switch self {
-        case .thankyouPage:
+        case .thankyouPage, .transactionConfirm:
             return false
         default:
             return true
@@ -34,14 +34,7 @@ enum Route: View {
     }
     
     var tintColor: Color {
-        switch self {
-        case .initiatives:
-            return .paPrimary
-        case .bonusAmount:
-            return .paPrimary
-        default:
-            return .paPrimary
-        }
+        return .paPrimary
     }
     
     var body: some View {

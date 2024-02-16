@@ -8,7 +8,6 @@
 import Foundation
 
 class TransactionDetailViewModel: BaseVM {
-    
     var transaction: TransactionModel
     var initiative: Initiative
     var verifyCIEResponse: VerifyCIEResponse
@@ -20,5 +19,7 @@ class TransactionDetailViewModel: BaseVM {
         super.init(networkClient: networkClient)
     }
 
-    
+    @discardableResult func deleteTransaction() async throws -> Bool {
+        return try await networkClient.deleteTransaction(milTransactionId: transaction.transactionID)
+    }
 }
