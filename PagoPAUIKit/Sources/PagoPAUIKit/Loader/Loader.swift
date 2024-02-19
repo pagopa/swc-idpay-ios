@@ -17,18 +17,10 @@ extension View {
 struct Loader: ViewModifier {
     @Binding var text: String
     @Binding var isLoading: Bool
-    @State private var showLoader: Bool = false
     
     func body(content: Content) -> some View {
         content
-            .onChange(of: isLoading) { newValue in
-                var transaction = Transaction()
-                transaction.disablesAnimations = true
-                withTransaction(transaction) {
-                    showLoader = newValue
-                }
-            }
-            .fullScreenCover(isPresented: $showLoader) {
+            .fullScreenCover(isPresented: $isLoading) {
                     ZStack {
                         Color.white
                             .ignoresSafeArea()
@@ -46,6 +38,9 @@ struct Loader: ViewModifier {
                         }
                     }
             }
+            .transaction({ transaction in
+                transaction.disablesAnimations = true
+            })
     }
 }
 
