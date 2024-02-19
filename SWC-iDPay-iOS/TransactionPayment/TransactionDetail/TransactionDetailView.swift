@@ -42,7 +42,7 @@ struct TransactionDetailView: View {
                         Text("Da autorizzare")
                             .font(.PAFont.h3)
                         Spacer()
-                        Text(viewModel.transaction.bonusAmount?.formattedCurrency ?? "-- €")
+                        Text(viewModel.transaction.coveredAmount?.formattedCurrency ?? "-- €")
                             .font(.PAFont.h1Hero)
                     }
                     .padding([.leading, .trailing], Constants.mediumSpacing)

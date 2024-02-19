@@ -26,7 +26,7 @@ struct ReceiptTicketView: View {
 
                 TicketAmountRow(
                     title: "Bonus ID Pay",
-                    amount: receiptTicketVM.transaction.bonusAmount?.formattedCurrency ?? "N.D. €",
+                    amount: receiptTicketVM.transaction.coveredAmount?.formattedCurrency ?? "N.D. €",
                     isSuccess: receiptTicketVM.transaction.status.isSuccess
                 )
                 
