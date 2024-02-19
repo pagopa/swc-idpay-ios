@@ -103,6 +103,7 @@ fileprivate struct InitiativeRow: View {
             Image(icon: .chevron)
         }
         .frame(minHeight: Constants.listRowHeight)
+        .contentShape(Rectangle())
     }
 }
 
