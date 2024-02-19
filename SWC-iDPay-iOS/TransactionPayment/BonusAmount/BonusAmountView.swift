@@ -11,8 +11,7 @@ import CIEScanner
 struct BonusAmountView : View {
     @EnvironmentObject var router: Router
     @ObservedObject var viewModel: BonusAmountViewModel
-    @State var dialogModel: ResultModel = ResultModel.emptyModel
-    @State var isPresentingDialog: Bool = false
+    @State var showAuthDialog: Bool = false
     @State var isReadingCIE: Bool = false
     
     var body: some View {
@@ -39,8 +38,8 @@ struct BonusAmountView : View {
             }
             .padding(Constants.mediumSpacing)
             .dialog(
-                dialogModel: dialogModel,
-                isPresenting: $isPresentingDialog,
+                dialogModel: buildAuthModeDialog(),
+                isPresenting: $showAuthDialog,
                 onClose:{}
             )
             .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
@@ -70,7 +69,7 @@ struct BonusAmountView : View {
             isLoading: $viewModel.isCreatingTransaction) {
                 Task {
                     try await viewModel.createTransaction()
-                    self.showAuthModeDialog()
+                    self.showAuthDialog = true
                 }
             } label: {
                 Text("Conferma")
@@ -78,8 +77,8 @@ struct BonusAmountView : View {
             .disabled(viewModel.amountText == "0,00")
     }
     
-    private func showAuthModeDialog() {
-        self.dialogModel = ResultModel(
+    private func buildAuthModeDialog() -> ResultModel {
+        return ResultModel(
             title: "Come vuoi identificarti?",
             themeType: ThemeType.light,
             buttons:[
@@ -89,7 +88,7 @@ struct BonusAmountView : View {
                     title: "Identificazione con CIE",
                     action: {
                         print("Identificazione con CIE")
-                        self.isPresentingDialog = false
+                        self.showAuthDialog = false
                         guard let transactionData = viewModel.transactionData else {
                             // TODO: Show error if transactionData i nil
                             return
@@ -108,8 +107,6 @@ struct BonusAmountView : View {
                 )
             ]
         )
-        
-        isPresentingDialog = true
     }
 }
 
