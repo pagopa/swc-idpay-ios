@@ -67,8 +67,8 @@ class NetworkClient: Requestable {
             return true
         } catch {
             print("Error:\(error.localizedDescription)")
+            throw error
         }
-        return false
     }
 
 }
