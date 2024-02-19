@@ -60,7 +60,7 @@ extension Route: Hashable {
         hasher.combine(self.hashValue)
     }
     
-    static func == (lhs: Route, rhs: Route) -> Bool {
+    @MainActor static func == (lhs: Route, rhs: Route) -> Bool {
         switch (lhs, rhs){
         case (.initiatives, .initiatives):
             return true

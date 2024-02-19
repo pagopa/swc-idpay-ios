@@ -32,7 +32,6 @@
 		B861AB0F2B7E5944007A86E5 /* CIEAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AB0E2B7E5944007A86E5 /* CIEAuthViewModel.swift */; };
 		B861AB112B7E5D5B007A86E5 /* CIEAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AB102B7E5D5B007A86E5 /* CIEAuthError.swift */; };
 		B861AB162B7E69DA007A86E5 /* TransactionDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AB152B7E69DA007A86E5 /* TransactionDetailViewModel.swift */; };
-		B861AB1A2B7F9A38007A86E5 /* DeleteTransactionDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AB192B7F9A38007A86E5 /* DeleteTransactionDialog.swift */; };
 		B861AB1C2B7F9D36007A86E5 /* BaseHTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AB1B2B7F9D36007A86E5 /* BaseHTTPResponse.swift */; };
 		B864279D2B35D62000804A02 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B864279C2B35D61F00804A02 /* LoginView.swift */; };
 		B86D992C2B514BD4006B4D53 /* TransactionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */; };
@@ -121,7 +120,6 @@
 		B861AB0E2B7E5944007A86E5 /* CIEAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIEAuthViewModel.swift; sourceTree = "<group>"; };
 		B861AB102B7E5D5B007A86E5 /* CIEAuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIEAuthError.swift; sourceTree = "<group>"; };
 		B861AB152B7E69DA007A86E5 /* TransactionDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailViewModel.swift; sourceTree = "<group>"; };
-		B861AB192B7F9A38007A86E5 /* DeleteTransactionDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTransactionDialog.swift; sourceTree = "<group>"; };
 		B861AB1B2B7F9D36007A86E5 /* BaseHTTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseHTTPResponse.swift; sourceTree = "<group>"; };
 		B864279C2B35D61F00804A02 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B86D992B2B514BD4006B4D53 /* TransactionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionStatus.swift; sourceTree = "<group>"; };
@@ -344,7 +342,6 @@
 			children = (
 				98874CAF2B7D195E00F70DE2 /* TransactionDetailView.swift */,
 				B861AB152B7E69DA007A86E5 /* TransactionDetailViewModel.swift */,
-				B861AB192B7F9A38007A86E5 /* DeleteTransactionDialog.swift */,
 			);
 			path = TransactionDetail;
 			sourceTree = "<group>";
@@ -727,7 +724,6 @@
 				B871E5CA2B5EA439008B67DD /* CIEPinView.swift in Sources */,
 				9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */,
 				B8FAB1F42B7A5CD30097E7A1 /* SessionManager.swift in Sources */,
-				B861AB1A2B7F9A38007A86E5 /* DeleteTransactionDialog.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

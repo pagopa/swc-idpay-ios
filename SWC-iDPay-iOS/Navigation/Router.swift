@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 class Router: ObservableObject {
     
     @Published var navigationPath = [Route]()
