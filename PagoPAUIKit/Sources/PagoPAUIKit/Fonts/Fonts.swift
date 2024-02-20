@@ -59,7 +59,7 @@ extension Font {
 
     private enum PAFontType: String {
         // Readex
-        case readexPro              = "ReadexPro"
+        case readexPro              = "ReadexPro-Regular"
         case readexProBold          = "ReadexPro-Bold"
         case readexProExtraLight    = "ReadexPro-ExtraLight"
         case readexProLight         = "ReadexPro-Light"
