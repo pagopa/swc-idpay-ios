@@ -9,7 +9,7 @@ import SwiftUI
 import PagoPAUIKit
 import CIEScanner
 
-struct CIEAuthView: View {
+struct CIEAuthView: View, TransactionPaymentDeletableView {
     
     @EnvironmentObject var router: Router
     @ObservedObject var viewModel: CIEAuthViewModel
@@ -42,6 +42,15 @@ struct CIEAuthView: View {
                 
             }
             .padding(Constants.mediumSpacing)
+            .transactionToolbar(viewModel: viewModel)
+            .dialog(dialogModel: buildResultModel(viewModel: viewModel, router: router, retryAction: {
+                Task {
+                    // Repeat createTransaction and start CIE scan
+                    let createTransactionResponse = try await viewModel.createTransaction()
+                    viewModel.transactionData = createTransactionResponse
+                    startCIEScan()
+                }
+            }), isPresenting: $viewModel.showErrorDialog)
             .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         }
         .onAppear {

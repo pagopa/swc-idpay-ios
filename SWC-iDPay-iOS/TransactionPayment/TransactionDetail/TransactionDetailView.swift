@@ -8,11 +8,10 @@
 import SwiftUI
 import PagoPAUIKit
 
-struct TransactionDetailView: View {
+struct TransactionDetailView: View, TransactionPaymentDeletableView {
     
     @ObservedObject var viewModel: TransactionDetailViewModel
     @EnvironmentObject var router: Router
-    @State private var routeRedirect: Route?
     
     init(viewModel: TransactionDetailViewModel) {
         self.viewModel = viewModel
@@ -76,86 +75,21 @@ struct TransactionDetailView: View {
             )
         }
         .background(Color.grey100)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                HomeButton {
-                    // HOME BUTTON ACTION
-                    viewModel.confirmTransactionDelete()
-                    //                    showDeleteTransactionDialog = true
+        .transactionToolbar(viewModel: viewModel, showBack: false)
+        .dialog(dialogModel: buildResultModel(viewModel: viewModel, router: router, retryAction: {
+            Task {
+                // Repeat createTransaction and go to verifyCIE
+                let createTransactionResponse = try await viewModel.createTransaction()
+                await MainActor.run {
+                    router.pop(last: 2)
+                    router.pushTo(.cieAuth(viewModel: CIEAuthViewModel(networkClient: viewModel.networkClient, transactionData: createTransactionResponse, initiative: viewModel.initiative)))
                 }
-                .foregroundColor(.paPrimary)
             }
-        }
-        .toolbarBackground(.white, for: .navigationBar)
-        .dialog(dialogModel: buildResultModel(), isPresenting: $viewModel.showErrorDialog)
+        }), isPresenting: $viewModel.showErrorDialog)
         .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         
     }
         
-}
-
-extension TransactionDetailView {
-    
-    private func buildResultModel() -> ResultModel {
-        switch viewModel.dialogState {
-        case .genericError:
-            return ResultModel(
-                title: "Si è verificato un errore imprevisto",
-                subtitle: "Per assistenza visita il sito pagopa.gov.it/assistenza oppure chiama il numero 06.4520.2323.",
-                themeType: .light,
-                buttons: [
-                    ButtonModel(type: .primary, themeType: .light, title: "Ok, ho capito", action: {
-                        viewModel.dismissDialog()
-                    })
-                ])
-        case .confirmDelete:
-            return ResultModel(
-                title: "Vuoi uscire dall’operazione in corso?",
-                subtitle: "L’operazione verrà annullata e sarà necessario ricominciare da capo.",
-                themeType: .light,
-                buttons: [
-                    ButtonModel(type: .primary, themeType: .light, title: "Annulla", action: {
-                        viewModel.dismissDialog()
-                    }),
-                    ButtonModel(type: .plain, themeType: .light, title: "Esci dal pagamento", action: {
-                        viewModel.dismissDialog()
-                        Task {
-                            try await viewModel.deleteTransaction()
-                        }
-                    })
-                ])
-        case .transactionDeleted:
-            return ResultModel(
-                title: "L'operazione è stata annullata",
-                themeType: .light,
-                buttons: [
-                    ButtonModel(
-                        type: .primary,
-                        themeType: .light,
-                        title: "Accetta nuovo bonus",
-                        action: {
-                            viewModel.dismissDialog()
-                            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
-                        }),
-                    ButtonModel(
-                        type: .primaryBordered,
-                        themeType: .light,
-                        title: "Riprova",
-                        action: {
-                            viewModel.dismissDialog()
-                            // Repeat createTransaction and go to verifyCIE
-                            Task {
-                                let createTransactionResponse = try await viewModel.createTransaction()
-                                router.pop(last: 2)
-                                router.pushTo(.cieAuth(viewModel: CIEAuthViewModel(networkClient: viewModel.networkClient, transactionData: createTransactionResponse, initiative: viewModel.initiative)))
-                            }
-                        })
-                ])
-        case .noMessage:
-            return ResultModel.emptyModel
-        }
-    }
 }
 
 #Preview {

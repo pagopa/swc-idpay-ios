@@ -17,7 +17,7 @@ enum Route: View {
     
     var showBackButton: Bool {
         switch self {
-        case .thankyouPage, .transactionConfirm:
+        case .thankyouPage, .transactionConfirm, .cieAuth:
             return false
         default:
             return true
@@ -26,7 +26,7 @@ enum Route: View {
     
     var showHomeButton: Bool {
         switch self {
-        case .thankyouPage, .transactionConfirm:
+        case .thankyouPage, .transactionConfirm, .cieAuth:
             return false
         default:
             return true
@@ -66,8 +66,8 @@ extension Route: Hashable {
             return true
         case (.bonusAmount, .bonusAmount):
             return true
-        case (.cieAuth, .cieAuth):
-            return true
+        case (.cieAuth(let lhsVM), .cieAuth(let rhsVM)):
+            return lhsVM.transactionData.milTransactionId == rhsVM.transactionData.milTransactionId
         case (.transactionConfirm(let lhsVM), .transactionConfirm(let rhsVM)):
             return lhsVM.transaction.transactionID == rhsVM.transaction.transactionID
         case (.thankyouPage(let lhsResult), .thankyouPage(let rhsResult)):

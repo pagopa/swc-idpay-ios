@@ -69,6 +69,9 @@
 		B8DF96332B7A1DAF00113D4B /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DF96322B7A1DAF00113D4B /* KeychainManager.swift */; };
 		B8DF96352B7A285000113D4B /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DF96342B7A285000113D4B /* APIEnvironment.swift */; };
 		B8DF96382B7A2AC800113D4B /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DF96372B7A2AC800113D4B /* URLSessionProtocol.swift */; };
+		B8E085F42B8508E700CAE6C5 /* TransactionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E085F32B8508E700CAE6C5 /* TransactionToolbar.swift */; };
+		B8E085F72B850B0200CAE6C5 /* TransactionPaymentDeletableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E085F62B850B0200CAE6C5 /* TransactionPaymentDeletableView.swift */; };
+		B8E085F92B85115400CAE6C5 /* TransactionDeleteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E085F82B85115400CAE6C5 /* TransactionDeleteVM.swift */; };
 		B8FAB1F22B7A5CB70097E7A1 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FAB1F12B7A5CB70097E7A1 /* LoginResponse.swift */; };
 		B8FAB1F42B7A5CD30097E7A1 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FAB1F32B7A5CD30097E7A1 /* SessionManager.swift */; };
 		B8FAB1F62B7A5FCA0097E7A1 /* InitiativesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FAB1F52B7A5FCA0097E7A1 /* InitiativesResponse.swift */; };
@@ -158,6 +161,9 @@
 		B8DF96322B7A1DAF00113D4B /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		B8DF96342B7A285000113D4B /* APIEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnvironment.swift; sourceTree = "<group>"; };
 		B8DF96372B7A2AC800113D4B /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
+		B8E085F32B8508E700CAE6C5 /* TransactionToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionToolbar.swift; sourceTree = "<group>"; };
+		B8E085F62B850B0200CAE6C5 /* TransactionPaymentDeletableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionPaymentDeletableView.swift; sourceTree = "<group>"; };
+		B8E085F82B85115400CAE6C5 /* TransactionDeleteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDeleteVM.swift; sourceTree = "<group>"; };
 		B8FAB1F12B7A5CB70097E7A1 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		B8FAB1F32B7A5CD30097E7A1 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		B8FAB1F52B7A5FCA0097E7A1 /* InitiativesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiativesResponse.swift; sourceTree = "<group>"; };
@@ -295,6 +301,7 @@
 		B824E6BF2B5987500050265D /* TransactionPayment */ = {
 			isa = PBXGroup;
 			children = (
+				B8E085F52B850AE600CAE6C5 /* Common */,
 				B861AB092B7E58DA007A86E5 /* BonusAmount */,
 				B861AB0A2B7E590A007A86E5 /* CIEAuth */,
 				B861AB0B2B7E591F007A86E5 /* QRCode */,
@@ -401,6 +408,7 @@
 			children = (
 				B882BF012B7293A40040C6A6 /* ToolbarButtons.swift */,
 				B882BF022B7293A40040C6A6 /* AppToolbar.swift */,
+				B8E085F32B8508E700CAE6C5 /* TransactionToolbar.swift */,
 			);
 			path = Toolbar;
 			sourceTree = "<group>";
@@ -515,6 +523,15 @@
 				B88E8FD12B768CFB005A3737 /* ParametersEncoding.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		B8E085F52B850AE600CAE6C5 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B8E085F62B850B0200CAE6C5 /* TransactionPaymentDeletableView.swift */,
+				B8E085F82B85115400CAE6C5 /* TransactionDeleteVM.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		B8FAB1F02B7A5CAC0097E7A1 /* Responses */ = {
@@ -696,8 +713,10 @@
 				B861AB112B7E5D5B007A86E5 /* CIEAuthError.swift in Sources */,
 				B882BF042B7293A40040C6A6 /* AppToolbar.swift in Sources */,
 				B861AAFC2B7BA4C2007A86E5 /* BaseVM.swift in Sources */,
+				B8E085F42B8508E700CAE6C5 /* TransactionToolbar.swift in Sources */,
 				B86D99382B5175B9006B4D53 /* ReceiptTicketViewModel.swift in Sources */,
 				B8DF962C2B7A110C00113D4B /* NetworkClient.swift in Sources */,
+				B8E085F72B850B0200CAE6C5 /* TransactionPaymentDeletableView.swift in Sources */,
 				B8DF962E2B7A11AA00113D4B /* Requestable.swift in Sources */,
 				B88E8FD22B768CFB005A3737 /* ParametersEncoding.swift in Sources */,
 				B824E6C12B5987840050265D /* BonusAmountView.swift in Sources */,
@@ -721,6 +740,7 @@
 				B8DF96382B7A2AC800113D4B /* URLSessionProtocol.swift in Sources */,
 				B861AAFE2B7BA566007A86E5 /* HomeViewModel.swift in Sources */,
 				B8CE22C72B5ACB0200A4BC67 /* HelpView.swift in Sources */,
+				B8E085F92B85115400CAE6C5 /* TransactionDeleteVM.swift in Sources */,
 				B871E5CA2B5EA439008B67DD /* CIEPinView.swift in Sources */,
 				9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */,
 				B8FAB1F42B7A5CD30097E7A1 /* SessionManager.swift in Sources */,

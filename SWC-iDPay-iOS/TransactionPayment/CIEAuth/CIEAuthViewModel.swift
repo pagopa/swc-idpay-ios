@@ -9,22 +9,19 @@ import Foundation
 import CIEScanner
 
 @MainActor
-class CIEAuthViewModel: BaseVM {
+class CIEAuthViewModel: TransactionDeleteVM {
     
-    @Published var isLoading: Bool = false
-    @Published var loadingStateMessage: String = ""
     @Published var cieAuthError: CIEAuthError?
 
     var reader = CIEReader(readCardMessage: "Appoggia la CIE sul dispositivo, in alto", confirmCardReadMessage: "Lettura completata")
     var nisAuthenticated: NisAuthenticated?
     
-    let transactionData: CreateTransactionResponse
-    let initiative: Initiative
+    var transactionData: CreateTransactionResponse
     
     init(networkClient: Requestable, transactionData: CreateTransactionResponse, initiative: Initiative) {
         self.transactionData = transactionData
-        self.initiative      = initiative
-        super.init(networkClient: networkClient)
+
+        super.init(networkClient: networkClient, initiative: initiative, transactionID: self.transactionData.milTransactionId, goodsCost: self.transactionData.goodsCost)
     }
 
     func readCIE() async throws {

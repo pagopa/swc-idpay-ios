@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class BaseVM: ObservableObject {
     var networkClient: Requestable
     
