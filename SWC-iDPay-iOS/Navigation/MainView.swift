@@ -10,7 +10,7 @@ import PagoPAUIKit
 
 struct MainView: View {
     @EnvironmentObject var appManager: AppStateManager
-    var networkClient: Requestable = NetworkClient(environment: .staging)
+    var networkClient: Requestable = NetworkClient(environment: .development)
     
     var body: some View {
         switch appManager.state {
