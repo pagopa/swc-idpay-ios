@@ -32,6 +32,11 @@ class Router: ObservableObject {
         let itemsToPop = (routeFound..<navigationPath.endIndex).count - 1
         navigationPath.removeLast(itemsToPop)
     }
+    
+    func pop(last: Int){
+        guard navigationPath.count > last else { return }
+        navigationPath.removeLast(last)
+    }
 
     func replaceStack(with stack: [Route]) {
         navigationPath = stack

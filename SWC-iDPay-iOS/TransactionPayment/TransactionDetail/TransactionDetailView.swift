@@ -92,6 +92,10 @@ struct TransactionDetailView: View {
         .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         
     }
+        
+}
+
+extension TransactionDetailView {
     
     private func buildResultModel() -> ResultModel {
         switch viewModel.dialogState {
@@ -118,13 +122,6 @@ struct TransactionDetailView: View {
                         viewModel.dismissDialog()
                         Task {
                             try await viewModel.deleteTransaction()
-                            
-                            if let routeRedirect = routeRedirect {
-                                router.pop(to: routeRedirect)
-                            } else {
-                                router.popToRoot()
-                            }
-                            
                         }
                     })
                 ])
@@ -146,14 +143,19 @@ struct TransactionDetailView: View {
                         themeType: .light,
                         title: "Riprova",
                         action: {
-                            // TODO: Repeat createTransaction and go to verifyCIE
+                            viewModel.dismissDialog()
+                            // Repeat createTransaction and go to verifyCIE
+                            Task {
+                                let createTransactionResponse = try await viewModel.createTransaction()
+                                router.pop(last: 2)
+                                router.pushTo(.cieAuth(viewModel: CIEAuthViewModel(networkClient: viewModel.networkClient, transactionData: createTransactionResponse, initiative: viewModel.initiative)))
+                            }
                         })
                 ])
         case .noMessage:
             return ResultModel.emptyModel
         }
     }
-    
 }
 
 #Preview {

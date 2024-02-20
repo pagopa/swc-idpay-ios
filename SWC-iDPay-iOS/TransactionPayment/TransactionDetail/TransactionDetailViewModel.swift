@@ -66,10 +66,16 @@ class TransactionDetailViewModel: BaseVM {
     }
     
     func createTransaction() async throws -> CreateTransactionResponse {
-        loadingStateMessage = "Aspetta qualche istante.."
-        self.isLoading = true
-        let transactionData = try await networkClient.createTransaction(initiativeId: initiative.id, amount: transaction.goodsCost)
-        self.isLoading = false
-        return transactionData
+        do {
+            loadingStateMessage = "Aspetta qualche istante.."
+            self.isLoading = true
+            let transactionData = try await networkClient.createTransaction(initiativeId: initiative.id, amount: transaction.goodsCost)
+            self.isLoading = false
+            return transactionData
+        }  catch {
+            self.isLoading = false
+            dialogState = .genericError
+            throw error
+        }
     }
 }
