@@ -11,6 +11,7 @@ import CoreNFC
 public enum CIEReaderError: Error, CustomStringConvertible {
     case scanNotSupported
     case invalidTag
+    case sendCommandForResponse
     case responseError(String)
     
     public var description: String {
@@ -19,8 +20,12 @@ public enum CIEReaderError: Error, CustomStringConvertible {
             return "This device doesn't support tag scanning"
         case .responseError(let message):
             return message
-        default:
+        case .invalidTag:
             return "Error reading tag"
+        case .sendCommandForResponse:
+            return "Send command to read response"
+        default:
+            return "Generic error retrived reading tag"
         }
     }
 }
@@ -34,6 +39,7 @@ public class CIEReader: NSObject {
     private var confirmCardReadMessage: String
     var loggerManager: CIELogger
     var urlLogFile: URL? = nil
+    var challenge: String?
     
     public init(readCardMessage: String = "Avvicina la CIE al lettore", confirmCardReadMessage: String = "Lettura carta OK", logMode: LogMode = .disabled) {
         self.readCardMessage = readCardMessage
@@ -41,11 +47,12 @@ public class CIEReader: NSObject {
         loggerManager = CIELogger(mode: logMode)
     }
     
-    public func scan() async throws -> NisAuthenticated? {
+    public func scan(challenge: String) async throws -> NisAuthenticated? {
         guard NFCTagReaderSession.readingAvailable else {
             throw CIEReaderError.scanNotSupported
         }
         
+        self.challenge = challenge
         let publicKey = try await withCheckedThrowingContinuation { continuation in
             activeContinuation = continuation
             session = NFCTagReaderSession(pollingOption: [.iso14443], delegate: self, queue: DispatchQueue.main)
@@ -135,16 +142,24 @@ extension CIEReader: NFCTagReaderSessionDelegate {
                 
                 let responseNIS = try await tagReader.readNIS()
                 
-                let efIntServ1001 = responseNIS.data
+                let efIntServ1001 = Data(responseNIS.data)
                 
                 let publicKey = try await tagReader.readPublicKey()
                 
                 let sod = try await tagReader.readSODFile()
 
-                let challengeSigned = try await tagReader.intAuth(challenge: "")
+                guard let challenge = challenge else {
+                    throw CIEReaderError.responseError("Challenge is nil")
+                }
+                
+                let challengeSigned = try await tagReader.intAuth(challenge: challenge)
 
+                guard let nis = String(data: efIntServ1001, encoding: .utf8) else {
+                    throw CIEReaderError.responseError("Cannot encode NIS")
+                }
+                
                 let nisAuthenticated = NisAuthenticated(
-                    nis: String.base64StringFromBinary(efIntServ1001),
+                    nis: nis,
                     kpubIntServ: String.base64StringFromBinary(publicKey),
                     haskKpubIntServ: "",
                     sod: String.base64StringFromBinary(sod),

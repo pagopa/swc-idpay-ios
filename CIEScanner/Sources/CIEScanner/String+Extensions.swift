@@ -58,4 +58,21 @@ extension String {
     public static func base64StringFromBinary(_ data: [UInt8]) -> String {
         return Data(data).base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
     }
+    
+    public static func decode(_ base64EncodedString: String) throws -> [UInt8] {
+        guard
+            let base64EncodedData = base64EncodedString.data(using: .utf8),
+            let data = Data(base64Encoded: base64EncodedData)
+        else {
+            throw DecodingError.invalidData
+        }
+
+        return [UInt8](data)
+    }
+
+}
+
+enum DecodingError: Error {
+    case invalidData
+    
 }

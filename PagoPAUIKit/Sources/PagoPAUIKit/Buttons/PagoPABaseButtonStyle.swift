@@ -99,6 +99,7 @@ struct PagoPABaseButtonStyle: ButtonStyle {
                         .stroke(isBordered ? (isEnabled ? borderColor : disabledBorderColor) : Color.clear, lineWidth: 2)
                 )
                 .opacity(isEnabled ? 1 : 0.5)
+                .contentShape(Rectangle())
         } else {
             buttonStack(configuration: configuration)
                 .padding(.horizontal, Constants.mediumSpacing)
@@ -111,6 +112,7 @@ struct PagoPABaseButtonStyle: ButtonStyle {
                         .stroke(isBordered ? (isEnabled ? borderColor : disabledBorderColor) : Color.clear, lineWidth: 2)
                 )
                 .opacity(isEnabled ? 1 : 0.5)
+                .contentShape(Rectangle())
         }
     }
     

@@ -32,6 +32,7 @@ internal struct CIELogger {
     
     internal func log(_ message: String, file: String = #file, function: String = #function, line: Int = #line) {
 
+        guard mode != .disabled else { return }
 //        let shortFileName = file.components(separatedBy: "/").last ?? "---"
         var msg = ""
         if !message.isEmpty { msg = "\(message)" }
@@ -50,6 +51,8 @@ internal struct CIELogger {
     
 
     internal func log_APDU_response(_ apduResp: ResponseAPDU, function: String = #function, message: String? = nil) {
+
+        guard mode != .disabled else { return }
 
         let apduRes = "APDU RESPONSE: " + String.hexStringFromBinary(apduResp.data, asArray: true) + "\n"
         let sw1 = "SW1: " + String.hexStringFromBinary(apduResp.sw1) + "\n"

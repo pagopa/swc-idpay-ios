@@ -21,7 +21,7 @@ public struct DialogView: View {
     
     public var body: some View {
         ZStack {
-            if isPresenting {
+//            if isPresenting {
                 Color.overlay75
                     .ignoresSafeArea()
                 
@@ -60,9 +60,9 @@ public struct DialogView: View {
                 .background(dialogModel.theme.backgroundColor)
                 .cornerRadius(Constants.radius2)
                 .padding(Constants.mediumSpacing)
-            }
+//            }
         }
-        .animation(.spring(duration: 0.1), value: isPresenting)
+//        .animation(.spring(duration: 0.1), value: isPresenting)
         
     }
 }
@@ -73,25 +73,16 @@ public struct DialogView: View {
 struct DialogModifier: ViewModifier {
     var dialogModel: ResultModel
     @Binding var isPresenting: Bool
-    @State private var showDialog: Bool = false
     var onClose: (() -> Void)?
     
     func body(content: Content) -> some View {
         content
-        .onChange(of: isPresenting) { newValue in
-            var transaction = Transaction()
+        .fullScreenCover(isPresented: $isPresenting) {
+            DialogView(dialogModel: dialogModel, isPresenting: $isPresenting, onClose: onClose)
+        }
+        .transaction({ transaction in
             transaction.disablesAnimations = true
-            withTransaction(transaction) {
-                showDialog = newValue
-            }
-        }
-        .fullScreenCover(isPresented: $showDialog) {
-            ZStack {
-                content
-                DialogView(dialogModel: dialogModel, isPresenting: $isPresenting, onClose: onClose)
-            }
-        }
-        
+        })
     }
 }
 

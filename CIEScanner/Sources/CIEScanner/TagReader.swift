@@ -60,7 +60,7 @@ class TagReader {
         let NISResponse = try await send(cmd: apdu)
         
         loggerManager.log_APDU_response(NISResponse, message: "Response NIS: ")
-        loggerManager.log("NIS string value: \(String.hexStringFromBinary(NISResponse.data))")
+        loggerManager.log("NIS string value: \(String(data: Data(NISResponse.data), encoding: .utf8))")
         return NISResponse
         
     }
@@ -140,9 +140,9 @@ class TagReader {
     
     func intAuth(challenge: String) async throws -> [UInt8] {
         // REAL CHALLENGE
-//        var challengeByte: [UInt8] = challenge.byteArrayFromHexString()
+        var challengeByte: [UInt8] = try String.decode(challenge)
         // TEST CHALLENGE:
-        var challengeByte: [UInt8] = [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07]
+//        var challengeByte: [UInt8] = [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07]
         return try await signIntAuth(challengeByte)
     }
 

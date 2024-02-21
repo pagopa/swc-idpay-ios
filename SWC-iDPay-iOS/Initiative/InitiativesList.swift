@@ -11,7 +11,11 @@ import PagoPAUIKit
 struct InitiativesList: View {
     
     @EnvironmentObject var router: Router
-    @StateObject var viewModel: InitiativesViewModel = InitiativesViewModel()
+    @ObservedObject var viewModel: InitiativesViewModel
+
+    init(viewModel: InitiativesViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         
@@ -33,13 +37,18 @@ struct InitiativesList: View {
                             
                             VStack {
                                 InitiativeRow(initiative: initiative)
+                                    .onTapGesture {
+                                        router.pushTo(
+                                            .bonusAmount(
+                                                viewModel: BonusAmountViewModel(
+                                                    networkClient: viewModel.networkClient,
+                                                    initiative: initiative)
+                                            ))
+                                    }
                                 
                                 if initiative != viewModel.initiatives.last {
                                     Divider()
                                 }
-                            }
-                            .onTapGesture {
-                                router.pushTo(.bonusAmount)
                             }
                         }
                         
@@ -50,7 +59,10 @@ struct InitiativesList: View {
                 emptyStateView
             }
         }
-        .showLoadingView(message: "Aspetta qualche istante..", isLoading: $viewModel.isLoading)
+        .onAppear {
+            viewModel.loadInitiatives()
+        }
+        .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
     }
     
     private var emptyStateView: some View {
@@ -91,10 +103,11 @@ fileprivate struct InitiativeRow: View {
             Image(icon: .chevron)
         }
         .frame(minHeight: Constants.listRowHeight)
+        .contentShape(Rectangle())
     }
 }
 
 #Preview {
-    InitiativesList()
+    InitiativesList(viewModel: InitiativesViewModel(networkClient: NetworkClient(environment: .staging)))
         .environmentObject(Router())
 }

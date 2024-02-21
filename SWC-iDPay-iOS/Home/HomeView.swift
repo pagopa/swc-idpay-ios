@@ -11,17 +11,18 @@ import PagoPAUIKit
 struct HomeView: View {
     
     @EnvironmentObject var router: Router
-    
+    @ObservedObject var viewModel: HomeViewModel
+
     var body: some View {
         IntroView(
             title: "Accetta un bonus ID Pay",
             subtitle: "Inserisci i dettagli del pagamento e permetti ai tuoi clienti di utilizzare un bonus ID Pay.",
             actionTitle: "Accetta bonus ID Pay") {
-                router.pushTo(.initiatives)
+                router.pushTo(.initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
             }
     }
 }
 
 #Preview {
-    HomeView()
+    HomeView(viewModel: HomeViewModel(networkClient: NetworkClient(environment: .staging)))
 }

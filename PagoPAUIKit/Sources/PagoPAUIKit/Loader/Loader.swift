@@ -9,26 +9,18 @@ import SwiftUI
 
 extension View {
     
-    public func showLoadingView(message: String, isLoading: Binding<Bool>) -> some View {
+    public func showLoadingView(message: Binding<String>, isLoading: Binding<Bool>) -> some View {
         self.modifier(Loader(text: message, isLoading: isLoading))
     }
 }
 
 struct Loader: ViewModifier {
-    var text: String
+    @Binding var text: String
     @Binding var isLoading: Bool
-    @State private var showLoader: Bool = false
     
     func body(content: Content) -> some View {
         content
-            .onChange(of: isLoading) { newValue in
-                var transaction = Transaction()
-                transaction.disablesAnimations = true
-                withTransaction(transaction) {
-                    showLoader = newValue
-                }
-            }
-            .fullScreenCover(isPresented: $showLoader) {
+            .fullScreenCover(isPresented: $isLoading) {
                     ZStack {
                         Color.white
                             .ignoresSafeArea()
@@ -46,13 +38,17 @@ struct Loader: ViewModifier {
                         }
                     }
             }
+            .transaction({ transaction in
+                transaction.disablesAnimations = true
+            })
     }
 }
 
 // MARK: Demo View
-public struct LoadingView: View {
+public struct LoadingDemoView: View {
     @State var inProgress: Bool = false
-    
+    @State var loadingMessage: String = "Stiamo verificando il tuo portafoglio ID Pay"
+
     public init() {}
     
     public var body: some View {
@@ -67,7 +63,7 @@ public struct LoadingView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.infoLight)
-        .showLoadingView(message: "Stiamo verificando il tuo portafoglio ID Pay", isLoading: $inProgress)
+        .showLoadingView(message: $loadingMessage, isLoading: $inProgress)
         
     }
     
@@ -82,6 +78,6 @@ public struct LoadingView: View {
 
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingView()
+        LoadingDemoView()
     }
 }

@@ -68,7 +68,7 @@ struct Component: Identifiable, Hashable {
             }
         }
         
-        @ViewBuilder
+        @ViewBuilder @MainActor
         var viewDestination: some View {
             switch self {
             case .buttons:
@@ -80,7 +80,7 @@ struct Component: Identifiable, Hashable {
             case .progress:
                 ProgressDemoView()
             case .loader:
-                LoadingView()
+                LoadingDemoView()
             case .listItem:
                 ItemsDemoView()
             case .toastNotification:
@@ -102,7 +102,7 @@ struct Component: Identifiable, Hashable {
             case .waitingView:
                 EmptyView()
             case .numberPad:
-                BonusAmountView()
+                BonusAmountView(viewModel: BonusAmountViewModel(networkClient: NetworkClient(environment: .staging), initiative: Initiative.mocked))
             case .pinPad:
                 CIEPinView()
             }

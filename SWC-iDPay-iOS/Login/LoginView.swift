@@ -13,7 +13,7 @@ struct LoginView: View {
     @State private var isLoading: Bool = false
     @ObservedObject var viewModel: LoginViewModel
     
-    private var onLoggedIn: () -> Void = { }
+    private var onLoggedIn: () -> Void = {}
     
     @State private var toastError: ToastModel? = nil
     @FocusState private var focusedField: Field?
@@ -101,7 +101,7 @@ struct LoginView: View {
         focusedField = nil
         Task {
             isLoading = true
-            let isUserLoggedIn = await viewModel.login()
+            let isUserLoggedIn = try await viewModel.login()
             isLoading = false
             
             if isUserLoggedIn {
@@ -114,6 +114,6 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView(viewModel: LoginViewModel(), onLoggedIn: {})
+    LoginView(viewModel: LoginViewModel(networkClient: NetworkClient(environment: .staging)), onLoggedIn: { })
 }
 
