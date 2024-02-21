@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+struct TransactionHistoryResponse: Decodable {
+    var transactions: [TransactionModel]
+}
