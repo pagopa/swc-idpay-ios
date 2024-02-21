@@ -15,4 +15,5 @@ protocol Requestable {
     func verifyTransactionStatus(milTransactionId: String) async throws -> TransactionModel
     func authorizeTransaction()
     func deleteTransaction(milTransactionId: String) async throws -> Bool
+    func transactionHistory() async throws -> [TransactionModel]
 }

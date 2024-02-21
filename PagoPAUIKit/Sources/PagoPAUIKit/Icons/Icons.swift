@@ -44,6 +44,7 @@ extension Image {
         case arrowLeft = "arrow-left"
         case home = "home"
         case chevron = "chevron"
+        case cancelled = "cancelled"
     }
 
     public init (icon: PAIcon) {
