@@ -33,19 +33,22 @@ public struct ItemsDemoView: View {
             ListItem(iconLeft: .icoEuro, title: "Titolo", subtitle: "Sottotitolo", amount: "3,000,000 €")
             Divider()
             
-            ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .failed)
+            ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .failed, statusDescription: "FALLITA")
             Divider()
             
-            ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .pending)
+            ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .pending, statusDescription: "IN SOSPESO")
             Divider()
             
-            ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .refunded)
+            ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .refunded, statusDescription: "RIMBORSATA")
             Divider()
             
-            ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .success)
+            ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .success, statusDescription: "ESEGUITA")
             Divider()
             
-            ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .toBeRefunded)
+            ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .cancelled, statusDescription: "ANNULLATA")
+            Divider()
+            
+            ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .toBeRefunded, statusDescription: "DA RIMBORSARE")
             Divider()
             
             ListItemHistory(iconLeft: .checkmark ,titleText: "Titolo", subTitleText: "Sottotitolo", amountText: "3,000,000 €")
