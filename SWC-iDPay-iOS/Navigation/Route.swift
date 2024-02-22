@@ -14,6 +14,7 @@ enum Route: View {
     case cieAuth(viewModel: CIEAuthViewModel)
     case transactionConfirm(viewModel: TransactionDetailViewModel)
     case thankyouPage(result: ResultModel)
+    case transactionDetail(viewModel: TransactionModel)
     
     var showBackButton: Bool {
         switch self {
@@ -49,6 +50,9 @@ enum Route: View {
             TransactionDetailView(viewModel: viewModel)
         case .thankyouPage(let result):
             ThankyouPage(result: result)
+        case .transactionDetail(let _):
+            TransactionHistoryDetailView()
+        
         }
     }
 
@@ -72,6 +76,8 @@ extension Route: Hashable {
             return lhsVM.transaction.transactionID == rhsVM.transaction.transactionID
         case (.thankyouPage(let lhsResult), .thankyouPage(let rhsResult)):
             return lhsResult.id == rhsResult.id
+        case (.transactionDetail(let lhsVM), .transactionDetail(let rhsVM)):
+            return lhsVM.transactionID == rhsVM.transactionID
         default:
             return false
         }
