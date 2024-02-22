@@ -16,6 +16,7 @@ struct WebView: UIViewRepresentable {
     init(urlString: String) {
         self.urlString = urlString
         webView = WKWebView(frame: .zero)
+        webView.allowsLinkPreview = true
     }
     
     func makeUIView(context: Context) -> WKWebView {
