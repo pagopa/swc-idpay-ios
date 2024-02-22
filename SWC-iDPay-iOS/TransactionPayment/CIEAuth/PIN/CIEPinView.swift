@@ -8,10 +8,10 @@
 import SwiftUI
 import PagoPAUIKit
 
-struct CIEPinView: View {
-    @State var pinString: String = ""
-    @State var isLoading: Bool = false
-
+struct CIEPinView: View, TransactionPaymentDeletableView {
+    
+    @EnvironmentObject var router: Router
+    @ObservedObject var viewModel: CIEPinViewModel
     var length: Int = 6
     
     var body: some View {
@@ -24,7 +24,7 @@ struct CIEPinView: View {
             HStack(spacing: Constants.smallSpacing) {
                 ForEach(0..<length, id:\.self) { n in
                     PinDot(filled: Binding<Bool> (
-                        get: { pinString.count > n },
+                        get: { viewModel.pinString.count > n },
                         set: { _ in }
                     ))
                 }
@@ -34,24 +34,39 @@ struct CIEPinView: View {
             pinView
         }
         .padding(Constants.mediumSpacing)
+        .transactionToolbar(viewModel: viewModel, showBack: false)
+        .dialog(dialogModel: buildResultModel(viewModel: viewModel, router: router, retryAction: {
+            Task {
+                // Repeat createTransaction and go to verifyCIE
+//                let createTransactionResponse = try await viewModel.createTransaction()
+                await MainActor.run {
+//                    router.pop(last: 2)
+                    router.pushTo(.initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                }
+            }
+        }), isPresenting: $viewModel.showErrorDialog)
+        .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
 
     }
     
     @ViewBuilder
     private var pinView: some View {
         Spacer()
-        NumberPad(.pin, string: $pinString, pinLength: length)
+        NumberPad(.pin, string: $viewModel.pinString, pinLength: length)
         Spacer()
         CustomLoadingButton(
             buttonType: .primary,
-            isLoading: $isLoading) {
+            isLoading: $viewModel.isLoading) {
                 #if DEBUG
-                print("PIN: \(pinString)")
+                print("PIN: \(viewModel.pinString)")
                 #endif
+                Task {
+                    try await viewModel.authorizeTransaction()
+                }
             } label: {
                 Text("Conferma")
             }
-            .disabled(pinString.count < length)
+            .disabled(viewModel.pinString.count < length)
     }
 }
 
@@ -87,5 +102,5 @@ private struct PinDot: View {
 }
 
 #Preview {
-    CIEPinView()
+    CIEPinView(viewModel: CIEPinViewModel(networkClient: NetworkClient(environment: .development), initiative: Initiative.mocked, transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mocked))
 }

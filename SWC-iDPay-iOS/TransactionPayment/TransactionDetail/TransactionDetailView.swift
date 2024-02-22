@@ -69,7 +69,7 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
                         themeType: .light,
                         title: "Conferma",
                         action: {
-                            print("Conferma")
+                            router.pushTo(.pin(viewModel: CIEPinViewModel(networkClient: viewModel.networkClient, initiative: viewModel.initiative, transaction: viewModel.transaction, verifyCIEResponse: viewModel.verifyCIEResponse)))
                         }
                      )]
             )

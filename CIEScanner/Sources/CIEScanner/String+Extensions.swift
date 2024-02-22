@@ -60,16 +60,21 @@ extension String {
     }
     
     public static func decode(_ base64EncodedString: String) throws -> [UInt8] {
+        
+        let data = try base64EncodedString.base64Data()
+        return [UInt8](data)
+    }
+
+    public func base64Data() throws -> Data {
         guard
-            let base64EncodedData = base64EncodedString.data(using: .utf8),
+            let base64EncodedData = self.data(using: .utf8),
             let data = Data(base64Encoded: base64EncodedData)
         else {
             throw DecodingError.invalidData
         }
-
-        return [UInt8](data)
+        
+        return data
     }
-
 }
 
 enum DecodingError: Error {
