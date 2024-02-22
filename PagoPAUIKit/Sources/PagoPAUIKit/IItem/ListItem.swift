@@ -11,16 +11,18 @@ public struct ListItem: View {
     var iconLeft: Image.PAIcon?
     var titleText: String
     var subTitleText: String
-    var status: OperationStatus?
+    var statusType: OperationStatus?
+    var statusDescription: String?
     var iconButtonRight: Image.PAIcon?
     var amountText: String?
     var actionButtonRight: (() -> Void)?
     
-    public init(iconLeft: Image.PAIcon? = nil, title: String, subtitle: String, status: OperationStatus? = nil, icon: Image.PAIcon? = nil, amount: String? = nil, actionButtonRight: (() -> Void)? = nil ) {
+    public init(iconLeft: Image.PAIcon? = nil, title: String, subtitle: String, statusType: OperationStatus? = nil, statusDescription: String? = nil, icon: Image.PAIcon? = nil, amount: String? = nil, actionButtonRight: (() -> Void)? = nil ) {
         self.iconLeft = iconLeft
         self.titleText = title
         self.subTitleText = subtitle
-        self.status = status
+        self.statusType = statusType
+        self.statusDescription = statusDescription
         self.iconButtonRight = icon
         self.amountText = amount
         self.actionButtonRight = actionButtonRight
@@ -64,8 +66,8 @@ public struct ListItem: View {
                         .font(.PAFont.h6)
                         .foregroundColor(Color.paBlack)
                     
-                } else if let status = status {
-                    OperationStatusLabel(status: status)
+                } else if let statusType = statusType, let statusDescription = statusDescription {
+                    OperationStatusLabel(statusType: statusType, statusDescription: statusDescription)
                 }
             }
         }
@@ -95,19 +97,19 @@ public struct ListItem: View {
         ListItem(iconLeft: .icoEuro, title: "Titolo", subtitle: "Sottotitolo", amount: "3,000,000 €")
         Divider()
         
-        ListItem(title: "Titolo", subtitle: "Sottotitolo", status: .success)
+        ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .success)
         Divider()
         
-        ListItem(title: "Titolo", subtitle: "Sottotitolo", status: .pending)
+        ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .pending)
         Divider()
         
-        ListItem(title: "Titolo", subtitle: "Sottotitolo", status: .failed)
+        ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .failed)
         Divider()
         
-        ListItem(title: "Titolo", subtitle: "Sottotitolo", status: .toBeRefunded)
+        ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .toBeRefunded)
         Divider()
         
-        ListItem(title: "Titolo", subtitle: "Sottotitolo", status: .refunded)
+        ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .refunded)
         Divider()
         
     }
