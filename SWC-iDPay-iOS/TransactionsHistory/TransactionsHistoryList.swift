@@ -12,6 +12,7 @@ struct TransactionsHistoryList: View {
     
     @EnvironmentObject var router: Router
     @ObservedObject var viewModel: TransactionHistoryViewModel
+    @State private var showHelp: Bool = false
     
     init(viewModel: TransactionHistoryViewModel) {
         self.viewModel = viewModel
@@ -40,7 +41,7 @@ struct TransactionsHistoryList: View {
                         VStack {
                             ListItemHistory(transaction: transaction)
                                 .onTapGesture {
-                                    router.pushTo(.transactionDetail(viewModel: transaction))
+                                    router.pushTo(.transactionDetail(viewModel: TransactionHistoryDetailViewModel(transaction: transaction, networkClient: self.viewModel.networkClient)))
                                 }
                         
                             Divider()
@@ -55,6 +56,10 @@ struct TransactionsHistoryList: View {
             viewModel.getTransactionHistory()
         }
         .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
+        .fullScreenCover(isPresented: $showHelp) {
+            HelpView()
+                .ignoresSafeArea()
+        }
     }
     
     private var emptyStateView: some View {
@@ -69,7 +74,7 @@ struct TransactionsHistoryList: View {
                 .multilineTextAlignment(.center)
             
             Button {
-                viewModel.getTransactionHistory()
+                showHelp.toggle()
             } label: {
                 Text("Vai all'assistenza")
             }
