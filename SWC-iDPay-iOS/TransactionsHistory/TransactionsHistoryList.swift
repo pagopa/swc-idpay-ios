@@ -40,7 +40,7 @@ struct TransactionsHistoryList: View {
                         VStack {
                             ListItemHistory(transaction: transaction)
                                 .onTapGesture {
-                                    router.pushTo(.transactionDetail(viewModel: viewModel))
+                                    router.pushTo(.transactionDetail(viewModel: transaction))
                                 }
                         
                             Divider()
