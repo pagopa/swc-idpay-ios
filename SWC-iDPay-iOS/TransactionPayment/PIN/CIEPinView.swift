@@ -35,14 +35,9 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
         }
         .padding(Constants.mediumSpacing)
         .transactionToolbar(viewModel: viewModel, showBack: false)
-        .dialog(dialogModel: buildResultModel(viewModel: viewModel, router: router, retryAction: {
-            Task {
-                // Repeat createTransaction and go to verifyCIE
-//                let createTransactionResponse = try await viewModel.createTransaction()
-                await MainActor.run {
-//                    router.pop(last: 2)
-                    router.pushTo(.initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
-                }
+        .dialog(dialogModel: buildResultModel(viewModel: viewModel, router: router, onConfirmDelete: {
+            Task { @MainActor in
+                router.popToRoot()
             }
         }), isPresenting: $viewModel.showErrorDialog)
         .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
@@ -61,7 +56,24 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
                 print("PIN: \(viewModel.pinString)")
                 #endif
                 Task {
-                    try await viewModel.authorizeTransaction()
+                    if try await viewModel.authorizeTransaction() {
+                        await MainActor.run {
+                            router.pushTo(.thankyouPage(result: ResultModel(
+                                title: "Hai pagato \(viewModel.goodsCost.formattedCurrency)!",
+                                themeType: .success,
+                                buttons: [
+                                    ButtonModel(
+                                        type: .primary,
+                                        themeType: .success,
+                                        title: "Continua",
+                                        icon: .arrowRight,
+                                        action: {
+                                            router.pushTo(.receipt(receiptModel: ReceiptPdfModel(initiative: viewModel.initiative, transaction: viewModel.transaction), networkClient: viewModel.networkClient))
+                                        }
+                                    )]
+                            )))
+                        }
+                    }
                 }
             } label: {
                 Text("Conferma")

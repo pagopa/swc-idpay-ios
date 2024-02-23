@@ -27,6 +27,7 @@
 		B8290A162B86152E00B275C6 /* KeyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8290A152B86152E00B275C6 /* KeyFactory.swift */; };
 		B8290A1A2B87A0E100B275C6 /* AES256.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8290A192B87A0E100B275C6 /* AES256.swift */; };
 		B8290A1E2B87B5AA00B275C6 /* AuthCodeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8290A1D2B87B5AA00B275C6 /* AuthCodeData.swift */; };
+		B8290A252B88AD9C00B275C6 /* ReceiptConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8290A242B88AD9C00B275C6 /* ReceiptConfirmView.swift */; };
 		B861AAFC2B7BA4C2007A86E5 /* BaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */; };
 		B861AAFE2B7BA566007A86E5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */; };
 		B861AB002B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFF2B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift */; };
@@ -43,7 +44,7 @@
 		B86D992F2B5154CE006B4D53 /* AuthorizedTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = B86D992E2B5154CE006B4D53 /* AuthorizedTransaction.json */; };
 		B86D99312B51593A006B4D53 /* CancelledTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = B86D99302B51593A006B4D53 /* CancelledTransaction.json */; };
 		B86D99352B515C10006B4D53 /* Initiative.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D99342B515C10006B4D53 /* Initiative.swift */; };
-		B86D99382B5175B9006B4D53 /* ReceiptTicketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D99372B5175B9006B4D53 /* ReceiptTicketViewModel.swift */; };
+		B86D99382B5175B9006B4D53 /* ReceiptPdfModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86D99372B5175B9006B4D53 /* ReceiptPdfModel.swift */; };
 		B871E5CA2B5EA439008B67DD /* CIEPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B871E5C92B5EA439008B67DD /* CIEPinView.swift */; };
 		B882BF032B7293A40040C6A6 /* ToolbarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882BF012B7293A40040C6A6 /* ToolbarButtons.swift */; };
 		B882BF042B7293A40040C6A6 /* AppToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882BF022B7293A40040C6A6 /* AppToolbar.swift */; };
@@ -60,7 +61,7 @@
 		B88E8FD02B768AF6005A3737 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88E8FCF2B768AF6005A3737 /* Endpoint.swift */; };
 		B88E8FD22B768CFB005A3737 /* ParametersEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88E8FD12B768CFB005A3737 /* ParametersEncoding.swift */; };
 		B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */; };
-		B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */; };
+		B8AE58952B4EA095006FB26C /* ReceiptPdfBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE58942B4EA095006FB26C /* ReceiptPdfBuilderView.swift */; };
 		B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE589A2B50445C006FB26C /* TransactionModel.swift */; };
 		B8AFC6122B63CD6400FEE74C /* CIEScanner in Frameworks */ = {isa = PBXBuildFile; productRef = B8AFC6112B63CD6400FEE74C /* CIEScanner */; };
 		B8CE22C22B5A937C00A4BC67 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE22C12B5A937C00A4BC67 /* MainView.swift */; };
@@ -123,6 +124,7 @@
 		B8290A152B86152E00B275C6 /* KeyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyFactory.swift; sourceTree = "<group>"; };
 		B8290A192B87A0E100B275C6 /* AES256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AES256.swift; sourceTree = "<group>"; };
 		B8290A1D2B87B5AA00B275C6 /* AuthCodeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCodeData.swift; sourceTree = "<group>"; };
+		B8290A242B88AD9C00B275C6 /* ReceiptConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptConfirmView.swift; sourceTree = "<group>"; };
 		B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVM.swift; sourceTree = "<group>"; };
 		B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		B861AAFF2B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewModel.swift; sourceTree = "<group>"; };
@@ -139,7 +141,7 @@
 		B86D992E2B5154CE006B4D53 /* AuthorizedTransaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AuthorizedTransaction.json; sourceTree = "<group>"; };
 		B86D99302B51593A006B4D53 /* CancelledTransaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CancelledTransaction.json; sourceTree = "<group>"; };
 		B86D99342B515C10006B4D53 /* Initiative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initiative.swift; sourceTree = "<group>"; };
-		B86D99372B5175B9006B4D53 /* ReceiptTicketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTicketViewModel.swift; sourceTree = "<group>"; };
+		B86D99372B5175B9006B4D53 /* ReceiptPdfModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptPdfModel.swift; sourceTree = "<group>"; };
 		B871E5C92B5EA439008B67DD /* CIEPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIEPinView.swift; sourceTree = "<group>"; };
 		B882BF012B7293A40040C6A6 /* ToolbarButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarButtons.swift; sourceTree = "<group>"; };
 		B882BF022B7293A40040C6A6 /* AppToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppToolbar.swift; sourceTree = "<group>"; };
@@ -156,7 +158,7 @@
 		B88E8FCF2B768AF6005A3737 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		B88E8FD12B768CFB005A3737 /* ParametersEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersEncoding.swift; sourceTree = "<group>"; };
 		B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsDemoListView.swift; sourceTree = "<group>"; };
-		B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTicketView.swift; sourceTree = "<group>"; };
+		B8AE58942B4EA095006FB26C /* ReceiptPdfBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptPdfBuilderView.swift; sourceTree = "<group>"; };
 		B8AE589A2B50445C006FB26C /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
 		B8AFC6132B63CEB900FEE74C /* SWC-iDPay-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SWC-iDPay-iOS.entitlements"; sourceTree = "<group>"; };
 		B8AFC6142B63CF0C00FEE74C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -239,7 +241,6 @@
 				B8CE22CB2B5ADAA000A4BC67 /* Home */,
 				B882BF0F2B73D7CE0040C6A6 /* TransactionsHistory */,
 				B824E6BF2B5987500050265D /* TransactionPayment */,
-				B8AE58932B4EA047006FB26C /* Receipt */,
 				B8CE22C52B5ACAEF00A4BC67 /* Assistenza */,
 				B81261252B581326003304C8 /* Menu */,
 				B86D99322B515BF6006B4D53 /* Initiative */,
@@ -312,11 +313,23 @@
 			children = (
 				B8E085F52B850AE600CAE6C5 /* Common */,
 				B861AB092B7E58DA007A86E5 /* BonusAmount */,
-				B861AB0A2B7E590A007A86E5 /* CIEAuth */,
 				B861AB0B2B7E591F007A86E5 /* QRCode */,
 				B861AB142B7E69C1007A86E5 /* TransactionDetail */,
+				B861AB0A2B7E590A007A86E5 /* CIEAuth */,
+				B871E5C82B5EA423008B67DD /* PIN */,
+				B8290A1F2B88AB6F00B275C6 /* Receipt */,
 			);
 			path = TransactionPayment;
+			sourceTree = "<group>";
+		};
+		B8290A1F2B88AB6F00B275C6 /* Receipt */ = {
+			isa = PBXGroup;
+			children = (
+				B8290A242B88AD9C00B275C6 /* ReceiptConfirmView.swift */,
+				B86D99372B5175B9006B4D53 /* ReceiptPdfModel.swift */,
+				B8AE58942B4EA095006FB26C /* ReceiptPdfBuilderView.swift */,
+			);
+			path = Receipt;
 			sourceTree = "<group>";
 		};
 		B861AAFA2B7BA4AF007A86E5 /* Shared */ = {
@@ -339,7 +352,6 @@
 		B861AB0A2B7E590A007A86E5 /* CIEAuth */ = {
 			isa = PBXGroup;
 			children = (
-				B871E5C82B5EA423008B67DD /* PIN */,
 				B861AB0C2B7E5939007A86E5 /* CIEAuthView.swift */,
 				B861AB0E2B7E5944007A86E5 /* CIEAuthViewModel.swift */,
 				B861AB102B7E5D5B007A86E5 /* CIEAuthError.swift */,
@@ -463,15 +475,6 @@
 				B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */,
 			);
 			path = "PagoPAUIKit-Demo";
-			sourceTree = "<group>";
-		};
-		B8AE58932B4EA047006FB26C /* Receipt */ = {
-			isa = PBXGroup;
-			children = (
-				B8AE58942B4EA095006FB26C /* ReceiptTicketView.swift */,
-				B86D99372B5175B9006B4D53 /* ReceiptTicketViewModel.swift */,
-			);
-			path = Receipt;
 			sourceTree = "<group>";
 		};
 		B8CE22C02B5A92AC00A4BC67 /* NumberPad */ = {
@@ -731,7 +734,7 @@
 				B882BF042B7293A40040C6A6 /* AppToolbar.swift in Sources */,
 				B861AAFC2B7BA4C2007A86E5 /* BaseVM.swift in Sources */,
 				B8E085F42B8508E700CAE6C5 /* TransactionToolbar.swift in Sources */,
-				B86D99382B5175B9006B4D53 /* ReceiptTicketViewModel.swift in Sources */,
+				B86D99382B5175B9006B4D53 /* ReceiptPdfModel.swift in Sources */,
 				B8DF962C2B7A110C00113D4B /* NetworkClient.swift in Sources */,
 				B8E085F72B850B0200CAE6C5 /* TransactionPaymentDeletableView.swift in Sources */,
 				B8DF962E2B7A11AA00113D4B /* Requestable.swift in Sources */,
@@ -743,10 +746,11 @@
 				B86D992C2B514BD4006B4D53 /* TransactionStatus.swift in Sources */,
 				B88E8FCE2B768919005A3737 /* URLRequest+Encoding.swift in Sources */,
 				B8290A122B860AB500B275C6 /* String+Extensions.swift in Sources */,
-				B8AE58952B4EA095006FB26C /* ReceiptTicketView.swift in Sources */,
+				B8AE58952B4EA095006FB26C /* ReceiptPdfBuilderView.swift in Sources */,
 				B861AB162B7E69DA007A86E5 /* TransactionDetailViewModel.swift in Sources */,
 				B882BF032B7293A40040C6A6 /* ToolbarButtons.swift in Sources */,
 				B861AB062B7CD04B007A86E5 /* VerifyCIEResponse.swift in Sources */,
+				B8290A252B88AD9C00B275C6 /* ReceiptConfirmView.swift in Sources */,
 				B8FAB1F62B7A5FCA0097E7A1 /* InitiativesResponse.swift in Sources */,
 				B861AB002B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift in Sources */,
 				B882BF142B7519460040C6A6 /* InitiativesViewModel.swift in Sources */,

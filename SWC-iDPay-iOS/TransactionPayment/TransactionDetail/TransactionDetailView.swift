@@ -12,7 +12,8 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
     
     @ObservedObject var viewModel: TransactionDetailViewModel
     @EnvironmentObject var router: Router
-    
+    @State var showRetry: Bool = false
+
     init(viewModel: TransactionDetailViewModel) {
         self.viewModel = viewModel
     }
@@ -60,7 +61,13 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
                         title: "Nega",
                         action: {
                             Task {
-                                try await viewModel.deleteTransaction()
+                                do {
+                                    showRetry = true
+                                    try await viewModel.deleteTransaction()
+                                    viewModel.showRetry()
+                                } catch {
+                                    showRetry = false
+                                }
                             }
                         }
                     ),
@@ -76,7 +83,12 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
         }
         .background(Color.grey100)
         .transactionToolbar(viewModel: viewModel, showBack: false)
-        .dialog(dialogModel: buildResultModel(viewModel: viewModel, router: router, retryAction: {
+        .dialog(dialogModel: buildResultModel(viewModel: viewModel, router: router, onConfirmDelete: {
+            guard showRetry == false else { return }
+            Task { @MainActor in
+                router.popToRoot()
+            }
+        }, onRetry: {
             Task {
                 // Repeat createTransaction and go to verifyCIE
                 let createTransactionResponse = try await viewModel.createTransaction()

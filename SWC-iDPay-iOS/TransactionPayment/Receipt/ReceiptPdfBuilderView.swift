@@ -1,5 +1,5 @@
 //
-//  ReceiptTicketView.swift
+//  ReceiptPdfBuilderView.swift
 //  SWC-iDPay-iOS
 //
 //  Created by Stefania Castiglioni on 10/01/24.
@@ -8,8 +8,8 @@
 import SwiftUI
 import PagoPAUIKit
 
-struct ReceiptTicketView: View {
-    var receiptTicketVM: ReceiptTicketViewModel
+struct ReceiptPdfBuilderView: View {
+    var receiptTicketVM: ReceiptPdfModel
     
     var body: some View {
         VStack {
@@ -52,7 +52,9 @@ struct ReceiptTicketView: View {
 public struct ReceiptTicketDemoView: View {
     
     @State var presentShare: Bool = false
-    
+    @State var hasDoneAction: Bool = false
+    @State var pdfUrl: URL?
+
     public init() {}
     
     public var body: some View {
@@ -91,32 +93,31 @@ public struct ReceiptTicketDemoView: View {
                     }
                 )]
         )
-        .sheet(isPresented: $presentShare, content: {
-            ActivityViewController(
-                activityItems: [
-                    ReceiptTicketView(
-                        receiptTicketVM: 
-                            ReceiptTicketViewModel(
-                                initiative: Initiative.mocked,
-                                transaction:
-                            TransactionModel.mockedSuccessTransaction
-                            )
+        .onAppear {
+            pdfUrl = ReceiptPdfBuilderView(
+                receiptTicketVM:
+                    ReceiptPdfModel(
+                        initiative: Initiative.mocked,
+                        transaction:
+                    TransactionModel.mockedSuccessTransaction
                     )
-                    .renderToPdf(
-                        filename: "receipt.pdf",
-                        location: URL.temporaryDirectory
-                    )
-                ]
             )
+            .renderToPdf(
+                filename: "receipt.pdf",
+                location: URL.temporaryDirectory
+            )
+        }
+        .sheet(isPresented: $presentShare, content: {
+            ActivityViewController(fileURL: $pdfUrl, hasDoneAction: $hasDoneAction)
         })
     }
     
 }
 
 #Preview {
-    ReceiptTicketView(
+    ReceiptPdfBuilderView(
         receiptTicketVM:
-            ReceiptTicketViewModel(
+            ReceiptPdfModel(
                 initiative: Initiative.mocked,
                 transaction:
             TransactionModel.mockedSuccessTransaction
@@ -125,9 +126,9 @@ public struct ReceiptTicketDemoView: View {
 }
 
 #Preview {
-    ReceiptTicketView(
+    ReceiptPdfBuilderView(
         receiptTicketVM:
-            ReceiptTicketViewModel(
+            ReceiptPdfModel(
                 initiative: Initiative.mocked,
                 transaction:
             TransactionModel.mockedCancelledTransaction
