@@ -27,7 +27,7 @@ struct RootView<Content:View>: View {
             content
                 .navigationDestination(for: Route.self) { route in
                     route
-                        .customToolbar(tintColor: route.tintColor)
+                        .customToolbar(tintColor: route.tintColor, toolbarBackgroundColor: route.toolbarBackgroundColor)
                         .environment(\.isBackButtonVisibile, route.showBackButton)
                         .environment(\.isHomeButtonVisibile, route.showHomeButton)
                 }

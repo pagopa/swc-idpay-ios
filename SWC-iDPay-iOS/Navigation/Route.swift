@@ -14,10 +14,13 @@ enum Route: View {
     case cieAuth(viewModel: CIEAuthViewModel)
     case transactionConfirm(viewModel: TransactionDetailViewModel)
     case thankyouPage(result: ResultModel)
+    case pin(viewModel: CIEPinViewModel)
+    case receipt(receiptModel: ReceiptPdfModel, networkClient: Requestable)
+    case outro(outroModel: OutroModel)
     
     var showBackButton: Bool {
         switch self {
-        case .thankyouPage, .transactionConfirm, .cieAuth:
+        case .thankyouPage, .transactionConfirm, .cieAuth, .pin, .receipt, .outro:
             return false
         default:
             return true
@@ -26,7 +29,7 @@ enum Route: View {
     
     var showHomeButton: Bool {
         switch self {
-        case .thankyouPage, .transactionConfirm, .cieAuth:
+        case .thankyouPage, .transactionConfirm, .cieAuth, .pin, .receipt:
             return false
         default:
             return true
@@ -34,8 +37,23 @@ enum Route: View {
     }
     
     var tintColor: Color {
-        return .paPrimary
+        switch self {
+        case .outro:
+            return .white
+        default:
+            return .paPrimary
+        }
     }
+    
+    var toolbarBackgroundColor: Color {
+        switch self {
+        case .outro:
+            return .paPrimary
+        default:
+            return .white
+        }
+    }
+
     
     var body: some View {
         switch self {
@@ -49,6 +67,12 @@ enum Route: View {
             TransactionDetailView(viewModel: viewModel)
         case .thankyouPage(let result):
             ThankyouPage(result: result)
+        case .pin(let viewModel):
+            CIEPinView(viewModel: viewModel)
+        case .receipt(let receiptModel, let networkClient):
+            ReceiptConfirmView(receiptPdfModel: receiptModel, networkClient: networkClient)
+        case .outro(let model):
+            Outro(model: model)
         }
     }
 
@@ -72,6 +96,12 @@ extension Route: Hashable {
             return lhsVM.transaction.transactionID == rhsVM.transaction.transactionID
         case (.thankyouPage(let lhsResult), .thankyouPage(let rhsResult)):
             return lhsResult.id == rhsResult.id
+        case (.pin, .pin):
+            return true
+        case (.receipt(let lhsReceipt, _), .receipt(let rhsReceipt, _)):
+            return lhsReceipt.transaction.transactionID == rhsReceipt.transaction.transactionID
+        case (.outro(let lhsModel), .outro(let rhsModel)):
+            return lhsModel.id == rhsModel.id
         default:
             return false
         }

@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-public struct Outro: View {
+public struct OutroModel {
+    public var id = UUID()
     var title: String
     var subtitle: String?
     var actionTitle: String
@@ -19,16 +20,25 @@ public struct Outro: View {
         self.actionTitle = actionTitle
         self.action = action
     }
+}
+
+public struct Outro: View {
+    
+    var model: OutroModel
+    
+    public init(model: OutroModel) {
+        self.model = model
+    }
     
     public var body: some View {
         VStack(spacing: 0) {
-            Text(title)
+            Text(model.title)
                 .multilineTextAlignment(.center)
                 .font(.PAFont.h3)
                 .foregroundColor(.white)
                 .padding(.bottom, Constants.xsmallSpacing)
             
-            if let subtitle = subtitle {
+            if let subtitle = model.subtitle {
                 Text(subtitle)
                     .multilineTextAlignment(.center)
                     .font(.PAFont.body)
@@ -36,8 +46,8 @@ public struct Outro: View {
                     .padding(.bottom, Constants.smallSpacing)
             }
             
-            Button(action: action, label: {
-                Text(actionTitle)
+            Button(action: model.action, label: {
+                Text(model.actionTitle)
             })
             .pagoPAButtonStyle(buttonType: .primary, fullwidth: false, themeType: .dark)
             .padding(.top, Constants.mediumSpacing)
@@ -45,14 +55,16 @@ public struct Outro: View {
         .padding(.horizontal, Constants.mediumSpacing)
         .fullScreenBackground(themeType: .dark)
     }
-
+    
 }
 
 #Preview("Outro") {
-    Outro(
-        title: "Operazione conclusa",
-        subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
-        actionTitle: "Paga l'importo residuo") {
-            print("Paga l'importo residuo")
-        }
+    Outro(model: OutroModel(title: "Operazione conclusa",
+                            subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
+                            actionTitle: "Paga l'importo residuo",
+                            action: {
+                                print("Paga l'importo residuo")
+                            }
+                           )
+    )
 }
