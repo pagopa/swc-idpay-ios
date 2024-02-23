@@ -21,18 +21,19 @@ class KeyFactory {
     private let exponent: String
     private let randomKey: String
     private let AES256Crypter: AES256
-
+    private var publicKey: SecKey?
+    
     init(modulus: String, exponent: String) throws {
         self.modulus = modulus
         self.exponent = exponent
         
         randomKey = String.randomString()
         AES256Crypter = try AES256(key: randomKey)
+        self.publicKey = try self.generatePublicKey()
     }
     
-    public func generatePublicKey() throws -> SecKey {
-//        let keyData = try getKeyData()
-        
+    private func generatePublicKey() throws -> SecKey {
+
         let moduleData = try modulus.base64Data()
         let exponentData = try exponent.base64Data()
         
@@ -42,24 +43,28 @@ class KeyFactory {
             kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
             kSecAttrKeyClass as String: kSecAttrKeyClassPublic
         ]
-
+        
         var error: Unmanaged<CFError>?
         guard let pubKey = SecKeyCreateWithData(keyData as CFData, attributes as CFDictionary, &error) else {
             throw KeyFactoryError.genericError(description: "Error during data encryption\n\(error?.takeRetainedValue().localizedDescription ?? "")")
         }
-
+        
         return pubKey
     }
     
-    public func publicKeyToString(_ publicKey: SecKey) throws -> String {
-        var error:Unmanaged<CFError>?
+    public func encryptAESKeyWithRsa() throws -> String {
         
-        guard let cfdata = SecKeyCopyExternalRepresentation(publicKey, &error) else {
-            throw KeyFactoryError.invalidData
+        guard let publicKey else {
+            throw KeyFactoryError.genericError(description: "No public key found to encrypt")
         }
         
-        let data: Data = cfdata as Data
-        return data.base64EncodedString()
+        var error: Unmanaged<CFError>?
+        
+        guard let encryptedPinData = SecKeyCreateEncryptedData(publicKey, .rsaEncryptionOAEPSHA256, (AES256Crypter.key as CFData), &error) else {
+            throw KeyFactoryError.genericError(description: "Error during PIN encryption\n \(error?.takeRetainedValue().localizedDescription ?? "")")
+        }
+        
+        return (encryptedPinData as Data).base64EncodedString()
     }
     
     public func encryptAES(_ string: String) throws -> String {
@@ -68,16 +73,10 @@ class KeyFactory {
             throw KeyFactoryError.invalidData
         }
         
-        guard let encryptedPinData = try AES256Crypter.encrypt(messageData: plainData) else {
+        guard let encryptedPinData = AES256Crypter.encrypt(messageData: plainData) else {
             throw KeyFactoryError.genericError(description: "Unable to encrypt Pin data")
         }
         
-//        var error: Unmanaged<CFError>?
-//
-//        guard let encryptedPinData = SecKeyCreateEncryptedData(publicKey, .rsaEncryptionOAEPSHA256, plainData as CFData, &error) else {
-//            throw KeyFactoryError.genericError(description: "Error during PIN encryption\n \(error?.takeRetainedValue().localizedDescription ?? "")")
-//        }
-
         return (encryptedPinData as Data).base64EncodedString()
     }
     
@@ -89,8 +88,8 @@ class KeyFactory {
             pinBlock += "F"
         }
         
-        var hexPinBlock = pinBlock.byteArrayFromHexString()
-        var hexSecondFactor = secondFactor.byteArrayFromHexString()
+        let hexPinBlock = pinBlock.byteArrayFromHexString()
+        let hexSecondFactor = secondFactor.byteArrayFromHexString()
         
         guard hexPinBlock.count == hexSecondFactor.count else {
             throw KeyFactoryError.invalidData
@@ -105,77 +104,8 @@ class KeyFactory {
         
         return Data(generated).hexEncodedString(options: .upperCase)
     }
-            
-//    private func getKeyData() throws -> Data {
-//        
-//        
-//        // Il data viene creato e salvando in un .der viene decodificato da openssl
-//        var sequenceEncoded: [UInt8] = modulus + exponent
-//        
-//        let hexEncodedSequence = String.hexStringFromBinary(sequenceEncoded)
-//
-//        print("sequence encoded: \(hexEncodedSequence)")
-//        
-//        guard let data = hexEncodedSequence.data(using: .utf8) else {
-//            throw KeyFactoryError.invalidData
-//        }
-//                
-//        return data
-//        
-////        var modulusEncoded: [UInt8] = []
-////        modulusEncoded.append(0x02)
-////        modulusEncoded.append(contentsOf: lengthField(of: modulus))
-////        modulusEncoded.append(contentsOf: modulus)
-////        print("modulus encoded: \(modulusEncoded)")
-////
-////        var exponentEncoded: [UInt8] = []
-////        exponentEncoded.append(0x02)
-////        exponentEncoded.append(contentsOf: lengthField(of: exponent))
-////        exponentEncoded.append(contentsOf: exponent)
-////        print("exponent encoded: \(exponentEncoded)")
-////
-////        
-////        var sequenceEncoded: [UInt8] = []
-////        sequenceEncoded.append(0x30)
-////        sequenceEncoded.append(contentsOf: lengthField(of: (modulusEncoded + exponentEncoded)))
-////        sequenceEncoded.append(contentsOf: (modulusEncoded + exponentEncoded))
-////        print("sequence encoded: \(sequenceEncoded)")
-////
-////        return Data(sequenceEncoded)
-//
-//    }
-
+    
 }
-
-//func lengthField(of valueField: [UInt8]) -> [UInt8] {
-//    var count = valueField.count
-//
-//    if count < 128 {
-//        return [ UInt8(count) ]
-//    }
-//
-//    // The number of bytes needed to encode count.
-//    let lengthBytesCount = Int((log2(Double(count)) / 8) + 1)
-//
-//    // The first byte in the length field encoding the number of remaining bytes.
-//    let firstLengthFieldByte = UInt8(128 + lengthBytesCount)
-//
-//    var lengthField: [UInt8] = []
-//    for _ in 0..<lengthBytesCount {
-//        // Take the last 8 bits of count.
-//        let lengthByte = UInt8(count & 0xff)
-//        // Add them to the length field.
-//        lengthField.insert(lengthByte, at: 0)
-//        // Delete the last 8 bits of count.
-//        count = count >> 8
-//    }
-//
-//    // Include the first byte.
-//    lengthField.insert(firstLengthFieldByte, at: 0)
-//
-//    return lengthField
-//}
-
 
 private extension Data {
     
@@ -270,16 +200,4 @@ private extension NSInteger {
             self.init(result)
         }
     }
-}
-
-extension String {
-    
-    static func randomString(length: Int = 32) -> String {
-        let numbers = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        return String((0..<length).compactMap{ _ in
-            guard let randomElement = numbers.randomElement() else {return nil}
-            return randomElement
-        })
-    }
-
 }

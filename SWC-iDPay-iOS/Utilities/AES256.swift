@@ -14,7 +14,7 @@ enum AESError: Error {
 }
 
 public struct AES256 {
-    private let key: Data
+    public let key: Data
 
     public init(key: String) throws {
         guard key.count == kCCKeySizeAES256 else {
@@ -39,13 +39,14 @@ public struct AES256 {
         guard let data = data else { return nil }
         var outputBuffer = [UInt8](repeating: 0, count: data.count + kCCBlockSizeAES128)
         var numBytesEncrypted = 0
+        guard let iv = Data.generateRandomBytes(length: 16) else { return nil }
         let status = CCCrypt(
             option,
-            CCAlgorithm(kCCAlgorithmAES128),
+            CCAlgorithm(kCCAlgorithmAES),
             CCOptions(kCCOptionPKCS7Padding),
             (key as NSData).bytes,
             kCCKeySizeAES256,
-            Data.generateRandomBytes(length: 16),
+            (iv as NSData).bytes,
             (data as NSData).bytes,
             data.count,
             &outputBuffer, outputBuffer.count, &numBytesEncrypted
@@ -58,16 +59,29 @@ public struct AES256 {
 
 extension Data {
     
-    static func generateRandomBytes(length: Int = kCCKeySizeAES256) -> String? {
+    static func generateRandomBytes(length: Int = kCCKeySizeAES256) -> Data? {
         var bytes = [Int8](repeating: 0, count: length)
         let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
 
         if status == errSecSuccess {
-            return Data(bytes: bytes, count: length).base64EncodedString()
+            return Data(bytes: bytes, count: length)
         } else {
             print("Problem generating random bytes")
             return nil
         }
     }
+    
+//    static func generateRandomBytes(length: Int = kCCKeySizeAES256) -> String? {
+//        var bytes = [Int8](repeating: 0, count: length)
+//        let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
+//
+//        if status == errSecSuccess {
+//            return Data(bytes: bytes, count: length).base64EncodedString()
+//        } else {
+//            print("Problem generating random bytes")
+//            return nil
+//        }
+//    }
+
 
 }

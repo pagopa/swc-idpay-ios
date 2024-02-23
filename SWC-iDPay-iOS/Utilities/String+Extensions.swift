@@ -13,4 +13,13 @@ extension String {
         let base64EncodedData = self.data(using: .utf8)!
         return base64EncodedData.base64EncodedString()
     }
+    
+    static func randomString(length: Int = 32) -> String {
+        let numbers = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        return String((0..<length).compactMap{ _ in
+            guard let randomElement = numbers.randomElement() else {return nil}
+            return randomElement
+        })
+    }
+
 }
