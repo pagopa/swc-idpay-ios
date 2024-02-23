@@ -40,7 +40,8 @@ public struct ReceiptConfirmView: View {
                     iconPosition: .left,
                     action: {
                         guard let _ = generatedPdfReceiptURL else { return }
-                        print("Chiamare servizio di invio email")
+                        // TODO: Chiamare servizio di invio email
+                        showOutro = true
                     }
                 ),
                 ButtonModel(
