@@ -9,21 +9,21 @@ import SwiftUI
 import PagoPAUIKit
 
 struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView {
-    @ObservedObject var viewModel: TransactionHistoryDetailViewModel
     
     @EnvironmentObject var router: Router
     @EnvironmentObject var appManager: AppStateManager
     
+    @ObservedObject var viewModel: TransactionHistoryDetailViewModel
     @State private var generatedPdfReceiptURL: URL?
     @State private var showOutro: Bool = false
     @State private var presentShare: Bool = false
-    
+
     init(viewModel: TransactionHistoryDetailViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
-        VStack {
+        ScrollView {
             VStack(spacing: 0) {
                 VStack {
                     VStack(alignment: .leading) {
@@ -52,18 +52,23 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView {
                     .padding(.bottom, Constants.xsmallSpacing)
                 }
                 .background(Color.white)
+                
                 Image("ticket-final-bkg", bundle: nil)
                     .resizable(resizingMode: .tile)
                     .frame(maxWidth: .infinity, maxHeight: 23)
                     .scaledToFill()
             }
+            
             Spacer()
+        }
+        .safeAreaInset(edge: .bottom) {
             FooterButtonsView(
                 buttons:
                     buildCustomButton()
             )
         }
         .background(Color.grey100)
+        .toolbarBackground(.visible, for: .navigationBar)
         .dialog(dialogModel: self.buildResultModel(viewModel: self.viewModel, router: self.router, onConfirmDelete: {
             router.pushTo(.thankyouPage(result: ResultModel(
                 title: "Operazione annullata",
@@ -129,6 +134,7 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView {
             )
         })
         .onAppear(){
+            // TODO: Generare il pdf solo se viene condivisa o stampata la ricevuta
             Task {
                 generatePdfReceipt()
             }

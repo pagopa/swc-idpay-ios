@@ -93,12 +93,3 @@ struct TransactionsHistoryList: View {
     TransactionsHistoryList(viewModel: TransactionHistoryViewModel(networkClient: NetworkClient(environment: .staging)))
         .environmentObject(Router())
 }
-
-extension ListItemHistory {
-    
-
-    init(transaction: TransactionModel) {
-       let icon = (transaction.status == .authorized) ? Image.PAIcon.checkmark : Image.PAIcon.cancelled
-        self.init(iconLeft: icon, titleText: transaction.initiativeId, subTitleText: transaction.date, amountText: transaction.coveredAmount?.formattedCurrency)
-    }
-}
