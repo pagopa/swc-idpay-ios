@@ -14,10 +14,10 @@ class CIEPinViewModel: TransactionDeleteVM {
     var verifyCIEResponse: VerifyCIEResponse
     var transaction: TransactionModel
     
-    init(networkClient: Requestable, initiative: Initiative, transaction: TransactionModel, verifyCIEResponse: VerifyCIEResponse) {
+    init(networkClient: Requestable, transaction: TransactionModel, verifyCIEResponse: VerifyCIEResponse, initiative: Initiative? = nil) {
         self.verifyCIEResponse = verifyCIEResponse
         self.transaction = transaction
-        super.init(networkClient: networkClient, initiative: initiative, transactionID: transaction.transactionID, goodsCost: transaction.goodsCost)
+        super.init(networkClient: networkClient, transactionID: transaction.transactionID, goodsCost: transaction.goodsCost, initiative: initiative)
     }
     
     func authorizeTransaction() async throws -> Bool {
@@ -47,8 +47,11 @@ class CIEPinViewModel: TransactionDeleteVM {
         //        print("nDecoded: \(nDecoded)")
         
         do {
+            guard let secondFactor = transaction.secondFactor else {
+                throw KeyFactoryError.genericError(description: "Second factor not found")
+            }
             let keyFactory = try KeyFactory(modulus: verifyCIEResponse.n, exponent: verifyCIEResponse.e)
-            let generated = try keyFactory.generate(pin: pinString, secondFactor: transaction.secondFactor)
+            let generated = try keyFactory.generate(pin: pinString, secondFactor: secondFactor)
             print("Generated pinBlock:\n\(generated)")
             let encryptedPin = try keyFactory.encryptAES(generated)
             let encSessionKey = try keyFactory.encryptAESKeyWithRsa()

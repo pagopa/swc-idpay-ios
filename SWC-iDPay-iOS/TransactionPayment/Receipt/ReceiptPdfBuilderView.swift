@@ -19,7 +19,7 @@ struct ReceiptPdfBuilderView: View {
                 
                 TicketField(title: "Data e ora", value: receiptTicketVM.transaction.date)
                 
-                TicketField(title: "Iniziativa", value: receiptTicketVM.initiative.name)
+                TicketField(title: "Iniziativa", value: receiptTicketVM.initiative?.name ?? receiptTicketVM.transaction.initiativeId)
                 
                 TicketField(title: "Importo del bene", value: receiptTicketVM.transaction.goodsCost.formattedCurrency
                 )
@@ -97,9 +97,9 @@ public struct ReceiptTicketDemoView: View {
             pdfUrl = ReceiptPdfBuilderView(
                 receiptTicketVM:
                     ReceiptPdfModel(
-                        initiative: Initiative.mocked,
                         transaction:
-                    TransactionModel.mockedSuccessTransaction
+                            TransactionModel.mockedSuccessTransaction,
+                        initiative: Initiative.mocked
                     )
             )
             .renderToPdf(
@@ -118,9 +118,9 @@ public struct ReceiptTicketDemoView: View {
     ReceiptPdfBuilderView(
         receiptTicketVM:
             ReceiptPdfModel(
-                initiative: Initiative.mocked,
                 transaction:
-            TransactionModel.mockedSuccessTransaction
+                    TransactionModel.mockedSuccessTransaction,
+                initiative: Initiative.mocked
             )
     )
 }
@@ -129,9 +129,9 @@ public struct ReceiptTicketDemoView: View {
     ReceiptPdfBuilderView(
         receiptTicketVM:
             ReceiptPdfModel(
-                initiative: Initiative.mocked,
                 transaction:
-            TransactionModel.mockedCancelledTransaction
+                    TransactionModel.mockedCancelledTransaction,
+                initiative: Initiative.mocked
             )
     )
 }

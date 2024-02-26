@@ -19,9 +19,9 @@ class TransactionDeleteVM: BaseVM {
 
     var transactionID: String
     var goodsCost: Int
-    var initiative: Initiative
+    var initiative: Initiative?
 
-    init(networkClient: Requestable, initiative: Initiative, transactionID: String, goodsCost: Int) {
+    init(networkClient: Requestable, transactionID: String, goodsCost: Int, initiative: Initiative? = nil) {
         self.transactionID = transactionID
         self.goodsCost = goodsCost
         self.initiative = initiative
@@ -38,6 +38,10 @@ class TransactionDeleteVM: BaseVM {
     
     func confirmTransactionDelete() {
         dialogState = .confirmDelete
+    }
+    
+    func confirmHistoryTransactionDelete() {
+        dialogState = .confirmDeleteHistory
     }
     
     func dismissDialog() {
@@ -57,8 +61,7 @@ class TransactionDeleteVM: BaseVM {
             dialogState = .noMessage
             return transactionDeleted
         } catch {
-            self.isLoading = false
-            dialogState = .genericError
+            showError()
             throw error
         }
     }
@@ -67,14 +70,21 @@ class TransactionDeleteVM: BaseVM {
         do {
             loadingStateMessage = "Aspetta qualche istante.."
             self.isLoading = true
-            let transactionData = try await networkClient.createTransaction(initiativeId: initiative.id, amount: goodsCost)
+            guard let initiativeID = initiative?.id else {
+                showError()
+                throw HTTPResponseError.networkError("No initiative provided")
+            }
+            let transactionData = try await networkClient.createTransaction(initiativeId: initiativeID, amount: goodsCost)
             self.isLoading = false
             return transactionData
         }  catch {
-            self.isLoading = false
-            dialogState = .genericError
+            showError()
             throw error
         }
     }
 
+    func showError() {
+        self.isLoading = false
+        dialogState = .genericError
+    }
 }

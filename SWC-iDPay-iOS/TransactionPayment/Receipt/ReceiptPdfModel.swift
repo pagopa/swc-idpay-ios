@@ -9,11 +9,11 @@ import Foundation
 
 class ReceiptPdfModel {
     
-    var initiative: Initiative
     var transaction: TransactionModel
+    var initiative: Initiative?
 
-    init(initiative: Initiative, transaction: TransactionModel) {
-        self.initiative = initiative
+    init(transaction: TransactionModel, initiative: Initiative? = nil) {
         self.transaction = transaction
+        self.initiative = initiative
     }
 }

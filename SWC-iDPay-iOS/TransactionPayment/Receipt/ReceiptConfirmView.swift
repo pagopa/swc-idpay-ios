@@ -14,6 +14,7 @@ public struct ReceiptConfirmView: View {
     var networkClient: Requestable
     
     @EnvironmentObject var router: Router
+    @EnvironmentObject var appManager: AppStateManager
     
     @State private var presentShare: Bool = false
     @State private var generatedPdfReceiptURL: URL?
@@ -79,9 +80,13 @@ public struct ReceiptConfirmView: View {
         }
         .onChange(of: showOutro) { newValue in
             if newValue == true {
-                router.pushTo(.outro(outroModel: OutroModel(title: "Operazione conclusa", subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.", actionTitle: "Accetta nuovo bonus", action: {
-                    router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: networkClient)))
-                })))
+                if let _ = receiptPdfModel.initiative {
+                    //initiative payment flow
+                    showTransactionPaymentOutro()
+                } else {
+                    //transaction history flow
+                    showCancelTransactionOutro()
+                }
             }
         }
     }
@@ -96,6 +101,19 @@ public struct ReceiptConfirmView: View {
             filename: "receipt.pdf",
             location: URL.temporaryDirectory
         )
+    }
+    
+    func showCancelTransactionOutro() {
+        router.pushTo(.outro(outroModel: OutroModel(title: "Operazione conclusa", subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.", actionTitle: "Torna alla home", action: {
+            router.popToRoot()
+            appManager.login()
+        })))
+    }
+    
+    func showTransactionPaymentOutro() {
+        router.pushTo(.outro(outroModel: OutroModel(title: "Operazione conclusa", subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.", actionTitle: "Accetta nuovo bonus", action: {
+            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: networkClient)))
+        })))
     }
 }
 

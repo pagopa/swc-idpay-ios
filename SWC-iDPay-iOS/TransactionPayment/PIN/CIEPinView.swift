@@ -68,7 +68,7 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
                                         title: "Continua",
                                         icon: .arrowRight,
                                         action: {
-                                            router.pushTo(.receipt(receiptModel: ReceiptPdfModel(initiative: viewModel.initiative, transaction: viewModel.transaction), networkClient: viewModel.networkClient))
+                                            router.pushTo(.receipt(receiptModel: ReceiptPdfModel(transaction: viewModel.transaction, initiative: viewModel.initiative), networkClient: viewModel.networkClient))
                                         }
                                     )]
                             )))
@@ -114,5 +114,5 @@ private struct PinDot: View {
 }
 
 #Preview {
-    CIEPinView(viewModel: CIEPinViewModel(networkClient: NetworkClient(environment: .development), initiative: Initiative.mocked, transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mocked))
+    CIEPinView(viewModel: CIEPinViewModel(networkClient: NetworkClient(environment: .development), transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mocked, initiative: Initiative.mocked))
 }

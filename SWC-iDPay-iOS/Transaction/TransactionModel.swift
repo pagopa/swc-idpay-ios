@@ -17,7 +17,7 @@ struct TransactionModel: Codable {
     var transactionID: String
     var terminalID: String
     var initiativeId: String
-    var secondFactor: String
+    var secondFactor: String?
     
     enum CodingKeys: CodingKey {
         case status
@@ -51,7 +51,7 @@ struct TransactionModel: Codable {
         self.transactionID = try container.decode(String.self, forKey: TransactionModel.CodingKeys.milTransactionId)
         self.terminalID = try container.decode(String.self, forKey: TransactionModel.CodingKeys.trxCode)
         self.initiativeId = try container.decode(String.self, forKey: TransactionModel.CodingKeys.initiativeId)
-        self.secondFactor = try container.decode(String.self, forKey: TransactionModel.CodingKeys.secondFactor)
+        self.secondFactor = try? container.decode(String.self, forKey: TransactionModel.CodingKeys.secondFactor)
     }
     
     func encode(to encoder: Encoder) throws {

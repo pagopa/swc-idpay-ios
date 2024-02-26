@@ -11,6 +11,7 @@ import Combine
 enum TransactionDetailState {
     case noMessage
     case confirmDelete
+    case confirmDeleteHistory
     case genericError
     case transactionDeleted
 }
@@ -21,11 +22,11 @@ class TransactionDetailViewModel: TransactionDeleteVM {
     var transaction: TransactionModel
     var verifyCIEResponse: VerifyCIEResponse
 
-    init(networkClient: Requestable, transaction: TransactionModel, initiative: Initiative, verifyCIEResponse: VerifyCIEResponse) {
+    init(networkClient: Requestable, transaction: TransactionModel, verifyCIEResponse: VerifyCIEResponse, initiative: Initiative? = nil) {
         self.transaction = transaction
         self.verifyCIEResponse = verifyCIEResponse
             
-        super.init(networkClient: networkClient, initiative: initiative, transactionID: self.transaction.transactionID, goodsCost: self.transaction.goodsCost)
+        super.init(networkClient: networkClient, transactionID: self.transaction.transactionID, goodsCost: self.transaction.goodsCost, initiative: initiative)
         
     }
     
