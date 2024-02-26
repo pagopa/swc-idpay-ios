@@ -14,7 +14,8 @@ struct CustomToolbarModifier: ViewModifier {
     @Environment(\.isBackButtonVisibile) var isBackVisible: Bool
     @Environment(\.isHomeButtonVisibile) var isHomeVisible: Bool
     var tintColor: Color
-    
+    var toolbarBackgroundColor: Color
+
     func body(content: Content) -> some View {
         content
             .navigationBarBackButtonHidden(true)
@@ -38,7 +39,7 @@ struct CustomToolbarModifier: ViewModifier {
                     }
                 }
             }
-            .toolbarBackground(.white, for: .navigationBar)
+            .toolbarBackground(toolbarBackgroundColor, for: .navigationBar)
     }
     
     enum BackVisibleKey: EnvironmentKey {
@@ -65,8 +66,8 @@ extension EnvironmentValues {
 
 extension View {
     
-    func customToolbar(tintColor: Color = .white) -> some View {
-        modifier(CustomToolbarModifier(tintColor: tintColor))
+    func customToolbar(tintColor: Color = .white, toolbarBackgroundColor: Color = .white) -> some View {
+        modifier(CustomToolbarModifier(tintColor: tintColor, toolbarBackgroundColor: toolbarBackgroundColor))
     }
 }
 

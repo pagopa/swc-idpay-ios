@@ -10,13 +10,13 @@ import PagoPAUIKit
 
 protocol TransactionPaymentDeletableView where Self:View {
     
-    func buildResultModel(viewModel: TransactionDeleteVM, router: Router, retryAction: @escaping () -> Void) -> ResultModel
+    func buildResultModel(viewModel: TransactionDeleteVM, router: Router, onConfirmDelete: @escaping () -> Void, onRetry: (() -> Void)?) -> ResultModel
 }
 
 extension TransactionPaymentDeletableView {
     
     @MainActor
-    func buildResultModel(viewModel: TransactionDeleteVM, router: Router, retryAction: @escaping () -> Void) -> ResultModel {
+    func buildResultModel(viewModel: TransactionDeleteVM, router: Router, onConfirmDelete: @escaping () -> Void, onRetry: (() -> Void)? = nil) -> ResultModel {
         switch viewModel.dialogState {
         case .genericError:
             return ResultModel(
@@ -41,6 +41,7 @@ extension TransactionPaymentDeletableView {
                         viewModel.dismissDialog()
                         Task {
                             try await viewModel.deleteTransaction()
+                            onConfirmDelete()
                         }
                     })
                 ])
@@ -63,7 +64,7 @@ extension TransactionPaymentDeletableView {
                         title: "Riprova",
                         action: {
                             viewModel.dismissDialog()
-                            retryAction()
+                            onRetry?()
                         })
                 ])
         case .noMessage:

@@ -43,6 +43,10 @@ class TransactionDeleteVM: BaseVM {
     func dismissDialog() {
         dialogState = .noMessage
     }
+    
+    func showRetry() {
+        dialogState = .transactionDeleted
+    }
 
     @discardableResult func deleteTransaction() async throws -> Bool {
         do {
@@ -50,7 +54,7 @@ class TransactionDeleteVM: BaseVM {
             self.isLoading = true
             let transactionDeleted = try await networkClient.deleteTransaction(milTransactionId: transactionID)
             self.isLoading = false
-            dialogState = .transactionDeleted
+            dialogState = .noMessage
             return transactionDeleted
         } catch {
             self.isLoading = false

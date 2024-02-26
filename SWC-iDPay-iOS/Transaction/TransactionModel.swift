@@ -17,6 +17,7 @@ struct TransactionModel: Codable {
     var transactionID: String
     var terminalID: String
     var initiativeId: String
+    var secondFactor: String
     
     enum CodingKeys: CodingKey {
         case status
@@ -26,9 +27,10 @@ struct TransactionModel: Codable {
         case milTransactionId
         case trxCode
         case initiativeId
+        case secondFactor
     }
    
-    fileprivate init(status: TransactionStatus, date: String, goodsCost: Int, coveredAmount: Int, transactionID: String, terminalID: String, initiativeID: String) {
+    fileprivate init(status: TransactionStatus, date: String, goodsCost: Int, coveredAmount: Int, transactionID: String, terminalID: String, initiativeID: String, secondFactor: String) {
         self.status = status
         self.date   = date
         self.goodsCost = goodsCost
@@ -36,6 +38,7 @@ struct TransactionModel: Codable {
         self.transactionID = transactionID
         self.terminalID = terminalID
         self.initiativeId = initiativeID
+        self.secondFactor = secondFactor
     }
     
     init(from decoder: Decoder) throws {
@@ -48,6 +51,7 @@ struct TransactionModel: Codable {
         self.transactionID = try container.decode(String.self, forKey: TransactionModel.CodingKeys.milTransactionId)
         self.terminalID = try container.decode(String.self, forKey: TransactionModel.CodingKeys.trxCode)
         self.initiativeId = try container.decode(String.self, forKey: TransactionModel.CodingKeys.initiativeId)
+        self.secondFactor = try container.decode(String.self, forKey: TransactionModel.CodingKeys.secondFactor)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -59,13 +63,14 @@ struct TransactionModel: Codable {
         try container.encode(self.transactionID, forKey: TransactionModel.CodingKeys.milTransactionId)
         try container.encode(self.terminalID, forKey: TransactionModel.CodingKeys.trxCode)
         try container.encode(self.initiativeId, forKey: TransactionModel.CodingKeys.initiativeId)
+        try container.encode(self.secondFactor, forKey: TransactionModel.CodingKeys.secondFactor)
     }
 }
 
 extension TransactionModel {
     
     static var fallbackTransaction: TransactionModel {
-        TransactionModel(status: .authorized, date: "15 Marzo 2023, 16:44", goodsCost: 5599, coveredAmount: 5599, transactionID: "517a-4216-840E-461f-B011-036A-0fd1-34E1", terminalID: "g64tg3ryu", initiativeID: "xxxx")
+        TransactionModel(status: .authorized, date: "15 Marzo 2023, 16:44", goodsCost: 5599, coveredAmount: 5599, transactionID: "517a-4216-840E-461f-B011-036A-0fd1-34E1", terminalID: "g64tg3ryu", initiativeID: "xxxx", secondFactor: "0000907783632457")
     }
     
     static var mockedSuccessTransaction: TransactionModel {

@@ -43,12 +43,9 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
             }
             .padding(Constants.mediumSpacing)
             .transactionToolbar(viewModel: viewModel)
-            .dialog(dialogModel: buildResultModel(viewModel: viewModel, router: router, retryAction: {
-                Task {
-                    // Repeat createTransaction and start CIE scan
-                    let createTransactionResponse = try await viewModel.createTransaction()
-                    viewModel.transactionData = createTransactionResponse
-                    startCIEScan()
+            .dialog(dialogModel: buildResultModel(viewModel: viewModel, router: router, onConfirmDelete: {
+                Task { @MainActor in
+                    router.popToRoot()
                 }
             }), isPresenting: $viewModel.showErrorDialog)
             .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)

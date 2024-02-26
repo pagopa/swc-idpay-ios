@@ -102,9 +102,9 @@ struct Component: Identifiable, Hashable {
             case .waitingView:
                 EmptyView()
             case .numberPad:
-                BonusAmountView(viewModel: BonusAmountViewModel(networkClient: NetworkClient(environment: .staging), initiative: Initiative.mocked))
+                BonusAmountView(viewModel: BonusAmountViewModel(networkClient: NetworkClient(environment: .development), initiative: Initiative.mocked))
             case .pinPad:
-                CIEPinView()
+                CIEPinView(viewModel: CIEPinViewModel(networkClient: NetworkClient(environment: .development), initiative: Initiative.mocked, transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mocked))
             }
         }
     }

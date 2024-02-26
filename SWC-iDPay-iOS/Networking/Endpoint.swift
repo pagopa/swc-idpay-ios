@@ -19,7 +19,7 @@ enum Endpoint {
     case deleteTransaction(_ id: String)
     case transactionHistory
     case verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String)
-    case authorize(transactionId: String)
+    case authorize(milTransactionId: String, kid: String, encSessionKey: String, authCodeBlock: String)
     
     var path: String {
         switch self {
@@ -39,8 +39,8 @@ enum Endpoint {
             return "/mil-idpay/transactions"
         case .verifyCIE(let milTransactionId, _, _, _, _):
             return "/mil-idpay/transactions/\(milTransactionId)/verifyCie"
-        case .authorize(let transactionId):
-            return "/mil-idpay/transactions/\(transactionId)/authorize"
+        case .authorize(let milTransactionId, _, _, _):
+            return "/mil-idpay/transactions/\(milTransactionId)/authorize"
         }
     }
     
@@ -66,7 +66,7 @@ enum Endpoint {
     
     var headers: HTTPHeaders {
         switch self {
-        case .authorize(let milTransactionId), .verifyCIE(let milTransactionId, _, _, _, _):
+        case .authorize(let milTransactionId, _, _, _), .verifyCIE(let milTransactionId, _, _, _, _):
             return defaultHeaders.merging([
                 "Content-Type": "application/json",
                 "milTransactionId": milTransactionId
@@ -110,6 +110,14 @@ enum Endpoint {
                 "ciePublicKey": ciePublicKey,
                 "signature": signature,
                 "sod": sod
+            ]
+        case .authorize(_, let kid, let encSessionKey, let authCodeBlock):
+            return [
+                "authCodeBlockData" : [
+                    "kid": kid,
+                    "encSessionKey": encSessionKey,
+                    "authCodeBlock": authCodeBlock
+                ]
             ]
         default:
             return [:]
