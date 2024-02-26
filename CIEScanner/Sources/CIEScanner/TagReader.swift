@@ -149,19 +149,33 @@ class TagReader {
     private func signIntAuth(_ dataToSign: [UInt8]) async throws -> [UInt8]  {
         guard let settingAuth = NFCISO7816APDU(data: Data([0x00, 0x22, 0x41, 0xA4, 0x06, 0x80, 0x01, 0x02, 0x84, 0x01, 0x83])) else { return [] }
         let respSettingAuth = try await send(cmd: settingAuth)
+        var responseAuthChallenge: ResponseAPDU
         
-        let intAuthApdu = NFCISO7816APDU(instructionClass: 0x00, instructionCode: 0x88, p1Parameter: 0x00, p2Parameter: 0x00, data: Data(dataToSign), expectedResponseLength: 256)
-        let responseAuthChallenge = try await send(cmd: intAuthApdu)
-        
-        // Debug prints
-        loggerManager.log("\n\n------- START AUTH CHALLENGE RESPONSE --------")
-        loggerManager.log(String(format:"\(String.hexStringFromBinary(responseAuthChallenge.data, asArray:true)), sw1:0x%02x sw2:0x%02x", responseAuthChallenge.sw1, responseAuthChallenge.sw2))
-        let hexIntAuth: String = Data(responseAuthChallenge.data).hexEncodedString(options: .upperCase)
-        loggerManager.log("------- HEX STRING --------")
-        loggerManager.log("\(hexIntAuth)")
-        loggerManager.log("------- END AUTH CHALLENGE RESPONSE --------\n\n")
+        do {
+            let intAuthApdu = NFCISO7816APDU(instructionClass: 0x00, instructionCode: 0x88, p1Parameter: 0x00, p2Parameter: 0x00, data: Data(dataToSign), expectedResponseLength: 256)
+            responseAuthChallenge = try await send(cmd: intAuthApdu)
+            // Debug prints
+            loggerManager.log("\n\n------- START AUTH CHALLENGE RESPONSE --------")
+            loggerManager.log_APDU_response(responseAuthChallenge)
+            loggerManager.log("------- END AUTH CHALLENGE RESPONSE --------\n\n")
+            return responseAuthChallenge.data
+
+        } catch {
+            if let CIEerror = error as? CIEReaderError, CIEerror == .sendCommandForResponse {
+                guard let getResponseApdu = NFCISO7816APDU(data: Data([0x00, 0xC0, 0x00, 0x00, 0x00])) else {
+                    fatalError("Wrong APDU command")
+                }
+                responseAuthChallenge = try await send(cmd: getResponseApdu)
+                loggerManager.log("\n\n------- START AUTH CHALLENGE RESPONSE --------")
+                loggerManager.log_APDU_response(responseAuthChallenge)
+                loggerManager.log("------- END AUTH CHALLENGE RESPONSE --------\n\n")
+            } else {
+                throw error
+            }
+        }
         
         return responseAuthChallenge.data
+        
     }
 
     
@@ -176,13 +190,17 @@ class TagReader {
             loggerManager.log( "🔴 [ERROR] reading tag: sw1 - 0x\(String.hexStringFromBinary(sw1)), sw2 - 0x\(String.hexStringFromBinary(sw2))" )
             let tagError: CIEReaderError
             
-            if (rep.sw1 == 0x63 && rep.sw2 == 0x00) {
+            switch (rep.sw1, rep.sw2){
+            case (0x63, 0x00):
                 tagError = .invalidTag
-            } else {
+            case (0x61, 0x00):
+                tagError = .sendCommandForResponse
+            default:
                 let errorMsg = self.decodeError(sw1: rep.sw1, sw2: rep.sw2)
                 loggerManager.log("🔴 [ERROR] reason: \(errorMsg)" )
                 tagError = CIEReaderError.responseError(errorMsg)
             }
+            
             throw tagError
         }
         
