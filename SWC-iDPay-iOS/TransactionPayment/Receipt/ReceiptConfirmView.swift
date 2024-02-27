@@ -89,7 +89,7 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
     func showCancelTransactionOutro() {
         router.pushTo(.outro(outroModel: OutroModel(title: "Operazione conclusa", subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.", actionTitle: "Torna alla home", action: {
             router.popToRoot()
-            appManager.login()
+            appManager.loadHome()
         })))
     }
     

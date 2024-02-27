@@ -123,7 +123,7 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
                 presentShare = false
                 router.pushTo(.outro(outroModel: OutroModel(title: "Operazione conclusa", subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.", actionTitle: "Torna alla home", action: {
                     router.popToRoot()
-                    appManager.login()
+                    appManager.loadHome()
                 })))
             }
         }

@@ -26,7 +26,7 @@ class AppStateManager: ObservableObject {
         state = .splash
     }
         
-    func login() {
+    func loadHome() {
         state = .acceptBonus
     }
     

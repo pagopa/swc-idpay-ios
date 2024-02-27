@@ -20,7 +20,7 @@ struct MainView: View {
             })
         case .login:
             LoginView(viewModel: LoginViewModel(networkClient: networkClient), onLoggedIn: {
-                appManager.login()
+                appManager.loadHome()
             })
         case .acceptBonus:
             RootView {

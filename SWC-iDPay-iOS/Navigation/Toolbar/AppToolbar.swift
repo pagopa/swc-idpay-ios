@@ -33,7 +33,7 @@ struct CustomToolbarModifier: ViewModifier {
                     ToolbarItem(placement: .topBarTrailing) {
                         HomeButton {
                             router.popToRoot()
-                            appManager.login()
+                            appManager.loadHome()
                         }
                         .foregroundColor(tintColor)
                     }
