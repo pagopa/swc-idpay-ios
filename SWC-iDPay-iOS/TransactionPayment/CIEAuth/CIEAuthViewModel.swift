@@ -82,11 +82,4 @@ class CIEAuthViewModel: TransactionDeleteVM {
         
     }
     
-    func authorizeTransaction() async throws {
-        isLoading = true
-        loadingStateMessage = "Stiamo verificando il tuo portafoglio ID Pay"
-        try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
-        isLoading = false
-    }
-
 }
