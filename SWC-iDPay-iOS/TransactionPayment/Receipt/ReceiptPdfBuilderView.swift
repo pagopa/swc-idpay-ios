@@ -17,7 +17,7 @@ struct ReceiptPdfBuilderView: View {
             
             VStack(alignment: .leading, spacing: 10.0) {
                 
-                TicketField(title: "Data e ora", value: receiptTicketVM.transaction.date)
+                TicketField(title: "Data e ora", value: receiptTicketVM.transaction.date?.formattedDateTime ?? String.emptyDataPlaceholder)
                 
                 TicketField(title: "Iniziativa", value: receiptTicketVM.initiative?.name ?? receiptTicketVM.transaction.initiativeId)
                 

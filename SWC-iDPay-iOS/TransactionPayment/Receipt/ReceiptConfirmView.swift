@@ -9,7 +9,7 @@ import SwiftUI
 import PagoPAUIKit
 import MessageUI
 
-public struct ReceiptConfirmView: View {
+public struct ReceiptConfirmView: View, ReceiptGenerator {
     
     var networkClient: Requestable
     
@@ -40,7 +40,7 @@ public struct ReceiptConfirmView: View {
                     icon: .mail,
                     iconPosition: .left,
                     action: {
-                        guard let _ = generatedPdfReceiptURL else { return }
+                        generatedPdfReceiptURL = generatePdfReceipt(model: self.receiptPdfModel)
                         // TODO: Chiamare servizio di invio email
                         showOutro = true
                     }
@@ -52,7 +52,7 @@ public struct ReceiptConfirmView: View {
                     icon: .share,
                     iconPosition: .left,
                     action: {
-                        guard let _ = generatedPdfReceiptURL else { return }
+                        generatedPdfReceiptURL = generatePdfReceipt(model: self.receiptPdfModel)
                         presentShare = true
                     }
                 ),
@@ -73,11 +73,6 @@ public struct ReceiptConfirmView: View {
                 hasDoneAction: self.$showOutro
             )
         })
-        .onAppear {
-            Task { 
-                generatePdfReceipt()
-            }
-        }
         .onChange(of: showOutro) { newValue in
             if newValue == true {
                 if let _ = receiptPdfModel.initiative {
@@ -90,19 +85,7 @@ public struct ReceiptConfirmView: View {
             }
         }
     }
-    
-    @MainActor
-    func generatePdfReceipt() {
         
-        self.generatedPdfReceiptURL = ReceiptPdfBuilderView(
-            receiptTicketVM: receiptPdfModel
-        )
-        .renderToPdf(
-            filename: "receipt.pdf",
-            location: URL.temporaryDirectory
-        )
-    }
-    
     func showCancelTransactionOutro() {
         router.pushTo(.outro(outroModel: OutroModel(title: "Operazione conclusa", subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.", actionTitle: "Torna alla home", action: {
             router.popToRoot()

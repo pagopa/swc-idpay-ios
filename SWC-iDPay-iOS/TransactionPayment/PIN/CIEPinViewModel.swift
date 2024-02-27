@@ -30,6 +30,9 @@ class CIEPinViewModel: TransactionDeleteVM {
             #endif
             let authorized = try await networkClient.authorizeTransaction(milTransactionId: transaction.transactionID, authCodeBlockData: authCodeData)
             print("Transaction Authorized")
+            if authorized {
+                transaction.status = .authorized
+            }
             isLoading = false
             return authorized
         } catch {

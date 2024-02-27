@@ -12,6 +12,6 @@ extension ListItemHistory {
 
     init(transaction: TransactionModel) {
        let icon = (transaction.status == .authorized) ? Image.PAIcon.checkmark : Image.PAIcon.cancelled
-        self.init(iconLeft: icon, titleText: transaction.initiativeId, subTitleText: transaction.date, amountText: transaction.coveredAmount?.formattedCurrency)
+        self.init(iconLeft: icon, titleText: transaction.initiativeId, subTitleText: transaction.date?.formattedDateTime ?? String.emptyDataPlaceholder, amountText: transaction.coveredAmount?.formattedCurrency)
     }
 }

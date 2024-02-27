@@ -8,7 +8,7 @@
 import SwiftUI
 import PagoPAUIKit
 
-struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView {
+struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, ReceiptGenerator {
     
     @EnvironmentObject var router: Router
     @EnvironmentObject var appManager: AppStateManager
@@ -30,7 +30,7 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView {
                         Text("Dettaglio operazione")
                             .font(.PAFont.h3)
                             .padding(.vertical, Constants.mediumSpacing)
-                        ListItem(title: "DATA e ORA", subtitle: viewModel.transaction.date, statusType: viewModel.transaction.status.operationStatus, statusDescription: viewModel.transaction.status.description )
+                        ListItem(title: "DATA e ORA", subtitle: viewModel.transaction.date?.formattedDateTime ?? String.emptyDataPlaceholder, statusType: viewModel.transaction.status.operationStatus, statusDescription: viewModel.transaction.status.description )
                         Divider()
                         ListItem(title: "ID TRANSAZIONE", subtitle: viewModel.transaction.transactionID)
                         Divider()
@@ -109,7 +109,7 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView {
                     iconPosition: .left,
                     action: {
                         viewModel.showReceiptDialog.toggle()
-                        guard let _ = generatedPdfReceiptURL else { return }
+                        generatedPdfReceiptURL = generatePdfReceipt(model: viewModel.receiptPdfModel)
                         presentShare = true
                     }
                 )
@@ -133,83 +133,36 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView {
                 hasDoneAction: self.$showOutro
             )
         })
-        .onAppear(){
-            // TODO: Generare il pdf solo se viene condivisa o stampata la ricevuta
-            Task {
-                generatePdfReceipt()
-            }
-        }
+        
     }
     
     func buildCustomButton() -> [ButtonModel] {
-        switch self.viewModel.transaction.status {
-        case .authorized:
-            var buttons: [ButtonModel] = []
-            if evaluateOperation() {
-                buttons.append(ButtonModel(
-                    type: .primaryBordered,
-                    themeType: .light,
-                    title: "Annulla operazione",
-                    action: {
-                        viewModel.confirmHistoryTransactionDelete()
-                    }
-                ))
-            }
+        
+        var buttons: [ButtonModel] = []
+        
+        if viewModel.transaction.isCancellable() {
             buttons.append(ButtonModel(
-                type: .primary,
+                type: .primaryBordered,
                 themeType: .light,
-                title: "Emetti ricevuta",
+                title: "Annulla operazione",
                 action: {
-                    self.viewModel.showReceiptDialog.toggle()
+                    viewModel.confirmHistoryTransactionDelete()
                 }
-             ))
-            return buttons
-        case .cancelled:
-            return [ButtonModel(
-                type: .primary,
-                themeType: .light,
-                title: "Emetti ricevuta",
-                action: {
-                    self.viewModel.showReceiptDialog.toggle()
-                }
-            )]
-        default:
-            return [ButtonModel(
-                type: .primary,
-                themeType: .light,
-                title: "Emetti ricevuta",
-                action: {
-                    self.viewModel.showReceiptDialog.toggle()
-                }
-            )]
+            ))
         }
+        
+        buttons.append(ButtonModel(
+            type: .primary,
+            themeType: .light,
+            title: "Emetti ricevuta",
+            action: {
+                self.viewModel.showReceiptDialog.toggle()
+            }
+         ))
+        
+        return buttons
     }
 
-    
-    func evaluateOperation() -> Bool {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d MMM yyyy, HH:mm"
-        
-        if let operationDate = formatter.date(from: self.viewModel.transaction.date) {
-            let components = Calendar.current.dateComponents([.day], from: operationDate, to: Date())
-            if let day = components.day {
-                return day < 3
-            }
-        }
-        return false
-    }
-    
-    @MainActor
-    func generatePdfReceipt() {
-        
-        self.generatedPdfReceiptURL = ReceiptPdfBuilderView(
-            receiptTicketVM: ReceiptPdfModel(transaction: self.viewModel.transaction)
-        )
-        .renderToPdf(
-            filename: "receipt.pdf",
-            location: URL.temporaryDirectory
-        )
-    }
 }
 
 #Preview {

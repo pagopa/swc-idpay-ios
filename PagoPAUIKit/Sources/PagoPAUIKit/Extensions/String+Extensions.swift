@@ -15,10 +15,4 @@ extension String {
         return dateFormatter.date(from: self)
     }
     
-    public var formattedDateTime: String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "d MMM yyyy, HH:mm"
-        guard let utcDate = self.toUTCDate else { return nil }
-        return dateFormatter.string(from: utcDate)
-    }
 }

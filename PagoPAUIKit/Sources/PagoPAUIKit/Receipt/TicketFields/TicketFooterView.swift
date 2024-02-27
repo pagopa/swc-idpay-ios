@@ -41,6 +41,7 @@ public struct TicketFooterView: View {
                     Text(transactionID)
                         .fixedSize(horizontal: false, vertical: true)
                 }
+                .multilineTextAlignment(.center)
                 
                 HStack {
                     Text("Terminale:")

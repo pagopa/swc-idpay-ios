@@ -23,6 +23,7 @@
 		B812612A2B5834A4003304C8 /* MenuViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81261292B5834A4003304C8 /* MenuViewUITests.swift */; };
 		B812612C2B583EBB003304C8 /* XCUIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812612B2B583EBA003304C8 /* XCUIApplication+Extensions.swift */; };
 		B816E7082B8D05ED00DC0488 /* ListItemHistory+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B816E7072B8D05ED00DC0488 /* ListItemHistory+Extension.swift */; };
+		B816E70A2B8DF7E600DC0488 /* ReceiptGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B816E7092B8DF7E600DC0488 /* ReceiptGenerator.swift */; };
 		B81FBDE32B5588A500BDB580 /* LoginViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81FBDE22B5588A500BDB580 /* LoginViewUITests.swift */; };
 		B824E6BE2B59290F0050265D /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E6BD2B59290F0050265D /* XCTestCase+Extension.swift */; };
 		B824E6C12B5987840050265D /* BonusAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B824E6C02B5987840050265D /* BonusAmountView.swift */; };
@@ -124,6 +125,7 @@
 		B81261292B5834A4003304C8 /* MenuViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewUITests.swift; sourceTree = "<group>"; };
 		B812612B2B583EBA003304C8 /* XCUIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		B816E7072B8D05ED00DC0488 /* ListItemHistory+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListItemHistory+Extension.swift"; sourceTree = "<group>"; };
+		B816E7092B8DF7E600DC0488 /* ReceiptGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptGenerator.swift; sourceTree = "<group>"; };
 		B81FBDE22B5588A500BDB580 /* LoginViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewUITests.swift; sourceTree = "<group>"; };
 		B824E6BD2B59290F0050265D /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
 		B824E6C02B5987840050265D /* BonusAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusAmountView.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 				B8290A242B88AD9C00B275C6 /* ReceiptConfirmView.swift */,
 				B86D99372B5175B9006B4D53 /* ReceiptPdfModel.swift */,
 				B8AE58942B4EA095006FB26C /* ReceiptPdfBuilderView.swift */,
+				B816E7092B8DF7E600DC0488 /* ReceiptGenerator.swift */,
 			);
 			path = Receipt;
 			sourceTree = "<group>";
@@ -721,6 +724,7 @@
 			files = (
 				B861AB0F2B7E5944007A86E5 /* CIEAuthViewModel.swift in Sources */,
 				B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */,
+				B816E70A2B8DF7E600DC0488 /* ReceiptGenerator.swift in Sources */,
 				B861AB022B7BBA29007A86E5 /* Date+Extensions.swift in Sources */,
 				B882BF0C2B739F700040C6A6 /* RootView.swift in Sources */,
 				989B12312B861DE400917027 /* TransactionHistoryResponse.swift in Sources */,
