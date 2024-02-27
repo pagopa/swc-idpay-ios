@@ -54,6 +54,11 @@ public struct Outro: View {
         }
         .padding(.horizontal, Constants.mediumSpacing)
         .fullScreenBackground(themeType: .dark)
+        .onAppear {
+            Timer.scheduledTimer(withTimeInterval: 60.0, repeats: false) { _ in
+                model.action()
+            }
+        }
     }
     
 }
