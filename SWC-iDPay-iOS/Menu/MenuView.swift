@@ -68,6 +68,8 @@ private struct MenuItem: View {
                 Text(title)
                     .font(.PAFont.cta)
             }
+            .frame( maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle())
         }
         .foregroundColor(color)
         .padding(.top, 14)
