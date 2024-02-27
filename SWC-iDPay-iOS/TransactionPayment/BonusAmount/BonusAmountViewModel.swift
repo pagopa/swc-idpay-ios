@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CIEScanner
 
 @MainActor
 class BonusAmountViewModel: BaseVM {
@@ -16,10 +15,7 @@ class BonusAmountViewModel: BaseVM {
     @Published var amountText: String = "0,00"
     @Published var loadingStateMessage: String = ""
 
-    var reader = CIEReader(readCardMessage: "Appoggia la CIE sul dispositivo, in alto", confirmCardReadMessage: "Lettura completata")
     var initiative: Initiative
-    
-    var nisAuthenticated: NisAuthenticated?
     var transactionData: CreateTransactionResponse?
     
     init(networkClient: Requestable, initiative: Initiative) {
