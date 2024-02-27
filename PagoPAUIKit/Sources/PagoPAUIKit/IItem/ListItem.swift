@@ -72,6 +72,7 @@ public struct ListItem: View {
             }
         }
         .frame(maxWidth: .infinity)
+        .contentShape(Rectangle())
         .padding(.vertical, Constants.mediumSpacing/2.0)
     }
 }
