@@ -94,7 +94,7 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
                     return
                 }
                 await MainActor.run {
-                    router.pushTo(.transactionConfirm(viewModel: TransactionDetailViewModel(networkClient: viewModel.networkClient, transaction: transaction, initiative: viewModel.initiative, verifyCIEResponse: verifyCIEResponse)))
+                    router.pushTo(.transactionConfirm(viewModel: TransactionDetailViewModel(networkClient: viewModel.networkClient, transaction: transaction, verifyCIEResponse: verifyCIEResponse, initiative: viewModel.initiative)))
                 }
             } catch {
                 if let cieError = error as? CIEReaderError {

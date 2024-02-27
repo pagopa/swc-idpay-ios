@@ -29,7 +29,7 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
                             .padding(.vertical, Constants.mediumSpacing)
                         ListItem(title: "IMPORTO DEL BENE", subtitle: viewModel.transaction.goodsCost.formattedCurrency)
                         Divider()
-                        ListItem(title: "INIZIATIVA", subtitle: viewModel.initiative.name)
+                        ListItem(title: "INIZIATIVA", subtitle: viewModel.initiative?.name ?? viewModel.transaction.initiativeId)
                         Divider()
                         // ListItem(title: "CREDITO DISPONIBILE", subtitle: "Sottotitolo")
                         // Divider()
@@ -76,7 +76,7 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
                         themeType: .light,
                         title: "Conferma",
                         action: {
-                            router.pushTo(.pin(viewModel: CIEPinViewModel(networkClient: viewModel.networkClient, initiative: viewModel.initiative, transaction: viewModel.transaction, verifyCIEResponse: viewModel.verifyCIEResponse)))
+                            router.pushTo(.pin(viewModel: CIEPinViewModel(networkClient: viewModel.networkClient, transaction: viewModel.transaction, verifyCIEResponse: viewModel.verifyCIEResponse, initiative: viewModel.initiative)))
                         }
                      )]
             )
@@ -105,5 +105,5 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
 }
 
 #Preview {
-    TransactionDetailView(viewModel: TransactionDetailViewModel(networkClient: NetworkClient(environment: .staging), transaction: TransactionModel.mockedSuccessTransaction, initiative: Initiative.mocked, verifyCIEResponse: VerifyCIEResponse.mocked) )
+    TransactionDetailView(viewModel: TransactionDetailViewModel(networkClient: NetworkClient(environment: .staging), transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mocked, initiative: Initiative.mocked) )
 }

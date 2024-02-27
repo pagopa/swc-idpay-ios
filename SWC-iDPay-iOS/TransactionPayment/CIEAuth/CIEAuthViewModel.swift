@@ -18,10 +18,10 @@ class CIEAuthViewModel: TransactionDeleteVM {
     
     var transactionData: CreateTransactionResponse
     
-    init(networkClient: Requestable, transactionData: CreateTransactionResponse, initiative: Initiative) {
+    init(networkClient: Requestable, transactionData: CreateTransactionResponse, initiative: Initiative? = nil) {
         self.transactionData = transactionData
 
-        super.init(networkClient: networkClient, initiative: initiative, transactionID: self.transactionData.milTransactionId, goodsCost: self.transactionData.goodsCost)
+        super.init(networkClient: networkClient, transactionID: self.transactionData.milTransactionId, goodsCost: self.transactionData.goodsCost, initiative: initiative)
     }
 
     func readCIE() async throws {

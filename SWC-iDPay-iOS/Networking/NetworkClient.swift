@@ -76,6 +76,11 @@ class NetworkClient: Requestable {
             throw error
         }
     }
+    
+    func transactionHistory() async throws -> [TransactionModel] {
+        let transactionHistory: TransactionHistoryResponse = try await sendRequest(for: .transactionHistory)
+        return transactionHistory.transactions
+    }
 
 }
 

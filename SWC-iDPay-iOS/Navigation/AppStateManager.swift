@@ -35,6 +35,7 @@ class AppStateManager: ObservableObject {
     }
     
     func moveTo(_ state: AppState) {
+        guard state != self.state else { return }
         self.state = state
     }
 }

@@ -17,6 +17,7 @@ enum Endpoint {
     case transactionDetail(_ id: String)
     case createTransaction(initiativeId: String, amount: Int)
     case deleteTransaction(_ id: String)
+    case transactionHistory
     case verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String)
     case authorize(milTransactionId: String, kid: String, encSessionKey: String, authCodeBlock: String)
     
@@ -34,6 +35,8 @@ enum Endpoint {
             return "/mil-idpay/transactions"
         case .deleteTransaction(let id):
             return "/mil-idpay/transactions/\(id)"
+        case .transactionHistory:
+            return "/mil-idpay/transactions"
         case .verifyCIE(let milTransactionId, _, _, _, _):
             return "/mil-idpay/transactions/\(milTransactionId)/verifyCie"
         case .authorize(let milTransactionId, _, _, _):
@@ -45,7 +48,7 @@ enum Endpoint {
         switch self {
         case .login, .refreshToken, .createTransaction, .verifyCIE, .authorize:
             return .post
-        case .initiatives, .transactions, .transactionDetail(_):
+        case .initiatives, .transactions, .transactionDetail(_), .transactionHistory:
             return .get
         case .deleteTransaction(_):
             return .delete

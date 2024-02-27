@@ -14,4 +14,11 @@ extension Date {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         return dateFormatter.string(from: self)
     }
+    
+    public var formattedDateTime: String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d MMM yyyy, HH:mm"
+        return dateFormatter.string(from: self)
+    }
+
 }

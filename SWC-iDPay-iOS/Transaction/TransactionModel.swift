@@ -11,13 +11,13 @@ import PagoPAUIKit
 struct TransactionModel: Codable {
     
     var status: TransactionStatus
-    var date: String
+    var date: Date?
     var goodsCost: Int
     var coveredAmount: Int?
     var transactionID: String
     var terminalID: String
     var initiativeId: String
-    var secondFactor: String
+    var secondFactor: String?
     
     enum CodingKeys: CodingKey {
         case status
@@ -32,7 +32,7 @@ struct TransactionModel: Codable {
    
     fileprivate init(status: TransactionStatus, date: String, goodsCost: Int, coveredAmount: Int, transactionID: String, terminalID: String, initiativeID: String, secondFactor: String) {
         self.status = status
-        self.date   = date
+        self.date   = date.toUTCDate
         self.goodsCost = goodsCost
         self.coveredAmount = coveredAmount
         self.transactionID = transactionID
@@ -45,13 +45,13 @@ struct TransactionModel: Codable {
         let container: KeyedDecodingContainer<TransactionModel.CodingKeys> = try decoder.container(keyedBy: TransactionModel.CodingKeys.self)
         self.status = try container.decode(TransactionStatus.self, forKey: TransactionModel.CodingKeys.status)
         let timestamp = try container.decode(String.self, forKey: TransactionModel.CodingKeys.timestamp)
-        self.date = timestamp.formattedDateTime ?? timestamp
+        self.date = timestamp.toUTCDate
         self.goodsCost = try container.decode(Int.self, forKey: TransactionModel.CodingKeys.goodsCost)
         self.coveredAmount = try? container.decodeIfPresent(Int.self, forKey: TransactionModel.CodingKeys.coveredAmount)
         self.transactionID = try container.decode(String.self, forKey: TransactionModel.CodingKeys.milTransactionId)
         self.terminalID = try container.decode(String.self, forKey: TransactionModel.CodingKeys.trxCode)
         self.initiativeId = try container.decode(String.self, forKey: TransactionModel.CodingKeys.initiativeId)
-        self.secondFactor = try container.decode(String.self, forKey: TransactionModel.CodingKeys.secondFactor)
+        self.secondFactor = try? container.decode(String.self, forKey: TransactionModel.CodingKeys.secondFactor)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -65,6 +65,17 @@ struct TransactionModel: Codable {
         try container.encode(self.initiativeId, forKey: TransactionModel.CodingKeys.initiativeId)
         try container.encode(self.secondFactor, forKey: TransactionModel.CodingKeys.secondFactor)
     }
+    
+    func isCancellable() -> Bool {
+        guard status == .authorized, let date = date else { return false }
+        let components = Calendar.current.dateComponents([.day], from: date, to: Date())
+        if let day = components.day {
+            return day < 3
+        }
+        
+        return false
+    }
+
 }
 
 extension TransactionModel {

@@ -10,6 +10,7 @@ import SwiftUI
 public enum OperationStatus {
     case success
     case failed
+    case cancelled
     case pending
     case toBeRefunded
     case refunded
@@ -20,7 +21,7 @@ public enum OperationStatus {
                 return .successLight
             case .failed:
                 return .errorLight
-            case .pending:
+            case .pending, .cancelled:
                 return .infoLight
             case .refunded:
                 return .blueIOLight
@@ -35,7 +36,7 @@ public enum OperationStatus {
                 return .successGraphic
             case .failed:
                 return .errorDark
-            case .pending:
+            case .pending, .cancelled:
                 return .infoDark
             case .refunded:
                 return .blueIODark
@@ -43,51 +44,38 @@ public enum OperationStatus {
                 return .warningDark
         }
     }
-    
-    public var description: String {
-        switch self {
-            case .success:
-                return "ESEGUITA"
-            case .failed:
-                return "FALLITA"
-            case .pending:
-                return "IN SOSPESO"
-            case .refunded:
-                return "RIMBORSATA"
-            case .toBeRefunded:
-                return "DA RIMBORSARE"
-        }
-    }
 }
 
 
 public struct OperationStatusLabel: View {
-    public var status: OperationStatus
+    public var statusType: OperationStatus
+    public var statusDescription: String
     
-    public init(status: OperationStatus) {
-        self.status = status
+    public init(statusType: OperationStatus, statusDescription: String) {
+        self.statusType = statusType
+        self.statusDescription = statusDescription
     }
     
     public var body: some View {
-        Text(status.description)
+        Text(statusDescription)
             .font(.PAFont.caption)
-            .foregroundColor(status.textColor)
+            .foregroundColor(statusType.textColor)
             .padding(.vertical, Constants.xsmallSpacing/2.0)
             .padding(.horizontal, Constants.xsmallSpacing)
             .background{
                 Capsule()
-                    .fill(status.backgroundColor)
+                    .fill(statusType.backgroundColor)
             }
     }
 }
 
 #Preview {
     VStack {
-        OperationStatusLabel(status: .success)
-        OperationStatusLabel(status: .pending)
-        OperationStatusLabel(status: .failed)
-        OperationStatusLabel(status: .toBeRefunded)
-        OperationStatusLabel(status: .refunded)
+        OperationStatusLabel(statusType: .success, statusDescription: "ESEGUITA")
+        OperationStatusLabel(statusType: .pending, statusDescription: "IN SOSPESO")
+        OperationStatusLabel(statusType: .failed, statusDescription: "ANNULATA")
+        OperationStatusLabel(statusType: .toBeRefunded, statusDescription: "DA RIMBORSARE")
+        OperationStatusLabel(statusType: .refunded, statusDescription: "RIMBORSATA")
     }
 }
 

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PagoPAUIKit
 
 enum TransactionStatus: String, Codable {
     case created    = "CREATED"
@@ -23,6 +24,17 @@ enum TransactionStatus: String, Codable {
             return "ANNULLATA"
         default:
             return "-"
+        }
+    }
+    
+    var operationStatus: OperationStatus {
+        switch self {
+        case .authorized, .rewarded:
+            return .success
+        case .cancelled:
+            return .cancelled
+        default:
+            return .cancelled
         }
     }
     

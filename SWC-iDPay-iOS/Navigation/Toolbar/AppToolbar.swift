@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct CustomToolbarModifier: ViewModifier {
-        
+    
+    @EnvironmentObject var appManager: AppStateManager
     @EnvironmentObject var router: Router
     @Environment(\.isBackButtonVisibile) var isBackVisible: Bool
     @Environment(\.isHomeButtonVisibile) var isHomeVisible: Bool
@@ -32,6 +33,7 @@ struct CustomToolbarModifier: ViewModifier {
                     ToolbarItem(placement: .topBarTrailing) {
                         HomeButton {
                             router.popToRoot()
+                            appManager.login()
                         }
                         .foregroundColor(tintColor)
                     }

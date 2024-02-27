@@ -45,6 +45,23 @@ extension TransactionPaymentDeletableView {
                         }
                     })
                 ])
+        case .confirmDeleteHistory:
+            return ResultModel(
+                title: "Vuoi annullare la spesa del bonus ID Pay?",
+                subtitle: "Se annulli l’operazione,l’importo verrà riaccreditato sull’iniziativa del cittadino.",
+                themeType: .light,
+                buttons: [
+                    ButtonModel(type: .primary, themeType: .light, title: "Torna indietro", action: {
+                        viewModel.dismissDialog()
+                    }),
+                    ButtonModel(type: .plain, themeType: .light, title: "Annulla operazione", action: {
+                        viewModel.dismissDialog()
+                        Task {
+                            try await viewModel.deleteTransaction()
+                            onConfirmDelete()
+                        }
+                    })
+                ])
         case .transactionDeleted:
             return ResultModel(
                 title: "L'operazione è stata annullata",

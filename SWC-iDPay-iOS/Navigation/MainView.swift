@@ -28,7 +28,7 @@ struct MainView: View {
             }
         case .transactionHistory:
             RootView(barTintColor: Color.paPrimary) {
-                TransactionsHistoryList()
+                TransactionsHistoryList(viewModel: TransactionHistoryViewModel(networkClient: networkClient))
             }
         #if DEBUG
         case .uiKit:

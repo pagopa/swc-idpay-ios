@@ -9,6 +9,8 @@ import Foundation
 
 extension String {
     
+    static var emptyDataPlaceholder = "N.D."
+    
     func toBase64() -> String {
         let base64EncodedData = self.data(using: .utf8)!
         return base64EncodedData.base64EncodedString()
