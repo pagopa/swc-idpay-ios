@@ -166,6 +166,6 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
 }
 
 #Preview {
-    TransactionHistoryDetailView(viewModel: TransactionHistoryDetailViewModel(transaction: TransactionModel.fallbackTransaction, networkClient: NetworkClient(environment: .staging)))
+    TransactionHistoryDetailView(viewModel: TransactionHistoryDetailViewModel(transaction: TransactionModel.mockedSuccessTransaction, networkClient: NetworkClient(environment: .staging)))
         .environmentObject(Router())
 }
