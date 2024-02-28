@@ -12,7 +12,7 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
     
     @EnvironmentObject var router: Router
     @ObservedObject var viewModel: CIEPinViewModel
-    var length: Int = 6
+    var minLength: Int = 4
     
     var body: some View {
         
@@ -21,12 +21,14 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
                 .font(.PAFont.h6)
                 .padding(.bottom, Constants.largeSpacing)
 
-            HStack(spacing: Constants.smallSpacing) {
-                ForEach(0..<length, id:\.self) { n in
-                    PinDot(filled: Binding<Bool> (
-                        get: { viewModel.pinString.count > n },
-                        set: { _ in }
-                    ))
+            if viewModel.pinString.count > 0 {
+                HStack(spacing: Constants.smallSpacing) {
+                    ForEach(0..<viewModel.pinString.count, id:\.self) { n in
+                        PinDot(filled: Binding<Bool> (
+                            get: { true },
+                            set: { _ in }
+                        ))
+                    }
                 }
             }
             
@@ -47,7 +49,7 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
     @ViewBuilder
     private var pinView: some View {
         Spacer()
-        NumberPad(.pin, string: $viewModel.pinString, pinLength: length)
+        NumberPad(.pin, string: $viewModel.pinString)
         Spacer()
         CustomLoadingButton(
             buttonType: .primary,
@@ -78,7 +80,7 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
             } label: {
                 Text("Conferma")
             }
-            .disabled(viewModel.pinString.count < length)
+            .disabled(viewModel.pinString.count < minLength)
     }
 }
 
@@ -114,5 +116,7 @@ private struct PinDot: View {
 }
 
 #Preview {
-    CIEPinView(viewModel: CIEPinViewModel(networkClient: NetworkClient(environment: .development), transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mocked, initiative: Initiative.mocked))
+        CIEPinView(viewModel: CIEPinViewModel(networkClient: MockedNetworkClient(), transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mocked, initiative: Initiative.mocked))
+            .environmentObject(Router())
+    
 }
