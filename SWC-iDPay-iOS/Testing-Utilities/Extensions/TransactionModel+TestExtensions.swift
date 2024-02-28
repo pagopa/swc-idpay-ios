@@ -51,7 +51,7 @@ extension TransactionModel {
     
     static var randomTransaction: TransactionModel {
         let transactionStates: [TransactionStatus] = [.authorized, .cancelled]
-        return TransactionModel(status: transactionStates.randomElement()!, date: Date.randomUTCDate(), goodsCost: Int.random(in: 100...1000), coveredAmount: 135, transactionID: String.randomString(length: 16), terminalID: "rwkmek1x", initiativeID: String.randomString(length: 16), secondFactor: String.randomString(length: 16))
+        return TransactionModel(status: transactionStates.randomElement()!, date: Date.randomUTCDateString(), goodsCost: Int.random(in: 100...1000), coveredAmount: 135, transactionID: String.randomString(length: 16), terminalID: "rwkmek1x", initiativeID: String.randomString(length: 16), secondFactor: String.randomString(length: 16))
     }
 }
 #endif

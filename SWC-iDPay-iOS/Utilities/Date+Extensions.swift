@@ -25,8 +25,12 @@ extension Date {
 #if DEBUG
 extension Date {
     
-    static func randomUTCDate() -> String {
+    static func randomUTCDateString() -> String {
         Date.randomBetween(start: Date(), end: getLastWeekStartDate()).toUTCString()
+    }
+    
+    static func randomUTCDate() -> Date {
+        Date.randomBetween(start: Date(), end: getLastWeekStartDate())
     }
     
     private var startOfDay: Date {

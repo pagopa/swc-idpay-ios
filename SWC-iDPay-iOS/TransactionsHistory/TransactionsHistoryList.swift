@@ -45,7 +45,10 @@ struct TransactionsHistoryList: View {
                                 }
                         
                             Divider()
-                        }.padding([.leading, .trailing], Constants.mediumSpacing)
+                        }
+                        .padding([.leading, .trailing], Constants.mediumSpacing)
+                        .accessibilityAddTraits([.isButton])
+                        .accessibilityIdentifier("historyRowItem")
                     }
                 }
             }else {
