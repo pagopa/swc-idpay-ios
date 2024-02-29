@@ -21,8 +21,9 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
                 .font(.PAFont.h6)
                 .padding(.bottom, Constants.largeSpacing)
 
-            if viewModel.pinString.count > 0 {
-                HStack(spacing: Constants.smallSpacing) {
+            
+            HStack(spacing: Constants.smallSpacing) {
+                if viewModel.pinString.count > 0 {
                     ForEach(0..<viewModel.pinString.count, id:\.self) { n in
                         PinDot(filled: Binding<Bool> (
                             get: { true },
@@ -30,7 +31,7 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
                         ))
                     }
                 }
-            }
+            }.frame(height: Constants.smallSpacing)
             
             Spacer()
             pinView
@@ -116,7 +117,7 @@ private struct PinDot: View {
 }
 
 #Preview {
-        CIEPinView(viewModel: CIEPinViewModel(networkClient: MockedNetworkClient(), transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mocked, initiative: Initiative.mocked))
+    CIEPinView(viewModel: CIEPinViewModel(networkClient: NetworkClient(environment: .development), transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mocked, initiative: Initiative.mocked))
             .environmentObject(Router())
     
 }
