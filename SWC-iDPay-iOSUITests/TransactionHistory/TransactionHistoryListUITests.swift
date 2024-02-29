@@ -43,16 +43,4 @@ final class TransactionHistoryListUITests: XCTestCase {
         let firstRow = rowItems.firstMatch
         XCTAssertEqual(firstRow.label, "check-filled")
     }
-
-//    func test_history_list_item_icon_is_cancelled_when_status_is_cancelled() {
-//        app.launchEnvironment = ["-mocked-history": "TransactionsHistoryList"]
-//        app.signIn(success: true)
-//        app.openMenuSection("Storico operazioni")
-//        XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].exists)
-//
-//        let rowItems = app.buttons["historyRowItem"]
-////        let firstRow = rowItems.elementBoundByIndex(2)
-//        XCTAssertEqual(firstRow.label, "cancelled")
-//    }
-
 }
