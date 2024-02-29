@@ -10,8 +10,11 @@ import PagoPAUIKit
 
 struct MainView: View {
     @EnvironmentObject var appManager: AppStateManager
-    var networkClient: Requestable = NetworkClient(environment: .development)
-    
+    #if DEBUG
+    var networkClient: Requestable = UITestingHelper.isUITesting ? MockedNetworkClient() : NetworkClient(environment: .development)
+    #else
+    var networkClient: Requestable = NetworkClient(environment: .staging)
+    #endif
     var body: some View {
         switch appManager.state {
         case .splash:
