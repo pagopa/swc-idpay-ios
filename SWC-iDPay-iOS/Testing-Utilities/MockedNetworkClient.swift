@@ -58,23 +58,26 @@ class MockedNetworkClient: Requestable {
     func transactionHistory() async throws -> [TransactionModel] {
         print("Delay transaction history loading")
         try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
-        guard let mockFileName = ProcessInfo.processInfo.environment["-mocked-history"] else {
-            return TransactionModel.randomTransactionsList
-        }
-        var transactionsList: TransactionHistoryResponse = UITestingHelper.getMockedObject(jsonName: mockFileName)!
-        var transactions = transactionsList.transactions
-        
-        return transactions.map {
-            var modifiedTransaction = $0
-            switch modifiedTransaction.transactionID {
-            case "0":
-                modifiedTransaction.date = Date()
-            case "1":
-                modifiedTransaction.date = Calendar.current.date(byAdding: .day, value: -4, to: Date())
-            default:
-                modifiedTransaction.date = Date.randomUTCDate()
+        if let mockFileName = ProcessInfo.processInfo.environment["-mock-filename"] {
+            var transactionsList: TransactionHistoryResponse = UITestingHelper.getMockedObject(jsonName: mockFileName)!
+            var transactions = transactionsList.transactions
+            
+            return transactions.map {
+                var modifiedTransaction = $0
+                switch modifiedTransaction.transactionID {
+                case "0":
+                    modifiedTransaction.date = Date()
+                case "1":
+                    modifiedTransaction.date = Calendar.current.date(byAdding: .day, value: -4, to: Date())
+                default:
+                    modifiedTransaction.date = Date.randomUTCDate()
+                }
+                return modifiedTransaction
             }
-            return modifiedTransaction
+        } else if UITestingHelper.isEmptyStateTest {
+            return []
+        } else {
+            return TransactionModel.randomTransactionsList
         }
     }
     

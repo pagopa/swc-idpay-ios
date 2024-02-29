@@ -30,7 +30,12 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
                         Text("Dettaglio operazione")
                             .font(.PAFont.h3)
                             .padding(.vertical, Constants.mediumSpacing)
-                        ListItem(title: "DATA e ORA", subtitle: viewModel.transaction.date?.formattedDateTime ?? String.emptyDataPlaceholder, statusType: viewModel.transaction.status.operationStatus, statusDescription: viewModel.transaction.status.description )
+                        ListItem(
+                            title: "DATA e ORA",
+                            subtitle: viewModel.transaction.date?.formattedDateTime ?? String.emptyDataPlaceholder,
+                            statusType: viewModel.transaction.status.operationStatus,
+                            statusDescription: viewModel.transaction.status.description
+                        )
                         Divider()
                         ListItem(title: "ID TRANSAZIONE", subtitle: viewModel.transaction.transactionID)
                         Divider()

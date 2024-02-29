@@ -22,22 +22,20 @@ public struct ListItemHistory: View {
     
     public var body: some View {
         HStack{
-            HStack{
-                if let leftIcon = iconLeft{
-                    Image(icon:leftIcon)
-                        .resizable()
-                        .frame(width: Constants.listItemIconSize, height: Constants.listItemIconSize)
-                        .padding(.trailing, Constants.xsmallSpacing)
-                }
-                VStack(alignment: .leading){
-                    Text(titleText)
-                        .font(.PAFont.bodySB)
-                        .foregroundColor(Color.paBlack)
-                    
-                    Text(subTitleText)
-                        .font(.PAFont.caption)
-                        .foregroundColor(Color.grey650)
-                }
+            if let leftIcon = iconLeft{
+                Image(icon:leftIcon)
+                    .resizable()
+                    .frame(width: Constants.listItemIconSize, height: Constants.listItemIconSize)
+                    .padding(.trailing, Constants.xsmallSpacing)
+            }
+            VStack(alignment: .leading){
+                Text(titleText)
+                    .font(.PAFont.bodySB)
+                    .foregroundColor(Color.paBlack)
+                
+                Text(subTitleText)
+                    .font(.PAFont.caption)
+                    .foregroundColor(Color.grey650)
             }
             Spacer()
             
@@ -48,7 +46,6 @@ public struct ListItemHistory: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .contentShape(Rectangle())
         .padding(.vertical, Constants.mediumSpacing/2.0)
     }
 }

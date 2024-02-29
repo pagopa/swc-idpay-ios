@@ -37,21 +37,28 @@ struct TransactionsHistoryList: View {
                         
                         Spacer()
                     }
+                    
                     ForEach(viewModel.transactionHistoryList, id: \.transactionID) { transaction in
-                        VStack {
-                            ListItemHistory(transaction: transaction)
-                                .onTapGesture {
-                                    router.pushTo(.transactionDetail(viewModel: TransactionHistoryDetailViewModel(transaction: transaction, networkClient: self.viewModel.networkClient)))
-                                }
-                        
-                            Divider()
-                        }
+                        Button(action: {
+                            router.pushTo(
+                                .transactionDetail(
+                                    viewModel: TransactionHistoryDetailViewModel(
+                                        transaction: transaction,
+                                        networkClient: self.viewModel.networkClient
+                                    )
+                                )
+                            )
+                        }, label: {
+                            VStack {
+                                ListItemHistory(transaction: transaction)
+                                Divider()
+                            }
+                        })
                         .padding([.leading, .trailing], Constants.mediumSpacing)
-                        .accessibilityAddTraits([.isButton])
                         .accessibilityIdentifier("historyRowItem")
                     }
                 }
-            }else {
+            } else {
                 emptyStateView
             }
         }

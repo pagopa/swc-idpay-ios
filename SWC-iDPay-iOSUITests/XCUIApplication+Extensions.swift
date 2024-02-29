@@ -38,5 +38,13 @@ extension XCUIApplication {
         
         menuItem.tap()
     }
+    
+    func findRowWithLabelContaining(_ text: String) -> XCUIElement {
+        let scrollViewsQuery = self.scrollViews
+        let elementsQuery = scrollViewsQuery.otherElements
+        let predicate = NSPredicate(format: "label CONTAINS[c] %@", text)
+        let button = elementsQuery.buttons.containing(predicate).element
+        return button
+    }
 
 }

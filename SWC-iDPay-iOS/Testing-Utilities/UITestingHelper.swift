@@ -18,6 +18,10 @@ struct UITestingHelper {
         ProcessInfo.processInfo.environment["-user-login-success"] == "1"
     }
     
+    static var isEmptyStateTest: Bool {
+        ProcessInfo.processInfo.environment["-empty-state"] == "1"
+    }
+    
     static func getMockedObject<T: Decodable>(jsonName: String) -> T? {
         guard let path = Bundle.main.path(forResource: jsonName, ofType: "json"),
               let data = try? NSData(contentsOfFile: path, options: .mappedIfSafe) else {
