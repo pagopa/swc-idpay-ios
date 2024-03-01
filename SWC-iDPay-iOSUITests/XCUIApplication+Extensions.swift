@@ -47,4 +47,17 @@ extension XCUIApplication {
         return button
     }
 
+    // History navigation
+    func loadMockedHistoryList() {
+        self.launchEnvironment = ["-mock-filename": "TransactionsHistoryList"]
+        self.signIn(success: true)
+        self.openMenuSection("Storico operazioni")
+    }
+    
+    func loadEmptyHistoryList() {
+        self.launchEnvironment = ["-empty-state": "1"]
+        self.signIn(success: true)
+        self.openMenuSection("Storico operazioni")
+    }
+
 }
