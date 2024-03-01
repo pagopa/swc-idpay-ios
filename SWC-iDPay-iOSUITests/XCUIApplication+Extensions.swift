@@ -47,4 +47,20 @@ extension XCUIApplication {
         return button
     }
 
+    func openBonusAmountView() {
+        self.launchEnvironment = ["-mock-filename": "InitiativesList"]
+        self.signIn(success: true)
+
+        let accettaBonusBtn = self.buttons["Accetta bonus ID Pay"].firstMatch
+        XCTAssert(accettaBonusBtn.waitForExistence(timeout: 6))
+        accettaBonusBtn.tap()
+        
+        let intiativeItemButton = self.findRowWithLabelContaining("Iniziativa OK").firstMatch
+        XCTAssertTrue(intiativeItemButton.waitForExistence(timeout: 4))
+        intiativeItemButton.tap()
+        
+        let amountLabel = self.staticTexts["0,00 €"].firstMatch
+        XCTAssert(amountLabel.waitForExistence(timeout: 6))
+    }
+
 }

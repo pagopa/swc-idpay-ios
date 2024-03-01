@@ -16,10 +16,7 @@ final class BonusAmountViewUITests: XCTestCase {
         continueAfterFailure = false
         app = XCUIApplication()
         app.launchArguments = ["-ui-testing"]
-//        ["-ui-testing", "-numeric-pad-test"]
-//        app.launch()
-        app.signIn(success: true)
-        openBonusAmountView()
+        app.openBonusAmountView()
     }
 
     override func tearDownWithError() throws {
@@ -72,16 +69,4 @@ final class BonusAmountViewUITests: XCTestCase {
 
     }
 
-}
-
-extension BonusAmountViewUITests {
-    
-    func openBonusAmountView() {
-        let numericPadBtn = app.collectionViews.buttons["Numeric pad"].firstMatch
-        XCTAssert(numericPadBtn.waitForExistence(timeout: 6))
-        numericPadBtn.tap()
-
-        let amountLabel = app.staticTexts["0,00 €"].firstMatch
-        XCTAssert(amountLabel.waitForExistence(timeout: 6))
-    }
 }
