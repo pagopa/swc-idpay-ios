@@ -34,24 +34,23 @@ struct InitiativesList: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
                         ForEach(viewModel.initiatives) { initiative in
-                            
-                            VStack {
-                                InitiativeRow(initiative: initiative)
-                                    .onTapGesture {
-                                        router.pushTo(
-                                            .bonusAmount(
-                                                viewModel: BonusAmountViewModel(
-                                                    networkClient: viewModel.networkClient,
-                                                    initiative: initiative)
-                                            ))
+                            Button(action: {
+                                router.pushTo(
+                                    .bonusAmount(
+                                        viewModel: BonusAmountViewModel(
+                                            networkClient: viewModel.networkClient,
+                                            initiative: initiative)
+                                    ))
+                            }, label: {
+                                VStack {
+                                    InitiativeRow(initiative: initiative)
+                                    
+                                    if initiative != viewModel.initiatives.last {
+                                        Divider()
                                     }
-                                
-                                if initiative != viewModel.initiatives.last {
-                                    Divider()
                                 }
-                            }
+                            })
                         }
-                        
                     }
                     .padding(.horizontal, Constants.mediumSpacing)
                 }
@@ -103,7 +102,6 @@ fileprivate struct InitiativeRow: View {
             Image(icon: .chevron)
         }
         .frame(minHeight: Constants.listRowHeight)
-        .contentShape(Rectangle())
     }
 }
 
