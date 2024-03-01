@@ -8,7 +8,7 @@
 import Foundation
 import PagoPAUIKit
 
-struct TransactionModel: Codable {
+struct TransactionModel: Decodable {
     
     var status: TransactionStatus
     var date: Date?
@@ -42,19 +42,7 @@ struct TransactionModel: Codable {
         self.initiativeId = try container.decode(String.self, forKey: TransactionModel.CodingKeys.initiativeId)
         self.secondFactor = try? container.decode(String.self, forKey: TransactionModel.CodingKeys.secondFactor)
     }
-    
-    func encode(to encoder: Encoder) throws {
-        var container: KeyedEncodingContainer<TransactionModel.CodingKeys> = encoder.container(keyedBy: TransactionModel.CodingKeys.self)
-        try container.encode(self.status, forKey: TransactionModel.CodingKeys.status)
-        try container.encode(self.date, forKey: TransactionModel.CodingKeys.timestamp) // TODO: Formattare con formato data server
-        try container.encode(self.goodsCost, forKey: TransactionModel.CodingKeys.goodsCost)
-        try container.encode(self.coveredAmount, forKey: TransactionModel.CodingKeys.coveredAmount)
-        try container.encode(self.transactionID, forKey: TransactionModel.CodingKeys.milTransactionId)
-        try container.encode(self.terminalID, forKey: TransactionModel.CodingKeys.trxCode)
-        try container.encode(self.initiativeId, forKey: TransactionModel.CodingKeys.initiativeId)
-        try container.encode(self.secondFactor, forKey: TransactionModel.CodingKeys.secondFactor)
-    }
-    
+        
     func isCancellable() -> Bool {
         guard status == .authorized, let date = date else { return false }
         let components = Calendar.current.dateComponents([.day], from: date, to: Date())
