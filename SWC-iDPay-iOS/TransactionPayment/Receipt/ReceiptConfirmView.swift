@@ -59,7 +59,7 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
                 ButtonModel(
                     type: .primaryBordered,
                     themeType: .dark,
-                    title: "No grazie",
+                    title: "No, grazie",
                     icon: .noReceipt,
                     iconPosition: .left,
                     action: {

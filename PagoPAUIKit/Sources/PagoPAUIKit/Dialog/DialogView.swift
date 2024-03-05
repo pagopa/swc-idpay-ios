@@ -60,6 +60,7 @@ public struct DialogView: View {
                 .background(dialogModel.theme.backgroundColor)
                 .cornerRadius(Constants.radius2)
                 .padding(Constants.mediumSpacing)
+                .accessibilityIdentifier("dialog")
 //            }
         }
 //        .animation(.spring(duration: 0.1), value: isPresenting)

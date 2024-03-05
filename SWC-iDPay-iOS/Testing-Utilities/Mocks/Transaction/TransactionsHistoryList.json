@@ -2,7 +2,7 @@
     "transactions": [
         {
             "idpayTransactionId": "613691ec-15d5-456e-a41c-e469fa4dd060_QRCODE_1694181289491",
-            "milTransactionId": "0",
+            "milTransactionId": "fakeMilValidTransactionId",
             "initiativeId": "BonusOK",
             "timestamp": "2023-09-11T12:45:33",
             "goodsCost": 800,
@@ -12,7 +12,7 @@
           },
           {
             "idpayTransactionId": "613691ec-15d5-456e-a41c-e469fa4dd060_QRCODE_1694181289491",
-            "milTransactionId": "1",
+            "milTransactionId": "fakeMilErrorTransactionId",
             "initiativeId": "BonusOK",
             "timestamp": "2023-09-11T12:45:33",
             "goodsCost": 1340,
@@ -22,7 +22,7 @@
           },
           {
             "idpayTransactionId": "613691ec-15d5-456e-a41c-e469fa4dd060_QRCODE_1694181289491",
-            "milTransactionId": "2",
+            "milTransactionId": "oldAuthorizedMilTransactionId",
             "initiativeId": "BonusOK",
             "timestamp": "2023-09-11T12:45:33",
             "goodsCost": 3200,
