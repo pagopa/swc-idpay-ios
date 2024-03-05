@@ -62,5 +62,18 @@ extension XCUIApplication {
         let amountLabel = self.staticTexts["0,00 €"].firstMatch
         XCTAssert(amountLabel.waitForExistence(timeout: 6))
     }
+    
+    // History navigation
+    func loadMockedHistoryList() {
+        self.launchEnvironment = ["-mock-filename": "TransactionsHistoryList"]
+        self.signIn(success: true)
+        self.openMenuSection("Storico operazioni")
+    }
+    
+    func loadEmptyHistoryList() {
+        self.launchEnvironment = ["-empty-state": "1"]
+        self.signIn(success: true)
+        self.openMenuSection("Storico operazioni")
+    }
 
 }

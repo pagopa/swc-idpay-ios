@@ -9,8 +9,10 @@ import Foundation
 
 class MockedNetworkClient: Requestable {
     
-    static let validTransactionID = "fakeMilTransactionId"
-    
+    static let validTransactionID = "fakeMilValidTransactionId"
+    static let errorTransactionID = "fakeMilErrorTransactionId"
+    static let oldAuthorizedTransactionID = "oldAuthorizedMilTransactionId"
+
     func login(username: String, password: String) async throws {
         print("Wait to login")
         try? await Task.sleep(nanoseconds: 1 * 4_000_000_000) // 4 second
@@ -65,9 +67,9 @@ class MockedNetworkClient: Requestable {
             return transactions.map {
                 var modifiedTransaction = $0
                 switch modifiedTransaction.transactionID {
-                case "0":
+                case MockedNetworkClient.validTransactionID, MockedNetworkClient.errorTransactionID:
                     modifiedTransaction.date = Date()
-                case "1":
+                case MockedNetworkClient.oldAuthorizedTransactionID:
                     modifiedTransaction.date = Calendar.current.date(byAdding: .day, value: -4, to: Date())
                 default:
                     modifiedTransaction.date = Date.randomUTCDate()
