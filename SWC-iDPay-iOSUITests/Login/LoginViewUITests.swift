@@ -84,13 +84,9 @@ final class LoginViewUITests: XCTestCase {
         let passwordTextfield = elementsQuery.secureTextFields["Password textfield"]
 
         waitUntilElementHasFocus(element: usernameTextfield)
-        let aKey = app.keys["a"]
-        aKey.tap()
-        aKey.tap()
-        aKey.tap()
-        aKey.tap()
+        usernameTextfield.typeText("test")
         app.keyboards.buttons["avanti"].tap()
-        
+        waitUntilElementHasFocus(element: passwordTextfield)
         XCTAssertTrue(passwordTextfield.hasKeyboardFocus(), "Should select next textfield in form on next button tapped")
     }
     
@@ -104,23 +100,14 @@ final class LoginViewUITests: XCTestCase {
         let passwordTextfield = elementsQuery.secureTextFields["Password textfield"]
 
         waitUntilElementHasFocus(element: usernameTextfield)
-        let aKey = app.keys["a"]
-        aKey.tap()
-        aKey.tap()
-        aKey.tap()
-        aKey.tap()
+        usernameTextfield.typeText("test")
         app.keyboards.buttons["avanti"].tap()
         
         XCTAssertTrue(passwordTextfield.hasKeyboardFocus(), "Should select next textfield in form on next button tapped")
-        app.keys["a"].tap()
-        app.keys["c"].tap()
-        app.keys["c"].tap()
-        app.keys["e"].tap()
-        app.keys["s"].tap()
-        app.keys["s"].tap()
+        passwordTextfield.typeText("access")
         app.keyboards.buttons["fine"].tap()
 
-        XCTAssertFalse((passwordTextfield.hasKeyboardFocus() && passwordTextfield.hasKeyboardFocus()), "Should unfocus textfields in form on next button tapped from password textfield")
+        XCTAssertFalse((usernameTextfield.hasKeyboardFocus() && passwordTextfield.hasKeyboardFocus()), "Should unfocus textfields in form on next button tapped from password textfield")
 
         let spinner = app.windows.otherElements.matching(identifier: "spinner").element
         XCTAssert(spinner.waitForExistence(timeout: 2), "Should show loading spinner")
