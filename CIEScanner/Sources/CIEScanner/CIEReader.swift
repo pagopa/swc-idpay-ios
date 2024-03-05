@@ -8,7 +8,7 @@
 import Foundation
 import CoreNFC
 
-public enum CIEReaderError: Error, CustomStringConvertible {
+public enum CIEReaderError: Error, CustomStringConvertible, Equatable {
     case scanNotSupported
     case invalidTag
     case sendCommandForResponse

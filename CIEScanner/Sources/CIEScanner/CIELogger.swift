@@ -73,6 +73,11 @@ internal struct CIELogger {
         if !sw2.isEmpty {
             msg += sw2
         }
+        
+        let hexString: String = Data(apduResp.data).hexEncodedString(options: .upperCase)
+        msg += "------- APDU RESPONSE HEX STRING --------"
+        msg += hexString
+        
     #if DEBUG
         print(msg)
     #else

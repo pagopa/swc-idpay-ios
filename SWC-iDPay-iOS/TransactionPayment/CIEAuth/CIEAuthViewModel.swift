@@ -13,7 +13,7 @@ class CIEAuthViewModel: TransactionDeleteVM {
     
     @Published var cieAuthError: CIEAuthError?
 
-    var reader = CIEReader(readCardMessage: "Appoggia la CIE sul dispositivo, in alto", confirmCardReadMessage: "Lettura completata")
+    var reader = CIEReader(readCardMessage: "Appoggia la CIE sul dispositivo, in alto", confirmCardReadMessage: "Lettura completata", logMode: .enabled)
     var nisAuthenticated: NisAuthenticated?
     
     var transactionData: CreateTransactionResponse
