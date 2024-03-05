@@ -35,7 +35,7 @@ final class TransactionHistoryListUITests: XCTestCase {
     
     func test_history_list_item_icon_is_checkmark_when_status_is_authorized() {
         loadMockedHistoryList()
-        XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].exists)
+        XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].waitForExistence(timeout: 2))
 
         let authorizedItemButton = app.findRowWithLabelContaining("BonusOK")
         XCTAssertTrue(authorizedItemButton.waitForExistence(timeout: 4))
