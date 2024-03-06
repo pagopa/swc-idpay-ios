@@ -22,7 +22,15 @@ struct VerifyCIEResponse: Decodable {
 
 extension VerifyCIEResponse {
     
-    static var mocked: Self {
-        VerifyCIEResponse(kty: "RSA", e: "AQAB", use: "enc", kid: "0ffa8f8d-d92b-46ee-a4e7-8f26651a2a96", exp: 1678975089, iat: 1678888689, n: "qjcVEWJTTySeKxHsJSsmVGk2cEvXJ4tBC4uyU5MxYwBAiIWuZb_yDOIjLz7JN8QsJs3QrZtS3vqv18ljW2db6ED90OUo9CVJveSF4eNRozDHOvnHGT0HR-8Wf5GxcNy63zfQLrnfdp5F9TrhMFRMkEA0TCT7PhT3yF6YvwLtQyMciER1_KKnpGomfAkW-UpaF2nHfXiFPrOIHMuNb5BoRR1f0349tqloLgLd7vyMy1jg-BldmEgRV1bcFqjH0Cg3leROjDy9HzdFauRIlSb4VZrqNni2hgaTUHI5Xp7aCwpS9Y_mf19KpxN0_8d-f3UVRlwtI1dryelpdC5jowxia2Pf8UgSZyMs2ZxDf6eU0SH8wHEvMpeFpwmiBD1XcsISoTan0Yv7w_CLo6JOqX6EfogDQZUBzKKlVCZSoSinAz0_7Bj2orgWKQ9sbfgJWgJweKkJLH-bNSRaVcu02boxPnlJeay3wROhSAgtiKWZnsU1_FpPNG0JBFCh_x-VjkuBoREpNEyJM5NvhRCmyObtzocS4eCtAgvmo3EFv_Xa-rp0p5ez4A-_QUb5OsYOswqYbIV1GbtiAfCTOrNbv6K86LaTllZ9WqYrKgDv7KA-604K37k33LHROqcO9Q-bCN8hKzQDWs7M3DFNP6P5iBUUVs-gtWncHvIuUWTth-fBXa8", keyOps: ["wrapKey"])
+    static var mockedSuccessResponse: Self {
+        VerifyCIEResponse(
+            kty: "RSA",
+            e: "AQAB",
+            use: "enc",
+            kid: "0ffa8f8d-d92b-46ee-a4e7-8f26651a2a96",
+            exp: 1678975089,
+            iat: 1678888689,
+            n: "tITKOCyhNQ9UC-6yqArtzehjHSlS1prBgHUJI1ngQKvP0O-DI-NSxBhTu5Gbah3hROErrQ-Dhu7ADJNSfuN8sK3OLsTvXHGWX4ZmzFQETyA3UJUwCfV4KFW4Mv0hQHOBJPKcT7CCqTg6pFrxn26mY2RZG4r_pzZex721A9N082rvmRPY11ORg3LBSzJdhrtqza05acdljNoKXaVUcMIHwLilrxEMrR-9U7tgO0gBFvG_thEY0YG8LmeDAdzp8Ub08TWkER_jzUyZpnoJa_KnQ0wpJBOesbnEcmakS_87_oeeEpRCM-Vt1-tszJA4I7QdevD-FuF0NYWylM9JtX5GGnCISdhs8LdYLvVu72tbLWUz0_IpiT8NdTg6EqpwirEGrAudz6scDGLBgUkS9-tw4Rw2vofv86ud94ZQmZFau--oZsoUg2WjUvATv9sE6q5_rxTi1JFYPwpHEwFJHdmOK4OyFXZffgJui-x0n7KhSPjOvgYJz2y9ZVg3v_eLmqC-tvAk4NnG3HzU_l_EzbHWEZgKfFmeSCmb5QcDTU-tUIcXZ0AqyBz0SBX8EK2xAKm8Vo3CGfvTwAUJ8Uz6tUclUn8XF_m2SVsLsp2aDtCstvVM2Oj22RIsmPS7IVGk-8Mh3-4jiQaTtcazZD_nXE-Q6L2I9ZZTwX2mvCZaZtTP0cE",
+            keyOps: ["wrapKey"])
     }
 }

@@ -117,7 +117,7 @@ private struct PinDot: View {
 }
 
 #Preview {
-    CIEPinView(viewModel: CIEPinViewModel(networkClient: NetworkClient(environment: .development), transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mocked, initiative: Initiative.mocked))
+    CIEPinView(viewModel: CIEPinViewModel(networkClient: NetworkClient(environment: .development), transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mockedSuccessResponse, initiative: Initiative.mocked))
             .environmentObject(Router())
     
 }

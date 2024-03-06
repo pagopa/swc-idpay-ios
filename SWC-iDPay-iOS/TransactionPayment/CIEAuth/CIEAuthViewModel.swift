@@ -13,7 +13,7 @@ class CIEAuthViewModel: TransactionDeleteVM {
     
     @Published var cieAuthError: CIEAuthError?
 
-    var reader = CIEReader(readCardMessage: "Appoggia la CIE sul dispositivo, in alto", confirmCardReadMessage: "Lettura completata", logMode: .enabled)
+    var reader: CIEReadable = CIEReader(readCardMessage: "Appoggia la CIE sul dispositivo, in alto", confirmCardReadMessage: "Lettura completata", logMode: .enabled)
     var nisAuthenticated: NisAuthenticated?
     
     var transactionData: CreateTransactionResponse
@@ -21,6 +21,12 @@ class CIEAuthViewModel: TransactionDeleteVM {
     init(networkClient: Requestable, transactionData: CreateTransactionResponse, initiative: Initiative? = nil) {
         self.transactionData = transactionData
 
+        #if DEBUG
+        if UITestingHelper.isUITesting {
+            reader = MockedCIEReader()
+        }
+        #endif
+        
         super.init(networkClient: networkClient, transactionID: self.transactionData.milTransactionId, goodsCost: self.transactionData.goodsCost, initiative: initiative)
     }
 

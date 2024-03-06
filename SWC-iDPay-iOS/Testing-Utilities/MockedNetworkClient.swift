@@ -5,6 +5,7 @@
 //  Created by Stefania Castiglioni on 28/02/24.
 //
 
+#if DEBUG
 import Foundation
 
 class MockedNetworkClient: Requestable {
@@ -38,7 +39,10 @@ class MockedNetworkClient: Requestable {
     }
     
     func verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String) async throws -> VerifyCIEResponse {
-        VerifyCIEResponse.mocked
+        if let cieReadingSuccess = ProcessInfo.processInfo.environment["-cie-reading-success"], cieReadingSuccess == "0" {
+            throw HTTPResponseError.networkError("Unable to read CIE")
+        }
+        return VerifyCIEResponse.mockedSuccessResponse
     }
     
     func verifyTransactionStatus(milTransactionId: String) async throws -> TransactionModel {
@@ -89,3 +93,4 @@ class MockedNetworkClient: Requestable {
     }
     
 }
+#endif
