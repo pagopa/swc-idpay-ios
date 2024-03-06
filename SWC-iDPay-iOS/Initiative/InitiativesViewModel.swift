@@ -13,7 +13,7 @@ class InitiativesViewModel: BaseVM {
     
     @Published var initiatives: [Initiative] = []
     @Published var isLoading: Bool = false
-    @Published var loadingStateMessage: String = "Aspetta qualche istante.."
+    @Published var loadingStateMessage: String = "Aspetta qualche istante"
     
     func loadInitiatives() {
         Task {
@@ -25,14 +25,6 @@ class InitiativesViewModel: BaseVM {
             } catch {
                 isLoading = false
             }
-//            try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
-//            let initiativesCount = Int.random(in: 0...2)
-//            
-//            if initiativesCount > 0 {
-//                for _ in 0..<initiativesCount {
-//                    initiatives.append(Initiative.mocked)
-//                }
-//            }
         }
     }
 }

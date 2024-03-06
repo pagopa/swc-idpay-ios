@@ -76,4 +76,15 @@ extension XCUIApplication {
         self.openMenuSection("Storico operazioni")
     }
 
+    // Initiatives navigation
+    func loadMockedIntiativesList(empty: Bool = false) {
+        if !empty {
+            self.launchEnvironment = ["-mock-filename": "InitiativesList"]
+        }
+        self.signIn(success: true)
+        
+        let accettaBonusBtn = self.buttons["Accetta bonus ID Pay"].firstMatch
+        XCTAssert(accettaBonusBtn.waitForExistence(timeout: 6))
+        accettaBonusBtn.tap()
+    }
 }

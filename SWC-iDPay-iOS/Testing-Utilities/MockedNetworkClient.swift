@@ -15,7 +15,7 @@ class MockedNetworkClient: Requestable {
 
     func login(username: String, password: String) async throws {
         print("Wait to login")
-        try? await Task.sleep(nanoseconds: 1 * 4_000_000_000) // 4 second
+        try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
         if UITestingHelper.isUserLoginSuccess {
             return
         } else {
@@ -24,8 +24,13 @@ class MockedNetworkClient: Requestable {
     }
     
     func getInitiatives() async throws -> [Initiative] {
-        let initiativesResponse: InitiativesResponse = UITestingHelper.getMockedObject(jsonName: "InitiativesList")!
-        return initiativesResponse.initiatives
+        try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
+
+        if let mockFileName = ProcessInfo.processInfo.environment["-mock-filename"] {
+            var initiativesResponse: InitiativesResponse = UITestingHelper.getMockedObject(jsonName: mockFileName)!
+            return initiativesResponse.initiatives
+        }
+        return []
     }
     
     func createTransaction(initiativeId: String, amount: Int) async throws -> CreateTransactionResponse {
