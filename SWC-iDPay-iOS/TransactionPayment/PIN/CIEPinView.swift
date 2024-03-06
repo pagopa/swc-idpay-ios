@@ -21,7 +21,6 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
                 .font(.PAFont.h6)
                 .padding(.bottom, Constants.largeSpacing)
 
-            
             HStack(spacing: Constants.smallSpacing) {
                 if viewModel.pinString.count > 0 {
                     ForEach(0..<viewModel.pinString.count, id:\.self) { _ in

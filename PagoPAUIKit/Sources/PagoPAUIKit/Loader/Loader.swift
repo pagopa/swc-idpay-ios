@@ -75,7 +75,6 @@ public struct LoadingDemoView: View {
     }
 }
 
-
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
         LoadingDemoView()

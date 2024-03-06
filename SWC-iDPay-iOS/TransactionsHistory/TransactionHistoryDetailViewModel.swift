@@ -24,7 +24,4 @@ class TransactionHistoryDetailViewModel: TransactionDeleteVM {
         super.init(networkClient: networkClient, transactionID: transaction.transactionID, goodsCost: transaction.goodsCost)
 
     }
-
-    
 }
-

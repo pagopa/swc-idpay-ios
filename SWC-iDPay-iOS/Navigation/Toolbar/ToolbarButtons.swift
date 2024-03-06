@@ -33,7 +33,6 @@ struct HamburgerMenuButton: View {
     }
 }
 
-
 struct HomeButton: View {
     let action: () -> Void
     

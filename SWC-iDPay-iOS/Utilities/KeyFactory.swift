@@ -8,7 +8,6 @@
 import Foundation
 import Security
 
-
 enum KeyFactoryError: Error {
     case invalidRandomKey
     case invalidData
@@ -100,7 +99,6 @@ class KeyFactory {
         for i in 0..<hexPinBlock.count {
             generated.append(hexPinBlock[i] ^ hexSecondFactor[i])
         }
-        
         
         return Data(generated).hexEncodedString(options: .upperCase)
     }

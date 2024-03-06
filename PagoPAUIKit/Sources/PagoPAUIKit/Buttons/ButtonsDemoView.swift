@@ -134,8 +134,7 @@ struct LazyLoadingButtonView: View {
                 Text(title)
             }
         )
-        .padding(.horizontal,Constants.mediumSpacing)
-
+        .padding(.horizontal, Constants.mediumSpacing)
     }
     
     private func loadData() async {
@@ -145,7 +144,6 @@ struct LazyLoadingButtonView: View {
     }
 
 }
-
 
 struct LoadingButtonView: View {
     

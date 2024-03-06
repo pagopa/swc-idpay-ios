@@ -35,7 +35,6 @@ class TransactionDeleteVM: BaseVM {
             .store(in: &cancellables)
     }
 
-    
     func confirmTransactionDelete() {
         dialogState = .confirmDelete
     }

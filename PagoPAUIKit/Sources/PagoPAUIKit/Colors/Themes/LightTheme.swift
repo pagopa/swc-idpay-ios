@@ -54,6 +54,4 @@ public struct LightTheme: PagoPATheme {
     // MARK: - Generic texts
     public var titleColor: Color = .blueIODark
     public var subtitleColor: Color = .blueIODark
-
-    
 }

@@ -83,7 +83,6 @@ class KeychainManager {
             kSecReturnRef as String: true
         ]
         
-        
         var result: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
         
@@ -212,8 +211,6 @@ class KeychainManager {
             throw error
         }
     }
-
-
 }
 
 extension KeychainManager {

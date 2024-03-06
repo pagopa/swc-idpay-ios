@@ -178,7 +178,6 @@ class TagReader {
         
     }
 
-    
     // MARK: - Commands
     func send(cmd: NFCISO7816APDU) async throws -> ResponseAPDU {
         var toSend = cmd
@@ -222,8 +221,7 @@ class TagReader {
                     i += s.count
                     if(i != data.count) {
                         headMod[0] = (UInt8)(cla | 0x10)
-                    }
-                    else {
+                    } else {
                         headMod[0] = cla
                     }
                     
@@ -363,6 +361,4 @@ extension TagReader {
         
         return "Unknown error - sw1: 0x\(String.hexStringFromBinary(sw1)), sw2 - 0x\(String.hexStringFromBinary(sw2)) "
     }
-    
-    
 }

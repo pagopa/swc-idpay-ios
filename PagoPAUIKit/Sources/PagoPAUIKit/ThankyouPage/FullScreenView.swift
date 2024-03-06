@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
  struct FullScreenModifier: ViewModifier {
     var theme: PagoPATheme
     
@@ -16,7 +15,7 @@ import SwiftUI
     }
     
     func body(content: Content) -> some View {
-        ZStack{
+        ZStack {
             theme
                 .backgroundColor
                 .ignoresSafeArea()

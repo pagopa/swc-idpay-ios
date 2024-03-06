@@ -55,7 +55,6 @@ enum Route: View {
         }
     }
 
-    
     var body: some View {
         switch self {
         case .initiatives(let viewModel):

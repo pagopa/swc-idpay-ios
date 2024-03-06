@@ -41,7 +41,6 @@ class CIEPinViewModel: TransactionDeleteVM {
         }
     }
     
-    
     func generateAuthCodeData() throws -> AuthCodeData {
         
         //        let eDecoded = try String.decode(verifyCIEResponse.e) // exponent

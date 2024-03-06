@@ -45,7 +45,6 @@ extension EnvironmentValues {
     }
 }
 
-
 struct KeyPadButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Self.Configuration) -> some View {
@@ -60,4 +59,3 @@ struct KeyPadButtonStyle: ButtonStyle {
         
     }
 }
-

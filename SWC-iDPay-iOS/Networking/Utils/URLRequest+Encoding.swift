@@ -68,7 +68,6 @@ extension URLRequest {
         return encodedURLRequest
     }
     
-    
     static func buildRequest<T:Codable>(baseUrl: URL, endpoint: Endpoint, parameters: Parameters? = nil, object: T? = nil) -> URLRequest {
         
         var encodedURLRequest = URLRequest(url: baseUrl.appendingPathComponent(endpoint.path))
@@ -126,12 +125,8 @@ extension URLRequest {
                 print("JSONENcoder error:\(error.localizedDescription)")
             }
         }
-        
-        
         return encodedURLRequest
     }
-    
-
 }
 
 extension URLRequest {

@@ -46,7 +46,6 @@ public struct DividerDemoView: View {
                 Text("Prova")
                     .frame(maxWidth: .infinity)
 
-                
                 Divider(orientation: .vertical, color: .infoGraphic)
                     .padding(Constants.mediumSpacing)
                 

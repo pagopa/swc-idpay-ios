@@ -68,8 +68,7 @@ public struct DialogView: View {
     }
 }
 
-
-//MARK: - Dialog Modifier
+// MARK: - Dialog Modifier
 
 struct DialogModifier: ViewModifier {
     var dialogModel: ResultModel

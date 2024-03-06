@@ -46,7 +46,6 @@ public enum OperationStatus {
     }
 }
 
-
 public struct OperationStatusLabel: View {
     public var statusType: OperationStatus
     public var statusDescription: String

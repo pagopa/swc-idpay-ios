@@ -39,7 +39,6 @@ struct HelpView: View {
     }
 }
 
-
 struct HelpView_Previews: PreviewProvider {
 
     struct ContainerView: View {

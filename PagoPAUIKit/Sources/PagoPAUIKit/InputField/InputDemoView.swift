@@ -62,7 +62,6 @@ public struct InputDemoView: View {
                 )
                 .focused($focusedField, equals: 5)
                 
-                
                 Button {
                     validate()
                 } label: {

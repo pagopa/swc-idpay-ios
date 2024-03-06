@@ -22,7 +22,7 @@ internal struct CIELogger {
     internal init(mode: LogMode = .disabled) {
         self.mode = mode
         if mode == .localFile {
-            //create log file
+            // create log file
             _ = FileManager.default.temporaryDirectory
                 .appendingPathComponent(fileName)
                 .appendingPathExtension("log")
@@ -42,14 +42,13 @@ internal struct CIELogger {
         print(msg)
         #else
         if self.mode == .localFile {
-            //Write log to local file
+            // Write log to local file
             msg.write(to: self.urlLogFile, atomically: true, encoding: .utf8)
         }
         #endif
         
     }
     
-
     internal func log_APDU_response(_ apduResp: ResponseAPDU, function: String = #function, message: String? = nil) {
 
         guard mode != .disabled else { return }

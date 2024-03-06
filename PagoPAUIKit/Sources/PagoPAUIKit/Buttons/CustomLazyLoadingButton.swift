@@ -78,7 +78,6 @@ public struct CustomLazyLoadingButton<Content: View>: View {
     
 }
 
-
 struct CustomLazyLoadingButton_Previews: PreviewProvider {
     
     static var previews: some View {

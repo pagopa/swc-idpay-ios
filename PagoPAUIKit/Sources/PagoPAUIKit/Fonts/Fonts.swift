@@ -128,8 +128,7 @@ extension Font {
             }
         }
     }
-    
-    
+        
     public struct PAFont {
      
         public static var h1Hero: Font {
