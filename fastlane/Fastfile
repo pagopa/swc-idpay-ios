@@ -42,11 +42,6 @@ platform :ios do
       #ignore:['../../*']
     )
 
-    swiftlint(
-      output_file: "./sonar-reports/swiftlint.txt", 
-      ignore_exit_status: true
-    )
-
     sonar
 
   end
