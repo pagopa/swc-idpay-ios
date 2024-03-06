@@ -27,7 +27,7 @@ class MockedNetworkClient: Requestable {
         try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
 
         if let mockFileName = ProcessInfo.processInfo.environment["-mock-filename"] {
-            var initiativesResponse: InitiativesResponse = UITestingHelper.getMockedObject(jsonName: mockFileName)!
+            let initiativesResponse: InitiativesResponse = UITestingHelper.getMockedObject(jsonName: mockFileName)!
             return initiativesResponse.initiatives
         }
         return []
@@ -66,8 +66,8 @@ class MockedNetworkClient: Requestable {
         print("Delay transaction history loading")
         try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
         if let mockFileName = ProcessInfo.processInfo.environment["-mock-filename"] {
-            var transactionsList: TransactionHistoryResponse = UITestingHelper.getMockedObject(jsonName: mockFileName)!
-            var transactions = transactionsList.transactions
+            let transactionsList: TransactionHistoryResponse = UITestingHelper.getMockedObject(jsonName: mockFileName)!
+            let transactions = transactionsList.transactions
             
             return transactions.map {
                 var modifiedTransaction = $0

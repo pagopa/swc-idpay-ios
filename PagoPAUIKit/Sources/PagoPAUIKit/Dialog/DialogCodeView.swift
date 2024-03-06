@@ -34,7 +34,7 @@ struct DialogCodeView: View {
                 VStack(spacing: 0) {
                     HStack {
                         Spacer()
-                        Button() {
+                        Button {
                             isPresenting = false
                             onClose()
                         } label: {

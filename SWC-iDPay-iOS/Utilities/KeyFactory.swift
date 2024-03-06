@@ -83,7 +83,7 @@ class KeyFactory {
         
         var pinBlock = "0\(pin.count)\(pin)"
         
-        while (pinBlock.count != 16) {
+        while pinBlock.count != 16 {
             pinBlock += "F"
         }
         

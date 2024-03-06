@@ -196,7 +196,7 @@ public struct InputField: View {
     
     private var foregroundColor: Color {
         guard isEnabled else { return Color.grey200.opacity(0.5) }
-        if (focused == true && !text.isEmpty) {
+        if focused == true && !text.isEmpty {
             return Color.paBlack
         }
         return Color.grey200

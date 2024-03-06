@@ -17,31 +17,31 @@ public enum OperationStatus {
     
     public var backgroundColor: Color {
         switch self {
-            case .success:
-                return .successLight
-            case .failed:
-                return .errorLight
-            case .pending, .cancelled:
-                return .infoLight
-            case .refunded:
-                return .blueIOLight
-            case .toBeRefunded:
-                return .warningLight
+        case .success:
+            return .successLight
+        case .failed:
+            return .errorLight
+        case .pending, .cancelled:
+            return .infoLight
+        case .refunded:
+            return .blueIOLight
+        case .toBeRefunded:
+            return .warningLight
         }
     }
     
     public var textColor: Color {
         switch self {
-            case .success:
-                return .successGraphic
-            case .failed:
-                return .errorDark
-            case .pending, .cancelled:
-                return .infoDark
-            case .refunded:
-                return .blueIODark
-            case .toBeRefunded:
-                return .warningDark
+        case .success:
+            return .successGraphic
+        case .failed:
+            return .errorDark
+        case .pending, .cancelled:
+            return .infoDark
+        case .refunded:
+            return .blueIODark
+        case .toBeRefunded:
+            return .warningDark
         }
     }
 }
