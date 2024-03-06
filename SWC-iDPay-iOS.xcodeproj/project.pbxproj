@@ -76,6 +76,7 @@
 		B88E8FD02B768AF6005A3737 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88E8FCF2B768AF6005A3737 /* Endpoint.swift */; };
 		B88E8FD22B768CFB005A3737 /* ParametersEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88E8FD12B768CFB005A3737 /* ParametersEncoding.swift */; };
 		B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */; };
+		B8AC7B8A2B9879B7005D78BB /* InitiativesListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AC7B892B9879B7005D78BB /* InitiativesListUITests.swift */; };
 		B8AE58952B4EA095006FB26C /* ReceiptPdfBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE58942B4EA095006FB26C /* ReceiptPdfBuilderView.swift */; };
 		B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE589A2B50445C006FB26C /* TransactionModel.swift */; };
 		B8AFC6122B63CD6400FEE74C /* CIEScanner in Frameworks */ = {isa = PBXBuildFile; productRef = B8AFC6112B63CD6400FEE74C /* CIEScanner */; };
@@ -188,6 +189,7 @@
 		B88E8FCF2B768AF6005A3737 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		B88E8FD12B768CFB005A3737 /* ParametersEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersEncoding.swift; sourceTree = "<group>"; };
 		B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsDemoListView.swift; sourceTree = "<group>"; };
+		B8AC7B892B9879B7005D78BB /* InitiativesListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiativesListUITests.swift; sourceTree = "<group>"; };
 		B8AE58942B4EA095006FB26C /* ReceiptPdfBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptPdfBuilderView.swift; sourceTree = "<group>"; };
 		B8AE589A2B50445C006FB26C /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
 		B8AFC6132B63CEB900FEE74C /* SWC-iDPay-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SWC-iDPay-iOS.entitlements"; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 		9811BC202B177C970063E71B /* SWC-iDPay-iOSUITests */ = {
 			isa = PBXGroup;
 			children = (
+				B8AC7B882B987973005D78BB /* Initiatives */,
 				B816E71D2B8F7B0800DC0488 /* TransactionHistory */,
 				B816E70B2B8E491300DC0488 /* Home */,
 				B8CE22C02B5A92AC00A4BC67 /* NumberPad */,
@@ -556,6 +559,14 @@
 				B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */,
 			);
 			path = "PagoPAUIKit-Demo";
+			sourceTree = "<group>";
+		};
+		B8AC7B882B987973005D78BB /* Initiatives */ = {
+			isa = PBXGroup;
+			children = (
+				B8AC7B892B9879B7005D78BB /* InitiativesListUITests.swift */,
+			);
+			path = Initiatives;
 			sourceTree = "<group>";
 		};
 		B8CE22C02B5A92AC00A4BC67 /* NumberPad */ = {
@@ -881,6 +892,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8CE22C42B5A944B00A4BC67 /* BonusAmountViewUITests.swift in Sources */,
+				B8AC7B8A2B9879B7005D78BB /* InitiativesListUITests.swift in Sources */,
 				B81FBDE32B5588A500BDB580 /* LoginViewUITests.swift in Sources */,
 				B812612A2B5834A4003304C8 /* MenuViewUITests.swift in Sources */,
 				B816E71F2B8F7B2800DC0488 /* TransactionHistoryListUITests.swift in Sources */,
