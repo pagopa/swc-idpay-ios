@@ -13,7 +13,7 @@ struct BorderedTextFieldStyle: TextFieldStyle {
     @Binding var isEditing: Bool
     @Binding var text: String
     var placeholder: String
-    var icon: Image.PAIcon? = nil
+    var icon: Image.PAIcon?
     @Binding var status: InputField.InputStatus
 
     func _body(configuration: TextField<Self._Label>) -> some View {
@@ -39,7 +39,9 @@ struct BorderedTextFieldStyle: TextFieldStyle {
         .floatingLabel(
             title: placeholder,
             opacity: (isEditing || !text.isEmpty) ? 1.0 : 0.5,
-            insets: EdgeInsets(top: 0, leading: (icon != nil) ? Constants.listItemIconSize : 0, bottom: 0, trailing: (status.icon != nil) ? Constants.listItemIconSize : 0),
+            insets: EdgeInsets(top: 0, leading: (icon != nil) ? Constants.listItemIconSize : 0,
+                               bottom: 0,
+                               trailing: (status.icon != nil) ? Constants.listItemIconSize : 0),
             displaceLabel: !text.isEmpty ? .constant(true) : self.$isEditing
         )
 

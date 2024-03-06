@@ -111,11 +111,15 @@ private extension Data {
     
     init(modulus: Data, exponent: Data) {
         // Make sure neither the modulus nor the exponent start with a null byte
-        var modulusBytes = [CUnsignedChar](UnsafeBufferPointer<CUnsignedChar>(start: (modulus as NSData).bytes.bindMemory(to: CUnsignedChar.self, capacity: modulus.count), count: modulus.count / MemoryLayout<CUnsignedChar>.size))
-        let exponentBytes = [CUnsignedChar](UnsafeBufferPointer<CUnsignedChar>(start: (exponent as NSData).bytes.bindMemory(to: CUnsignedChar.self, capacity: exponent.count), count: exponent.count / MemoryLayout<CUnsignedChar>.size))
+        var modulusBytes = [CUnsignedChar](UnsafeBufferPointer<CUnsignedChar>(
+            start: (modulus as NSData).bytes.bindMemory(to: CUnsignedChar.self, capacity: modulus.count),
+            count: modulus.count / MemoryLayout<CUnsignedChar>.size))
+        let exponentBytes = [CUnsignedChar](UnsafeBufferPointer<CUnsignedChar>(
+            start: (exponent as NSData).bytes.bindMemory(to: CUnsignedChar.self, capacity: exponent.count),
+            count: exponent.count / MemoryLayout<CUnsignedChar>.size))
         
         // Make sure modulus starts with a 0x00
-        if let prefix = modulusBytes.first , prefix != 0x00 {
+        if let prefix = modulusBytes.first, prefix != 0x00 {
             modulusBytes.insert(0x00, at: 0)
         }
         
@@ -193,7 +197,7 @@ private extension NSInteger {
             
             for j in 1...octets {
                 result = (result << 8)
-                result = result + UInt64(octetBytes[startIdx + j])
+                result += UInt64(octetBytes[startIdx + j])
             }
             
             startIdx += 1 + octets

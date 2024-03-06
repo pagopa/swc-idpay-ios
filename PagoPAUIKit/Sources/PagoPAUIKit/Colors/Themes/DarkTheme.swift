@@ -17,7 +17,7 @@ public struct DarkTheme: PagoPATheme {
     public var backgroundColor: Color = .paPrimary
     
     // MARK: - Default icon (ex: for thankyou page)
-    public var defaultIcon: Image.PAIcon? = nil
+    public var defaultIcon: Image.PAIcon?
     
     // MARK: - Default buttons background color
     public var primaryButtonBkgColor: Color = .white

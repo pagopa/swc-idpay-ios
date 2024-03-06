@@ -91,7 +91,13 @@ public struct InputField: View {
         }
     }
     
-    public init(type: InputType, text: Binding<String>, placeholder: String, caption: String? = nil, errorText: Binding<String?> = .constant(nil), validationRule: RuleType? = nil, autofocus: Bool = false) {
+    public init(type: InputType,
+                text: Binding<String>,
+                placeholder: String,
+                caption: String? = nil,
+                errorText: Binding<String?> = .constant(nil),
+                validationRule: RuleType? = nil,
+                autofocus: Bool = false) {
         
         self.type = type
         _text = text
@@ -274,7 +280,7 @@ private struct InputListDemo: View {
     @State var password: String = ""
     @State var otp: String = ""
 
-    @State var passwordError: String? = nil
+    @State var passwordError: String?
     @State var showLoginSuccess: Bool = false
     @FocusState var focusedField: Int?
     

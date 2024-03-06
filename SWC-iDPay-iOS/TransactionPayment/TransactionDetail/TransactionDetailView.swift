@@ -76,7 +76,15 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
                         themeType: .light,
                         title: "Conferma",
                         action: {
-                            router.pushTo(.pin(viewModel: CIEPinViewModel(networkClient: viewModel.networkClient, transaction: viewModel.transaction, verifyCIEResponse: viewModel.verifyCIEResponse, initiative: viewModel.initiative)))
+                            router.pushTo(
+                                .pin(
+                                    viewModel: CIEPinViewModel(
+                                        networkClient: viewModel.networkClient,
+                                        transaction: viewModel.transaction,
+                                        verifyCIEResponse: viewModel.verifyCIEResponse,
+                                        initiative: viewModel.initiative)
+                                )
+                            )
                         }
                      )]
             )
@@ -105,5 +113,13 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
 }
 
 #Preview {
-    TransactionDetailView(viewModel: TransactionDetailViewModel(networkClient: NetworkClient(environment: .staging), transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mocked, initiative: Initiative.mocked) )
+    TransactionDetailView(
+        viewModel:
+            TransactionDetailViewModel(
+                networkClient: NetworkClient(environment: .staging),
+                transaction: TransactionModel.mockedSuccessTransaction,
+                verifyCIEResponse: VerifyCIEResponse.mocked,
+                initiative: Initiative.mocked
+            )
+    )
 }

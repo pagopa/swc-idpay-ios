@@ -17,7 +17,13 @@ public struct ListItem: View {
     var amountText: String?
     var actionButtonRight: (() -> Void)?
     
-    public init(iconLeft: Image.PAIcon? = nil, title: String, subtitle: String, statusType: OperationStatus? = nil, statusDescription: String? = nil, icon: Image.PAIcon? = nil, amount: String? = nil, actionButtonRight: (() -> Void)? = nil ) {
+    public init(iconLeft: Image.PAIcon? = nil,
+                title: String, subtitle: String,
+                statusType: OperationStatus? = nil,
+                statusDescription: String? = nil,
+                icon: Image.PAIcon? = nil,
+                amount: String? = nil,
+                actionButtonRight: (() -> Void)? = nil ) {
         self.iconLeft = iconLeft
         self.titleText = title
         self.subTitleText = subtitle

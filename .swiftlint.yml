@@ -1,0 +1,18 @@
+excluded:
+  - DerivedData
+  
+disabled_rules:
+  - orphaned_doc_comment
+  - trailing_whitespace
+  - variable_name
+  - type_name
+  
+force_cast: warning # 1
+
+identifier_name: # 2
+  excluded:
+    - i
+    - id
+    - x
+    - y
+    - z

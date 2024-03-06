@@ -48,7 +48,7 @@ struct ToastNotification: View {
 
 public struct ToastDemoView: View {
     
-    @State var toast: ToastModel? = nil
+    @State var toast: ToastModel?
     @State var loading: Bool = false
     
     public init() {}

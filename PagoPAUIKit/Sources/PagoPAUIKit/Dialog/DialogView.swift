@@ -166,10 +166,14 @@ public struct InfoPayDialogDemo: View {
         DialogView(
             dialogModel:
                 ResultModel(
-                    subtitle: "Se l’importo è diverso rispetto all’avviso, è perché pagoPA aggiorna automaticamente per assicurarti di aver pagato esattamente quanto dovuto ed evitarti così more o altri interessi.",
+                    subtitle: """
+                            Se l’importo è diverso rispetto all’avviso,
+                            è perché pagoPA aggiorna automaticamente per assicurarti
+                            di aver pagato esattamente quanto dovuto ed evitarti così more o altri interessi.
+                        """,
                     icon: .infoFilled,
                     themeType: ThemeType.info,
-                    buttons:[
+                    buttons: [
                         ButtonModel(
                             type: .primary,
                             themeType: .info,

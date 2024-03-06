@@ -38,7 +38,7 @@ public class CIEReader: NSObject {
     private var readCardMessage: String
     private var confirmCardReadMessage: String
     var loggerManager: CIELogger
-    var urlLogFile: URL? = nil
+    var urlLogFile: URL?
     var challenge: String?
     
     public init(readCardMessage: String = "Avvicina la CIE al lettore", confirmCardReadMessage: String = "Lettura carta OK", logMode: LogMode = .disabled) {

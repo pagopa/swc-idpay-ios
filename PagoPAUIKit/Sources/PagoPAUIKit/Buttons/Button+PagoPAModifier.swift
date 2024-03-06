@@ -11,7 +11,7 @@ struct PAButtonStyle: ViewModifier {
     
     var buttonType: PagoPAButtonType
     var fullwidth: Bool
-    var icon: Image.PAIcon? = nil
+    var icon: Image.PAIcon?
     var position: ImagePosition = .right
     var themeType: ThemeType = .light
     

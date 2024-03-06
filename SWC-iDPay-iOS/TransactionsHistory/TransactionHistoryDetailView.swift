@@ -126,10 +126,20 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
         .onChange(of: showOutro) { newValue in
             if newValue == true {
                 presentShare = false
-                router.pushTo(.outro(outroModel: OutroModel(title: "Operazione conclusa", subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.", actionTitle: "Torna alla home", action: {
-                    router.popToRoot()
-                    appManager.loadHome()
-                })))
+                router.pushTo(
+                    .outro(
+                        outroModel:
+                            OutroModel(
+                                title: "Operazione conclusa",
+                                subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
+                                actionTitle: "Torna alla home",
+                                action: {
+                                    router.popToRoot()
+                                    appManager.loadHome()
+                                }
+                            )
+                    )
+                )
             }
         }
         .sheet(isPresented: $presentShare, content: {

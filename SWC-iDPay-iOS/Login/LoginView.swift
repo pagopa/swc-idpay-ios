@@ -15,7 +15,7 @@ struct LoginView: View {
     
     private var onLoggedIn: () -> Void = {}
     
-    @State private var toastError: ToastModel? = nil
+    @State private var toastError: ToastModel?
     @FocusState private var focusedField: Field?
     
     private enum Field: Int, CaseIterable, Hashable {

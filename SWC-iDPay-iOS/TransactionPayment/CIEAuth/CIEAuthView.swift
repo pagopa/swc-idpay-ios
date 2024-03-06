@@ -94,7 +94,11 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
                     return
                 }
                 await MainActor.run {
-                    router.pushTo(.transactionConfirm(viewModel: TransactionDetailViewModel(networkClient: viewModel.networkClient, transaction: transaction, verifyCIEResponse: verifyCIEResponse, initiative: viewModel.initiative)))
+                    router.pushTo(.transactionConfirm(viewModel:
+                        TransactionDetailViewModel(networkClient: viewModel.networkClient,
+                                                   transaction: transaction,
+                                                   verifyCIEResponse: verifyCIEResponse,
+                                                   initiative: viewModel.initiative)))
                 }
             } catch {
                 if let cieError = error as? CIEReaderError {
@@ -106,9 +110,16 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
                         break
                     }
                 } else if let cieAuthError = error as? CIEAuthError {
-                    router.pushTo(.thankyouPage(result: ResultModel(title: "Errore nella verifica della transazione", subtitle:"Non è stato possibile verificare la transazione", themeType: .info, buttons: [
-                        ButtonModel(type: .primaryBordered, themeType: .info, title: "Accetta nuovo bonus", action: {
-                            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                    router.pushTo(.thankyouPage(result:
+                                            ResultModel(title: "Errore nella verifica della transazione",
+                                                        subtitle: "Non è stato possibile verificare la transazione",
+                                                        themeType: .info,
+                                                        buttons: [
+                        ButtonModel(type: .primaryBordered,
+                                    themeType: .info,
+                                    title: "Accetta nuovo bonus",
+                                    action: { router.pop(to: .initiatives(viewModel:
+                                            InitiativesViewModel(networkClient: viewModel.networkClient)))
                         })
                     ])))
                 } else {

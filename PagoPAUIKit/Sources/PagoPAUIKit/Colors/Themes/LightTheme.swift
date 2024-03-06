@@ -13,7 +13,7 @@ public struct LightTheme: PagoPATheme {
     public var backgroundColor: Color = .white
     
     // MARK: - Default icon (ex: for thankyou page)
-    public var defaultIcon: Image.PAIcon? = nil
+    public var defaultIcon: Image.PAIcon?
 
     // MARK: - Toast color
     public var toastBackgroundColor: Color = .turquoiseLight

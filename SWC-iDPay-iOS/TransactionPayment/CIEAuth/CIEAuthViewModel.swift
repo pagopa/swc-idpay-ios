@@ -13,7 +13,8 @@ class CIEAuthViewModel: TransactionDeleteVM {
     
     @Published var cieAuthError: CIEAuthError?
 
-    var reader = CIEReader(readCardMessage: "Appoggia la CIE sul dispositivo, in alto", confirmCardReadMessage: "Lettura completata", logMode: .enabled)
+    var reader = CIEReader(readCardMessage: "Appoggia la CIE sul dispositivo, in alto",
+                           confirmCardReadMessage: "Lettura completata")
     var nisAuthenticated: NisAuthenticated?
     
     var transactionData: CreateTransactionResponse
@@ -21,7 +22,10 @@ class CIEAuthViewModel: TransactionDeleteVM {
     init(networkClient: Requestable, transactionData: CreateTransactionResponse, initiative: Initiative? = nil) {
         self.transactionData = transactionData
 
-        super.init(networkClient: networkClient, transactionID: self.transactionData.milTransactionId, goodsCost: self.transactionData.goodsCost, initiative: initiative)
+        super.init(networkClient: networkClient,
+                   transactionID: self.transactionData.milTransactionId,
+                   goodsCost: self.transactionData.goodsCost,
+                   initiative: initiative)
     }
 
     func readCIE() async throws {
@@ -36,7 +40,11 @@ class CIEAuthViewModel: TransactionDeleteVM {
             }
             isLoading = true
             loadingStateMessage = "Stiamo verificando la CIE"
-            return try await networkClient.verifyCIE(milTransactionId: transactionData.milTransactionId, nis: nisAuthenticated.nis, ciePublicKey: nisAuthenticated.kpubIntServ, signature: nisAuthenticated.challengeSigned, sod: nisAuthenticated.sod)
+            return try await networkClient.verifyCIE(milTransactionId: transactionData.milTransactionId,
+                                                     nis: nisAuthenticated.nis,
+                                                     ciePublicKey: nisAuthenticated.kpubIntServ,
+                                                     signature: nisAuthenticated.challengeSigned,
+                                                     sod: nisAuthenticated.sod)
         } catch {
             isLoading = false
             throw error

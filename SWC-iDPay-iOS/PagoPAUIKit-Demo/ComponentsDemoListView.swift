@@ -94,9 +94,13 @@ struct Component: Identifiable, Hashable {
             case .dialog:
                 EmptyView()
             case .intro:
-                IntroView(title: "Accetta un bonus ID Pay", subtitle: "Inserisci i dettagli del pagamento e permetti ai tuoi clienti di utilizzare un bonus ID Pay.", actionTitle: "Accetta bonus ID Pay", action: {
-                    print("Inizia flusso bonus")
-                })
+                IntroView(
+                    title: "Accetta un bonus ID Pay",
+                    subtitle: "Inserisci i dettagli del pagamento e permetti ai tuoi clienti di utilizzare un bonus ID Pay.",
+                    actionTitle: "Accetta bonus ID Pay",
+                    action: {
+                        print("Inizia flusso bonus")
+                    })
             case .receipt:
                 ReceiptTicketDemoView()
             case .waitingView:
@@ -104,12 +108,19 @@ struct Component: Identifiable, Hashable {
             case .numberPad:
                 BonusAmountView(viewModel: BonusAmountViewModel(networkClient: NetworkClient(environment: .development), initiative: Initiative.mocked))
             case .pinPad:
-                CIEPinView(viewModel: CIEPinViewModel(networkClient: NetworkClient(environment: .development), transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mocked, initiative: Initiative.mocked))
+                CIEPinView(
+                    viewModel: 
+                        CIEPinViewModel(
+                            networkClient: NetworkClient(environment: .development),
+                            transaction: TransactionModel.mockedSuccessTransaction,
+                            verifyCIEResponse: VerifyCIEResponse.mocked,
+                            initiative: Initiative.mocked
+                        )
+                )
             }
         }
     }
 }
-
 
 struct ComponentsDemoListView: View {
     
@@ -267,7 +278,11 @@ struct ComponentsDemoListView: View {
     
     private func infoAction() {
         self.dialogModel = ResultModel(
-            subtitle: "Se l’importo è diverso rispetto all’avviso, è perché pagoPA aggiorna automaticamente per assicurarti di aver pagato esattamente quanto dovuto ed evitarti così more o altri interessi.",
+            subtitle: """
+                    Se l’importo è diverso rispetto all’avviso,
+                    è perché pagoPA aggiorna automaticamente per assicurarti
+                    di aver pagato esattamente quanto dovuto ed evitarti così more o altri interessi.
+                    """,
             icon: .infoFilled,
             themeType: ThemeType.info,
             buttons:[

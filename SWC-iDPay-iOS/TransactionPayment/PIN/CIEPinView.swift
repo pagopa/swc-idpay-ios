@@ -24,7 +24,7 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
             
             HStack(spacing: Constants.smallSpacing) {
                 if viewModel.pinString.count > 0 {
-                    ForEach(0..<viewModel.pinString.count, id:\.self) { n in
+                    ForEach(0..<viewModel.pinString.count, id:\.self) { _ in
                         PinDot(filled: Binding<Bool> (
                             get: { true },
                             set: { _ in }
@@ -71,7 +71,10 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
                                         title: "Continua",
                                         icon: .arrowRight,
                                         action: {
-                                            router.pushTo(.receipt(receiptModel: ReceiptPdfModel(transaction: viewModel.transaction, initiative: viewModel.initiative), networkClient: viewModel.networkClient))
+                                            router.pushTo(.receipt(receiptModel:
+                                                                    ReceiptPdfModel(transaction: viewModel.transaction,
+                                                                                    initiative: viewModel.initiative),
+                                                                   networkClient: viewModel.networkClient))
                                         }
                                     )]
                             )))
@@ -117,7 +120,9 @@ private struct PinDot: View {
 }
 
 #Preview {
-    CIEPinView(viewModel: CIEPinViewModel(networkClient: NetworkClient(environment: .development), transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mocked, initiative: Initiative.mocked))
+    CIEPinView(viewModel: CIEPinViewModel(networkClient: NetworkClient(environment: .development),
+                                          transaction: TransactionModel.mockedSuccessTransaction,
+                                          verifyCIEResponse: VerifyCIEResponse.mocked,
+                                          initiative: Initiative.mocked))
             .environmentObject(Router())
-    
 }

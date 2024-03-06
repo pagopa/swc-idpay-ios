@@ -18,7 +18,7 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
     
     @State private var presentShare: Bool = false
     @State private var generatedPdfReceiptURL: URL?
-    @State private var result: Result<MFMailComposeResult, Error>? = nil
+    @State private var result: Result<MFMailComposeResult, Error>?
     @State private var showOutro: Bool = false
     
     private var receiptPdfModel: ReceiptPdfModel
@@ -87,16 +87,35 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
     }
         
     func showCancelTransactionOutro() {
-        router.pushTo(.outro(outroModel: OutroModel(title: "Operazione conclusa", subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.", actionTitle: "Torna alla home", action: {
-            router.popToRoot()
-            appManager.loadHome()
-        })))
+        router.pushTo(
+            .outro(
+                outroModel:
+                    OutroModel(
+                        title: "Operazione conclusa",
+                        subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
+                        actionTitle: "Torna alla home",
+                        action: {
+                            router.popToRoot()
+                            appManager.loadHome()
+                        }
+                    )
+            )
+        )
     }
     
     func showTransactionPaymentOutro() {
-        router.pushTo(.outro(outroModel: OutroModel(title: "Operazione conclusa", subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.", actionTitle: "Accetta nuovo bonus", action: {
-            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: networkClient)))
-        })))
+        router.pushTo(
+            .outro(
+                outroModel: OutroModel(
+                    title: "Operazione conclusa",
+                    subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
+                    actionTitle: "Accetta nuovo bonus",
+                    action: {
+                        router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: networkClient)))
+                    }
+                )
+            )
+        )
     }
 }
 
