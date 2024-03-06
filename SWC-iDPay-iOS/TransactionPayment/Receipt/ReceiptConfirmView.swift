@@ -29,7 +29,7 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
     }
     
     public var body: some View {
-        ReceiptView (
+        ReceiptView(
             title: "Serve la ricevuta?",
             subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
             buttons: [

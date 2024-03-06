@@ -127,7 +127,7 @@ public struct InputField: View {
             }
             .textFieldStyle(
                 BorderedTextFieldStyle(
-                    isEditing: Binding<Bool> (
+                    isEditing: Binding<Bool>(
                         get: { focused },
                         set: { self.isEditing = $0 }
                     ),

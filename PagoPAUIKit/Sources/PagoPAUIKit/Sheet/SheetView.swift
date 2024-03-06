@@ -122,7 +122,7 @@ private struct Sheet<Content: View>: View {
         }
         .frame(maxWidth: .infinity)
         .background(Color.white)
-        .clipShape (
+        .clipShape(
             .rect(
                 topLeadingRadius: 40,
                 bottomLeadingRadius: 0,
