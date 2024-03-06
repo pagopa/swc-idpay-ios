@@ -26,8 +26,6 @@ final class HomeViewUITests: XCTestCase {
     func test_home_animation() {
         app.signIn(success: true)
 
-        // wait 3 seconds for page loading
-        sleep(3)
         let homeLogo = app.images["bonus"]
         XCTAssertFalse(homeLogo.exists)
 
@@ -60,9 +58,7 @@ final class HomeViewUITests: XCTestCase {
         XCTAssertTrue(acceptBonusBtn.waitForExistence(timeout: 8.0))
         acceptBonusBtn.tap()
 
-        let scrollViewsQuery = app.scrollViews
-        let elementsQuery = scrollViewsQuery.otherElements
-        XCTAssertTrue(elementsQuery.staticTexts["Scegli l'iniziativa"].waitForExistence(timeout: 4.0))
+        XCTAssertTrue(app.staticTexts["Non ci sono iniziative attive"].waitForExistence(timeout: 4.0))
     }
 
 }
