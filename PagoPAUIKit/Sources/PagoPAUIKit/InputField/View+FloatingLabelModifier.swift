@@ -53,7 +53,7 @@ public struct FloatingLabelModifier: ViewModifier {
 
 extension View {
     
-    public func floatingLabel(title: String, opacity: Double, insets: EdgeInsets = EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0),  displaceLabel: Binding<Bool>) -> some View {
+    public func floatingLabel(title: String, opacity: Double, insets: EdgeInsets = EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0), displaceLabel: Binding<Bool>) -> some View {
         modifier(FloatingLabelModifier(title: title, opacity: opacity, insets: insets, displaceLabel: displaceLabel))
     }
 }

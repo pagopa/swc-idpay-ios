@@ -52,19 +52,19 @@ public struct ListItemHistory: View {
 
 #Preview {
     ScrollView {
-        ListItemHistory(iconLeft: .checkmark ,titleText: "title", subTitleText: "subtitle", amountText: "151,00 €")
+        ListItemHistory(iconLeft: .checkmark, titleText: "title", subTitleText: "subtitle", amountText: "151,00 €")
         Divider()
         
-        ListItemHistory(iconLeft: .warning ,titleText: "title", subTitleText: "subtitle", amountText: "151,00 €")
+        ListItemHistory(iconLeft: .warning, titleText: "title", subTitleText: "subtitle", amountText: "151,00 €")
         Divider()
         
-        ListItemHistory(iconLeft: .pending ,titleText: "title", subTitleText: "subtitle", amountText: "151,00 €")
+        ListItemHistory(iconLeft: .pending, titleText: "title", subTitleText: "subtitle", amountText: "151,00 €")
         Divider()
         
-        ListItemHistory(iconLeft: .refunded ,titleText: "title", subTitleText: "subtitle", amountText: "151,00 €")
+        ListItemHistory(iconLeft: .refunded, titleText: "title", subTitleText: "subtitle", amountText: "151,00 €")
         Divider()
         
-        ListItemHistory(iconLeft: .toBeRefunded ,titleText: "title", subTitleText: "subtitle", amountText: "151,00 €")
+        ListItemHistory(iconLeft: .toBeRefunded, titleText: "title", subTitleText: "subtitle", amountText: "151,00 €")
         Divider()
         
     }

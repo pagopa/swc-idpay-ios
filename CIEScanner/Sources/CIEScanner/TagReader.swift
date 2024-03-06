@@ -23,7 +23,7 @@ class TagReader {
     // MARK: - Selections
     func selectMasterFile() async throws {
         loggerManager.log("\nRead Master File -->")
-        let apdu = NFCISO7816APDU(instructionClass: 0x00, instructionCode: 0xA4, p1Parameter: 0x00, p2Parameter: 0x0C, data: Data([0x3f,0x00]), expectedResponseLength: -1)
+        let apdu = NFCISO7816APDU(instructionClass: 0x00, instructionCode: 0xA4, p1Parameter: 0x00, p2Parameter: 0x0C, data: Data([0x3f, 0x00]), expectedResponseLength: -1)
         
         _ = try await send( cmd: apdu)
     }

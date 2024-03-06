@@ -169,7 +169,7 @@ struct LoadingButtonView: View {
                 Text(title)
             }
         )
-        .padding(.horizontal,Constants.mediumSpacing)
+        .padding(.horizontal, Constants.mediumSpacing)
 
     }
     

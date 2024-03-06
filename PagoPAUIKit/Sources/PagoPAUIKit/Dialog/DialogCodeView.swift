@@ -94,14 +94,13 @@ struct DialogCodeModifier: ViewModifier {
     func body(content: Content) -> some View {
         ZStack {
             content
-                    
             DialogCodeView(title: title, subtitle: subtitle, codeValue: codeValue, isPresenting: $isPresenting, onClose: onClose)
         }
     }
 }
 
 extension View {
-    public func dialogCode(title: String, subtitle: String, codeValue: String,  isPresenting: Binding<Bool>, onClose: @escaping () -> Void) -> some View {
+    public func dialogCode(title: String, subtitle: String, codeValue: String, isPresenting: Binding<Bool>, onClose: @escaping () -> Void) -> some View {
         modifier(DialogCodeModifier(title: title, subtitle: subtitle, codeValue: codeValue, isPresenting: isPresenting, onClose: onClose))
     }
 }
