@@ -36,8 +36,8 @@ public struct ListItem: View {
     
     public var body: some View {
         VStack {
-            HStack{
-                HStack{
+            HStack {
+                HStack {
                     if let iconLeft = iconLeft {
                         Image(icon: iconLeft)
                             .resizable()
@@ -45,7 +45,7 @@ public struct ListItem: View {
                             .padding(.trailing, Constants.smallSpacing)
                     }
                     
-                    VStack(alignment: .leading){
+                    VStack(alignment: .leading) {
                         Text(titleText)
                             .lineLimit(1)
                             .font(.PAFont.caption)
@@ -67,7 +67,7 @@ public struct ListItem: View {
                             .frame(width: Constants.listItemIconSize, height: Constants.listItemIconSize)
                     }
                     
-                } else if let amount = amountText{
+                } else if let amount = amountText {
                     Text(amount)
                         .font(.PAFont.h6)
                         .foregroundColor(Color.paBlack)
@@ -88,7 +88,7 @@ public struct ListItem: View {
         ListItem(title: "Titolo", subtitle: "Sottotitolo")
         Divider()
         
-        ListItem(title: "Titolo", subtitle: "Sottotitolo", icon: .info){
+        ListItem(title: "Titolo", subtitle: "Sottotitolo", icon: .info) {
             print("pippo")
         }
         Divider()
@@ -96,7 +96,7 @@ public struct ListItem: View {
         ListItem(iconLeft: .icoEuro, title: "Titolo", subtitle: "Sottotitolo")
         Divider()
         
-        ListItem(iconLeft: .icoEuro, title: "Titolo", subtitle: "Sottotitolo", icon: .info){
+        ListItem(iconLeft: .icoEuro, title: "Titolo", subtitle: "Sottotitolo", icon: .info) {
             print("pippo")
         }
         Divider()

@@ -15,7 +15,7 @@ public struct ActivityViewController: UIViewControllerRepresentable {
 
     var applicationActivities: [UIActivity]?
 
-    public init(fileURL: Binding<URL?>, hasDoneAction: Binding<Bool>, applicationActivities: [UIActivity]? = nil){
+    public init(fileURL: Binding<URL?>, hasDoneAction: Binding<Bool>, applicationActivities: [UIActivity]? = nil) {
         _pdfURL = fileURL
         _hasDone = hasDoneAction
         self.applicationActivities = applicationActivities

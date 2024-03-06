@@ -223,7 +223,7 @@ public struct InputField: View {
     
     private var maxLengthWithSpaces: Int? {
         guard let maxLength = validationRule?.maxLength else { return nil }
-        return maxLength + text.filter{$0 == " "}.count
+        return maxLength + text.filter {$0 == " "}.count
     }
 
     private func formatText(_ newText: String) {
@@ -304,7 +304,7 @@ private struct InputListDemo: View {
                 }
                 .pagoPAButtonStyle(buttonType: .primary)
                 .disabled(username.isEmpty || password.isEmpty)
-                .alert("Login done", isPresented: $showLoginSuccess){
+                .alert("Login done", isPresented: $showLoginSuccess) {
                     Button("OK", role: .cancel) {
                         showLoginSuccess.toggle()
                     }

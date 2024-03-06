@@ -21,14 +21,14 @@ public struct ListItemHistory: View {
     }
     
     public var body: some View {
-        HStack{
-            if let leftIcon = iconLeft{
+        HStack {
+            if let leftIcon = iconLeft {
                 Image(icon:leftIcon)
                     .resizable()
                     .frame(width: Constants.listItemIconSize, height: Constants.listItemIconSize)
                     .padding(.trailing, Constants.xsmallSpacing)
             }
-            VStack(alignment: .leading){
+            VStack(alignment: .leading) {
                 Text(titleText)
                     .font(.PAFont.bodySB)
                     .foregroundColor(Color.paBlack)
@@ -39,7 +39,7 @@ public struct ListItemHistory: View {
             }
             Spacer()
             
-            if let amount = amountText{
+            if let amount = amountText {
                 Text(amount)
                     .font(.PAFont.h6)
                     .foregroundColor(Color.paBlack)

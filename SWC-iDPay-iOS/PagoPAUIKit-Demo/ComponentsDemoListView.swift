@@ -215,7 +215,7 @@ struct ComponentsDemoListView: View {
             .navigationBarTitle("", displayMode: .inline)
             .toolbar(content: {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button{
+                    Button {
                         showMenu.toggle()
                     } label: {
                         Image(icon: .menu)
@@ -225,7 +225,7 @@ struct ComponentsDemoListView: View {
                 
             })
         }
-        .alert("Thankyou page type", isPresented: $showThankyouPageChoiceAlert){
+        .alert("Thankyou page type", isPresented: $showThankyouPageChoiceAlert) {
             
             VStack {
                 Button("Success") {
@@ -245,7 +245,7 @@ struct ComponentsDemoListView: View {
         .dialog(
             dialogModel: self.dialogModel ?? ResultModel.emptyModel,
             isPresenting: $isPresentingDialog,
-            onClose:{
+            onClose: {
                 print("Do some action on close")
             }
         )
@@ -393,7 +393,6 @@ struct ComponentsDemoListView: View {
         showThankyouPageChoiceAlert.toggle()
     }
 }
-
 
 #Preview {
     ComponentsDemoListView()

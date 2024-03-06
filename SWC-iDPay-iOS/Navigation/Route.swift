@@ -87,7 +87,7 @@ extension Route: Hashable {
     }
     
     @MainActor static func == (lhs: Route, rhs: Route) -> Bool {
-        switch (lhs, rhs){
+        switch (lhs, rhs) {
         case (.initiatives, .initiatives):
             return true
         case (.bonusAmount, .bonusAmount):

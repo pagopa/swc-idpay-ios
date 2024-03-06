@@ -16,7 +16,7 @@ struct NumberPadRow: View {
     
     var body: some View {
         HStack {
-            ForEach(numbers, id: \.self){ k in
+            ForEach(numbers, id: \.self) { k in
                 KeyPadButton(k)
             }
         }

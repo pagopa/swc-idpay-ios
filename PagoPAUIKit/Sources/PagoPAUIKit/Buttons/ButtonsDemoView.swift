@@ -43,7 +43,7 @@ struct ButtonsDemoSection: View {
     var themeType: ThemeType
     private var theme: PagoPATheme
     
-    init(title: String, themeType: ThemeType){
+    init(title: String, themeType: ThemeType) {
         self.title = title
         self.themeType = themeType
         self.theme = ThemeManager.buildTheme(type: themeType)

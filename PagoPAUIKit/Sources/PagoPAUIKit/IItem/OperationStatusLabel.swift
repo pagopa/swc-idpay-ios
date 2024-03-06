@@ -61,7 +61,7 @@ public struct OperationStatusLabel: View {
             .foregroundColor(statusType.textColor)
             .padding(.vertical, Constants.xsmallSpacing/2.0)
             .padding(.horizontal, Constants.xsmallSpacing)
-            .background{
+            .background {
                 Capsule()
                     .fill(statusType.backgroundColor)
             }

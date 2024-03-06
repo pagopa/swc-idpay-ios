@@ -22,7 +22,7 @@ struct CreateTransactionResponse: Decodable {
     var retryAfter: Int?
     var maxRetries: Int?
         
-    mutating func addValuesFrom(headers: [AnyHashable: Any]){
+    mutating func addValuesFrom(headers: [AnyHashable: Any]) {
         
         if let location = headers["Location"] as? String {
             self.transactionStatusPollingURL = location

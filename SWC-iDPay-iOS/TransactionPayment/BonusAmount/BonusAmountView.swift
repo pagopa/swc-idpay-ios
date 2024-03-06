@@ -40,7 +40,7 @@ struct BonusAmountView : View {
             .dialog(
                 dialogModel: buildAuthModeDialog(),
                 isPresenting: $showAuthDialog,
-                onClose:{}
+                onClose: {}
             )
             .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         }

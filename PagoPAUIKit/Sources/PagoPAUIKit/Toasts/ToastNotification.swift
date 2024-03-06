@@ -20,7 +20,7 @@ struct ToastNotification: View {
     }
     
     var body: some View {
-        HStack(alignment: .center, spacing: 8){
+        HStack(alignment: .center, spacing: 8) {
             Text(message)
                 .font(.PAFont.cta)
                 .foregroundColor(theme.toastTextBorderBkgColor)

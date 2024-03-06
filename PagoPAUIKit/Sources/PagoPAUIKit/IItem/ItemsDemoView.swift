@@ -12,12 +12,12 @@ public struct ItemsDemoView: View {
     public init() {}
     
     public var body: some View {
-        ScrollView{
+        ScrollView {
             
             ListItem(title: "Titolo", subtitle: "Sottotitolo")
             Divider()
             
-            ListItem(title: "Titolo", subtitle: "Sottotitolo", icon: .info){
+            ListItem(title: "Titolo", subtitle: "Sottotitolo", icon: .info) {
                 print("pippo")
             }
             Divider()
@@ -25,7 +25,7 @@ public struct ItemsDemoView: View {
             ListItem(iconLeft: .icoEuro, title: "Titolo", subtitle: "Sottotitolo")
             Divider()
             
-            ListItem(iconLeft: .icoEuro, title: "Titolo", subtitle: "Sottotitolo", icon: .info){
+            ListItem(iconLeft: .icoEuro, title: "Titolo", subtitle: "Sottotitolo", icon: .info) {
                 print("pippo")
             }
             Divider()

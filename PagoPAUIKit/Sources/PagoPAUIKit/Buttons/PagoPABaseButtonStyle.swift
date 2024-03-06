@@ -63,7 +63,7 @@ struct PagoPABaseButtonStyle: ButtonStyle {
         return buttonType == .primaryBordered || buttonType == .secondaryBordered
     }
     
-    public init(buttonModel: ButtonModel, fullwidth: Bool = true){
+    public init(buttonModel: ButtonModel, fullwidth: Bool = true) {
         self.buttonType = buttonModel.type
         self.fullwidth = fullwidth
         self.theme      = ThemeManager.buildTheme(type: buttonModel.themeType)

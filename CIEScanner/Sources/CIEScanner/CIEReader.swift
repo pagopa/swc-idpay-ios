@@ -80,7 +80,7 @@ extension CIEReader: NFCTagReaderSessionDelegate {
     
     public func tagReaderSession(_ session: NFCTagReaderSession, didInvalidateWithError error: Error) {
         
-        if let readerError = error as? NFCReaderError{
+        if let readerError = error as? NFCReaderError {
             switch readerError.code {
             case .readerSessionInvalidationErrorUserCanceled:
                 activeContinuation?.resume(returning: nil)

@@ -28,8 +28,8 @@ public struct DialogView: View {
                 VStack(spacing: 0) {
                     HStack {
                         Spacer()
-                        if let onClose = onClose{
-                            Button() {
+                        if let onClose = onClose {
+                            Button {
                                 isPresenting = false
                                 onClose()
                             } label: {

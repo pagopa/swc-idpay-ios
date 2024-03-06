@@ -42,7 +42,7 @@ class NetworkClient: Requestable {
         return response.initiatives
     }
     
-    func createTransaction(initiativeId: String, amount: Int) async throws -> CreateTransactionResponse{
+    func createTransaction(initiativeId: String, amount: Int) async throws -> CreateTransactionResponse {
         let response: CreateTransactionResponse = try await sendRequest(for: .createTransaction(initiativeId: initiativeId, amount: amount))
         return response
     }

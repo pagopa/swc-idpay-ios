@@ -29,7 +29,7 @@ public struct FloatingLabelModifier: ViewModifier {
                     Text(title)
                         .font(.PAFont.body)
                         .foregroundColor(.grey700.opacity(opacity))
-                        .background{
+                        .background {
                             if displaceLabel == true {
                                 Rectangle()
                                     .inset(by: -5.0)

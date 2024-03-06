@@ -18,7 +18,7 @@ extension String {
     
     static func randomString(length: Int = 32) -> String {
         let numbers = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        return String((0..<length).compactMap{ _ in
+        return String((0..<length).compactMap { _ in
             guard let randomElement = numbers.randomElement() else {return nil}
             return randomElement
         })

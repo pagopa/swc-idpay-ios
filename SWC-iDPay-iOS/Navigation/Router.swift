@@ -33,7 +33,7 @@ class Router: ObservableObject {
         navigationPath.removeLast(itemsToPop)
     }
     
-    func pop(last: Int){
+    func pop(last: Int) {
         guard navigationPath.count > last else { return }
         navigationPath.removeLast(last)
     }

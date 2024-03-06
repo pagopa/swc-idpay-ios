@@ -21,7 +21,7 @@ class TagReader {
     }
     
     // MARK: - Selections
-    func selectMasterFile() async throws  {
+    func selectMasterFile() async throws {
         loggerManager.log("\nRead Master File -->")
         let apdu = NFCISO7816APDU(instructionClass: 0x00, instructionCode: 0xA4, p1Parameter: 0x00, p2Parameter: 0x0C, data: Data([0x3f,0x00]), expectedResponseLength: -1)
         
@@ -146,7 +146,7 @@ class TagReader {
         return try await signIntAuth(challengeByte)
     }
 
-    private func signIntAuth(_ dataToSign: [UInt8]) async throws -> [UInt8]  {
+    private func signIntAuth(_ dataToSign: [UInt8]) async throws -> [UInt8] {
         guard let settingAuth = NFCISO7816APDU(data: Data([0x00, 0x22, 0x41, 0xA4, 0x06, 0x80, 0x01, 0x02, 0x84, 0x01, 0x83])) else { return [] }
         let respSettingAuth = try await send(cmd: settingAuth)
         var responseAuthChallenge: ResponseAPDU
@@ -189,7 +189,7 @@ class TagReader {
             loggerManager.log( "🔴 [ERROR] reading tag: sw1 - 0x\(String.hexStringFromBinary(sw1)), sw2 - 0x\(String.hexStringFromBinary(sw2))" )
             let tagError: CIEReaderError
             
-            switch (rep.sw1, rep.sw2){
+            switch (rep.sw1, rep.sw2) {
             case (0x63, 0x00):
                 tagError = .invalidTag
             case (0x61, 0x00):
@@ -212,11 +212,11 @@ class TagReader {
             var headMod = head
             var ds: Int = data.count
             
-            if(ds > 255){
+            if(ds > 255) {
                 var i = 0
                 var cla: UInt8 = head[0]
                 
-                while(true){
+                while(true) {
                     var s: [UInt8] = Utils.getSubArray(from: data, start: i, end: min((data.count-i), 255))
                     i += s.count
                     if(i != data.count) {
@@ -260,7 +260,7 @@ class TagReader {
                 }
             } else {
                 
-                if(data.isEmpty == false){
+                if(data.isEmpty == false) {
                     apdu.append(contentsOf: headMod)
                     apdu.append(contentsOf: data.count.toByteArray(pad: 2))
                     apdu += data

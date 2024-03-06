@@ -40,7 +40,7 @@ struct ShimmerView_Previews: PreviewProvider {
             Rectangle()
                 .foregroundColor(.clear)
                 .cornerRadius(40)
-                .overlay{
+                .overlay {
                     ShimmerAnimationView()
                         .cornerRadius(40)
                         .padding(.horizontal, 24)
