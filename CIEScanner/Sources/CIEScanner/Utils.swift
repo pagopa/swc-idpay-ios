@@ -13,8 +13,8 @@ class Utils {
     /// - parameter val: the original byte to convert
     /// - returns: the Integer value for the input byte
     public func binToHex( _ val: UInt8 ) -> Int {
-        let hexRep = String(format:"%02X", val)
-        return Int(hexRep, radix:16)!
+        let hexRep = String(format: "%02X", val)
+        return Int(hexRep, radix: 16)!
     }
     
     /// Convert a slice array of bytes to hexadecimal UInt64
@@ -28,7 +28,7 @@ class Utils {
     /// - parameter val: original byte array
     /// - returns: the converted hexadecimal UInt64
     public func binToHex( _ val: [UInt8] ) -> UInt64 {
-        let hexVal = UInt64(String.hexStringFromBinary(val), radix:16)!
+        let hexVal = UInt64(String.hexStringFromBinary(val), radix: 16)!
         return hexVal
     }
     

@@ -88,7 +88,7 @@ public struct WaitingViewPlainDemo: View {
         WaitingView(
             title: "Attendi autorizzazione",
             subtitle: "Per proseguire è necessario autorizzare l’operazione sull’app IO",
-            buttons:[
+            buttons: [
                 ButtonModel(
                     type: .plain,
                     themeType: .info,

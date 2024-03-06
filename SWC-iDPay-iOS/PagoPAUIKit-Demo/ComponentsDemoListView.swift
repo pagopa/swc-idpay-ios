@@ -285,7 +285,7 @@ struct ComponentsDemoListView: View {
                     """,
             icon: .infoFilled,
             themeType: ThemeType.info,
-            buttons:[
+            buttons: [
                 ButtonModel(
                     type: .primary,
                     themeType: .info,
@@ -304,7 +304,7 @@ struct ComponentsDemoListView: View {
             title: "Codice errato!",
             subtitle: "Hai a disposizione ancora 2 tentativi.",
             themeType: ThemeType.warning,
-            buttons:[
+            buttons: [
                 ButtonModel(
                     type: .primary,
                     themeType: .warning,
@@ -331,7 +331,7 @@ struct ComponentsDemoListView: View {
         self.dialogModel = ResultModel(
             title: "Come vuoi identificarti?",
             themeType: ThemeType.light,
-            buttons:[
+            buttons: [
                 ButtonModel(
                     type: .primary,
                     themeType: .light,
@@ -360,7 +360,7 @@ struct ComponentsDemoListView: View {
             title: "Vuoi annullare la spesa del bonus ID Pay?",
             subtitle: "La spesa è già stata autorizzata, se annulli l’operazione l’importo verrà riaccreditato sull’iniziativa del cittadino.",
             themeType: ThemeType.light,
-            buttons:[
+            buttons: [
                 ButtonModel(
                     type: .primary,
                     themeType: .light,

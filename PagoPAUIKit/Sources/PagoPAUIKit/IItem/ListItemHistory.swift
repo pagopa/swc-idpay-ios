@@ -23,7 +23,7 @@ public struct ListItemHistory: View {
     public var body: some View {
         HStack {
             if let leftIcon = iconLeft {
-                Image(icon:leftIcon)
+                Image(icon: leftIcon)
                     .resizable()
                     .frame(width: Constants.listItemIconSize, height: Constants.listItemIconSize)
                     .padding(.trailing, Constants.xsmallSpacing)

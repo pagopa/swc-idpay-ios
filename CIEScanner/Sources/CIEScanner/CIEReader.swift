@@ -128,7 +128,7 @@ extension CIEReader: NFCTagReaderSessionDelegate {
         Task { [cieTag] in
             do {
                 try await session.connect(to: tag)
-                let tagReader = TagReader(tag:cieTag, logger: self.loggerManager)
+                let tagReader = TagReader(tag: cieTag, logger: self.loggerManager)
                 
                 do {
                     let responseIAS = try await tagReader.selectIAS()

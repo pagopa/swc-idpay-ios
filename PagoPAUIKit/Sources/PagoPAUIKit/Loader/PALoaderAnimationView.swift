@@ -12,7 +12,7 @@ struct PALoaderAnimationView: UIViewRepresentable {
     
     func makeUIView(context: UIViewRepresentableContext<PALoaderAnimationView>) -> UIView {
         let view = UIView(frame: .zero)
-        let animationView = LottieAnimationView(name:"pagopa_loader", bundle: .module)
+        let animationView = LottieAnimationView(name: "pagopa_loader", bundle: .module)
         animationView.loopMode = .loop
         animationView.play()
         animationView.contentMode = .scaleAspectFit

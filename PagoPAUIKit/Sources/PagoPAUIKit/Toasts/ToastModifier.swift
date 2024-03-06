@@ -84,7 +84,7 @@ extension AnyTransition {
     static var zoomAndFade: AnyTransition {
         .asymmetric(
             insertion: AnyTransition.opacity.animation(.easeIn(duration: 1.0)).combined(with: .scale),
-            removal:   .opacity.animation(.easeOut(duration: 0.6))
+            removal: .opacity.animation(.easeOut(duration: 0.6))
         )
     }
 }

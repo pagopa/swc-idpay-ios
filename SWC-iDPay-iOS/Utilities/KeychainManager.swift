@@ -120,7 +120,7 @@ class KeychainManager {
         guard status == errSecSuccess else { throw KeychainManagerError.unhandledError(status: status) }
         
         do {
-            guard let existingItem = item as? [String : Any],
+            guard let existingItem = item as? [String: Any],
                 let data = existingItem[kSecValueData as String] as? Data else {
                     throw KeychainManagerError.itemNotFound
             }
@@ -190,7 +190,7 @@ class KeychainManager {
         
         do {
             let publicKey = try getPublicKey()
-            var error : Unmanaged<CFError>?
+            var error: Unmanaged<CFError>?
             guard let result = SecKeyCreateEncryptedData(publicKey, SecKeyAlgorithm.eciesEncryptionStandardX963SHA256AESGCM, digest as CFData, &error) else {
                 throw KeychainManagerError.genericError(description: "Error during data decryption\n\(error?.takeRetainedValue().localizedDescription ?? "")")
             }
@@ -202,7 +202,7 @@ class KeychainManager {
         
         do {
             let privateKey = try getPrivateKey()
-            var error : Unmanaged<CFError>?
+            var error: Unmanaged<CFError>?
             guard let result = SecKeyCreateDecryptedData(privateKey, SecKeyAlgorithm.eciesEncryptionStandardX963SHA256AESGCM, digest as CFData, &error) else {
                 throw KeychainManagerError.genericError(description: "Error during data encryption\n\(error?.takeRetainedValue().localizedDescription ?? "")")
             }

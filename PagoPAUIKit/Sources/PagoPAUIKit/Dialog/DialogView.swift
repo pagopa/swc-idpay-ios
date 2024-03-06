@@ -52,7 +52,7 @@ public struct DialogView: View {
                                 icon: dialogModel.icon,
                                 themeType: dialogModel.themeType,
                                 buttons: dialogModel.buttons,
-                                showLoading:dialogModel.showLoading
+                                showLoading: dialogModel.showLoading
                             )
                     )
                     .padding(.bottom, Constants.largeSpacing)
@@ -87,7 +87,7 @@ struct DialogModifier: ViewModifier {
 }
 
 extension View {
-    public func dialog(dialogModel:ResultModel, isPresenting: Binding<Bool>, onClose: (() -> Void)? = nil) -> some View {
+    public func dialog(dialogModel: ResultModel, isPresenting: Binding<Bool>, onClose: (() -> Void)? = nil) -> some View {
         modifier(DialogModifier(dialogModel: dialogModel, isPresenting: isPresenting, onClose: onClose))
     }
 }
@@ -102,7 +102,7 @@ public struct WarningDialogDemo: View {
                     title: "Codice errato!",
                     subtitle: "Hai a disposizione ancora 2 tentativi.",
                     themeType: ThemeType.warning,
-                    buttons:[
+                    buttons: [
                         ButtonModel(
                             type: .primary,
                             themeType: .warning,
@@ -135,7 +135,7 @@ public struct InfoDialogDemo: View {
                     title: "prova dialog",
                     subtitle: "subtitle",
                     themeType: ThemeType.info,
-                    buttons:[
+                    buttons: [
                         ButtonModel(
                             type: .primary,
                             themeType: .info,
@@ -195,7 +195,7 @@ public struct AuthDialogDemo: View {
                 ResultModel(
                     title: "Come vuoi identificarti?",
                     themeType: ThemeType.light,
-                    buttons:[
+                    buttons: [
                         ButtonModel(
                             type: .primary,
                             themeType: .light,
@@ -232,7 +232,7 @@ public struct AbortDialogDemo: View {
                         title: "Vuoi annullare la spesa del bonus ID Pay?",
                         subtitle: "La spesa è già stata autorizzata, se annulli l’operazione l’importo verrà riaccreditato sull’iniziativa del cittadino.",
                         themeType: ThemeType.light,
-                        buttons:[
+                        buttons: [
                             ButtonModel(
                                 type: .primary,
                                 themeType: .light,

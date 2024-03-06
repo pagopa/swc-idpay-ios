@@ -149,7 +149,7 @@ struct SheetModifier<V>: ViewModifier where V: View {
 }
 
 extension View {
-    public func showSheet<Content>(isVisibile: Binding<Bool>, content: @escaping () -> Content) -> some View where Content:View {
+    public func showSheet<Content>(isVisibile: Binding<Bool>, content: @escaping () -> Content) -> some View where Content: View {
         modifier(SheetModifier(show: isVisibile, sheetContent: content))
     }
 }

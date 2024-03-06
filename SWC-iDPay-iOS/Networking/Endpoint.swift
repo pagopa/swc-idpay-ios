@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias HTTPHeaders = [String:String]
+typealias HTTPHeaders = [String: String]
 
 enum Endpoint {
     case login(username: String, password: String)
@@ -73,7 +73,7 @@ enum Endpoint {
             ], uniquingKeysWith: +)
         case .login, .refreshToken:
             return defaultHeaders.merging([
-                "Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/x-www-form-urlencoded"
             ], uniquingKeysWith: +)
         default:
             return defaultHeaders.merging([
@@ -86,9 +86,9 @@ enum Endpoint {
         switch self {
         case .login(let username, let password):
             return [
-                "scope" : "offline_access",
+                "scope": "offline_access",
                 "client_id": "5254f087-1214-45cd-94ae-fda53c835197",
-                "grant_type" : "password",
+                "grant_type": "password",
                 "username": username,
                 "password": password
             ]
@@ -96,7 +96,7 @@ enum Endpoint {
             return [
                 "refresh_token": refreshToken,
                 "client_id": "5254f087-1214-45cd-94ae-fda53c835197",
-                "grant_type" : "refresh_token"
+                "grant_type": "refresh_token"
             ]
         case .createTransaction(let initiativeId, let amount):
             return [
@@ -113,7 +113,7 @@ enum Endpoint {
             ]
         case .authorize(_, let kid, let encSessionKey, let authCodeBlock):
             return [
-                "authCodeBlockData" : [
+                "authCodeBlockData": [
                     "kid": kid,
                     "encSessionKey": encSessionKey,
                     "authCodeBlock": authCodeBlock

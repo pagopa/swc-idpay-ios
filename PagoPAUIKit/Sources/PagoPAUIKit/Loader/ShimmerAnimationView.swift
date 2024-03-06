@@ -14,7 +14,7 @@ struct ShimmerAnimationView: UIViewRepresentable {
         
         let view = UIView(frame: .zero)
 
-        let animationView = LottieAnimationView(name:"lazy_load_shimmer", bundle: .module)
+        let animationView = LottieAnimationView(name: "lazy_load_shimmer", bundle: .module)
             
         animationView.loopMode = .loop
         animationView.contentMode = .scaleAspectFill

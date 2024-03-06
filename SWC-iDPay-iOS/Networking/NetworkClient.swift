@@ -105,7 +105,7 @@ extension NetworkClient {
         try sessionManager.saveSessionData(response)
     }
     
-    private func sendRequest<T:Decodable>(for endpoint: Endpoint, params: Parameters? = nil, headers: Headers? = nil) async throws -> T {
+    private func sendRequest<T: Decodable>(for endpoint: Endpoint, params: Parameters? = nil, headers: Headers? = nil) async throws -> T {
         
         var apiRequest: URLRequest = URLRequest.buildRequest(baseUrl: baseURL, endpoint: endpoint)
         

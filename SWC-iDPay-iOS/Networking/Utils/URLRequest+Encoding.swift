@@ -38,7 +38,7 @@ extension URLRequest {
                     encodedURLRequest.url = newUrlComponents.url
                 }
             case .formUrlEncoded:
-                var array : [String] = []
+                var array: [String] = []
 
                 array.append(contentsOf: parameters.compactMap {
                     let key = $0.key
@@ -68,7 +68,7 @@ extension URLRequest {
         return encodedURLRequest
     }
     
-    static func buildRequest<T:Codable>(baseUrl: URL, endpoint: Endpoint, parameters: Parameters? = nil, object: T? = nil) -> URLRequest {
+    static func buildRequest<T: Codable>(baseUrl: URL, endpoint: Endpoint, parameters: Parameters? = nil, object: T? = nil) -> URLRequest {
         
         var encodedURLRequest = URLRequest(url: baseUrl.appendingPathComponent(endpoint.path))
         encodedURLRequest.httpMethod = endpoint.method.rawValue
@@ -92,7 +92,7 @@ extension URLRequest {
                     encodedURLRequest.url = newUrlComponents.url
                 }
             case .formUrlEncoded:
-                var array : [String] = []
+                var array: [String] = []
                 array.append(contentsOf: parameters.compactMap {
                     let key = $0.key
                     var value = $0.value

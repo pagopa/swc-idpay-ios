@@ -8,7 +8,7 @@ import SwiftUI
 import PagoPAUIKit
 import CIEScanner
 
-struct BonusAmountView : View {
+struct BonusAmountView: View {
     @EnvironmentObject var router: Router
     @ObservedObject var viewModel: BonusAmountViewModel
     @State var showAuthDialog: Bool = false
@@ -81,7 +81,7 @@ struct BonusAmountView : View {
         return ResultModel(
             title: "Come vuoi identificarti?",
             themeType: ThemeType.light,
-            buttons:[
+            buttons: [
                 ButtonModel(
                     type: .primary,
                     themeType: .light,

@@ -86,7 +86,7 @@ public struct ColorsDemoView: View {
     public var body: some View {
         ScrollView {
             VStack {
-                ForEach(allColors, id:\.name) { color in
+                ForEach(allColors, id: \.name) { color in
                     ColorDemoRow(title: color.name, color: color.color)
                         .frame(height: 40)
 

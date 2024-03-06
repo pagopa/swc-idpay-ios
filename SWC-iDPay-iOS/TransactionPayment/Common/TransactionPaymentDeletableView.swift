@@ -8,7 +8,7 @@
 import SwiftUI
 import PagoPAUIKit
 
-protocol TransactionPaymentDeletableView where Self:View {
+protocol TransactionPaymentDeletableView where Self: View {
     
     func buildResultModel(viewModel: TransactionDeleteVM, router: Router, onConfirmDelete: @escaping () -> Void, onRetry: (() -> Void)?) -> ResultModel
 }

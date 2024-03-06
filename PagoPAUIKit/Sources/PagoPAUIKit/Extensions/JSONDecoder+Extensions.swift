@@ -9,7 +9,7 @@ import Foundation
 
 extension JSONDecoder {
     
-    public func decodeFromLocalJSON<T:Codable>(name: String) -> T? {
+    public func decodeFromLocalJSON<T: Codable>(name: String) -> T? {
         guard let path = Bundle.main.path(forResource: name, ofType: "json") else {
             fatalError("File with name \(name).json does not exists")
         }

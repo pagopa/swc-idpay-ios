@@ -23,7 +23,7 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
 
             HStack(spacing: Constants.smallSpacing) {
                 if viewModel.pinString.count > 0 {
-                    ForEach(0..<viewModel.pinString.count, id:\.self) { _ in
+                    ForEach(0..<viewModel.pinString.count, id: \.self) { _ in
                         PinDot(filled: Binding<Bool> (
                             get: { true },
                             set: { _ in }

@@ -8,7 +8,7 @@
 import SwiftUI
 import PagoPAUIKit
 
-struct RootView<Content:View>: View {
+struct RootView<Content: View>: View {
     
     @StateObject var router: Router = Router()
     @State private var showSheet: Bool = false
