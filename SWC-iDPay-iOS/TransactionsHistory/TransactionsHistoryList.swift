@@ -38,7 +38,7 @@ struct TransactionsHistoryList: View {
                         Spacer()
                     }
                     
-                    ForEach(viewModel.transactionHistoryList, id: \.transactionID) { transaction in
+                    ForEach(viewModel.transactionHistoryList, id: \.milTransactionId) { transaction in
                         Button(action: {
                             router.pushTo(
                                 .transactionDetail(

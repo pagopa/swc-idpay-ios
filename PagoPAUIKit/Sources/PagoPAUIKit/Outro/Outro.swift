@@ -26,6 +26,8 @@ public struct Outro: View {
     
     var model: OutroModel
     
+    @State private var timer: Timer?
+    
     public init(model: OutroModel) {
         self.model = model
     }
@@ -55,9 +57,12 @@ public struct Outro: View {
         .padding(.horizontal, Constants.mediumSpacing)
         .fullScreenBackground(themeType: .dark)
         .onAppear {
-            Timer.scheduledTimer(withTimeInterval: 60.0, repeats: false) { _ in
+            timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: false) { _ in
                 model.action()
             }
+        }
+        .onDisappear {
+            timer?.invalidate()
         }
     }
     

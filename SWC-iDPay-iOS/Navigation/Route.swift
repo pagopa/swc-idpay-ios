@@ -96,15 +96,15 @@ extension Route: Hashable {
         case (.cieAuth(let lhsVM), .cieAuth(let rhsVM)):
             return lhsVM.transactionData.milTransactionId == rhsVM.transactionData.milTransactionId
         case (.transactionConfirm(let lhsVM), .transactionConfirm(let rhsVM)):
-            return lhsVM.transaction.transactionID == rhsVM.transaction.transactionID
+            return lhsVM.transaction.milTransactionId == rhsVM.transaction.milTransactionId
         case (.thankyouPage(let lhsResult), .thankyouPage(let rhsResult)):
             return lhsResult.id == rhsResult.id
         case (.transactionDetail(let lhsVM), .transactionDetail(let rhsVM)):
-            return lhsVM.transaction.transactionID == rhsVM.transaction.transactionID
+            return lhsVM.transaction.milTransactionId == rhsVM.transaction.milTransactionId
         case (.pin, .pin):
             return true
         case (.receipt(let lhsReceipt, _), .receipt(let rhsReceipt, _)):
-            return lhsReceipt.transaction.transactionID == rhsReceipt.transaction.transactionID
+            return lhsReceipt.transaction.milTransactionId == rhsReceipt.transaction.milTransactionId
         case (.outro(let lhsModel), .outro(let rhsModel)):
             return lhsModel.id == rhsModel.id
         default:

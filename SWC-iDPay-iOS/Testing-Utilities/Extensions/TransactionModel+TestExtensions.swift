@@ -10,19 +10,20 @@ import Foundation
 #if DEBUG
 extension TransactionModel {
     
-    init(status: TransactionStatus, date: String, goodsCost: Int, coveredAmount: Int, transactionID: String, terminalID: String, initiativeID: String, secondFactor: String) {
+    init(status: TransactionStatus, date: String, goodsCost: Int, coveredAmount: Int, idPayTransactionId: String, milTransactionId: String, terminalID: String, initiativeID: String, secondFactor: String) {
         self.status = status
         self.date   = date.toUTCDate
         self.goodsCost = goodsCost
         self.coveredAmount = coveredAmount
-        self.transactionID = transactionID
+        self.idpayTransactionId = idPayTransactionId
+        self.milTransactionId = milTransactionId
         self.terminalID = terminalID
         self.initiativeId = initiativeID
         self.secondFactor = secondFactor
     }
     
     static var fallbackTransaction: TransactionModel {
-        TransactionModel(status: .authorized, date: "2023-09-11T12:45:33", goodsCost: 5599, coveredAmount: 5599, transactionID: "517a-4216-840E-461f-B011-036A-0fd1-34E1", terminalID: "g64tg3ryu", initiativeID: "xxxx", secondFactor: "0000907783632457")
+        TransactionModel(status: .authorized, date: "2023-09-11T12:45:33", goodsCost: 5599, coveredAmount: 5599, idPayTransactionId: "fakeIdPayTransactionid", milTransactionId: "fakeMilTransactionId", terminalID: "g64tg3ryu", initiativeID: "xxxx", secondFactor: "0000907783632457")
     }
     
     static var mockedSuccessTransaction: TransactionModel {
@@ -51,7 +52,7 @@ extension TransactionModel {
     
     static var randomTransaction: TransactionModel {
         let transactionStates: [TransactionStatus] = [.authorized, .cancelled]
-        return TransactionModel(status: transactionStates.randomElement()!, date: Date.randomUTCDateString(), goodsCost: Int.random(in: 100...1000), coveredAmount: 135, transactionID: String.randomString(length: 16), terminalID: "rwkmek1x", initiativeID: String.randomString(length: 16), secondFactor: String.randomString(length: 16))
+        return TransactionModel(status: transactionStates.randomElement()!, date: Date.randomUTCDateString(), goodsCost: Int.random(in: 100...1000), coveredAmount: 135, idPayTransactionId: String.randomString(length: 16), milTransactionId: String.randomString(length: 16), terminalID: "rwkmek1x", initiativeID: String.randomString(length: 16), secondFactor: String.randomString(length: 16))
     }
 }
 #endif
