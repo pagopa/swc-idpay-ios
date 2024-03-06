@@ -51,7 +51,7 @@ class KeychainManager {
         
     }
     
-    //MARK: - Private
+    // MARK: - Private
     private func generatePrivateKey(accessControl: SecAccessControl) throws {
         
         let params: NSDictionary = [
@@ -143,7 +143,7 @@ class KeychainManager {
         return true
     }
     
-    //MARK: - Saving
+    // MARK: - Saving
     public func saveString(string: String, for key: String) throws {
         
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
@@ -172,7 +172,7 @@ class KeychainManager {
         try updateString(string: string, for: key)
     }
     
-    //MARK: - Updating
+    // MARK: - Updating
     private func updateString(string: String, for key: String) throws {
         
         guard let data = string.data(using: .utf8) else { throw KeychainManagerError.invalidData }
@@ -185,7 +185,7 @@ class KeychainManager {
         guard status == errSecSuccess else { throw KeychainManagerError.unhandledError(status: status) }
     }
     
-    //MARK: - Encrypt & Decrypt
+    // MARK: - Encrypt & Decrypt
     private func encrypt(_ digest: Data) throws -> Data {
         
         do {

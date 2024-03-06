@@ -343,7 +343,7 @@ extension TagReader {
             0x6D: [0x00: "Instruction code not supported or invalid"],
             0x6E: [0x00: "Class not supported"],
             0x6F: [0x00: "No precise diagnosis"],
-            0x90: [0x00: "Success"] //No further qualification
+            0x90: [0x00: "Success"] // No further qualification
         ]
         
         // Special cases - where sw2 isn't an error but contains a value

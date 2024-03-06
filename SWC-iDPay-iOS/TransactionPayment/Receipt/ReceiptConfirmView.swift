@@ -76,10 +76,10 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
         .onChange(of: showOutro) { newValue in
             if newValue == true {
                 if let _ = receiptPdfModel.initiative {
-                    //initiative payment flow
+                    // initiative payment flow
                     showTransactionPaymentOutro()
                 } else {
-                    //transaction history flow
+                    // transaction history flow
                     showCancelTransactionOutro()
                 }
             }
@@ -119,6 +119,6 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
     }
 }
 
-//#Preview {
+// #Preview {
 //    ReceiptConfirmView(viewModel: ReceiptViewModel(receiptPdfModel: ReceiptPdfModel(initiative: Initiative.mocked, transaction: TransactionModel.mockedSuccessTransaction)))
-//}
+// }

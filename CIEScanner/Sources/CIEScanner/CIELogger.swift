@@ -81,7 +81,7 @@ internal struct CIELogger {
         print(msg)
     #else
         if self.mode == .localFile {
-            //Write log to local file
+            // Write log to local file
             msg.write(to: self.urlLogFile, atomically: true, encoding: .utf8)
         }
     #endif
