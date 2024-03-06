@@ -116,4 +116,3 @@ struct LoginView: View {
 #Preview {
     LoginView(viewModel: LoginViewModel(networkClient: NetworkClient(environment: .staging)), onLoggedIn: { })
 }
-

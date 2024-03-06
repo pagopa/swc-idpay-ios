@@ -77,4 +77,3 @@ public struct OperationStatusLabel: View {
         OperationStatusLabel(statusType: .refunded, statusDescription: "RIMBORSATA")
     }
 }
-

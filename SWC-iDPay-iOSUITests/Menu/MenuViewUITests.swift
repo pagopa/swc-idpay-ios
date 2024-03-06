@@ -97,6 +97,4 @@ final class MenuViewUITests: XCTestCase {
         let menuItemExists = app.buttons["Esci"].exists
         XCTAssertFalse(menuItemExists)
     }
-
-
 }

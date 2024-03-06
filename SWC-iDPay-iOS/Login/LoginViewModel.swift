@@ -25,4 +25,3 @@ final class LoginViewModel: BaseVM {
     }
     
 }
-

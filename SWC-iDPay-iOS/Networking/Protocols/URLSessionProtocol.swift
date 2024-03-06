@@ -22,4 +22,3 @@ extension URLSessionProtocol {
 }
 
 extension URLSession: URLSessionProtocol {}
-

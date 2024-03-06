@@ -48,7 +48,6 @@ final class TransactionHistoryDetailUITests: XCTestCase {
         dateFormatter.dateFormat = "d MMM yyyy, HH:mm"
         let dateFormatted = dateFormatter.string(from: fourDaysAgoDate!)
 
-        
         let authorizedItemButton = app.findRowWithLabelContaining(dateFormatted)
         XCTAssertTrue(authorizedItemButton.waitForExistence(timeout: 4))
         authorizedItemButton.tap()
@@ -112,7 +111,6 @@ final class TransactionHistoryDetailUITests: XCTestCase {
     func test_transaction_receipt_sharing_view_is_visible() {
         app.loadMockedHistoryList()
                                         
-        
         let authorizedItemButton = app.findRowWithLabelContaining("BonusOK").firstMatch
         XCTAssertTrue(authorizedItemButton.waitForExistence(timeout: 4))
         authorizedItemButton.tap()

@@ -28,7 +28,7 @@ extension XCUIApplication {
         loginButton.tap()
     }
     
-    func openMenuSection(_ name: String){
+    func openMenuSection(_ name: String) {
         let menuButton = self.navigationBars.firstMatch.buttons["menu-icon"]
         XCTAssert(menuButton.waitForExistence(timeout: 4))
         menuButton.tap()

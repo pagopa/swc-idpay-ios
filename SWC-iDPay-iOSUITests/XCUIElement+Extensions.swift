@@ -7,8 +7,7 @@
 
 import XCTest
 
-extension XCUIElement
-{
+extension XCUIElement {
     func hasKeyboardFocus() -> Bool {
         let hasKeyboardFocus = (self.value(forKey: "hasKeyboardFocus") as? Bool) ?? false
         return hasKeyboardFocus

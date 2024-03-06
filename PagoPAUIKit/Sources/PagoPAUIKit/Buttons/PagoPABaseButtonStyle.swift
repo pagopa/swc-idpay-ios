@@ -209,4 +209,3 @@ struct PagoPABaseButtonStyle: ButtonStyle {
     }
 
 }
-

@@ -51,4 +51,3 @@ extension Image {
         self = Image(icon.rawValue, bundle: .module)
     }
 }
-

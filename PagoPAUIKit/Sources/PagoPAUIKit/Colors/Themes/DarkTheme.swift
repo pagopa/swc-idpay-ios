@@ -56,4 +56,3 @@ public struct DarkTheme: PagoPATheme {
     public var subtitleColor: Color = .white
 
 }
-

@@ -100,4 +100,3 @@ internal struct CIELogger {
         return url
     }
 }
-

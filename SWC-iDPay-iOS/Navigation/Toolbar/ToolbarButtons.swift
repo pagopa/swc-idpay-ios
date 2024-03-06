@@ -44,4 +44,3 @@ struct HomeButton: View {
         }
     }
 }
-

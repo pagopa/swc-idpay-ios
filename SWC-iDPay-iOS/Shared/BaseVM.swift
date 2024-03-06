@@ -15,4 +15,3 @@ class BaseVM: ObservableObject {
         self.networkClient = networkClient
     }
 }
-

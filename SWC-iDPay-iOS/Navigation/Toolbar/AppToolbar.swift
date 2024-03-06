@@ -70,4 +70,3 @@ extension View {
         modifier(CustomToolbarModifier(tintColor: tintColor, toolbarBackgroundColor: toolbarBackgroundColor))
     }
 }
-
