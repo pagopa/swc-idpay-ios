@@ -39,7 +39,8 @@ public struct AES256 {
         guard let data = data else { return nil }
         var outputBuffer = [UInt8](repeating: 0, count: data.count + kCCBlockSizeAES128)
         var numBytesEncrypted = 0
-        guard let iv = Data.generateRandomBytes(length: 16) else { return nil }
+        let ivBytes: [UInt8] = [UInt8](repeating: 0, count: 16)
+        let iv = Data(ivBytes)
         let status = CCCrypt(
             option,
             CCAlgorithm(kCCAlgorithmAES),
@@ -55,33 +56,4 @@ public struct AES256 {
         let outputBytes = outputBuffer.prefix(numBytesEncrypted)
         return Data(outputBytes)
     }
-}
-
-extension Data {
-    
-    static func generateRandomBytes(length: Int = kCCKeySizeAES256) -> Data? {
-        var bytes = [Int8](repeating: 0, count: length)
-        let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
-
-        if status == errSecSuccess {
-            return Data(bytes: bytes, count: length)
-        } else {
-            print("Problem generating random bytes")
-            return nil
-        }
-    }
-    
-//    static func generateRandomBytes(length: Int = kCCKeySizeAES256) -> String? {
-//        var bytes = [Int8](repeating: 0, count: length)
-//        let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
-//
-//        if status == errSecSuccess {
-//            return Data(bytes: bytes, count: length).base64EncodedString()
-//        } else {
-//            print("Problem generating random bytes")
-//            return nil
-//        }
-//    }
-
-
 }
