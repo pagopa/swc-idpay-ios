@@ -15,12 +15,7 @@ struct PAButtonStyle: ViewModifier {
     var position: ImagePosition = .right
     var themeType: ThemeType = .light
     
-    init(
-        buttonType: PagoPAButtonType,
-        fullwidth: Bool = true,
-        icon: Image.PAIcon? = nil,
-        position: ImagePosition,
-        themeType: ThemeType) {
+    init(buttonType: PagoPAButtonType, fullwidth: Bool = true, icon: Image.PAIcon? = nil, position: ImagePosition, themeType: ThemeType) {
             
         self.buttonType = buttonType
         self.fullwidth = fullwidth
