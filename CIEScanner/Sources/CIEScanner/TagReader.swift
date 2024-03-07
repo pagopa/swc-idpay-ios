@@ -23,14 +23,25 @@ class TagReader {
     // MARK: - Selections
     func selectMasterFile() async throws {
         loggerManager.log("\nRead Master File -->")
-        let apdu = NFCISO7816APDU(instructionClass: 0x00, instructionCode: 0xA4, p1Parameter: 0x00, p2Parameter: 0x0C, data: Data([0x3f, 0x00]), expectedResponseLength: -1)
+        let apdu = NFCISO7816APDU(
+            instructionClass: 0x00,
+            instructionCode: 0xA4,
+            p1Parameter: 0x00,
+            p2Parameter: 0x0C,
+            data: Data([0x3f, 0x00]),
+            expectedResponseLength: -1
+        )
         
         _ = try await send( cmd: apdu)
     }
     
     func selectIAS() async throws -> ResponseAPDU {
         loggerManager.log("\nRead IAS -->")
-        guard let apdu = NFCISO7816APDU(data: Data([0x00, 0xA4, 0x04, 0x0C, 0x0d, 0xA0, 0x00, 0x00, 0x00, 0x30, 0x80, 0x00, 0x00, 0x00, 0x09, 0x81, 0x60, 0x01])) else {
+        guard let apdu = NFCISO7816APDU(
+            data: Data([
+                0x00, 0xA4, 0x04, 0x0C, 0x0d, 0xA0, 0x00,
+                0x00, 0x00, 0x30, 0x80, 0x00, 0x00, 0x00, 0x09, 0x81, 0x60, 0x01
+            ])) else {
             fatalError("Wrong APDU command")
         }
         
@@ -42,7 +53,10 @@ class TagReader {
     
     func selectCIE() async throws -> ResponseAPDU {
         loggerManager.log("\nRead CIE -->")
-        guard let apdu = NFCISO7816APDU(data: Data([0x00, 0xA4, 0x04, 0x0C, 0x06, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x39])) else {
+        guard let apdu = NFCISO7816APDU(
+            data: Data([
+                0x00, 0xA4, 0x04, 0x0C, 0x06, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x39
+            ])) else {
             fatalError("Wrong APDU command")
         }
         let CIEResponse = try await send(cmd: apdu)
@@ -115,7 +129,7 @@ class TagReader {
 
             var newOffset = 2
             
-            if (chn[1] > 0x80) {
+            if chn[1] > 0x80 {
                 newOffset += Int(chn[1] - 0x80)
             }
             
@@ -147,12 +161,22 @@ class TagReader {
     }
 
     private func signIntAuth(_ dataToSign: [UInt8]) async throws -> [UInt8] {
-        guard let settingAuth = NFCISO7816APDU(data: Data([0x00, 0x22, 0x41, 0xA4, 0x06, 0x80, 0x01, 0x02, 0x84, 0x01, 0x83])) else { return [] }
+        guard let settingAuth = NFCISO7816APDU(
+            data: Data([
+                0x00, 0x22, 0x41, 0xA4, 0x06, 0x80, 0x01, 0x02, 0x84, 0x01, 0x83
+            ])) else { return [] }
         let respSettingAuth = try await send(cmd: settingAuth)
         var responseAuthChallenge: ResponseAPDU
         
         do {
-            let intAuthApdu = NFCISO7816APDU(instructionClass: 0x00, instructionCode: 0x88, p1Parameter: 0x00, p2Parameter: 0x00, data: Data(dataToSign), expectedResponseLength: 256)
+            let intAuthApdu = NFCISO7816APDU(
+                instructionClass: 0x00,
+                instructionCode: 0x88,
+                p1Parameter: 0x00,
+                p2Parameter: 0x00,
+                data: Data(dataToSign),
+                expectedResponseLength: 256
+            )
             responseAuthChallenge = try await send(cmd: intAuthApdu)
             // Debug prints
             loggerManager.log("\n\n------- START AUTH CHALLENGE RESPONSE --------")
@@ -186,7 +210,10 @@ class TagReader {
         var rep = ResponseAPDU(data: [UInt8](data), sw1: sw1, sw2: sw2)
         
         if rep.sw1 != 0x90 && rep.sw2 != 0x00 {
-            loggerManager.log( "🔴 [ERROR] reading tag: sw1 - 0x\(String.hexStringFromBinary(sw1)), sw2 - 0x\(String.hexStringFromBinary(sw2))" )
+            loggerManager.log(
+                "🔴 [ERROR] reading tag: sw1 - 0x\(String.hexStringFromBinary(sw1))," +
+                "sw2 - 0x\(String.hexStringFromBinary(sw2))"
+            )
             let tagError: CIEReaderError
             
             switch (rep.sw1, rep.sw2) {
@@ -212,14 +239,14 @@ class TagReader {
             var headMod = head
             var ds: Int = data.count
             
-            if(ds > 255) {
+            if ds > 255 {
                 var i = 0
                 var cla: UInt8 = head[0]
                 
-                while(true) {
+                while true {
                     var s: [UInt8] = Utils.getSubArray(from: data, start: i, end: min((data.count-i), 255))
                     i += s.count
-                    if(i != data.count) {
+                    if i != data.count {
                         headMod[0] = (UInt8)(cla | 0x10)
                     } else {
                         headMod[0] = cla
@@ -228,7 +255,7 @@ class TagReader {
                     apdu.append(contentsOf: headMod)
                     apdu.append(contentsOf: s.count.toByteArray(pad: 2))
                     apdu.append(contentsOf: s)
-                    if(le != nil) {
+                    if le != nil {
                         apdu += le!
                     }
                     
@@ -240,10 +267,13 @@ class TagReader {
                     var rep = ResponseAPDU(data: [UInt8](data), sw1: sw1, sw2: sw2)
                                         
                     if rep.sw1 != 0x90 && rep.sw2 != 0x00 {
-                        loggerManager.log( "🔴 [ERROR] reading tag: sw1 - 0x\(String.hexStringFromBinary(sw1)), sw2 - 0x\(String.hexStringFromBinary(sw2))" )
+                        loggerManager.log(
+                            "🔴 [ERROR] reading tag: sw1 - 0x\(String.hexStringFromBinary(sw1))," +
+                            "sw2 - 0x\(String.hexStringFromBinary(sw2))"
+                        )
                         let tagError: CIEReaderError
                         
-                        if (rep.sw1 == 0x63 && rep.sw2 == 0x00) {
+                        if rep.sw1 == 0x63 && rep.sw2 == 0x00 {
                             tagError = .invalidTag
                         } else {
                             let errorMsg = self.decodeError(sw1: rep.sw1, sw2: rep.sw2)
@@ -260,19 +290,19 @@ class TagReader {
                 }
             } else {
                 
-                if(data.isEmpty == false) {
+                if data.isEmpty == false {
                     apdu.append(contentsOf: headMod)
                     apdu.append(contentsOf: data.count.toByteArray(pad: 2))
                     apdu += data
 
-                    if(le != nil) {
+                    if le != nil {
                         apdu += le!
                     }
                     
                 } else {
                     apdu += head
                     
-                    if(le != nil) {
+                    if le != nil {
                         apdu += le!
                     }
                 }

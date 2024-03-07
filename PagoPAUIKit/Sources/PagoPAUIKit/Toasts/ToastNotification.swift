@@ -77,7 +77,10 @@ public struct ToastDemoView: View {
                ToastNotification(style: .error, message: "Fatal error, blue screen level fatal l")
                
                ToastNotification(style: .success, message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit")
-               ToastNotification(style: .warning, message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet nulla congue odio euismod")
+               ToastNotification(
+                style: .warning,
+                message: "Lorem ipsum dolor sit amet, amet nulla congue odio euismod"
+               )
 
            }
        }
@@ -94,7 +97,10 @@ public struct ToastDemoView: View {
     }
     
     private func showRandomToast(style: ToastStyle) {
-        toast = ToastModel(style: style, message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet nulla congue odio euismod")
+        toast = ToastModel(
+            style: style,
+            message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit odio euismod"
+        )
     }
 }
 

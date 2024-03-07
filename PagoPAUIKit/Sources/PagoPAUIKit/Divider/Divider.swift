@@ -18,7 +18,10 @@ struct Divider: View {
     
     var body: some View {
         Rectangle()
-            .frame(maxWidth: orientation == .horizontal ? .infinity : 1, maxHeight: orientation == .horizontal ? 1 : .infinity)
+            .frame(
+                maxWidth: orientation == .horizontal ? .infinity : 1,
+                maxHeight: orientation == .horizontal ? 1 : .infinity
+            )
         .background(color)
         .foregroundColor(.clear)
     }

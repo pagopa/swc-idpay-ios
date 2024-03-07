@@ -4,12 +4,10 @@
 //
 //  Created by Stefania Castiglioni on 01/12/23.
 //
-
 import SwiftUI
 import PagoPAUIKit
 
 struct Component: Identifiable, Hashable {
-    
     let id = UUID()
     let type: ComponentType
     
@@ -96,7 +94,10 @@ struct Component: Identifiable, Hashable {
             case .intro:
                 IntroView(
                     title: "Accetta un bonus ID Pay",
-                    subtitle: "Inserisci i dettagli del pagamento e permetti ai tuoi clienti di utilizzare un bonus ID Pay.",
+                    subtitle: """
+                                Inserisci i dettagli del pagamento e permetti ai tuoi
+                                clienti di utilizzare un bonus ID Pay.
+                                """,
                     actionTitle: "Accetta bonus ID Pay",
                     action: {
                         print("Inizia flusso bonus")
@@ -106,7 +107,14 @@ struct Component: Identifiable, Hashable {
             case .waitingView:
                 EmptyView()
             case .numberPad:
-                BonusAmountView(viewModel: BonusAmountViewModel(networkClient: NetworkClient(environment: .development), initiative: Initiative.mocked))
+                BonusAmountView(
+                    viewModel: BonusAmountViewModel(
+                        networkClient: NetworkClient(
+                            environment: .development
+                        ),
+                        initiative: Initiative.mocked
+                    )
+                )
             case .pinPad:
                 CIEPinView(
                     viewModel: 
@@ -123,7 +131,6 @@ struct Component: Identifiable, Hashable {
 }
 
 struct ComponentsDemoListView: View {
-    
     @State var themeType: ThemeType?
     @State var navigateToThankyouPage: Bool = false
     @State var showThankyouPageChoiceAlert: Bool = false
@@ -156,9 +163,7 @@ struct ComponentsDemoListView: View {
                                 .foregroundColor(.paPrimaryDark)
                                 .padding(Constants.xsmallSpacing)
                         }
-                        
                     } else if component.type == .dialog {
-                        
                         Menu(component.type.name) {
                             Button("Info Payment", action: infoAction)
                             Button("Warning", action: warningAction)
@@ -169,9 +174,7 @@ struct ComponentsDemoListView: View {
                         .font(.PAFont.cta)
                         .foregroundColor(.paPrimaryDark)
                         .padding(Constants.xsmallSpacing)
-                
                     } else if component.type == .waitingView {
-                        
                         Button {
                             isPresentingWaitingView.toggle()
                         } label: {
@@ -222,11 +225,9 @@ struct ComponentsDemoListView: View {
                             .foregroundColor(.white)
                     }
                 }
-                
             })
         }
         .alert("Thankyou page type", isPresented: $showThankyouPageChoiceAlert) {
-            
             VStack {
                 Button("Success") {
                     showThankyouPage(.success)
@@ -295,7 +296,6 @@ struct ComponentsDemoListView: View {
                     }
                 )]
         )
-        
         isPresentingDialog.toggle()
     }
     
@@ -323,7 +323,6 @@ struct ComponentsDemoListView: View {
                 )
             ]
         )
-        
         isPresentingDialog.toggle()
     }
     
@@ -351,14 +350,16 @@ struct ComponentsDemoListView: View {
                 )
             ]
         )
-        
         isPresentingDialog.toggle()
     }
     
     private func abortAction() {
         self.dialogModel = ResultModel(
             title: "Vuoi annullare la spesa del bonus ID Pay?",
-            subtitle: "La spesa è già stata autorizzata, se annulli l’operazione l’importo verrà riaccreditato sull’iniziativa del cittadino.",
+            subtitle: """
+                La spesa è già stata autorizzata, 
+                se annulli l’operazione l’importo verrà riaccreditato sull’iniziativa del cittadino.
+                """,
             themeType: ThemeType.light,
             buttons: [
                 ButtonModel(
@@ -393,7 +394,4 @@ struct ComponentsDemoListView: View {
         showThankyouPageChoiceAlert.toggle()
     }
 }
-
-#Preview {
-    ComponentsDemoListView()
-}
+#Preview { ComponentsDemoListView()}

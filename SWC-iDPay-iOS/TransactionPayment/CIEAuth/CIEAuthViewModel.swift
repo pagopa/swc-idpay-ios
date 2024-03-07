@@ -77,7 +77,9 @@ class CIEAuthViewModel: TransactionDeleteVM {
             throw CIEAuthError.walletVerifyError
         }
 
-        let transaction = try await networkClient.verifyTransactionStatus(milTransactionId: transactionData.milTransactionId)
+        let transaction = try await networkClient.verifyTransactionStatus(
+            milTransactionId: transactionData.milTransactionId
+        )
 
         if transaction.status == .created {
             maxRetries -= 1

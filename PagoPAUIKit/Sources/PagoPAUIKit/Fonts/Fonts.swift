@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-fileprivate enum FontError: LocalizedError {
+private enum FontError: LocalizedError {
    case failedToRegisterFont(String)
     
     var localizedDescription: String {
@@ -237,7 +237,11 @@ extension Font {
         }
 
         private static func relative(_ fontType: PAFontType, size: FontSize) -> Font {
-            return Font.custom(fontType.rawValue, size: size.rawValue * Constants.scaleFactor, relativeTo: size.textStyle)
+            return Font.custom(
+                fontType.rawValue,
+                size: size.rawValue * Constants.scaleFactor,
+                relativeTo: size.textStyle
+            )
         }
 
     }

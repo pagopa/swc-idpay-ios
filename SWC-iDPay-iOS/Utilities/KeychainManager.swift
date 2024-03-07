@@ -18,7 +18,12 @@ enum KeychainManagerError: Error, CustomStringConvertible {
         switch self {
         case .itemNotFound: return "Item not found"
         case .invalidData: return "Data is invalid"
-        case .unhandledError(let status): return "https://www.osstatus.com/search/results?platform=all&framework=Security&search=\(String(describing: status))"
+        case .unhandledError(let status): 
+            return
+                """
+                    https://www.osstatus.com/search/results?platform=all&framework=Security&search=
+                    \(String(describing: status))
+                """
         case .genericError(let description): return description
         }
     }
@@ -138,7 +143,9 @@ class KeychainManager {
                                     kSecAttrAccount as String: key]
         
         let status = SecItemDelete(query as CFDictionary)
-        guard status == errSecSuccess || status == errSecItemNotFound else { throw KeychainManagerError.unhandledError(status: status) }
+        guard status == errSecSuccess || status == errSecItemNotFound else {
+            throw KeychainManagerError.unhandledError(status: status)
+        }
 
         return true
     }
@@ -191,8 +198,14 @@ class KeychainManager {
         do {
             let publicKey = try getPublicKey()
             var error: Unmanaged<CFError>?
-            guard let result = SecKeyCreateEncryptedData(publicKey, SecKeyAlgorithm.eciesEncryptionStandardX963SHA256AESGCM, digest as CFData, &error) else {
-                throw KeychainManagerError.genericError(description: "Error during data decryption\n\(error?.takeRetainedValue().localizedDescription ?? "")")
+            guard let result = SecKeyCreateEncryptedData(
+                publicKey,
+                SecKeyAlgorithm.eciesEncryptionStandardX963SHA256AESGCM,
+                digest as CFData,
+                &error) else {
+                throw KeychainManagerError.genericError(
+                   description: "Error during data decryption\n\(error?.takeRetainedValue().localizedDescription ?? "")"
+                )
             }
             return result as Data
         } catch { throw error }
@@ -203,8 +216,14 @@ class KeychainManager {
         do {
             let privateKey = try getPrivateKey()
             var error: Unmanaged<CFError>?
-            guard let result = SecKeyCreateDecryptedData(privateKey, SecKeyAlgorithm.eciesEncryptionStandardX963SHA256AESGCM, digest as CFData, &error) else {
-                throw KeychainManagerError.genericError(description: "Error during data encryption\n\(error?.takeRetainedValue().localizedDescription ?? "")")
+            guard let result = SecKeyCreateDecryptedData(
+                privateKey,
+                SecKeyAlgorithm.eciesEncryptionStandardX963SHA256AESGCM,
+                digest as CFData,
+                &error) else {
+                throw KeychainManagerError.genericError(
+                   description: "Error during data encryption\n\(error?.takeRetainedValue().localizedDescription ?? "")"
+                )
             }
             return result as Data
         } catch {
@@ -216,7 +235,11 @@ class KeychainManager {
 extension KeychainManager {
     
     private func errorLink(for status: OSStatus) -> String {
-        return "https://www.osstatus.com/search/results?platform=all&framework=Security&search=\(String(describing: status))"
+        return 
+            """
+            https://www.osstatus.com/search/results?platform=all&framework=Security&search=
+            \(String(describing: status))
+            """
     }
     
 }

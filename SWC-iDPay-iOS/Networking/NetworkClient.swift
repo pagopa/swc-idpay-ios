@@ -43,12 +43,22 @@ class NetworkClient: Requestable {
     }
     
     func createTransaction(initiativeId: String, amount: Int) async throws -> CreateTransactionResponse {
-        let response: CreateTransactionResponse = try await sendRequest(for: .createTransaction(initiativeId: initiativeId, amount: amount))
+        let response: CreateTransactionResponse = try await sendRequest(
+            for: .createTransaction(initiativeId: initiativeId, amount: amount)
+        )
         return response
     }
     
     func verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String) async throws -> VerifyCIEResponse {
-        let response: VerifyCIEResponse = try await sendRequest(for: .verifyCIE(milTransactionId: milTransactionId, nis: nis, ciePublicKey: ciePublicKey, signature: signature, sod: sod))
+        let response: VerifyCIEResponse = try await sendRequest(
+            for: .verifyCIE(
+                milTransactionId: milTransactionId,
+                nis: nis,
+                ciePublicKey: ciePublicKey,
+                signature: signature,
+                sod: sod
+            )
+        )
         return response
     }
     
@@ -135,8 +145,7 @@ extension NetworkClient {
         if let body = apiRequest.httpBody {
             print("BODY:")
             print(NSString(data: body, encoding: String.Encoding.utf8.rawValue)!)
-        }
-        else {
+        } else {
             print("BODY: -")
         }
         print("----------------------------------------INPUT----------------------------------------------------------")
@@ -144,13 +153,13 @@ extension NetworkClient {
         let (data, response) = try await session.data(for: apiRequest)
         
         if let httpResponse = response as? HTTPURLResponse {
-            print("----------------------------------------OUTPUT----------------------------------------------------------")
+            print("--------------------------------------OUTPUT-------------------------------------------------------")
             print("URL: \(String(describing: httpResponse.url))")
             print("HEADERS: \(String(describing: httpResponse.allHeaderFields))")
             print("STATUS CODE: \(String(describing: httpResponse.statusCode))")
             print("BODY:")
             print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)!)
-            print("----------------------------------------OUTPUT----------------------------------------------------------")
+            print("--------------------------------------OUTPUT-------------------------------------------------------")
             
             guard 200...299 ~= httpResponse.statusCode else {
                 throw HTTPResponseError.decodeError(status: httpResponse.statusCode, data: data)

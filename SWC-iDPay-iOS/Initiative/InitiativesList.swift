@@ -89,7 +89,7 @@ struct InitiativesList: View {
     
 }
 
-fileprivate struct InitiativeRow: View {
+private struct InitiativeRow: View {
     
     var initiative: Initiative
     

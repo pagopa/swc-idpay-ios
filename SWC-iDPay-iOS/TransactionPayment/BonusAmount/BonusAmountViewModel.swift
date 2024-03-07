@@ -25,7 +25,10 @@ class BonusAmountViewModel: BaseVM {
             
     func createTransaction() async throws {
         self.isCreatingTransaction = true
-        transactionData = try await networkClient.createTransaction(initiativeId: initiative.id, amount: Int(amountText.replacingOccurrences(of: ",", with: ""))!)
+        transactionData = try await networkClient.createTransaction(
+            initiativeId: initiative.id,
+            amount: Int(amountText.replacingOccurrences(of: ",", with: ""))!
+        )
         self.isCreatingTransaction = false
     }
     

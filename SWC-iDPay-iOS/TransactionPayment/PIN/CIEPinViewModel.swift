@@ -17,7 +17,12 @@ class CIEPinViewModel: TransactionDeleteVM {
     init(networkClient: Requestable, transaction: TransactionModel, verifyCIEResponse: VerifyCIEResponse, initiative: Initiative? = nil) {
         self.verifyCIEResponse = verifyCIEResponse
         self.transaction = transaction
-        super.init(networkClient: networkClient, transactionID: transaction.milTransactionId, goodsCost: transaction.goodsCost, initiative: initiative)
+        super.init(
+            networkClient: networkClient,
+            transactionID: transaction.milTransactionId,
+            goodsCost: transaction.goodsCost,
+            initiative: initiative
+        )
     }
     
     func authorizeTransaction() async throws -> Bool {
@@ -28,7 +33,10 @@ class CIEPinViewModel: TransactionDeleteVM {
             #if DEBUG
             print("AuthCodeData:\n\(authCodeData)")
             #endif
-            let authorized = try await networkClient.authorizeTransaction(milTransactionId: transaction.milTransactionId, authCodeBlockData: authCodeData)
+            let authorized = try await networkClient.authorizeTransaction(
+                milTransactionId: transaction.milTransactionId,
+                authCodeBlockData: authCodeData
+            )
             print("Transaction Authorized")
             if authorized {
                 transaction.status = .authorized

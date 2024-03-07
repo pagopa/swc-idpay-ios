@@ -92,7 +92,9 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
                 outroModel:
                     OutroModel(
                         title: "Operazione conclusa",
-                        subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
+                        subtitle: """
+                                Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.
+                                """,
                         actionTitle: "Torna alla home",
                         action: {
                             router.popToRoot()
@@ -108,7 +110,9 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
             .outro(
                 outroModel: OutroModel(
                     title: "Operazione conclusa",
-                    subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
+                    subtitle: """
+                            Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.
+                        """,
                     actionTitle: "Accetta nuovo bonus",
                     action: {
                         router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: networkClient)))
@@ -120,5 +124,12 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
 }
 
 // #Preview {
-//    ReceiptConfirmView(viewModel: ReceiptViewModel(receiptPdfModel: ReceiptPdfModel(initiative: Initiative.mocked, transaction: TransactionModel.mockedSuccessTransaction)))
+//    ReceiptConfirmView(
+//        viewModel: ReceiptViewModel(
+//            receiptPdfModel: ReceiptPdfModel(
+//                initiative: Initiative.mocked,
+//                transaction: TransactionModel.mockedSuccessTransaction
+//            )
+//        )
+//    )
 // }

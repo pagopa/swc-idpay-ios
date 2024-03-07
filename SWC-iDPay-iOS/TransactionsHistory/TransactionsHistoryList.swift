@@ -30,9 +30,11 @@ struct TransactionsHistoryList: View {
                                 .font(.PAFont.h3)
                                 .foregroundStyle(Color.paBlack)
                             
-                            Text("Seleziona un elemento per visualizzare i dettagli, annullarlo o riemettere una ricevuta")
-                                .font(.PAFont.body)
-                                .foregroundStyle(.black)
+                            Text("Seleziona un elemento per visualizzare i dettagli," +
+                                 "annullarlo o riemettere una ricevuta"
+                            )
+                            .font(.PAFont.body)
+                            .foregroundStyle(.black)
                         }
                         
                         Spacer()
@@ -79,9 +81,11 @@ struct TransactionsHistoryList: View {
             Text("Non ci sono operazioni")
                 .font(.PAFont.h3)
                 .padding(.bottom, Constants.xsmallSpacing)
-            Text("Nello storico vengono visualizzate le operazioni eseguite negli ultimi 30 giorni. Se hai bisogno di aiuto contatta l’assistenza.")
-                .font(.PAFont.body)
-                .multilineTextAlignment(.center)
+            Text("Nello storico vengono visualizzate le operazioni eseguite negli" +
+                 "ultimi 30 giorni. Se hai bisogno di aiuto contatta l’assistenza."
+            )
+            .font(.PAFont.body)
+            .multilineTextAlignment(.center)
             
             Button {
                 showHelp.toggle()
@@ -96,7 +100,6 @@ struct TransactionsHistoryList: View {
         .foregroundColor(.paBlack)
         .padding(Constants.mediumSpacing)
     }
-                                                                                                                                                    
 }
 
 #Preview {

@@ -39,7 +39,9 @@ enum HTTPResponseError: Error {
         
         if let responseError = try? JSONDecoder().decode(APIResponseError.self, from: data) {
             // RETURN HTTPResponseError based on errors array in response
-            return HTTPResponseError.networkError("Service error retrieved: \(responseError.errors?.joined(separator: ", ") ?? "")")
+            return HTTPResponseError.networkError(
+                "Service error retrieved: \(responseError.errors?.joined(separator: ", ") ?? "")"
+            )
         } else {
             switch status {
             case 401:

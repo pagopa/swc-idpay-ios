@@ -29,7 +29,9 @@ public struct ErrorThankyouPageDemo: View {
             result:
                 ResultModel(
                     title: "L'operazione è stata annullata",
-                    subtitle: "Abbiamo riscontrato dei problemi con il pagamento, non è stato addebitato alcun importo.",
+                    subtitle: """
+                            Abbiamo riscontrato dei problemi con il pagamento, non è stato addebitato alcun importo.
+                        """,
                     themeType: .error,
                     buttons: [
                         ButtonModel(
@@ -53,7 +55,10 @@ public struct WarningThankyouPageDemo: View {
             result:
                 ResultModel(
                     title: "Titolo qualsiasi vvvv Titolo qualsiasi Titolo qualsiasi Titolo qualsiasi",
-                    subtitle: "Sottotitolo qulasiasi Sottotitolo qulasiasi ccccc Sottotitolo qulasiasi Sottotitolo qulasiasi Sottotitolo qulasiasi",
+                    subtitle: """
+                            Sottotitolo qulasiasi Sottotitolo qulasiasi ccccc Sottotitolo 
+                            qulasiasi Sottotitolo qulasiasi Sottotitolo qulasiasi
+                            """,
                     themeType: .warning,
                     buttons: [
                         ButtonModel(

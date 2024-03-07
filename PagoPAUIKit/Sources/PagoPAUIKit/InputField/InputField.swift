@@ -12,7 +12,8 @@ import SwiftUI
  
  - parameter type: type of the textfield (text, password or number).
  - parameter text: Binding to a string
- - parameter placeholder: text to show inside the textfield, when empty, used as floating label while writing or textfield filled
+ - parameter placeholder: text to show inside the textfield, when empty, 
+                    used as floating label while writing or textfield filled
  - parameter maxLength: max length or required length of text in textfield
  - parameter autofocus: place the cursor inside the textfield on appear
 
@@ -290,8 +291,14 @@ private struct InputListDemo: View {
                 InputField(type: .text, text: $username, placeholder: "Username")
                     .focused($focusedField, equals: 0)
                 
-                InputField(type: .password, text: $password, placeholder: "Password", caption: "Fill with your password", errorText: $passwordError)
-                    .focused($focusedField, equals: 1)
+                InputField(
+                    type: .password,
+                    text: $password,
+                    placeholder: "Password",
+                    caption: "Fill with your password",
+                    errorText: $passwordError
+                )
+                .focused($focusedField, equals: 1)
                 
                 InputField(type: .number, text: $otp, placeholder: "OTP code", validationRule: .otp)
                     .focused($focusedField, equals: 2)

@@ -95,7 +95,12 @@ public struct IntroView: View {
 }
 
 #Preview {
-    IntroView(title: "Accetta un bonus ID Pay", subtitle: "Inserisci i dettagli del pagamento e permetti ai tuoi clienti di utilizzare un bonus ID Pay.", actionTitle: "Accetta bonus ID Pay", action: {
-        print("Inizia flusso bonus")
-    })
+    IntroView(
+        title: "Accetta un bonus ID Pay",
+        subtitle: "Inserisci i dettagli del pagamento e permetti ai tuoi clienti di utilizzare un bonus ID Pay.",
+        actionTitle: "Accetta bonus ID Pay",
+        action: {
+            print("Inizia flusso bonus")
+        }
+    )
 }

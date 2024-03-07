@@ -13,15 +13,26 @@ struct ReceiptPdfBuilderView: View {
     
     var body: some View {
         VStack {
-            TicketHeaderView(image: Image(icon: .idPayLogo), title: receiptTicketVM.transaction.status.ticketDescription)
+            TicketHeaderView(
+                image: Image(icon: .idPayLogo),
+                title: receiptTicketVM.transaction.status.ticketDescription
+            )
             
             VStack(alignment: .leading, spacing: 10.0) {
                 
-                TicketField(title: "Data e ora", value: receiptTicketVM.transaction.date?.formattedDateTime ?? String.emptyDataPlaceholder)
+                TicketField(
+                    title: "Data e ora",
+                    value: receiptTicketVM.transaction.date?.formattedDateTime ?? String.emptyDataPlaceholder
+                )
                 
-                TicketField(title: "Iniziativa", value: receiptTicketVM.initiative?.name ?? receiptTicketVM.transaction.initiativeId)
+                TicketField(
+                    title: "Iniziativa",
+                    value: receiptTicketVM.initiative?.name ?? receiptTicketVM.transaction.initiativeId
+                )
                 
-                TicketField(title: "Importo del bene", value: receiptTicketVM.transaction.goodsCost.formattedCurrency
+                TicketField(
+                    title: "Importo del bene",
+                    value: receiptTicketVM.transaction.goodsCost.formattedCurrency
                 )
 
                 TicketAmountRow(

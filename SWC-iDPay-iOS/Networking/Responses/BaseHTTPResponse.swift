@@ -17,8 +17,12 @@ struct BaseHTTPResponse: Decodable {
     }
     
     init(from decoder: Decoder) throws {
-        if let container: KeyedDecodingContainer<BaseHTTPResponse.CodingKeys> = try? decoder.container(keyedBy: BaseHTTPResponse.CodingKeys.self) {
-            self.errors = try? container.decodeIfPresent([APIResponseError].self, forKey: BaseHTTPResponse.CodingKeys.errors)
+        if let container: KeyedDecodingContainer<BaseHTTPResponse.CodingKeys> = 
+            try? decoder.container(keyedBy: BaseHTTPResponse.CodingKeys.self) {
+            self.errors = try? container.decodeIfPresent(
+                [APIResponseError].self,
+                forKey: BaseHTTPResponse.CodingKeys.errors
+            )
         } else {
             self.errors = []
         }

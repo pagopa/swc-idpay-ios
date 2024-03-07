@@ -86,7 +86,13 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
                         title: "Continua",
                         icon: .arrowRight,
                         action: {
-                            router.pushTo(.receipt(receiptModel: ReceiptPdfModel(transaction: self.viewModel.transaction), networkClient: self.viewModel.networkClient))
+                            router.pushTo(
+                                .receipt(
+                                    receiptModel: ReceiptPdfModel(
+                                        transaction: self.viewModel.transaction),
+                                    networkClient: self.viewModel.networkClient
+                                )
+                            )
                         }
                     )]
             )))
@@ -131,7 +137,10 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
                         outroModel:
                             OutroModel(
                                 title: "Operazione conclusa",
-                                subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
+                                subtitle: """
+                                        Puoi riemettere la ricevuta in un momento successivo 
+                                        dalla sezione ‘Storico operazioni’.
+                                        """,
                                 actionTitle: "Torna alla home",
                                 action: {
                                     router.popToRoot()
@@ -181,6 +190,11 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
 }
 
 #Preview {
-    TransactionHistoryDetailView(viewModel: TransactionHistoryDetailViewModel(transaction: TransactionModel.mockedSuccessTransaction, networkClient: NetworkClient(environment: .staging)))
-        .environmentObject(Router())
+    TransactionHistoryDetailView(
+        viewModel: TransactionHistoryDetailViewModel(
+            transaction: TransactionModel.mockedSuccessTransaction,
+            networkClient: NetworkClient(environment: .staging)
+        )
+    )
+    .environmentObject(Router())
 }

@@ -21,7 +21,9 @@ extension TransactionPaymentDeletableView {
         case .genericError:
             return ResultModel(
                 title: "Si è verificato un errore imprevisto",
-                subtitle: "Per assistenza visita il sito pagopa.gov.it/assistenza oppure chiama il numero 06.4520.2323.",
+                subtitle: """
+                    Per assistenza visita il sito pagopa.gov.it/assistenza oppure chiama il numero 06.4520.2323.
+                    """,
                 themeType: .light,
                 buttons: [
                     ButtonModel(type: .primary, themeType: .light, title: "Ok, ho capito", action: {
@@ -73,7 +75,11 @@ extension TransactionPaymentDeletableView {
                         title: "Accetta nuovo bonus",
                         action: {
                             viewModel.dismissDialog()
-                            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                            router.pop(
+                                to: .initiatives(
+                                    viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)
+                                )
+                            )
                         }),
                     ButtonModel(
                         type: .primaryBordered,

@@ -96,7 +96,7 @@ struct PagoPABaseButtonStyle: ButtonStyle {
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: Constants.radius1)
-                        .stroke(isBordered ? (isEnabled ? borderColor : disabledBorderColor) : Color.clear, lineWidth: 2)
+                       .stroke(isBordered ? (isEnabled ? borderColor : disabledBorderColor) : Color.clear, lineWidth: 2)
                 )
                 .opacity(isEnabled ? 1 : 0.5)
                 .contentShape(Rectangle())
@@ -109,7 +109,7 @@ struct PagoPABaseButtonStyle: ButtonStyle {
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: Constants.radius1)
-                        .stroke(isBordered ? (isEnabled ? borderColor : disabledBorderColor) : Color.clear, lineWidth: 2)
+                       .stroke(isBordered ? (isEnabled ? borderColor : disabledBorderColor) : Color.clear, lineWidth: 2)
                 )
                 .opacity(isEnabled ? 1 : 0.5)
                 .contentShape(Rectangle())

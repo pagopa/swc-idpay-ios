@@ -48,22 +48,52 @@ public struct ItemsDemoView: View {
             ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .cancelled, statusDescription: "ANNULLATA")
             Divider()
             
-            ListItem(title: "Titolo", subtitle: "Sottotitolo", statusType: .toBeRefunded, statusDescription: "DA RIMBORSARE")
+            ListItem(
+                title: "Titolo",
+                subtitle: "Sottotitolo",
+                statusType: .toBeRefunded,
+                statusDescription: "DA RIMBORSARE"
+            )
             Divider()
             
-            ListItemHistory(iconLeft: .checkmark, titleText: "Titolo", subTitleText: "Sottotitolo", amountText: "3,000,000 €")
+            ListItemHistory(
+                iconLeft: .checkmark,
+                titleText: "Titolo",
+                subTitleText: "Sottotitolo",
+                amountText: "3,000,000 €"
+            )
             Divider()
             
-            ListItemHistory(iconLeft: .warning, titleText: "Titolo", subTitleText: "Sottotitolo", amountText: "3,000,000 €")
+            ListItemHistory(
+                iconLeft: .warning,
+                titleText: "Titolo",
+                subTitleText: "Sottotitolo",
+                amountText: "3,000,000 €"
+            )
             Divider()
             
-            ListItemHistory(iconLeft: .pending, titleText: "Titolo", subTitleText: "Sottotitolo", amountText: "3,000,000 €")
+            ListItemHistory(
+                iconLeft: .pending,
+                titleText: "Titolo",
+                subTitleText: "Sottotitolo",
+                amountText: "3,000,000 €"
+            )
             Divider()
             
-            ListItemHistory(iconLeft: .refunded, titleText: "Titolo", subTitleText: "Sottotitolo", amountText: "3,000,000 €")
+            ListItemHistory(
+                iconLeft: .refunded,
+                titleText: "Titolo",
+                subTitleText: "Sottotitolo",
+                amountText: "3,000,000 €"
+            )
             Divider()
             
-            ListItemHistory(iconLeft: .toBeRefunded, titleText: "Titolo", subTitleText: "Sottotitolo", amountText: "3,000,000 €")
+            ListItemHistory(
+                iconLeft: .toBeRefunded,
+                titleText: "Titolo",
+                subTitleText: "Sottotitolo",
+                amountText: "3,000,000 €"
+            )
             Divider()
         }
         .scrollIndicators(.hidden)

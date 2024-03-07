@@ -32,7 +32,7 @@ struct ToastModifier: ViewModifier {
                     }
                 }
             )
-            .onChange(of: toast) { value in
+            .onChange(of: toast) { _ in
                 animateToast()
             }
     }

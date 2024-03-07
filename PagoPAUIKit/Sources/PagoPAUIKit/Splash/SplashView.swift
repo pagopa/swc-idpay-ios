@@ -38,7 +38,7 @@ public struct SplashView: View {
             iconOpacity = 1.0
         }
 
-        Timer.scheduledTimer(withTimeInterval: outAnimationTime, repeats: false) { timer in
+        Timer.scheduledTimer(withTimeInterval: outAnimationTime, repeats: false) { _ in
             withAnimation(.easeOut(duration: 1.0)) {
                 iconOpacity = 0.0
             }

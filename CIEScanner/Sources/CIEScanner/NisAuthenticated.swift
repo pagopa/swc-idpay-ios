@@ -15,6 +15,10 @@ public struct NisAuthenticated {
     public var challengeSigned: String
     
     public func toString() -> String {
-        return "----- NIS Authenticated: ------\n -----  nis: -----\n \(nis)\n ---- sod: -----\n \(sod) \n ---- kpubIntServ: ----\n\(kpubIntServ) \n ---- challengeSigned: ----\n\(challengeSigned)"
+        return "----- NIS Authenticated: ------\n" + 
+        "----- nis: -----\n \(nis)\n" +
+        "---- sod: -----\n \(sod)\n" +
+        "---- kpubIntServ: ----\n\(kpubIntServ)\n" +
+        "---- challengeSigned: ----\n\(challengeSigned)"
     }
 }

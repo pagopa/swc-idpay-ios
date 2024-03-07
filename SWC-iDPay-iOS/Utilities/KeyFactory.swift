@@ -45,7 +45,9 @@ class KeyFactory {
         
         var error: Unmanaged<CFError>?
         guard let pubKey = SecKeyCreateWithData(keyData as CFData, attributes as CFDictionary, &error) else {
-            throw KeyFactoryError.genericError(description: "Error during data encryption\n\(error?.takeRetainedValue().localizedDescription ?? "")")
+            throw KeyFactoryError.genericError(
+               description: "Error during data encryption\n\(error?.takeRetainedValue().localizedDescription ?? "")"
+            )
         }
         
         return pubKey
@@ -59,8 +61,14 @@ class KeyFactory {
         
         var error: Unmanaged<CFError>?
         
-        guard let encryptedPinData = SecKeyCreateEncryptedData(publicKey, .rsaEncryptionOAEPSHA256, (AES256Crypter.key as CFData), &error) else {
-            throw KeyFactoryError.genericError(description: "Error during PIN encryption\n \(error?.takeRetainedValue().localizedDescription ?? "")")
+        guard let encryptedPinData = SecKeyCreateEncryptedData(
+            publicKey,
+            .rsaEncryptionOAEPSHA256,
+            (AES256Crypter.key as CFData),
+            &error) else {
+            throw KeyFactoryError.genericError(
+               description: "Error during PIN encryption\n \(error?.takeRetainedValue().localizedDescription ?? "")"
+            )
         }
         
         return (encryptedPinData as Data).base64EncodedString()
@@ -126,7 +134,12 @@ private extension Data {
         let exponentLengthOctets = exponentBytes.count.encodedOctets()
         
         // Total length is the sum of components + types
-        let totalLengthOctets = (modulusLengthOctets.count + modulusBytes.count + exponentLengthOctets.count + exponentBytes.count + 2).encodedOctets()
+        let totalLengthOctets = (
+            modulusLengthOctets.count +
+            modulusBytes.count +
+            exponentLengthOctets.count +
+            exponentBytes.count + 2
+        ).encodedOctets()
         
         // Combine the two sets of data into a single container
         var builder: [CUnsignedChar] = []

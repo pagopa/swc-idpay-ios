@@ -230,7 +230,11 @@ public struct AbortDialogDemo: View {
         DialogView(dialogModel:
                     ResultModel(
                         title: "Vuoi annullare la spesa del bonus ID Pay?",
-                        subtitle: "La spesa è già stata autorizzata, se annulli l’operazione l’importo verrà riaccreditato sull’iniziativa del cittadino.",
+                        subtitle: """
+                                La spesa è già stata autorizzata,
+                                se annulli l’operazione l’importo verrà riaccreditato
+                                sull’iniziativa del cittadino.
+                            """,
                         themeType: ThemeType.light,
                         buttons: [
                             ButtonModel(

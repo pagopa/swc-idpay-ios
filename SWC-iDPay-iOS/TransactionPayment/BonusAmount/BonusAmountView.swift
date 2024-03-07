@@ -93,7 +93,10 @@ struct BonusAmountView: View {
                             // TODO: Show error if transactionData i nil
                             return
                         }
-                        router.pushTo(.cieAuth(viewModel: CIEAuthViewModel(networkClient: viewModel.networkClient, transactionData: transactionData, initiative: viewModel.initiative)))
+                        router.pushTo(.cieAuth(viewModel:
+                                                CIEAuthViewModel(networkClient: viewModel.networkClient,
+                                                                 transactionData: transactionData,
+                                                                 initiative: viewModel.initiative)))
                     }
                 ),
                 ButtonModel(
@@ -111,5 +114,8 @@ struct BonusAmountView: View {
 }
 
 #Preview {
-    BonusAmountView(viewModel: BonusAmountViewModel(networkClient: NetworkClient(environment: .staging), initiative: Initiative.mocked))
+    BonusAmountView(
+        viewModel: BonusAmountViewModel(networkClient: NetworkClient(environment: .staging),
+                                             initiative: Initiative.mocked)
+    )
 }

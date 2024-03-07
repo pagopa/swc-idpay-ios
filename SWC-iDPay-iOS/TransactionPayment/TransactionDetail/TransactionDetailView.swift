@@ -29,7 +29,10 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
                             .padding(.vertical, Constants.mediumSpacing)
                         ListItem(title: "IMPORTO DEL BENE", subtitle: viewModel.transaction.goodsCost.formattedCurrency)
                         Divider()
-                        ListItem(title: "INIZIATIVA", subtitle: viewModel.initiative?.name ?? viewModel.transaction.initiativeId)
+                        ListItem(
+                            title: "INIZIATIVA",
+                            subtitle: viewModel.initiative?.name ?? viewModel.transaction.initiativeId
+                        )
                         Divider()
                         // ListItem(title: "CREDITO DISPONIBILE", subtitle: "Sottotitolo")
                         // Divider()
@@ -102,7 +105,15 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
                 let createTransactionResponse = try await viewModel.createTransaction()
                 await MainActor.run {
                     router.pop(last: 2)
-                    router.pushTo(.cieAuth(viewModel: CIEAuthViewModel(networkClient: viewModel.networkClient, transactionData: createTransactionResponse, initiative: viewModel.initiative)))
+                    router.pushTo(
+                        .cieAuth(
+                            viewModel: CIEAuthViewModel(
+                                networkClient: viewModel.networkClient,
+                                transactionData: createTransactionResponse,
+                                initiative: viewModel.initiative
+                            )
+                        )
+                    )
                 }
             }
         }), isPresenting: $viewModel.showErrorDialog)

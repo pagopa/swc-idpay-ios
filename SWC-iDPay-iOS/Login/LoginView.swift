@@ -107,7 +107,10 @@ struct LoginView: View {
             if isUserLoggedIn {
                 onLoggedIn()
             } else {
-                toastError = ToastModel(style: .error, message: "Accesso non riuscito. Hai inserito il nome utente e la password corretti?")
+                toastError = ToastModel(
+                    style: .error,
+                    message: "Accesso non riuscito. Hai inserito il nome utente e la password corretti?"
+                )
             }
         }
     }

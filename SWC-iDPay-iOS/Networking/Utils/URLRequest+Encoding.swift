@@ -30,7 +30,9 @@ extension URLRequest {
                     let queryItems: [URLQueryItem] = parameters.compactMap {
                         var value = $0.value
                         if $0.value is String {
-                            value = ($0.value as! String).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? $0.value
+                            value = ($0.value as! String).addingPercentEncoding(
+                                withAllowedCharacters: .urlQueryAllowed
+                            ) ?? $0.value
                         }
                         return URLQueryItem(name: $0.key, value: "\(value)")
                     }
@@ -44,7 +46,9 @@ extension URLRequest {
                     let key = $0.key
                     var value = $0.value
                     if $0.value is String {
-                        value = ($0.value as! String).addingPercentEncoding(withAllowedCharacters: .afURLQueryAllowed) ?? $0.value
+                        value = ($0.value as! String).addingPercentEncoding(
+                            withAllowedCharacters: .afURLQueryAllowed
+                        ) ?? $0.value
                     }
                     return "\(key)=\(value)"
                 })
@@ -58,7 +62,7 @@ extension URLRequest {
                     encodedURLRequest.httpBody = jsonData
                     encodedURLRequest.httpMethod = endpoint.method.rawValue
                                                     
-                } catch (let error) {
+                } catch let error {
                     print("JSONENcoder error:\(error.localizedDescription)")
                 }
             }
@@ -84,7 +88,9 @@ extension URLRequest {
                     let queryItems: [URLQueryItem] = parameters.compactMap {
                         var value = $0.value
                         if $0.value is String {
-                            value = ($0.value as! String).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? $0.value
+                            value = ($0.value as! String).addingPercentEncoding(
+                                withAllowedCharacters: .urlQueryAllowed
+                            ) ?? $0.value
                         }
                         return URLQueryItem(name: $0.key, value: "\(value)")
                     }
@@ -97,7 +103,9 @@ extension URLRequest {
                     let key = $0.key
                     var value = $0.value
                     if $0.value is String {
-                        value = ($0.value as! String).addingPercentEncoding(withAllowedCharacters: .afURLQueryAllowed) ?? $0.value
+                        value = ($0.value as! String).addingPercentEncoding(
+                            withAllowedCharacters: .afURLQueryAllowed
+                        ) ?? $0.value
                     }
                     return "\(key)=\(value)"
                 })
@@ -110,7 +118,7 @@ extension URLRequest {
                     encodedURLRequest.httpBody = jsonData
                     encodedURLRequest.httpMethod = endpoint.method.rawValue
                                                     
-                } catch (let error) {
+                } catch let error {
                     print("JSONENcoder error:\(error.localizedDescription)")
                 }
             }

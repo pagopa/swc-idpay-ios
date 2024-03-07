@@ -69,12 +69,17 @@ public struct Outro: View {
 }
 
 #Preview("Outro") {
-    Outro(model: OutroModel(title: "Operazione conclusa",
-                            subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
-                            actionTitle: "Paga l'importo residuo",
-                            action: {
-                                print("Paga l'importo residuo")
-                            }
-                           )
+    Outro(
+        model: OutroModel(
+            title: "Operazione conclusa",
+            subtitle: """
+                        Puoi riemettere la ricevuta in un momento
+                        successivo dalla sezione ‘Storico operazioni’.
+                        """,
+            actionTitle: "Paga l'importo residuo",
+            action: {
+                print("Paga l'importo residuo")
+            }
+        )
     )
 }

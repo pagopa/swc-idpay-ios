@@ -33,13 +33,16 @@ struct TransactionModel: Decodable {
     }
     
     init(from decoder: Decoder) throws {
-        let container: KeyedDecodingContainer<TransactionModel.CodingKeys> = try decoder.container(keyedBy: TransactionModel.CodingKeys.self)
+        let container: KeyedDecodingContainer<TransactionModel.CodingKeys> = 
+            try decoder.container(keyedBy: TransactionModel.CodingKeys.self)
         self.status = try container.decode(TransactionStatus.self, forKey: TransactionModel.CodingKeys.status)
         let timestamp = try container.decode(String.self, forKey: TransactionModel.CodingKeys.timestamp)
         self.date = timestamp.toUTCDate
         self.goodsCost = try container.decode(Int.self, forKey: TransactionModel.CodingKeys.goodsCost)
-        self.coveredAmount = try? container.decodeIfPresent(Int.self, forKey: TransactionModel.CodingKeys.coveredAmount)
-        self.idpayTransactionId = try container.decode(String.self, forKey: TransactionModel.CodingKeys.idpayTransactionId)
+        self.coveredAmount = 
+            try? container.decodeIfPresent(Int.self, forKey: TransactionModel.CodingKeys.coveredAmount)
+        self.idpayTransactionId = 
+            try container.decode(String.self, forKey: TransactionModel.CodingKeys.idpayTransactionId)
         self.milTransactionId = try container.decode(String.self, forKey: TransactionModel.CodingKeys.milTransactionId)
         self.terminalID = try container.decode(String.self, forKey: TransactionModel.CodingKeys.trxCode)
         self.initiativeId = try container.decode(String.self, forKey: TransactionModel.CodingKeys.initiativeId)

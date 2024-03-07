@@ -73,10 +73,13 @@ class TransactionDeleteVM: BaseVM {
                 showError()
                 throw HTTPResponseError.networkError("No initiative provided")
             }
-            let transactionData = try await networkClient.createTransaction(initiativeId: initiativeID, amount: goodsCost)
+            let transactionData = try await networkClient.createTransaction(
+                initiativeId: initiativeID, 
+                amount: goodsCost
+            )
             self.isLoading = false
             return transactionData
-        }  catch {
+        } catch {
             showError()
             throw error
         }

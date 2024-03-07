@@ -21,7 +21,11 @@ class TransactionHistoryDetailViewModel: TransactionDeleteVM {
     init(transaction: TransactionModel, networkClient: Requestable) {
         self.transaction = transaction
         self.receiptPdfModel = ReceiptPdfModel(transaction: transaction)
-        super.init(networkClient: networkClient, transactionID: transaction.milTransactionId, goodsCost: transaction.goodsCost)
+        super.init(
+            networkClient: networkClient,
+            transactionID: transaction.milTransactionId,
+            goodsCost: transaction.goodsCost
+        )
 
     }
 }
