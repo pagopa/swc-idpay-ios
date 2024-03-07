@@ -14,7 +14,8 @@ struct TransactionModel: Decodable {
     var date: Date?
     var goodsCost: Int
     var coveredAmount: Int?
-    var transactionID: String
+    var idpayTransactionId: String
+    var milTransactionId: String
     var terminalID: String
     var initiativeId: String
     var secondFactor: String?
@@ -24,6 +25,7 @@ struct TransactionModel: Decodable {
         case timestamp
         case goodsCost
         case coveredAmount
+        case idpayTransactionId
         case milTransactionId
         case trxCode
         case initiativeId
@@ -37,7 +39,8 @@ struct TransactionModel: Decodable {
         self.date = timestamp.toUTCDate
         self.goodsCost = try container.decode(Int.self, forKey: TransactionModel.CodingKeys.goodsCost)
         self.coveredAmount = try? container.decodeIfPresent(Int.self, forKey: TransactionModel.CodingKeys.coveredAmount)
-        self.transactionID = try container.decode(String.self, forKey: TransactionModel.CodingKeys.milTransactionId)
+        self.idpayTransactionId = try container.decode(String.self, forKey: TransactionModel.CodingKeys.idpayTransactionId)
+        self.milTransactionId = try container.decode(String.self, forKey: TransactionModel.CodingKeys.milTransactionId)
         self.terminalID = try container.decode(String.self, forKey: TransactionModel.CodingKeys.trxCode)
         self.initiativeId = try container.decode(String.self, forKey: TransactionModel.CodingKeys.initiativeId)
         self.secondFactor = try? container.decode(String.self, forKey: TransactionModel.CodingKeys.secondFactor)

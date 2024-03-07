@@ -71,7 +71,7 @@ class MockedNetworkClient: Requestable {
             
             return transactions.map {
                 var modifiedTransaction = $0
-                switch modifiedTransaction.transactionID {
+                switch modifiedTransaction.milTransactionId {
                 case MockedNetworkClient.validTransactionID, MockedNetworkClient.errorTransactionID:
                     modifiedTransaction.date = Date()
                 case MockedNetworkClient.oldAuthorizedTransactionID:

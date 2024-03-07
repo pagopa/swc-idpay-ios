@@ -37,7 +37,7 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
                             statusDescription: viewModel.transaction.status.description
                         )
                         Divider()
-                        ListItem(title: "ID TRANSAZIONE", subtitle: viewModel.transaction.transactionID)
+                        ListItem(title: "ID TRANSAZIONE", subtitle: viewModel.transaction.idpayTransactionId)
                         Divider()
                         ListItem(title: "INIZIATIVA", subtitle: viewModel.transaction.initiativeId)
                         Divider()

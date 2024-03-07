@@ -17,7 +17,7 @@ extension Date {
     
     public var formattedDateTime: String? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "d MMM yyyy, HH:mm"
+        dateFormatter.dateFormat = "dd MMM yyyy, HH:mm"
         return dateFormatter.string(from: self)
     }
 }
