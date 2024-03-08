@@ -89,14 +89,7 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
                 router.popToRoot()
             }
         }, onRetry: {
-            Task {
-                // Repeat createTransaction and go to verifyCIE
-                let createTransactionResponse = try await viewModel.createTransaction()
-                await MainActor.run {
-                    router.pop(last: 2)
-                    router.pushTo(.cieAuth(viewModel: CIEAuthViewModel(networkClient: viewModel.networkClient, transactionData: createTransactionResponse, initiative: viewModel.initiative)))
-                }
-            }
+            repeatTransactionCreate(viewModel: viewModel, router: router)
         }), isPresenting: $viewModel.showErrorDialog)
         .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         

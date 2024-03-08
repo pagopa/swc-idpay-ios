@@ -16,7 +16,9 @@ enum HTTPResponseError: Error {
     case noData
     case decodeError
     case unauthorized
-    case expired
+    case sessionExpired
+    case maxRetriesExceeded
+    case coveredAmountInconsistent
     case networkError(String)
     case genericError
     
