@@ -11,7 +11,7 @@ class NetworkClient: Requestable {
     
     private let baseURL: URL
     private let session: URLSession
-    private var sessionManager: SessionManager = SessionManager()
+    let sessionManager: SessionManager
     
     private lazy var jsonDecoder: JSONDecoder = {
         var decoder = JSONDecoder()
@@ -27,8 +27,9 @@ class NetworkClient: Requestable {
         return session
     }()
     
-    init(environment: APIEnvironment, session: URLSession? = nil) {
+    init(environment: APIEnvironment, sessionManager: SessionManager = SessionManager(), session: URLSession? = nil) {
         self.baseURL = URL(string: environment.baseURLString)!
+        self.sessionManager = sessionManager
         self.session = session ?? defaultSession
     }
     
@@ -86,7 +87,7 @@ class NetworkClient: Requestable {
 
 extension NetworkClient {
     
-    private func refreshToken() async throws {
+    func refreshToken() async throws {
         guard let refreshToken = try sessionManager.getRefreshToken()else {
             throw HTTPResponseError.unauthorized
         }
@@ -112,7 +113,7 @@ extension NetworkClient {
         default:
             var accessToken = try sessionManager.getAccessToken()
                 
-            if try sessionManager.isExpired(accessToken: accessToken) {
+            if try sessionManager.isTokenExpired() {
                 // REFRESH TOKEN
                 try await refreshToken()
                 accessToken = try sessionManager.getAccessToken()

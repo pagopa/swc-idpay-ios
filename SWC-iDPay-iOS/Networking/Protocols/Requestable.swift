@@ -8,7 +8,11 @@
 import Foundation
 
 protocol Requestable {
+    
+    var sessionManager: SessionManager { get }
+    
     func login(username: String, password: String)  async throws
+    func refreshToken() async throws
     func getInitiatives() async throws -> [Initiative]
     func createTransaction(initiativeId: String, amount: Int) async throws -> CreateTransactionResponse
     func verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String) async throws -> VerifyCIEResponse

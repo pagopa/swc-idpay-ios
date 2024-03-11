@@ -9,10 +9,20 @@ import Foundation
 
 class MockedNetworkClient: Requestable {
     
+    var sessionManager: SessionManager
+    
     static let validTransactionID = "fakeMilValidTransactionId"
     static let errorTransactionID = "fakeMilErrorTransactionId"
     static let oldAuthorizedTransactionID = "oldAuthorizedMilTransactionId"
 
+    init(sessionManager: SessionManager = SessionManager()) {
+        self.sessionManager = sessionManager
+    }
+    
+    func refreshToken() async throws {
+        
+    }
+    
     func login(username: String, password: String) async throws {
         print("Wait to login")
         try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)

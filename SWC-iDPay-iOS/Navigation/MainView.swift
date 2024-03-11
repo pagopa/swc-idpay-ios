@@ -10,33 +10,47 @@ import PagoPAUIKit
 
 struct MainView: View {
     @EnvironmentObject var appManager: AppStateManager
+    @StateObject var router: Router = Router()
+    
+    private var sessionManager: SessionManager = SessionManager()
+    var networkClient: Requestable
+    
+    init() {
+        self.sessionManager = SessionManager()
+        
     #if DEBUG
-    var networkClient: Requestable = UITestingHelper.isUITesting ? MockedNetworkClient() : NetworkClient(environment: .development)
+        networkClient = UITestingHelper.isUITesting ? MockedNetworkClient(sessionManager: sessionManager) : NetworkClient(environment: .development, sessionManager: sessionManager)
     #else
-    var networkClient: Requestable = NetworkClient(environment: .staging)
+        networkClient = NetworkClient(environment: .staging, sessionManager: sessionManager)
     #endif
+    }
+    
     var body: some View {
-        switch appManager.state {
-        case .splash:
-            SplashView(onComplete: {
-                appManager.moveTo(.login)
-            })
-        case .login:
-            LoginView(viewModel: LoginViewModel(networkClient: networkClient), onLoggedIn: {
-                appManager.loadHome()
-            })
-        case .acceptBonus:
-            RootView {
-                HomeView(viewModel: HomeViewModel(networkClient: networkClient))
+        Group {
+            switch appManager.state {
+            case .splash:
+                SplashView(onComplete: {
+                    appManager.moveTo(.login)
+                })
+            case .login:
+                LoginView(viewModel: LoginViewModel(networkClient: networkClient), onLoggedIn: {
+                    appManager.loadHome()
+                })
+            case .acceptBonus:
+                RootView {
+                    HomeView(viewModel: HomeViewModel(networkClient: networkClient))
+                }
+                .environmentObject(router)
+            case .transactionHistory:
+                RootView(barTintColor: Color.paPrimary) {
+                    TransactionsHistoryList(viewModel: TransactionHistoryViewModel(networkClient: networkClient))
+                }
+                .environmentObject(router)
+#if DEBUG
+            case .uiKit:
+                ComponentsDemoListView()
+#endif
             }
-        case .transactionHistory:
-            RootView(barTintColor: Color.paPrimary) {
-                TransactionsHistoryList(viewModel: TransactionHistoryViewModel(networkClient: networkClient))
-            }
-        #if DEBUG
-        case .uiKit:
-            ComponentsDemoListView()
-        #endif
         }
     }
 }
