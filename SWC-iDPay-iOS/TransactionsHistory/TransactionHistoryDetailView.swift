@@ -75,6 +75,7 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
         .background(Color.grey100)
         .toolbarBackground(.visible, for: .navigationBar)
         .dialog(dialogModel: self.buildResultModel(viewModel: self.viewModel, router: self.router, onConfirmDelete: {
+            self.viewModel.setCancelledStatus()
             router.pushTo(.thankyouPage(result: ResultModel(
                 title: "Operazione annullata",
                 subtitle: "L'importo autorizzato è stato riaccreditato sull'iniziativa del cittadino",

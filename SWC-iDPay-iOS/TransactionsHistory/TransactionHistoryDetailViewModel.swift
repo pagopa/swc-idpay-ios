@@ -27,5 +27,8 @@ class TransactionHistoryDetailViewModel: TransactionDeleteVM {
         return ReceiptPdfModel(transaction: self.transaction)
     }
     
+    func setCancelledStatus() {
+        self.transaction.status = .cancelled
+    }
 }
 
