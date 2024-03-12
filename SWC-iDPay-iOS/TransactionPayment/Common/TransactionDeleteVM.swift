@@ -13,7 +13,7 @@ class TransactionDeleteVM: BaseVM {
     @Published private(set) var dialogState: TransactionDetailState = .noMessage
     @Published var isLoading: Bool = false
     @Published var loadingStateMessage: String = ""
-    @Published var showErrorDialog: Bool = false
+    @Published var showDialog: Bool = false
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -31,7 +31,7 @@ class TransactionDeleteVM: BaseVM {
         $dialogState
             .receive(on: DispatchQueue.main)
             .map { $0 != .noMessage }
-            .assign(to: \.showErrorDialog, on: self)
+            .assign(to: \.showDialog, on: self)
             .store(in: &cancellables)
     }
 
@@ -46,10 +46,6 @@ class TransactionDeleteVM: BaseVM {
     
     func dismissDialog() {
         dialogState = .noMessage
-    }
-    
-    func showRetry() {
-        dialogState = .transactionDeleted
     }
 
     @discardableResult func deleteTransaction() async throws -> Bool {

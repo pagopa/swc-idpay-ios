@@ -47,7 +47,7 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
                 Task { @MainActor in
                     router.popToRoot()
                 }
-            }), isPresenting: $viewModel.showErrorDialog)
+            }), isPresenting: $viewModel.showDialog)
             .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         }
         .onAppear {

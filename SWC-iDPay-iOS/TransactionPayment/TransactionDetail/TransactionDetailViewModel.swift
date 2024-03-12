@@ -13,7 +13,6 @@ enum TransactionDetailState {
     case confirmDelete
     case confirmDeleteHistory
     case genericError
-    case transactionDeleted
 }
 
 @MainActor

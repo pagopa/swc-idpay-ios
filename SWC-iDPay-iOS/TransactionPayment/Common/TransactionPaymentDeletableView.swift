@@ -56,28 +56,6 @@ extension TransactionPaymentDeletableView {
                         }
                     })
                 ])
-        case .transactionDeleted:
-            return ResultModel(
-                title: "L'operazione è stata annullata",
-                themeType: .light,
-                buttons: [
-                    ButtonModel(
-                        type: .primary,
-                        themeType: .light,
-                        title: "Accetta nuovo bonus",
-                        action: {
-                            viewModel.dismissDialog()
-                            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
-                        }),
-                    ButtonModel(
-                        type: .primaryBordered,
-                        themeType: .light,
-                        title: "Riprova",
-                        action: {
-                            viewModel.dismissDialog()
-                            onRetry?()
-                        })
-                ])
         case .noMessage:
             return ResultModel.emptyModel
         }

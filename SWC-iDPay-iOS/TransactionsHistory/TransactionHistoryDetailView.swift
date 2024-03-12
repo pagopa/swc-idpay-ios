@@ -86,12 +86,12 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
                         title: "Continua",
                         icon: .arrowRight,
                         action: {
-                            router.pushTo(.receipt(receiptModel: ReceiptPdfModel(transaction: self.viewModel.transaction), networkClient: self.viewModel.networkClient))
+                            router.pushTo(.receipt(receiptModel: viewModel.getReceiptPdfModel(), networkClient: self.viewModel.networkClient))
                         }
                     )]
             )))
         }),
-                isPresenting: $viewModel.showErrorDialog)
+                isPresenting: $viewModel.showDialog)
         .dialog(dialogModel: ResultModel(
             title: "Serve la ricevuta?",
             themeType: .light,
@@ -114,7 +114,7 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
                     iconPosition: .left,
                     action: {
                         viewModel.showReceiptDialog.toggle()
-                        generatedPdfReceiptURL = generatePdfReceipt(model: viewModel.receiptPdfModel)
+                        generatedPdfReceiptURL = generatePdfReceipt(model: viewModel.getReceiptPdfModel())
                         presentShare = true
                     }
                 )
