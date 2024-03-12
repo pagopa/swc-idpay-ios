@@ -37,8 +37,12 @@ class MockedNetworkClient: Requestable {
         try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
 
         if let mockFileName = ProcessInfo.processInfo.environment["-mock-filename"] {
-            var initiativesResponse: InitiativesResponse = UITestingHelper.getMockedObject(jsonName: mockFileName)!
-            return initiativesResponse.initiatives
+            do {
+                var initiativesResponse: InitiativesResponse = try UITestingHelper.getMockedObject(jsonName: mockFileName)!
+                return initiativesResponse.initiatives
+            } catch {
+                return []
+            }
         }
         return []
     }
@@ -76,20 +80,24 @@ class MockedNetworkClient: Requestable {
         print("Delay transaction history loading")
         try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
         if let mockFileName = ProcessInfo.processInfo.environment["-mock-filename"] {
-            var transactionsList: TransactionHistoryResponse = UITestingHelper.getMockedObject(jsonName: mockFileName)!
-            var transactions = transactionsList.transactions
-            
-            return transactions.map {
-                var modifiedTransaction = $0
-                switch modifiedTransaction.milTransactionId {
-                case MockedNetworkClient.validTransactionID, MockedNetworkClient.errorTransactionID:
-                    modifiedTransaction.date = Date()
-                case MockedNetworkClient.oldAuthorizedTransactionID:
-                    modifiedTransaction.date = Calendar.current.date(byAdding: .day, value: -4, to: Date())
-                default:
-                    modifiedTransaction.date = Date.randomUTCDate()
+            do {
+                var transactionsList: TransactionHistoryResponse = try UITestingHelper.getMockedObject(jsonName: mockFileName)!
+                var transactions = transactionsList.transactions
+                
+                return transactions.map {
+                    var modifiedTransaction = $0
+                    switch modifiedTransaction.milTransactionId {
+                    case MockedNetworkClient.validTransactionID, MockedNetworkClient.errorTransactionID:
+                        modifiedTransaction.date = Date()
+                    case MockedNetworkClient.oldAuthorizedTransactionID:
+                        modifiedTransaction.date = Calendar.current.date(byAdding: .day, value: -4, to: Date())
+                    default:
+                        modifiedTransaction.date = Date.randomUTCDate()
+                    }
+                    return modifiedTransaction
                 }
-                return modifiedTransaction
+            } catch {
+                return []
             }
         } else if UITestingHelper.isEmptyStateTest {
             return []
