@@ -19,15 +19,9 @@ extension TransactionPaymentDeletableView {
     func buildResultModel(viewModel: TransactionDeleteVM, router: Router, onConfirmDelete: @escaping () -> Void, onRetry: (() -> Void)? = nil) -> ResultModel {
         switch viewModel.dialogState {
         case .genericError:
-            return ResultModel(
-                title: "Si è verificato un errore imprevisto",
-                subtitle: "Per assistenza visita il sito pagopa.gov.it/assistenza oppure chiama il numero 06.4520.2323.",
-                themeType: .light,
-                buttons: [
-                    ButtonModel(type: .primary, themeType: .light, title: "Ok, ho capito", action: {
-                        viewModel.dismissDialog()
-                    })
-                ])
+            return buildGenericErrorResultModel {
+                viewModel.dismissDialog()
+            }
         case .confirmDelete:
             return ResultModel(
                 title: "Vuoi uscire dall’operazione in corso?",
