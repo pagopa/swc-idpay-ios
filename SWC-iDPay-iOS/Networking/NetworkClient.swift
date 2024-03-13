@@ -79,12 +79,14 @@ class NetworkClient: Requestable {
     }
     
     func transactionHistory() async throws -> [TransactionModel] {
-        let transactionHistory: TransactionHistoryResponse = try await sendRequest(for: .transactionHistory)
+        guard let transactionHistory: TransactionHistoryResponse = try await sendRequest(for: .transactionHistory) else {
+            throw HTTPResponseError.historyListError
+        }
         return transactionHistory.transactions
     }
 
     func refreshToken() async throws {
-        guard let refreshToken = try sessionManager.getRefreshToken()else {
+        guard let refreshToken = try sessionManager.getRefreshToken() else {
             throw HTTPResponseError.unauthorized
         }
         

@@ -21,6 +21,7 @@ enum HTTPResponseError: Error {
     case coveredAmountInconsistent
     case networkError(String)
     case genericError
+    case historyListError
     
     var reason: String {
         switch self {
@@ -32,6 +33,8 @@ enum HTTPResponseError: Error {
             return "Internal Server Error"
         case .networkError(let message):
             return message
+        case .historyListError:
+            return "Non è stato possibile recuperare lo storico delle operazioni"
         default:
             return "Generic error"
         }
