@@ -42,6 +42,18 @@ class SessionManager {
         return accessToken
     }
     
+    func logout() {
+        guard let keychainManager = keychainManager else {
+            return
+        }
+        do {
+            try keychainManager.deleteString(for: ACCESS_TOKEN_KEY)
+            try keychainManager.deleteString(for: REFRESH_TOKEN_KEY)
+        } catch {
+            return
+        }
+    }
+    
     func isTokenExpired() throws -> Bool {
         let accessToken = try getAccessToken()
         let jwt = try decode(jwt: accessToken)

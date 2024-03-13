@@ -83,10 +83,6 @@ class NetworkClient: Requestable {
         return transactionHistory.transactions
     }
 
-}
-
-extension NetworkClient {
-    
     func refreshToken() async throws {
         guard let refreshToken = try sessionManager.getRefreshToken()else {
             throw HTTPResponseError.unauthorized
@@ -98,7 +94,11 @@ extension NetworkClient {
         )
         try sessionManager.saveSessionData(response)
     }
-    
+
+}
+
+extension NetworkClient {
+        
     private func sendRequest<T:Decodable>(for endpoint: Endpoint, params: Parameters? = nil, headers: Headers? = nil) async throws -> T {
         
         var apiRequest: URLRequest = URLRequest.buildRequest(baseUrl: baseURL, endpoint: endpoint)

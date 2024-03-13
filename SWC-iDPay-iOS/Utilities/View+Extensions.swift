@@ -36,4 +36,26 @@ extension View {
             }
         }
     }
+    
+    @MainActor
+    func sessionExpiredDialogModel(appManager: AppStateManager, router: Router, onDismiss: (() -> Void)? = nil) -> ResultModel {
+        ResultModel(
+            title: "Sessione scaduta",
+            subtitle: "Accedi nuovamente all'app.",
+            themeType: .warning,
+            buttons: [
+                ButtonModel(
+                    type: .primary,
+                    themeType: .warning,
+                    title: "Accedi",
+                    action: {
+                        DialogManager.shared.dismiss {
+                            router.popToRoot()
+                            appManager.logout()
+                            onDismiss?()
+                        }
+                    })
+            ])
+    }
+
 }

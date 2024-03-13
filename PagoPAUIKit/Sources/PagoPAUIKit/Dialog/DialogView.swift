@@ -21,7 +21,6 @@ public struct DialogView: View {
     
     public var body: some View {
         ZStack {
-//            if isPresenting {
                 Color.overlay75
                     .ignoresSafeArea()
                 
@@ -61,7 +60,6 @@ public struct DialogView: View {
                 .cornerRadius(Constants.radius2)
                 .padding(Constants.mediumSpacing)
                 .accessibilityIdentifier("dialog")
-//            }
         }
 //        .animation(.spring(duration: 0.1), value: isPresenting)
         

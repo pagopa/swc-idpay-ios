@@ -12,19 +12,6 @@ struct MainView: View {
     @EnvironmentObject var appManager: AppStateManager
     @StateObject var router: Router = Router()
     
-    private var sessionManager: SessionManager = SessionManager()
-    var networkClient: Requestable
-    
-    init() {
-        self.sessionManager = SessionManager()
-        
-    #if DEBUG
-        networkClient = UITestingHelper.isUITesting ? MockedNetworkClient(sessionManager: sessionManager) : NetworkClient(environment: .development, sessionManager: sessionManager)
-    #else
-        networkClient = NetworkClient(environment: .staging, sessionManager: sessionManager)
-    #endif
-    }
-    
     var body: some View {
         Group {
             switch appManager.state {
@@ -33,23 +20,34 @@ struct MainView: View {
                     appManager.moveTo(.login)
                 })
             case .login:
-                LoginView(viewModel: LoginViewModel(networkClient: networkClient), onLoggedIn: {
+                LoginView(viewModel: LoginViewModel(networkClient: appManager.networkClient), onLoggedIn: {
+                    router.popToRoot()
                     appManager.loadHome()
                 })
             case .acceptBonus:
                 RootView {
-                    HomeView(viewModel: HomeViewModel(networkClient: networkClient))
+                    HomeView(viewModel: HomeViewModel(networkClient: appManager.networkClient))
                 }
                 .environmentObject(router)
             case .transactionHistory:
                 RootView(barTintColor: Color.paPrimary) {
-                    TransactionsHistoryList(viewModel: TransactionHistoryViewModel(networkClient: networkClient))
+                    TransactionsHistoryList(viewModel: TransactionHistoryViewModel(networkClient: appManager.networkClient))
                 }
                 .environmentObject(router)
-#if DEBUG
+            #if DEBUG
             case .uiKit:
                 ComponentsDemoListView()
-#endif
+            #endif
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+            Task {
+                if try await appManager.isSessionExpired() {
+                    DialogManager.shared.showDialog(dialogModel:
+                                                        sessionExpiredDialogModel(
+                                                            appManager: appManager,
+                                                            router: router))
+                }
             }
         }
     }

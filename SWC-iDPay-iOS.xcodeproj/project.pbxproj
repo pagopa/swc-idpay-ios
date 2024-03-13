@@ -43,6 +43,7 @@
 		B8290A1E2B87B5AA00B275C6 /* AuthCodeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8290A1D2B87B5AA00B275C6 /* AuthCodeData.swift */; };
 		B8290A252B88AD9C00B275C6 /* ReceiptConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8290A242B88AD9C00B275C6 /* ReceiptConfirmView.swift */; };
 		B8445F8E2B91D266007E58EF /* TransactionHistoryDetailUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8445F8D2B91D266007E58EF /* TransactionHistoryDetailUITests.swift */; };
+		B851C5952BA0A43900DA515D /* DialogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B851C5942BA0A43900DA515D /* DialogManager.swift */; };
 		B861AAFC2B7BA4C2007A86E5 /* BaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */; };
 		B861AAFE2B7BA566007A86E5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */; };
 		B861AB002B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFF2B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift */; };
@@ -157,6 +158,7 @@
 		B8290A1D2B87B5AA00B275C6 /* AuthCodeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCodeData.swift; sourceTree = "<group>"; };
 		B8290A242B88AD9C00B275C6 /* ReceiptConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptConfirmView.swift; sourceTree = "<group>"; };
 		B8445F8D2B91D266007E58EF /* TransactionHistoryDetailUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryDetailUITests.swift; sourceTree = "<group>"; };
+		B851C5942BA0A43900DA515D /* DialogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogManager.swift; sourceTree = "<group>"; };
 		B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVM.swift; sourceTree = "<group>"; };
 		B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		B861AAFF2B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewModel.swift; sourceTree = "<group>"; };
@@ -617,6 +619,7 @@
 				B8290A152B86152E00B275C6 /* KeyFactory.swift */,
 				B8290A192B87A0E100B275C6 /* AES256.swift */,
 				B8A32F4F2B9B6A47002DAAFF /* View+Extensions.swift */,
+				B851C5942BA0A43900DA515D /* DialogManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -867,6 +870,7 @@
 				B882BF142B7519460040C6A6 /* InitiativesViewModel.swift in Sources */,
 				B882BF072B7293B80040C6A6 /* Route.swift in Sources */,
 				B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */,
+				B851C5952BA0A43900DA515D /* DialogManager.swift in Sources */,
 				B88E8FCC2B7680B5005A3737 /* HTTPResponseError.swift in Sources */,
 				B864279D2B35D62000804A02 /* LoginView.swift in Sources */,
 				B8D708C82B56D81A00AF02A0 /* UITestingHelper.swift in Sources */,

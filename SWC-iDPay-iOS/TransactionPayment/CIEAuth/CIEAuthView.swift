@@ -102,6 +102,7 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
                             result: ResultModel(
                                 title: "La sessione è scaduta",
                                 subtitle:"Se vuoi procedere con il pagamento, prova ad autorizzarlo di nuovo.",
+                                icon: .pendingDark,
                                 themeType: .info,
                                 buttons: [
                                     ButtonModel(
