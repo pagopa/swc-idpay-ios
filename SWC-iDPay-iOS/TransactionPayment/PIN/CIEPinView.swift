@@ -59,7 +59,8 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
                 print("PIN: \(viewModel.pinString)")
                 #endif
                 Task {
-                    if try await viewModel.authorizeTransaction() {
+                    do {
+                        try await viewModel.authorizeTransaction()
                         await MainActor.run {
                             router.pushTo(.thankyouPage(result: ResultModel(
                                 title: "Hai pagato \(viewModel.goodsCost.formattedCurrency)!",
@@ -75,6 +76,13 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
                                         }
                                     )]
                             )))
+                        }
+                    } catch {
+                        switch error {
+                        case HTTPResponseError.invalidCode:
+                            print("mostra dialog warning Codice errato")
+                        default:
+                            print("mostra Autorizzazione negata")
                         }
                     }
                 }

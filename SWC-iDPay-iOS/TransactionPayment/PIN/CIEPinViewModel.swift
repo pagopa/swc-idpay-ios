@@ -20,7 +20,7 @@ class CIEPinViewModel: TransactionDeleteVM {
         super.init(networkClient: networkClient, transactionID: transaction.milTransactionId, goodsCost: transaction.goodsCost, initiative: initiative)
     }
     
-    func authorizeTransaction() async throws -> Bool {
+    func authorizeTransaction() async throws {
         do {
             loadingStateMessage = "Autorizzazione in corso"
             isLoading = true
@@ -29,12 +29,11 @@ class CIEPinViewModel: TransactionDeleteVM {
             print("AuthCodeData:\n\(authCodeData)")
             #endif
             let authorized = try await networkClient.authorizeTransaction(milTransactionId: transaction.milTransactionId, authCodeBlockData: authCodeData)
+            #if DEBUG
             print("Transaction Authorized")
-            if authorized {
-                transaction.status = .authorized
-            }
+            #endif
+            transaction.status = .authorized
             isLoading = false
-            return authorized
         } catch {
             isLoading = false
             throw error

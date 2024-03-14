@@ -19,6 +19,7 @@ enum HTTPResponseError: Error {
     case sessionExpired
     case maxRetriesExceeded
     case coveredAmountInconsistent
+    case invalidCode
     case networkError(String)
     case genericError
     case historyListError
@@ -42,22 +43,18 @@ enum HTTPResponseError: Error {
     
     static func decodeError(status: Int, data: Data) -> HTTPResponseError {
         
-        if let responseError = try? JSONDecoder().decode(APIResponseError.self, from: data) {
-            // RETURN HTTPResponseError based on errors array in response
-            return HTTPResponseError.networkError("Service error retrieved: \(responseError.errors?.joined(separator: ", ") ?? "")")
-        } else {
-            switch status {
-            case 401:
-                return .unauthorized
-            default:
-                return HTTPResponseError.genericError
+        switch status {
+        case 400:
+            if let errorResponse: BaseHTTPResponse = try? JSONDecoder().decode(BaseHTTPResponse.self, from: data), let errors = errorResponse.errors, errors.count > 0 {
+                if errors.contains("00A000053") {
+                    return HTTPResponseError.invalidCode
+                }
             }
+            return .unauthorized
+        case 401:
+            return .unauthorized
+        default:
+            return HTTPResponseError.genericError
         }
     }
-}
-
-struct APIResponseError: Decodable {
-    var statusCode: Int
-    var errors: [String]?
-    var descriptions: [String]?
 }
