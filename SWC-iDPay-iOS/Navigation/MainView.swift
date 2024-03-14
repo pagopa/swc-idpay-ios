@@ -11,7 +11,7 @@ import PagoPAUIKit
 struct MainView: View {
     @EnvironmentObject var appManager: AppStateManager
     #if DEBUG
-    var networkClient: Requestable = UITestingHelper.isUITesting ? MockedNetworkClient() : NetworkClient(environment: .staging)
+    var networkClient: Requestable = UITestingHelper.isUITesting ? MockedNetworkClient() : NetworkClient(environment: .development)
     #else
     var networkClient: Requestable = NetworkClient(environment: .staging)
     #endif
