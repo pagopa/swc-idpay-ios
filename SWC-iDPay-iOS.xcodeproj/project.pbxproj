@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		84AAD3282BA30560006C7A83 /* pr-validation.yml in Resources */ = {isa = PBXBuildFile; fileRef = 84AAD3262BA30560006C7A83 /* pr-validation.yml */; };
-		84AAD32A2BA338E0006C7A83 /* build.yml in Resources */ = {isa = PBXBuildFile; fileRef = 84AAD3292BA338E0006C7A83 /* build.yml */; };
+		84AAD32E2BA34805006C7A83 /* build.yml in Resources */ = {isa = PBXBuildFile; fileRef = 84AAD32B2BA34805006C7A83 /* build.yml */; };
+		84AAD32F2BA34805006C7A83 /* pr-validation.yml in Resources */ = {isa = PBXBuildFile; fileRef = 84AAD32C2BA34805006C7A83 /* pr-validation.yml */; };
 		980107872B765F3C00A58325 /* BonusAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980107862B765F3C00A58325 /* BonusAmountViewModel.swift */; };
 		9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */; };
 		9811BC0B2B177C970063E71B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9811BC0A2B177C970063E71B /* Assets.xcassets */; };
@@ -120,8 +120,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		84AAD3262BA30560006C7A83 /* pr-validation.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = "pr-validation.yml"; sourceTree = "<group>"; };
-		84AAD3292BA338E0006C7A83 /* build.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = build.yml; sourceTree = "<group>"; };
+		84AAD32B2BA34805006C7A83 /* build.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = build.yml; sourceTree = "<group>"; };
+		84AAD32C2BA34805006C7A83 /* pr-validation.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = "pr-validation.yml"; sourceTree = "<group>"; };
 		980107862B765F3C00A58325 /* BonusAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusAmountViewModel.swift; sourceTree = "<group>"; };
 		9811BC032B177C950063E71B /* SWC-iDPay-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SWC-iDPay-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWC_iDPay_iOSApp.swift; sourceTree = "<group>"; };
@@ -248,11 +248,19 @@
 		84AAD3272BA30560006C7A83 /* .github */ = {
 			isa = PBXGroup;
 			children = (
-				84AAD3262BA30560006C7A83 /* pr-validation.yml */,
-				84AAD3292BA338E0006C7A83 /* build.yml */,
+				84AAD32D2BA34805006C7A83 /* workflows */,
 			);
 			path = .github;
 			sourceTree = SOURCE_ROOT;
+		};
+		84AAD32D2BA34805006C7A83 /* workflows */ = {
+			isa = PBXGroup;
+			children = (
+				84AAD32B2BA34805006C7A83 /* build.yml */,
+				84AAD32C2BA34805006C7A83 /* pr-validation.yml */,
+			);
+			path = workflows;
+			sourceTree = "<group>";
 		};
 		9811BBFA2B177C940063E71B = {
 			isa = PBXGroup;
@@ -791,12 +799,12 @@
 			files = (
 				B816E7172B8F67AD00DC0488 /* InitiativesList.json in Resources */,
 				B816E7122B8F4C0800DC0488 /* IdentifiedTransaction.json in Resources */,
+				84AAD32E2BA34805006C7A83 /* build.yml in Resources */,
+				84AAD32F2BA34805006C7A83 /* pr-validation.yml in Resources */,
 				9811BC0E2B177C970063E71B /* Preview Assets.xcassets in Resources */,
 				B816E7212B8F8BC500DC0488 /* TransactionsHistoryList.json in Resources */,
 				B86D992F2B5154CE006B4D53 /* AuthorizedTransaction.json in Resources */,
-				84AAD32A2BA338E0006C7A83 /* build.yml in Resources */,
 				B816E7142B8F4C8D00DC0488 /* CreatedTransaction.json in Resources */,
-				84AAD3282BA30560006C7A83 /* pr-validation.yml in Resources */,
 				B86D99312B51593A006B4D53 /* CancelledTransaction.json in Resources */,
 				9811BC0B2B177C970063E71B /* Assets.xcassets in Resources */,
 			);
