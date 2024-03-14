@@ -11,7 +11,6 @@ import CIEScanner
 struct BonusAmountView : View {
     @EnvironmentObject var router: Router
     @ObservedObject var viewModel: BonusAmountViewModel
-    @State var showAuthDialog: Bool = false
     @State var isReadingCIE: Bool = false
     
     var body: some View {
@@ -38,9 +37,9 @@ struct BonusAmountView : View {
             }
             .padding(Constants.mediumSpacing)
             .dialog(
-                dialogModel: buildAuthModeDialog(),
-                isPresenting: $showAuthDialog,
-                onClose:{}
+                dialogModel: buildDialogModel(),
+                isPresenting: $viewModel.showDialog,
+                onClose: (!viewModel.showError) ? {} : nil
             )
             .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         }
@@ -69,7 +68,7 @@ struct BonusAmountView : View {
             isLoading: $viewModel.isCreatingTransaction) {
                 Task {
                     try await viewModel.createTransaction()
-                    self.showAuthDialog = true
+                    self.viewModel.showDialog = true
                 }
             } label: {
                 Text("Conferma")
@@ -77,36 +76,42 @@ struct BonusAmountView : View {
             .disabled(viewModel.amountText == "0,00")
     }
     
-    private func buildAuthModeDialog() -> ResultModel {
-        return ResultModel(
-            title: "Come vuoi identificarti?",
-            themeType: ThemeType.light,
-            buttons:[
-                ButtonModel(
-                    type: .primary,
-                    themeType: .light,
-                    title: "Identificazione con CIE",
-                    action: {
-                        print("Identificazione con CIE")
-                        self.showAuthDialog = false
-                        guard let transactionData = viewModel.transactionData else {
-                            // TODO: Show error if transactionData i nil
-                            return
+    private func buildDialogModel() -> ResultModel {
+        if viewModel.showError {
+           return buildGenericErrorResultModel {
+               viewModel.showDialog = false
+            }
+        } else {
+            return ResultModel(
+                title: "Come vuoi identificarti?",
+                themeType: ThemeType.light,
+                buttons:[
+                    ButtonModel(
+                        type: .primary,
+                        themeType: .light,
+                        title: "Identificazione con CIE",
+                        action: {
+                            print("Identificazione con CIE")
+                            self.viewModel.showDialog = false
+                            guard let transactionData = viewModel.transactionData else {
+                                // TODO: Show error if transactionData i nil
+                                return
+                            }
+                            router.pushTo(.cieAuth(viewModel: CIEAuthViewModel(networkClient: viewModel.networkClient, transactionData: transactionData, initiative: viewModel.initiative)))
                         }
-                        router.pushTo(.cieAuth(viewModel: CIEAuthViewModel(networkClient: viewModel.networkClient, transactionData: transactionData, initiative: viewModel.initiative)))
-                    }
-                ),
-                ButtonModel(
-                    type: .primaryBordered,
-                    themeType: .light,
-                    title: "Identificazione con ",
-                    icon: .io,
-                    action: {
-                        print("Vai a autorizzazione con QRcode")
-                    }
-                )
-            ]
-        )
+                    ),
+                    ButtonModel(
+                        type: .primaryBordered,
+                        themeType: .light,
+                        title: "Identificazione con ",
+                        icon: .io,
+                        action: {
+                            print("Vai a autorizzazione con QRcode")
+                        }
+                    )
+                ]
+            )
+        }
     }
 }
 
