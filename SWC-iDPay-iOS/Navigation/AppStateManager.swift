@@ -55,6 +55,7 @@ extension AppStateManager {
     
     @MainActor
     func isSessionExpired() async throws -> Bool {
+        if state != .splash && state != .login {
             if try sessionManager.isTokenExpired() {
                 DialogManager.shared.present(content:
                                                 WaitingView(
@@ -72,6 +73,7 @@ extension AppStateManager {
                     return true
                 }
             }
+        }
             return false
     }
 
