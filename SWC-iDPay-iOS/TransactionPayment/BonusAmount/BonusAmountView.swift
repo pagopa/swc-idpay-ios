@@ -37,10 +37,13 @@ struct BonusAmountView : View {
             }
             .padding(Constants.mediumSpacing)
             .dialog(
-                dialogModel: buildDialogModel(),
-                isPresenting: $viewModel.showDialog,
-                onClose: (!viewModel.showError) ? {} : nil
+                dialogModel: showAuthDialog(),
+                isPresenting: $viewModel.showAuthDialog,
+                onClose: {}
             )
+            .dialog(dialogModel: buildGenericErrorResultModel {
+                viewModel.showError.toggle()
+            }, isPresenting: $viewModel.showError)
             .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         }
     }
@@ -68,7 +71,6 @@ struct BonusAmountView : View {
             isLoading: $viewModel.isCreatingTransaction) {
                 Task {
                     try await viewModel.createTransaction()
-                    self.viewModel.showDialog = true
                 }
             } label: {
                 Text("Conferma")
@@ -76,13 +78,8 @@ struct BonusAmountView : View {
             .disabled(viewModel.amountText == "0,00")
     }
     
-    private func buildDialogModel() -> ResultModel {
-        if viewModel.showError {
-           return buildGenericErrorResultModel {
-               viewModel.showDialog = false
-            }
-        } else {
-            return ResultModel(
+    private func showAuthDialog() -> ResultModel {
+        ResultModel(
                 title: "Come vuoi identificarti?",
                 themeType: ThemeType.light,
                 buttons:[
@@ -91,13 +88,17 @@ struct BonusAmountView : View {
                         themeType: .light,
                         title: "Identificazione con CIE",
                         action: {
-                            print("Identificazione con CIE")
-                            self.viewModel.showDialog = false
+                            viewModel.showAuthDialog = false
                             guard let transactionData = viewModel.transactionData else {
                                 // TODO: Show error if transactionData i nil
                                 return
                             }
-                            router.pushTo(.cieAuth(viewModel: CIEAuthViewModel(networkClient: viewModel.networkClient, transactionData: transactionData, initiative: viewModel.initiative)))
+                            router.pushTo(.cieAuth(viewModel: 
+                                                    CIEAuthViewModel(
+                                                        networkClient: viewModel.networkClient,
+                                                        transactionData: transactionData,
+                                                        initiative: viewModel.initiative
+                                                    )))
                         }
                     ),
                     ButtonModel(
@@ -111,7 +112,7 @@ struct BonusAmountView : View {
                     )
                 ]
             )
-        }
+        
     }
 }
 

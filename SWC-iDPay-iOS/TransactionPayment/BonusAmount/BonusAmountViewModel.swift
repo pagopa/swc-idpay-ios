@@ -14,7 +14,7 @@ class BonusAmountViewModel: BaseVM {
     @Published var isLoading: Bool = false
     @Published var amountText: String = "0,00"
     @Published var loadingStateMessage: String = ""
-    @Published var showDialog: Bool = false
+    @Published var showAuthDialog: Bool = false
     @Published var showError: Bool = false
 
     var initiative: Initiative
@@ -29,10 +29,11 @@ class BonusAmountViewModel: BaseVM {
         self.isCreatingTransaction = true
         transactionData = try await networkClient.createTransaction(initiativeId: initiative.id, amount: Int(amountText.replacingOccurrences(of: ",", with: ""))!)
         self.isCreatingTransaction = false
-        if transactionData?.goodsCost == nil {
+        guard transactionData?.goodsCost != nil else {
             showError = true
-            showDialog = true
+            return
         }
+        showAuthDialog = true
     }
     
 }
