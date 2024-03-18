@@ -43,11 +43,11 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
             }
             .padding(Constants.mediumSpacing)
             .transactionToolbar(viewModel: viewModel)
-            .dialog(dialogModel: buildResultModel(viewModel: viewModel, router: router, onConfirmDelete: {
+            .dialog(dialogModel: buildDeleteDialog(viewModel: viewModel, router: router, onConfirmDelete: {
                 Task { @MainActor in
                     router.popToRoot()
                 }
-            }), isPresenting: $viewModel.showDialog)
+            }), isPresenting: $viewModel.showDeleteDialog)
             .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         }
         .onAppear {

@@ -60,9 +60,9 @@ class MockedNetworkClient: Requestable {
         return transactions.randomElement()!
     }
     
-    func authorizeTransaction(milTransactionId: String, authCodeBlockData: AuthCodeData) async throws -> Bool {
+    func authorizeTransaction(milTransactionId: String, authCodeBlockData: AuthCodeData) async throws {
         if milTransactionId == MockedNetworkClient.validTransactionID {
-            return true
+            return
         } else {
             throw HTTPResponseError.unauthorized
         }

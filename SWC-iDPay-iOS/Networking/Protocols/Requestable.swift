@@ -17,7 +17,7 @@ protocol Requestable {
     func createTransaction(initiativeId: String, amount: Int) async throws -> CreateTransactionResponse
     func verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String) async throws -> VerifyCIEResponse
     func verifyTransactionStatus(milTransactionId: String) async throws -> TransactionModel
-    func authorizeTransaction(milTransactionId: String, authCodeBlockData: AuthCodeData) async throws -> Bool
+    func authorizeTransaction(milTransactionId: String, authCodeBlockData: AuthCodeData) async throws
     func deleteTransaction(milTransactionId: String) async throws -> Bool
     func transactionHistory() async throws -> [TransactionModel]
 }

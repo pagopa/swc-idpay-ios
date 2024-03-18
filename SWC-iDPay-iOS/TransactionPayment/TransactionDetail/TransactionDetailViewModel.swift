@@ -8,13 +8,6 @@
 import Foundation
 import Combine
 
-enum TransactionDetailState {
-    case noMessage
-    case confirmDelete
-    case confirmDeleteHistory
-    case genericError
-}
-
 @MainActor
 class TransactionDetailViewModel: TransactionDeleteVM {
 

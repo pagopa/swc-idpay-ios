@@ -10,17 +10,17 @@ import PagoPAUIKit
 
 protocol TransactionPaymentDeletableView where Self:View {
     
-    func buildResultModel(viewModel: TransactionDeleteVM, router: Router, onConfirmDelete: @escaping () -> Void, onRetry: (() -> Void)?) -> ResultModel
+    func buildDeleteDialog(viewModel: TransactionDeleteVM, router: Router, onConfirmDelete: @escaping () -> Void, onRetry: (() -> Void)?) -> ResultModel
 }
 
 extension TransactionPaymentDeletableView {
     
     @MainActor
-    func buildResultModel(viewModel: TransactionDeleteVM, router: Router, onConfirmDelete: @escaping () -> Void, onRetry: (() -> Void)? = nil) -> ResultModel {
-        switch viewModel.dialogState {
+    func buildDeleteDialog(viewModel: TransactionDeleteVM, router: Router, onConfirmDelete: @escaping () -> Void, onRetry: (() -> Void)? = nil) -> ResultModel {
+        switch viewModel.deleteDialogState {
         case .genericError:
             return buildGenericErrorResultModel {
-                viewModel.dismissDialog()
+                viewModel.dismissDeleteDialog()
             }
         case .confirmDelete:
             return ResultModel(
@@ -29,10 +29,10 @@ extension TransactionPaymentDeletableView {
                 themeType: .light,
                 buttons: [
                     ButtonModel(type: .primary, themeType: .light, title: "Annulla", action: {
-                        viewModel.dismissDialog()
+                        viewModel.dismissDeleteDialog()
                     }),
                     ButtonModel(type: .plain, themeType: .light, title: "Esci dal pagamento", action: {
-                        viewModel.dismissDialog()
+                        viewModel.dismissDeleteDialog()
                         Task {
                             try await viewModel.deleteTransaction()
                             onConfirmDelete()
@@ -46,10 +46,10 @@ extension TransactionPaymentDeletableView {
                 themeType: .light,
                 buttons: [
                     ButtonModel(type: .primary, themeType: .light, title: "Torna indietro", action: {
-                        viewModel.dismissDialog()
+                        viewModel.dismissDeleteDialog()
                     }),
                     ButtonModel(type: .plain, themeType: .light, title: "Annulla operazione", action: {
-                        viewModel.dismissDialog()
+                        viewModel.dismissDeleteDialog()
                         Task {
                             try await viewModel.deleteTransaction()
                             onConfirmDelete()

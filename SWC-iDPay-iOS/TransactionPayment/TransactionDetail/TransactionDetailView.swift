@@ -83,12 +83,12 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
         }
         .background(Color.grey100)
         .transactionToolbar(viewModel: viewModel, showBack: false)
-        .dialog(dialogModel: buildResultModel(viewModel: viewModel, router: router, onConfirmDelete: {
+        .dialog(dialogModel: buildDeleteDialog(viewModel: viewModel, router: router, onConfirmDelete: {
             guard showRetry == false else { return }
             Task { @MainActor in
                 router.popToRoot()
             }
-        }), isPresenting: $viewModel.showDialog)
+        }), isPresenting: $viewModel.showDeleteDialog)
         .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         
     }

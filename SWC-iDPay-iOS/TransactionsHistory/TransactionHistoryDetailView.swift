@@ -74,7 +74,7 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
         }
         .background(Color.grey100)
         .toolbarBackground(.visible, for: .navigationBar)
-        .dialog(dialogModel: self.buildResultModel(viewModel: self.viewModel, router: self.router, onConfirmDelete: {
+        .dialog(dialogModel: self.buildDeleteDialog(viewModel: self.viewModel, router: self.router, onConfirmDelete: {
             self.viewModel.setCancelledStatus()
             router.pushTo(.thankyouPage(result: ResultModel(
                 title: "Operazione annullata",
@@ -92,7 +92,7 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
                     )]
             )))
         }),
-                isPresenting: $viewModel.showDialog)
+                isPresenting: $viewModel.showDeleteDialog)
         .dialog(dialogModel: ResultModel(
             title: "Serve la ricevuta?",
             themeType: .light,
