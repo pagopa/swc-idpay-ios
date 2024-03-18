@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		84AAD3282BA30560006C7A83 /* pr-validation.yml in Resources */ = {isa = PBXBuildFile; fileRef = 84AAD3262BA30560006C7A83 /* pr-validation.yml */; };
-		84AAD32A2BA338E0006C7A83 /* build.yml in Resources */ = {isa = PBXBuildFile; fileRef = 84AAD3292BA338E0006C7A83 /* build.yml */; };
 		980107872B765F3C00A58325 /* BonusAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980107862B765F3C00A58325 /* BonusAmountViewModel.swift */; };
 		9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */; };
 		9811BC0B2B177C970063E71B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9811BC0A2B177C970063E71B /* Assets.xcassets */; };
@@ -120,8 +118,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		84AAD3262BA30560006C7A83 /* pr-validation.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = "pr-validation.yml"; sourceTree = "<group>"; };
-		84AAD3292BA338E0006C7A83 /* build.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = build.yml; sourceTree = "<group>"; };
 		980107862B765F3C00A58325 /* BonusAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusAmountViewModel.swift; sourceTree = "<group>"; };
 		9811BC032B177C950063E71B /* SWC-iDPay-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SWC-iDPay-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWC_iDPay_iOSApp.swift; sourceTree = "<group>"; };
@@ -245,15 +241,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		84AAD3272BA30560006C7A83 /* .github */ = {
-			isa = PBXGroup;
-			children = (
-				84AAD3262BA30560006C7A83 /* pr-validation.yml */,
-				84AAD3292BA338E0006C7A83 /* build.yml */,
-			);
-			path = .github;
-			sourceTree = SOURCE_ROOT;
-		};
 		9811BBFA2B177C940063E71B = {
 			isa = PBXGroup;
 			children = (
@@ -277,7 +264,6 @@
 		9811BC052B177C950063E71B /* SWC-iDPay-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				84AAD3272BA30560006C7A83 /* .github */,
 				B861AAFA2B7BA4AF007A86E5 /* Shared */,
 				B8AFC6142B63CF0C00FEE74C /* Info.plist */,
 				B8AFC6132B63CEB900FEE74C /* SWC-iDPay-iOS.entitlements */,
@@ -794,9 +780,7 @@
 				9811BC0E2B177C970063E71B /* Preview Assets.xcassets in Resources */,
 				B816E7212B8F8BC500DC0488 /* TransactionsHistoryList.json in Resources */,
 				B86D992F2B5154CE006B4D53 /* AuthorizedTransaction.json in Resources */,
-				84AAD32A2BA338E0006C7A83 /* build.yml in Resources */,
 				B816E7142B8F4C8D00DC0488 /* CreatedTransaction.json in Resources */,
-				84AAD3282BA30560006C7A83 /* pr-validation.yml in Resources */,
 				B86D99312B51593A006B4D53 /* CancelledTransaction.json in Resources */,
 				9811BC0B2B177C970063E71B /* Assets.xcassets in Resources */,
 			);
@@ -1061,7 +1045,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "SWC-iDPay-iOS/SWC-iDPay-iOS.entitlements";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SWC-iDPay-iOS/Preview Content\"";
@@ -1086,7 +1070,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = it.pagopa.swc.smartpos.idpay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = swclient_idpay_poc;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = swclient_idpay_poc;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1100,10 +1085,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "SWC-iDPay-iOS/SWC-iDPay-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SWC-iDPay-iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = M2X5YQ4BJ7;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = M2X5YQ4BJ7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SWC-iDPay-iOS/Info.plist";
@@ -1123,7 +1110,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = it.pagopa.swc.smartpos.idpay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = swclient_idpay_poc;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = swclient_idpay_poc;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

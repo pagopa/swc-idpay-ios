@@ -1,5 +1,4 @@
 {
-  "originHash" : "001d9d584b653098468b9ad3b45152d686ea38849e1e0ea4bfbb339118392531",
   "pins" : [
     {
       "identity" : "jwtdecode.swift",
@@ -20,5 +19,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }
