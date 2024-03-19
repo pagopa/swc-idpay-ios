@@ -10,24 +10,18 @@ import PagoPAUIKit
 
 protocol TransactionPaymentDeletableView where Self:View {
     
-    func buildResultModel(viewModel: TransactionDeleteVM, router: Router, onConfirmDelete: @escaping () -> Void, onRetry: (() -> Void)?) -> ResultModel
+    func buildDeleteDialog(viewModel: TransactionDeleteVM, router: Router, onConfirmDelete: @escaping () -> Void, onRetry: (() -> Void)?) -> ResultModel
 }
 
 extension TransactionPaymentDeletableView {
     
     @MainActor
-    func buildResultModel(viewModel: TransactionDeleteVM, router: Router, onConfirmDelete: @escaping () -> Void, onRetry: (() -> Void)? = nil) -> ResultModel {
-        switch viewModel.dialogState {
+    func buildDeleteDialog(viewModel: TransactionDeleteVM, router: Router, onConfirmDelete: @escaping () -> Void, onRetry: (() -> Void)? = nil) -> ResultModel {
+        switch viewModel.deleteDialogState {
         case .genericError:
-            return ResultModel(
-                title: "Si è verificato un errore imprevisto",
-                subtitle: "Per assistenza visita il sito pagopa.gov.it/assistenza oppure chiama il numero 06.4520.2323.",
-                themeType: .light,
-                buttons: [
-                    ButtonModel(type: .primary, themeType: .light, title: "Ok, ho capito", action: {
-                        viewModel.dismissDialog()
-                    })
-                ])
+            return buildGenericErrorResultModel {
+                viewModel.dismissDeleteDialog()
+            }
         case .confirmDelete:
             return ResultModel(
                 title: "Vuoi uscire dall’operazione in corso?",
@@ -35,10 +29,10 @@ extension TransactionPaymentDeletableView {
                 themeType: .light,
                 buttons: [
                     ButtonModel(type: .primary, themeType: .light, title: "Annulla", action: {
-                        viewModel.dismissDialog()
+                        viewModel.dismissDeleteDialog()
                     }),
                     ButtonModel(type: .plain, themeType: .light, title: "Esci dal pagamento", action: {
-                        viewModel.dismissDialog()
+                        viewModel.dismissDeleteDialog()
                         Task {
                             try await viewModel.deleteTransaction()
                             onConfirmDelete()
@@ -52,37 +46,15 @@ extension TransactionPaymentDeletableView {
                 themeType: .light,
                 buttons: [
                     ButtonModel(type: .primary, themeType: .light, title: "Torna indietro", action: {
-                        viewModel.dismissDialog()
+                        viewModel.dismissDeleteDialog()
                     }),
                     ButtonModel(type: .plain, themeType: .light, title: "Annulla operazione", action: {
-                        viewModel.dismissDialog()
+                        viewModel.dismissDeleteDialog()
                         Task {
                             try await viewModel.deleteTransaction()
                             onConfirmDelete()
                         }
                     })
-                ])
-        case .transactionDeleted:
-            return ResultModel(
-                title: "L'operazione è stata annullata",
-                themeType: .light,
-                buttons: [
-                    ButtonModel(
-                        type: .primary,
-                        themeType: .light,
-                        title: "Accetta nuovo bonus",
-                        action: {
-                            viewModel.dismissDialog()
-                            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
-                        }),
-                    ButtonModel(
-                        type: .primaryBordered,
-                        themeType: .light,
-                        title: "Riprova",
-                        action: {
-                            viewModel.dismissDialog()
-                            onRetry?()
-                        })
                 ])
         case .noMessage:
             return ResultModel.emptyModel

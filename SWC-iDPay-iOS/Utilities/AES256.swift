@@ -25,63 +25,36 @@ public struct AES256 {
         }
         self.key = keyData
     }
-
-    public func encrypt(messageData: Data?) -> Data? {
-        guard let messageData else { return nil}
-        return crypt(data: messageData, option: CCOperation(kCCEncrypt))
+    
+    public func encrypt(byteArray: [UInt8]?) -> Data? {
+        guard let byteArray else { return nil}
+        return crypt(byteArray: byteArray, option: CCOperation(kCCEncrypt))
     }
 
     public func decrypt(encryptedData: Data?) -> Data? {
-        return crypt(data: encryptedData, option: CCOperation(kCCDecrypt))
+        guard let encryptedData else { return nil }
+        let byteArrayToDecrypt = encryptedData.hexEncodedString().byteArrayFromHexString()
+        return crypt(byteArray: byteArrayToDecrypt, option: CCOperation(kCCDecrypt))
     }
 
-    private func crypt(data: Data?, option: CCOperation) -> Data? {
-        guard let data = data else { return nil }
-        var outputBuffer = [UInt8](repeating: 0, count: data.count + kCCBlockSizeAES128)
+    private func crypt(byteArray: [UInt8]?, option: CCOperation) -> Data? {
+        guard let byteArray = byteArray else { return nil }
+        var outputBuffer = [UInt8](repeating: 0, count: byteArray.count + kCCBlockSizeAES128)
         var numBytesEncrypted = 0
-        guard let iv = Data.generateRandomBytes(length: 16) else { return nil }
+        let ivBytes: [UInt8] = [UInt8](repeating: 0, count: 16)
         let status = CCCrypt(
             option,
             CCAlgorithm(kCCAlgorithmAES),
             CCOptions(kCCOptionPKCS7Padding),
             (key as NSData).bytes,
             kCCKeySizeAES256,
-            (iv as NSData).bytes,
-            (data as NSData).bytes,
-            data.count,
+            ivBytes,
+            byteArray,
+            byteArray.count,
             &outputBuffer, outputBuffer.count, &numBytesEncrypted
         )
         guard status == kCCSuccess else { return nil }
         let outputBytes = outputBuffer.prefix(numBytesEncrypted)
         return Data(outputBytes)
     }
-}
-
-extension Data {
-    
-    static func generateRandomBytes(length: Int = kCCKeySizeAES256) -> Data? {
-        var bytes = [Int8](repeating: 0, count: length)
-        let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
-
-        if status == errSecSuccess {
-            return Data(bytes: bytes, count: length)
-        } else {
-            print("Problem generating random bytes")
-            return nil
-        }
-    }
-    
-//    static func generateRandomBytes(length: Int = kCCKeySizeAES256) -> String? {
-//        var bytes = [Int8](repeating: 0, count: length)
-//        let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
-//
-//        if status == errSecSuccess {
-//            return Data(bytes: bytes, count: length).base64EncodedString()
-//        } else {
-//            print("Problem generating random bytes")
-//            return nil
-//        }
-//    }
-
-
 }

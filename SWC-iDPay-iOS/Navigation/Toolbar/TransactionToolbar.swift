@@ -21,7 +21,9 @@ struct TransactionToolbarModifier: ViewModifier {
                 if showBack {
                     ToolbarItem(placement: .topBarLeading) {
                         BackButton {
-                            confirmDelete()
+                            Task {
+                                router.pop()
+                            }
                         }
                         .foregroundColor(tintColor)
                     }

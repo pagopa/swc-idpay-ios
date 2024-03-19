@@ -38,11 +38,12 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
         }
         .padding(Constants.mediumSpacing)
         .transactionToolbar(viewModel: viewModel, showBack: false)
-        .dialog(dialogModel: buildResultModel(viewModel: viewModel, router: router, onConfirmDelete: {
+        .dialog(dialogModel: buildDeleteDialog(viewModel: viewModel, router: router, onConfirmDelete: {
             Task { @MainActor in
                 router.popToRoot()
             }
-        }), isPresenting: $viewModel.showErrorDialog)
+        }), isPresenting: $viewModel.showDeleteDialog)
+        .dialog(dialogModel: wrongPINCredentialsResultModel, isPresenting: $viewModel.showAuthDialog)
         .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
 
     }
@@ -59,22 +60,16 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
                 print("PIN: \(viewModel.pinString)")
                 #endif
                 Task {
-                    if try await viewModel.authorizeTransaction() {
-                        await MainActor.run {
-                            router.pushTo(.thankyouPage(result: ResultModel(
-                                title: "Hai pagato \(viewModel.goodsCost.formattedCurrency)!",
-                                themeType: .success,
-                                buttons: [
-                                    ButtonModel(
-                                        type: .primary,
-                                        themeType: .success,
-                                        title: "Continua",
-                                        icon: .arrowRight,
-                                        action: {
-                                            router.pushTo(.receipt(receiptModel: ReceiptPdfModel(transaction: viewModel.transaction, initiative: viewModel.initiative), networkClient: viewModel.networkClient))
-                                        }
-                                    )]
-                            )))
+                    do {
+                        try await viewModel.authorizeTransaction()
+                        showPaymentConfirm()
+                    } catch {
+                        switch error {
+                        case HTTPResponseError.invalidCode:
+                            guard viewModel.pinRetries == 0 else { return }
+                            showMaxPINRetries()
+                        default:
+                            showPaymentFailed()
                         }
                     }
                 }
@@ -82,6 +77,101 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
                 Text("Conferma")
             }
             .disabled(viewModel.pinString.count < minLength)
+    }
+    
+    /// Result model to populate wrong PIN dialog
+    private var wrongPINCredentialsResultModel: ResultModel  {
+        ResultModel(
+            title: "Codice errato!",
+            subtitle: "Hai a disposizione ancora \(viewModel.pinRetries) \(viewModel.pinRetries == 1 ? "tentativo" : "tentativi").",
+            themeType: ThemeType.warning,
+            buttons:[
+                ButtonModel(
+                    type: .primary,
+                    themeType: .warning,
+                    title: "Riprova",
+                    action: {
+                        viewModel.dismissDialog()
+                    }
+                ),
+                ButtonModel(
+                    type: .plain,
+                    themeType: .warning,
+                    title: "Esci dal pagamento",
+                    action: {
+                        Task {
+                            try await viewModel.deleteTransaction()
+                            router.popToRoot()
+                        }
+                    }
+                )
+            ])
+    }
+    
+}
+
+extension CIEPinView {
+    // MARK: Show Thankyou page (TYP) depending on authorize response
+    /// Payment confirmation TYP and redirects to Receipt
+    private func showPaymentConfirm() {
+        router.pushTo(.thankyouPage(result: ResultModel(
+            title: "Hai pagato \(viewModel.goodsCost.formattedCurrency)!",
+            themeType: .success,
+            buttons: [
+                ButtonModel(
+                    type: .primary,
+                    themeType: .success,
+                    title: "Continua",
+                    icon: .arrowRight,
+                    action: {
+                        router.pushTo(.receipt(receiptModel: ReceiptPdfModel(transaction: viewModel.transaction, initiative: viewModel.initiative), networkClient: viewModel.networkClient))
+                    }
+                )]
+        )))
+    }
+    /// Generic payment error TYP. Triggered on every error returned from authorization endpoint which is not an invalidCode error.
+    private func showPaymentFailed() {
+        router.pushTo(.thankyouPage(result: ResultModel(
+            title: "Autorizzazione negata",
+            subtitle: "Non è stato addebitato alcun importo",
+            themeType: .warning,
+            buttons: [
+                ButtonModel(
+                    type: .primary,
+                    themeType: .warning,
+                    title: "Accetta nuovo bonus",
+                    action: {
+                        router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                    }
+                )
+            ]
+        )))
+    }
+    /// Max PIN retries exceeded TYP. On Retry pops back to PIN view and restores PIN retries.
+    private func showMaxPINRetries() {
+        router.pushTo(.thankyouPage(result: ResultModel(
+            title: "Hai esaurito i tentativi",
+            subtitle: """
+                Se non ricordi il codice ID Pay,
+                puoi impostarne uno nuovo sull’app IO
+                nella sezione Profilo > Sicurezza.
+                """,
+            themeType: .warning,
+            buttons: [
+                ButtonModel(
+                    type: .primary,
+                    themeType: .warning,
+                    title: "Accetta nuovo bonus",
+                    action: {
+                        Task {
+                            try await viewModel.deleteTransaction()
+                            await MainActor.run {
+                                router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                            }
+                        }
+                    }
+                )]
+        )))
     }
 }
 
@@ -103,16 +193,6 @@ private struct PinDot: View {
         } else {
             EmptyView()
         }
-    }
-}
-
-#Preview {
-    HStack {
-        PinDot(filled: .constant(true))
-        PinDot(filled: .constant(true))
-        PinDot(filled: .constant(false))
-        PinDot(filled: .constant(false))
-        PinDot(filled: .constant(false))
     }
 }
 

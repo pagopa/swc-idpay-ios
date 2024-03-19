@@ -8,14 +8,6 @@
 import Foundation
 import Combine
 
-enum TransactionDetailState {
-    case noMessage
-    case confirmDelete
-    case confirmDeleteHistory
-    case genericError
-    case transactionDeleted
-}
-
 @MainActor
 class TransactionDetailViewModel: TransactionDeleteVM {
 
@@ -26,7 +18,7 @@ class TransactionDetailViewModel: TransactionDeleteVM {
         self.transaction = transaction
         self.verifyCIEResponse = verifyCIEResponse
             
-        super.init(networkClient: networkClient, transactionID: self.transaction.transactionID, goodsCost: self.transaction.goodsCost, initiative: initiative)
+        super.init(networkClient: networkClient, transactionID: self.transaction.milTransactionId, goodsCost: self.transaction.goodsCost, initiative: initiative)
         
     }
     

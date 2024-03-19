@@ -11,6 +11,7 @@ import PagoPAUIKit
 struct TransactionsHistoryList: View {
     
     @EnvironmentObject var router: Router
+    @EnvironmentObject var appManager: AppStateManager
     @ObservedObject var viewModel: TransactionHistoryViewModel
     @State private var showHelp: Bool = false
     
@@ -38,7 +39,7 @@ struct TransactionsHistoryList: View {
                         Spacer()
                     }
                     
-                    ForEach(viewModel.transactionHistoryList, id: \.transactionID) { transaction in
+                    ForEach(viewModel.transactionHistoryList, id: \.milTransactionId) { transaction in
                         Button(action: {
                             router.pushTo(
                                 .transactionDetail(
@@ -70,6 +71,9 @@ struct TransactionsHistoryList: View {
             HelpView()
                 .ignoresSafeArea()
         }
+        .fullScreenCover(isPresented: $viewModel.showError) {
+            getErrorView()
+        }
     }
     
     private var emptyStateView: some View {
@@ -96,7 +100,26 @@ struct TransactionsHistoryList: View {
         .foregroundColor(.paBlack)
         .padding(Constants.mediumSpacing)
     }
-                                                                                                                                                    
+       
+    fileprivate func getErrorView() -> ThankyouPage {
+        return ThankyouPage(
+            result: ResultModel(
+                title: HTTPResponseError.historyListError.reason,
+                subtitle: "Riprova tra qualche minuto",
+                themeType: .error,
+                buttons: [
+                    ButtonModel(
+                        type: .primary,
+                        themeType: .error,
+                        title: "Torna alla home",
+                        action: {
+                            appManager.loadHome()
+                        }
+                    )
+                ]
+            )
+        )
+    }
 }
 
 #Preview {
