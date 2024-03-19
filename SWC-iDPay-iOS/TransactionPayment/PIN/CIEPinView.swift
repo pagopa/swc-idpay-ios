@@ -83,7 +83,7 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
     private var wrongPINCredentialsResultModel: ResultModel  {
         ResultModel(
             title: "Codice errato!",
-            subtitle: "Hai a disposizione ancora \(viewModel.pinRetries) tentativi.",
+            subtitle: "Hai a disposizione ancora \(viewModel.pinRetries) \(viewModel.pinRetries == 1 ? "tentativo" : "tentativi").",
             themeType: ThemeType.warning,
             buttons:[
                 ButtonModel(
