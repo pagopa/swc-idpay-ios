@@ -61,33 +61,23 @@ class KeyFactory {
         
         var error: Unmanaged<CFError>?
         
-        guard let encryptedPinData = SecKeyCreateEncryptedData(
-            publicKey,
-            .rsaEncryptionOAEPSHA256,
-            (AES256Crypter.key as CFData),
-            &error) else {
-            throw KeyFactoryError.genericError(
-               description: "Error during PIN encryption\n \(error?.takeRetainedValue().localizedDescription ?? "")"
-            )
+        guard let encryptedAESKeyData = SecKeyCreateEncryptedData(publicKey, .rsaEncryptionOAEPSHA256, (AES256Crypter.key as CFData), &error) else {
+            throw KeyFactoryError.genericError(description: "Error during AES key encryption\n \(error?.takeRetainedValue().localizedDescription ?? "")")
         }
         
-        return (encryptedPinData as Data).base64EncodedString()
+        return (encryptedAESKeyData as Data).base64EncodedString()
     }
     
-    public func encryptAES(_ string: String) throws -> String {
-        
-        guard let plainData = string.data(using: .utf8) else {
-            throw KeyFactoryError.invalidData
-        }
-        
-        guard let encryptedPinData = AES256Crypter.encrypt(messageData: plainData) else {
+    public func encryptAES(_ pinblock: [UInt8]) throws -> String {
+                
+        guard let encryptedPinData = AES256Crypter.encrypt(byteArray: pinblock) else {
             throw KeyFactoryError.genericError(description: "Unable to encrypt Pin data")
         }
         
         return (encryptedPinData as Data).base64EncodedString()
     }
     
-    func generate(pin: String, secondFactor: String) throws -> String {
+    func generate(pin: String, secondFactor: String) throws -> [UInt8] {
         
         var pinBlock = "0\(pin.count)\(pin)"
         
@@ -108,7 +98,8 @@ class KeyFactory {
             generated.append(hexPinBlock[i] ^ hexSecondFactor[i])
         }
         
-        return Data(generated).hexEncodedString(options: .upperCase)
+        
+        return generated
     }
     
 }
