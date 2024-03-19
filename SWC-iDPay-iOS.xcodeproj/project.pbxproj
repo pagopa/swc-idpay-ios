@@ -17,6 +17,7 @@
 		989B12312B861DE400917027 /* TransactionHistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989B12302B861DE400917027 /* TransactionHistoryResponse.swift */; };
 		989B12352B863E3F00917027 /* TransactionHistoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989B12342B863E3F00917027 /* TransactionHistoryDetailView.swift */; };
 		989B12372B875C5200917027 /* TransactionHistoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989B12362B875C5200917027 /* TransactionHistoryDetailViewModel.swift */; };
+		98B5C2462BA99922004F47BA /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98B5C2452BA99922004F47BA /* Launch Screen.storyboard */; };
 		B803D8D62B20D85700A7934E /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B803D8D52B20D85700A7934E /* AppStateManager.swift */; };
 		B81261242B57F1D4003304C8 /* XCUIElement+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81261232B57F1D4003304C8 /* XCUIElement+Extensions.swift */; };
 		B81261272B581512003304C8 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81261262B581512003304C8 /* MenuView.swift */; };
@@ -132,6 +133,7 @@
 		989B12302B861DE400917027 /* TransactionHistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryResponse.swift; sourceTree = "<group>"; };
 		989B12342B863E3F00917027 /* TransactionHistoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryDetailView.swift; sourceTree = "<group>"; };
 		989B12362B875C5200917027 /* TransactionHistoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryDetailViewModel.swift; sourceTree = "<group>"; };
+		98B5C2452BA99922004F47BA /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		B803D8D52B20D85700A7934E /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
 		B81261232B57F1D4003304C8 /* XCUIElement+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Extensions.swift"; sourceTree = "<group>"; };
 		B81261262B581512003304C8 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				9811BC062B177C950063E71B /* SWC_iDPay_iOSApp.swift */,
 				9811BC0A2B177C970063E71B /* Assets.xcassets */,
 				9811BC0C2B177C970063E71B /* Preview Content */,
+				98B5C2452BA99922004F47BA /* Launch Screen.storyboard */,
 			);
 			path = "SWC-iDPay-iOS";
 			sourceTree = "<group>";
@@ -784,6 +787,7 @@
 				B816E7172B8F67AD00DC0488 /* InitiativesList.json in Resources */,
 				B816E7122B8F4C0800DC0488 /* IdentifiedTransaction.json in Resources */,
 				9811BC0E2B177C970063E71B /* Preview Assets.xcassets in Resources */,
+				98B5C2462BA99922004F47BA /* Launch Screen.storyboard in Resources */,
 				B816E7212B8F8BC500DC0488 /* TransactionsHistoryList.json in Resources */,
 				B86D992F2B5154CE006B4D53 /* AuthorizedTransaction.json in Resources */,
 				B816E7142B8F4C8D00DC0488 /* CreatedTransaction.json in Resources */,
@@ -1067,6 +1071,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
@@ -1107,6 +1112,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
