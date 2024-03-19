@@ -76,14 +76,15 @@ class CIEPinViewModel: TransactionDeleteVM {
     
     
     func generateAuthCodeData() throws -> AuthCodeData {
-                
         do {
             guard let secondFactor = transaction.secondFactor else {
                 throw KeyFactoryError.genericError(description: "Second factor not found")
             }
             let keyFactory = try KeyFactory(modulus: verifyCIEResponse.n, exponent: verifyCIEResponse.e)
             let generated = try keyFactory.generate(pin: pinString, secondFactor: secondFactor)
+            #if DEBUG
             print("Generated pinBlock:\n\(generated)")
+            #endif
             let encryptedPin = try keyFactory.encryptAES(generated)
             let encSessionKey = try keyFactory.encryptAESKeyWithRsa()
             
