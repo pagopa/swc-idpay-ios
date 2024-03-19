@@ -53,6 +53,7 @@ class MockedNetworkClient: Requestable {
     }
     
     func verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String) async throws -> VerifyCIEResponse {
+        try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
         if let cieReadingSuccess = ProcessInfo.processInfo.environment["-cie-reading-success"], cieReadingSuccess == "0" {
             throw HTTPResponseError.networkError("Unable to read CIE")
         }
@@ -65,11 +66,14 @@ class MockedNetworkClient: Requestable {
     }
     
     func authorizeTransaction(milTransactionId: String, authCodeBlockData: AuthCodeData) async throws {
-        if milTransactionId == MockedNetworkClient.validTransactionID {
-            return
-        } else {
-            throw HTTPResponseError.unauthorized
+        try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
+        if let transactionSuccess = ProcessInfo.processInfo.environment["-auth-error"] {
+            throw HTTPResponseError.invalidCode
+        } else if let transactionError = ProcessInfo.processInfo.environment["-transaction-generic-error"] {
+            throw HTTPResponseError.genericError
         }
+        
+        return
     }
     
     func deleteTransaction(milTransactionId: String) async throws -> Bool {

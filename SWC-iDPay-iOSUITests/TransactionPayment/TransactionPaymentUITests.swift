@@ -23,7 +23,7 @@ final class TransactionPaymentUITests: XCTestCase {
         app = nil
     }
 
-    func test_cie_reading_view_is_visible_when_authorizing_with_cie() {
+    func test_payment_successfull_when_authorizing_with_cie() {
         app.launchEnvironment = [
             "-mock-filename": "InitiativesList",
             "-cie-reading-success": "1"]
@@ -54,7 +54,42 @@ final class TransactionPaymentUITests: XCTestCase {
         authorizeWithCIEBtn.tap()
         
         XCTAssertTrue(app.staticTexts["Appoggia la CIE sul dispositivo, in alto"].waitForExistence(timeout: 2))
-//        XCTAssertTrue(app.staticTexts["Pronto per la lettura"].waitForExistence(timeout: 4))
+                
+        XCTAssertTrue(app.staticTexts["Confermi l'operazione?"].waitForExistence(timeout: 10))
+        app.buttons["Conferma"].tap()
+        XCTAssertTrue(app.staticTexts["Inserisci il codice ID Pay"].waitForExistence(timeout: 2))
+        let oneNumberBtn = app.buttons["1"]
+        oneNumberBtn.tap()
+        oneNumberBtn.tap()
+        oneNumberBtn.tap()
+        
+        // test should insert at least 4 numbers
+        let confirmPinBtn = app.buttons["Conferma"]
+        XCTAssertFalse(confirmPinBtn.isEnabled)
+        
+        oneNumberBtn.tap()
+        XCTAssertTrue(confirmPinBtn.isEnabled)
+        confirmPinBtn.tap()
+        
+        let predicate = NSPredicate(format: "label CONTAINS 'Hai pagato'")
+        XCTAssertTrue(app.staticTexts.containing(predicate).element.waitForExistence(timeout: 2))
 
+        app.buttons["Continua"].tap()
+        XCTAssertTrue(app.staticTexts["Serve la ricevuta?"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.staticTexts["Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’."].exists)
+        XCTAssertTrue(app.buttons["Invia via e-mail"].exists)
+        XCTAssertTrue(app.buttons["Condividi"].exists)
+        let notNowBtn = app.buttons["No, grazie"]
+        XCTAssertTrue(notNowBtn.exists)
+
+        notNowBtn.tap()
+        XCTAssertTrue(app.staticTexts["Operazione conclusa"].exists)
+        XCTAssertTrue(app.staticTexts["Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’."].exists)
+        
+        let acceptNewBonusBtn = app.buttons["Accetta nuovo bonus"]
+        XCTAssertTrue(acceptNewBonusBtn.exists)
+        acceptNewBonusBtn.tap()
+        
+        XCTAssertTrue(app.staticTexts["Scegli l'iniziativa"].exists)
     }
 }

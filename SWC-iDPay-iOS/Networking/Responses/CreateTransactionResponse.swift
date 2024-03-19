@@ -49,7 +49,9 @@ extension CreateTransactionResponse {
             goodsCost: 500,
             challenge: String.base64StringFromBinary([0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07]),
             trxCode: "A7UG8GHI3",
-            status: "CREATED")
+            status: "CREATED",
+            retryAfter: 5,
+            maxRetries: 10)
     }
     
     static var mockedIdentified: Self {
