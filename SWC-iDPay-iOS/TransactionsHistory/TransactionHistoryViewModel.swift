@@ -11,7 +11,7 @@ import Foundation
 class TransactionHistoryViewModel: BaseVM {
     
     @Published var isLoading: Bool = false
-    @Published var showErrorDialog: Bool = false
+    @Published var showError: Bool = false
     @Published var loadingStateMessage: String = "Aspetta qualche istante"
     @Published var transactionHistoryList: [TransactionModel] = []
     
@@ -23,6 +23,7 @@ class TransactionHistoryViewModel: BaseVM {
                 isLoading = false
             } catch {
                 isLoading = false
+                showError = true
             }
         }
     }

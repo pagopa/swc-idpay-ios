@@ -51,7 +51,7 @@ class CIEAuthViewModel: TransactionDeleteVM {
         }
     }
     
-    func pollTransactionStatus(retries: Int? = nil) async throws -> TransactionModel? {
+    func pollTransactionStatus(retries: Int? = nil) async throws -> TransactionModel {
 
         loadingStateMessage = "Stiamo verificando il tuo portafoglio ID Pay"
         self.isLoading = true
@@ -69,7 +69,7 @@ class CIEAuthViewModel: TransactionDeleteVM {
         
         guard maxRetries > 0 else {
             self.isLoading = false
-            throw CIEAuthError.walletVerifyError
+            throw HTTPResponseError.maxRetriesExceeded
         }
         
         guard let retryAfter = transactionData.retryAfter else {
@@ -81,15 +81,18 @@ class CIEAuthViewModel: TransactionDeleteVM {
             milTransactionId: transactionData.milTransactionId
         )
 
-        if transaction.status == .created {
+        switch transaction.status {
+        case .created:
             maxRetries -= 1
             try await Task.sleep(nanoseconds: UInt64(retryAfter * 1_000_000_000))
             return try await pollTransactionStatus(retries: maxRetries)
-        } else {
+        default:
             self.isLoading = false
+            guard let coveredAmount = transaction.coveredAmount, coveredAmount > 0 else {
+                throw HTTPResponseError.coveredAmountInconsistent
+            }
             return transaction
         }
-        
     }
     
 }

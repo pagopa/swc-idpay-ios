@@ -67,7 +67,7 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
                                 do {
                                     showRetry = true
                                     try await viewModel.deleteTransaction()
-                                    viewModel.showRetry()
+                                    showResultView()
                                 } catch {
                                     showRetry = false
                                 }
@@ -94,33 +94,54 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
         }
         .background(Color.grey100)
         .transactionToolbar(viewModel: viewModel, showBack: false)
-        .dialog(dialogModel: buildResultModel(viewModel: viewModel, router: router, onConfirmDelete: {
+        .dialog(dialogModel: buildDeleteDialog(viewModel: viewModel, router: router, onConfirmDelete: {
             guard showRetry == false else { return }
             Task { @MainActor in
                 router.popToRoot()
             }
-        }, onRetry: {
-            Task {
-                // Repeat createTransaction and go to verifyCIE
-                let createTransactionResponse = try await viewModel.createTransaction()
-                await MainActor.run {
-                    router.pop(last: 2)
-                    router.pushTo(
-                        .cieAuth(
-                            viewModel: CIEAuthViewModel(
-                                networkClient: viewModel.networkClient,
-                                transactionData: createTransactionResponse,
-                                initiative: viewModel.initiative
-                            )
-                        )
-                    )
-                }
-            }
-        }), isPresenting: $viewModel.showErrorDialog)
+        }), isPresenting: $viewModel.showDeleteDialog)
         .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         
     }
-        
+    
+    func showResultView() {
+        router.pushTo(.thankyouPage(result: ResultModel(
+            title: "L'operazione è stata annullata",
+            themeType: .warning,
+            buttons: [
+                ButtonModel(
+                    type: .primary,
+                    themeType: .warning,
+                    title: "Accetta nuovo bonus",
+                    action: {
+                        router.pop(to:.initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                    }
+                ),
+                ButtonModel(
+                    type: .primaryBordered,
+                    themeType: .warning,
+                    title: "Riprova",
+                    action: {
+                        Task {
+                            // Repeat createTransaction and go to verifyCIE
+                            let createTransactionResponse = try await viewModel.createTransaction()
+                            await MainActor.run {
+                                router.pop(last: 3)
+                                router.pushTo(
+                                    .cieAuth(
+                                        viewModel: CIEAuthViewModel(
+                                            networkClient: viewModel.networkClient,
+                                            transactionData: createTransactionResponse,
+                                            initiative: viewModel.initiative
+                                        )
+                                    )
+                                )
+                            }
+                        }
+                    }
+                    )]
+        )))
+    }
 }
 
 #Preview {

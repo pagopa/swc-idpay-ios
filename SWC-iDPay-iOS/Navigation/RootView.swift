@@ -10,7 +10,7 @@ import PagoPAUIKit
 
 struct RootView<Content: View>: View {
     
-    @StateObject var router: Router = Router()
+    @EnvironmentObject var router: Router
     @State private var showSheet: Bool = false
     @State private var showHelp: Bool = false
 

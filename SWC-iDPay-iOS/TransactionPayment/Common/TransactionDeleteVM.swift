@@ -7,13 +7,20 @@
 import Foundation
 import Combine
 
+enum TransactionDeleteState {
+    case noMessage
+    case confirmDelete
+    case confirmDeleteHistory
+    case genericError
+}
+
 @MainActor
 class TransactionDeleteVM: BaseVM {
 
-    @Published private(set) var dialogState: TransactionDetailState = .noMessage
+    @Published private(set) var deleteDialogState: TransactionDeleteState = .noMessage
     @Published var isLoading: Bool = false
     @Published var loadingStateMessage: String = ""
-    @Published var showErrorDialog: Bool = false
+    @Published var showDeleteDialog: Bool = false
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -28,27 +35,23 @@ class TransactionDeleteVM: BaseVM {
             
         super.init(networkClient: networkClient)
         
-        $dialogState
+        $deleteDialogState
             .receive(on: DispatchQueue.main)
             .map { $0 != .noMessage }
-            .assign(to: \.showErrorDialog, on: self)
+            .assign(to: \.showDeleteDialog, on: self)
             .store(in: &cancellables)
     }
 
     func confirmTransactionDelete() {
-        dialogState = .confirmDelete
+        deleteDialogState = .confirmDelete
     }
     
     func confirmHistoryTransactionDelete() {
-        dialogState = .confirmDeleteHistory
+        deleteDialogState = .confirmDeleteHistory
     }
     
-    func dismissDialog() {
-        dialogState = .noMessage
-    }
-    
-    func showRetry() {
-        dialogState = .transactionDeleted
+    func dismissDeleteDialog() {
+        deleteDialogState = .noMessage
     }
 
     @discardableResult func deleteTransaction() async throws -> Bool {
@@ -57,7 +60,7 @@ class TransactionDeleteVM: BaseVM {
             self.isLoading = true
             let transactionDeleted = try await networkClient.deleteTransaction(milTransactionId: transactionID)
             self.isLoading = false
-            dialogState = .noMessage
+            deleteDialogState = .noMessage
             return transactionDeleted
         } catch {
             showError()
@@ -87,6 +90,6 @@ class TransactionDeleteVM: BaseVM {
 
     func showError() {
         self.isLoading = false
-        dialogState = .genericError
+        deleteDialogState = .genericError
     }
 }

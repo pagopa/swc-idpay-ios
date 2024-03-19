@@ -10,34 +10,45 @@ import PagoPAUIKit
 
 struct MainView: View {
     @EnvironmentObject var appManager: AppStateManager
-    #if DEBUG
-    var networkClient: Requestable = 
-    UITestingHelper.isUITesting ? MockedNetworkClient() : NetworkClient(environment: .development)
-    #else
-    var networkClient: Requestable = NetworkClient(environment: .staging)
-    #endif
+    @StateObject var router: Router = Router()
+    
     var body: some View {
-        switch appManager.state {
-        case .splash:
-            SplashView(onComplete: {
-                appManager.moveTo(.login)
-            })
-        case .login:
-            LoginView(viewModel: LoginViewModel(networkClient: networkClient), onLoggedIn: {
-                appManager.loadHome()
-            })
-        case .acceptBonus:
-            RootView {
-                HomeView(viewModel: HomeViewModel(networkClient: networkClient))
+        Group {
+            switch appManager.state {
+            case .splash:
+                SplashView(onComplete: {
+                    appManager.moveTo(.login)
+                })
+            case .login:
+                LoginView(viewModel: LoginViewModel(networkClient: appManager.networkClient), onLoggedIn: {
+                    router.popToRoot()
+                    appManager.loadHome()
+                })
+            case .acceptBonus:
+                RootView {
+                    HomeView(viewModel: HomeViewModel(networkClient: appManager.networkClient))
+                }
+                .environmentObject(router)
+            case .transactionHistory:
+                RootView(barTintColor: Color.paPrimary) {
+                    TransactionsHistoryList(viewModel: TransactionHistoryViewModel(networkClient: appManager.networkClient))
+                }
+                .environmentObject(router)
+            #if DEBUG
+            case .uiKit:
+                ComponentsDemoListView()
+            #endif
             }
-        case .transactionHistory:
-            RootView(barTintColor: Color.paPrimary) {
-                TransactionsHistoryList(viewModel: TransactionHistoryViewModel(networkClient: networkClient))
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+            Task {
+                if try await appManager.isSessionExpired() {
+                    DialogManager.shared.showDialog(dialogModel:
+                                                        sessionExpiredDialogModel(
+                                                            appManager: appManager,
+                                                            router: router))
+                }
             }
-        #if DEBUG
-        case .uiKit:
-            ComponentsDemoListView()
-        #endif
         }
     }
 }

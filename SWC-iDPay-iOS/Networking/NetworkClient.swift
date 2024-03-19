@@ -11,7 +11,7 @@ class NetworkClient: Requestable {
     
     private let baseURL: URL
     private let session: URLSession
-    private var sessionManager: SessionManager = SessionManager()
+    let sessionManager: SessionManager
     
     private lazy var jsonDecoder: JSONDecoder = {
         var decoder = JSONDecoder()
@@ -27,8 +27,9 @@ class NetworkClient: Requestable {
         return session
     }()
     
-    init(environment: APIEnvironment, session: URLSession? = nil) {
+    init(environment: APIEnvironment, sessionManager: SessionManager = SessionManager(), session: URLSession? = nil) {
         self.baseURL = URL(string: environment.baseURLString)!
+        self.sessionManager = sessionManager
         self.session = session ?? defaultSession
     }
     
@@ -67,17 +68,10 @@ class NetworkClient: Requestable {
         return transaction
     }
     
-    func authorizeTransaction(milTransactionId: String, authCodeBlockData: AuthCodeData) async throws -> Bool {
+    func authorizeTransaction(milTransactionId: String, authCodeBlockData: AuthCodeData) async throws {
         do {
-            let _: EmptyResponse = try await sendRequest(for: 
-                    .authorize(
-                        milTransactionId: milTransactionId,
-                        kid: authCodeBlockData.kid,
-                        encSessionKey: authCodeBlockData.encSessionKey,
-                        authCodeBlock: authCodeBlockData.authCodeBlock
-                    )
-            )
-            return true
+            let _: EmptyResponse = try await sendRequest(for: .authorize(milTransactionId: milTransactionId, kid: authCodeBlockData.kid, encSessionKey: authCodeBlockData.encSessionKey, authCodeBlock: authCodeBlockData.authCodeBlock))
+            return
         } catch {
             print("Error:\(error.localizedDescription)")
             throw error
@@ -95,16 +89,14 @@ class NetworkClient: Requestable {
     }
     
     func transactionHistory() async throws -> [TransactionModel] {
-        let transactionHistory: TransactionHistoryResponse = try await sendRequest(for: .transactionHistory)
+        guard let transactionHistory: TransactionHistoryResponse = try await sendRequest(for: .transactionHistory) else {
+            throw HTTPResponseError.historyListError
+        }
         return transactionHistory.transactions
     }
 
-}
-
-extension NetworkClient {
-    
-    private func refreshToken() async throws {
-        guard let refreshToken = try sessionManager.getRefreshToken()else {
+    func refreshToken() async throws {
+        guard let refreshToken = try sessionManager.getRefreshToken() else {
             throw HTTPResponseError.unauthorized
         }
         
@@ -114,8 +106,12 @@ extension NetworkClient {
         )
         try sessionManager.saveSessionData(response)
     }
-    
-    private func sendRequest<T: Decodable>(for endpoint: Endpoint, params: Parameters? = nil, headers: Headers? = nil) async throws -> T {
+
+}
+
+extension NetworkClient {
+        
+    private func sendRequest<T:Decodable>(for endpoint: Endpoint, params: Parameters? = nil, headers: Headers? = nil) async throws -> T {
         
         var apiRequest: URLRequest = URLRequest.buildRequest(baseUrl: baseURL, endpoint: endpoint)
         
@@ -129,7 +125,7 @@ extension NetworkClient {
         default:
             var accessToken = try sessionManager.getAccessToken()
                 
-            if try sessionManager.isExpired(accessToken: accessToken) {
+            if try sessionManager.isTokenExpired() {
                 // REFRESH TOKEN
                 try await refreshToken()
                 accessToken = try sessionManager.getAccessToken()
