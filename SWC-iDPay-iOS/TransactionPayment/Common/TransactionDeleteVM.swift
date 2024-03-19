@@ -55,9 +55,9 @@ class TransactionDeleteVM: BaseVM {
         deleteDialogState = .noMessage
     }
 
-    @discardableResult func deleteTransaction() async throws -> Bool {
+    @discardableResult func deleteTransaction(loadingMessage: String = "Annullamento della transazione in corso..") async throws -> Bool {
         do {
-            loadingStateMessage = "Annullamento della transazione in corso.."
+            loadingStateMessage = loadingMessage
             self.isLoading = true
             let transactionDeleted = try await networkClient.deleteTransaction(milTransactionId: transactionID)
             self.isLoading = false

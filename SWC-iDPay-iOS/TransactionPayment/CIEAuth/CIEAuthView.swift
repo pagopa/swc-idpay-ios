@@ -110,14 +110,21 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
                                         themeType: .info,
                                         title: "Riprova",
                                         action: {
-                                            router.pop()
+                                            Task {
+                                                try await viewModel.deleteTransaction(loadingMessage: "Aspetta qualche istante")
+                                                // Repeat createTransaction and go to verifyCIE
+                                                repeatTransactionCreate(viewModel: viewModel, router: router)
+                                            }
                                         }),
                                     ButtonModel(
                                         type: .primaryBordered,
                                         themeType: .info,
                                         title: "Accetta nuovo bonus",
                                         action: {
-                                            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                                            Task {
+                                                try await viewModel.deleteTransaction(loadingMessage: "Aspetta qualche istante")
+                                                router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                                            }
                                         })
                                 ])))
                 case CIEReaderError.scanNotSupported:

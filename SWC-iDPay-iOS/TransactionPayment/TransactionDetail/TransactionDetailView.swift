@@ -113,19 +113,7 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
                     action: {
                         Task {
                             // Repeat createTransaction and go to verifyCIE
-                            let createTransactionResponse = try await viewModel.createTransaction()
-                            await MainActor.run {
-                                router.pop(last: 3)
-                                router.pushTo(
-                                    .cieAuth(
-                                        viewModel: CIEAuthViewModel(
-                                            networkClient: viewModel.networkClient,
-                                            transactionData: createTransactionResponse,
-                                            initiative: viewModel.initiative
-                                        )
-                                    )
-                                )
-                            }
+                            repeatTransactionCreate(viewModel: viewModel, router: router)
                         }
                     }
                     )]
