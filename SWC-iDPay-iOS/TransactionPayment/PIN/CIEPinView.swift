@@ -170,16 +170,7 @@ extension CIEPinView {
                             }
                         }
                     }
-                ),
-                ButtonModel(
-                    type: .primaryBordered,
-                    themeType: .warning,
-                    title: "Riprova",
-                    action: {
-                        router.pop()
-                        viewModel.pinRetries = 3
-                    })
-            ]
+                )]
         )))
     }
 }
