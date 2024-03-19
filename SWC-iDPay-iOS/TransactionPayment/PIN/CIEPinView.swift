@@ -163,7 +163,12 @@ extension CIEPinView {
                     themeType: .warning,
                     title: "Accetta nuovo bonus",
                     action: {
-                        router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                        Task {
+                            try await viewModel.deleteTransaction()
+                            await MainActor.run {
+                                router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                            }
+                        }
                     }
                 ),
                 ButtonModel(
