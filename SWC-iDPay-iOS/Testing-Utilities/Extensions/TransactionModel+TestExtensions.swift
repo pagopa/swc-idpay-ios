@@ -27,19 +27,35 @@ extension TransactionModel {
     }
     
     static var mockedSuccessTransaction: TransactionModel {
-        UITestingHelper.getMockedObject(jsonName: "AuthorizedTransaction")!
+        do {
+            return try UITestingHelper.getMockedObject(jsonName: "AuthorizedTransaction")!
+        } catch {
+            return fallbackTransaction
+        }
     }
     
     static var mockedCancelledTransaction: TransactionModel {
-        UITestingHelper.getMockedObject(jsonName: "CancelledTransaction")!
+        do {
+            return try UITestingHelper.getMockedObject(jsonName: "CancelledTransaction")!
+        } catch {
+            return fallbackTransaction
+        }
     }
     
     static var mockedIdentifiedTransaction: TransactionModel {
-        UITestingHelper.getMockedObject(jsonName: "IdentifiedTransaction")!
+        do {
+            return try UITestingHelper.getMockedObject(jsonName: "IdentifiedTransaction")!
+        } catch {
+            return fallbackTransaction
+        }
     }
     
     static var mockedCreatedTransaction: TransactionModel {
-        UITestingHelper.getMockedObject(jsonName: "CreatedTransaction")!
+        do {
+            return try UITestingHelper.getMockedObject(jsonName: "CreatedTransaction")!
+        } catch {
+            return fallbackTransaction
+        }
     }
     
     static var randomTransactionsList: [TransactionModel] {

@@ -22,12 +22,12 @@ struct UITestingHelper {
         ProcessInfo.processInfo.environment["-empty-state"] == "1"
     }
     
-    static func getMockedObject<T: Decodable>(jsonName: String) -> T? {
+    static func getMockedObject<T: Decodable>(jsonName: String) throws -> T? {
         guard let path = Bundle.main.path(forResource: jsonName, ofType: "json"),
               let data = try? NSData(contentsOfFile: path, options: .mappedIfSafe) else {
             return nil
         }
-        return try? JSONDecoder().decode(T.self, from: data as Data)
+        return try JSONDecoder().decode(T.self, from: data as Data)
     }
     
 }

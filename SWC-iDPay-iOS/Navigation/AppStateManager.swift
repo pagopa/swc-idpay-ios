@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PagoPAUIKit
 
 enum AppState {
     case splash
@@ -21,8 +22,17 @@ enum AppState {
 class AppStateManager: ObservableObject {
     
     @Published private(set) var state: AppState
+    
+    private var sessionManager: SessionManager = SessionManager()
+    var networkClient: Requestable
 
     init() {
+        #if DEBUG
+        networkClient = UITestingHelper.isUITesting ? MockedNetworkClient(sessionManager: sessionManager) : NetworkClient(environment: .development, sessionManager: sessionManager)
+        #else
+        networkClient = NetworkClient(environment: .staging, sessionManager: sessionManager)
+        #endif
+    
         state = .splash
     }
         
@@ -31,6 +41,7 @@ class AppStateManager: ObservableObject {
     }
     
     func logout() {
+        networkClient.sessionManager.logout()
         state = .login
     }
     
@@ -38,4 +49,32 @@ class AppStateManager: ObservableObject {
         guard state != self.state else { return }
         self.state = state
     }
+}
+
+extension AppStateManager {
+    
+    @MainActor
+    func isSessionExpired() async throws -> Bool {
+        if state != .splash && state != .login {
+            if try sessionManager.isTokenExpired() {
+                DialogManager.shared.present(content:
+                                                WaitingView(
+                                                    title: "Stiamo verificando la sessione...",
+                                                    subtitle: "",
+                                                    icon: .infoFilled))
+                do {
+                    try await networkClient.refreshToken()
+                    DialogManager.shared.dismiss()
+                    return false
+                } catch {
+                    #if DEBUG
+                    print("Error on refresh token:\(error.localizedDescription)")
+                    #endif
+                    return true
+                }
+            }
+        }
+            return false
+    }
+
 }

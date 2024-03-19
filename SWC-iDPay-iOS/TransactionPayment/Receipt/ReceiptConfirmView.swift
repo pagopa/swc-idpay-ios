@@ -75,28 +75,31 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
         })
         .onChange(of: showOutro) { newValue in
             if newValue == true {
-                if let _ = receiptPdfModel.initiative {
-                    //initiative payment flow
-                    showTransactionPaymentOutro()
-                } else {
-                    //transaction history flow
-                    showCancelTransactionOutro()
-                }
+                showTransactionOutro()
             }
         }
     }
-        
-    func showCancelTransactionOutro() {
-        router.pushTo(.outro(outroModel: OutroModel(title: "Operazione conclusa", subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.", actionTitle: "Torna alla home", action: {
-            router.popToRoot()
-            appManager.loadHome()
-        })))
-    }
     
-    func showTransactionPaymentOutro() {
-        router.pushTo(.outro(outroModel: OutroModel(title: "Operazione conclusa", subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.", actionTitle: "Accetta nuovo bonus", action: {
-            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: networkClient)))
-        })))
+    func showTransactionOutro() {
+        let forceInitiativesLoading = receiptPdfModel.initiative == nil
+        router.pushTo(
+            .outro(outroModel:
+                    OutroModel(title: "Operazione conclusa",
+                               subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
+                               actionTitle: "Accetta nuovo bonus",
+                               action: {
+                                   if forceInitiativesLoading {
+                                       router.popToRoot()
+                                       appManager.loadHome()
+                                       router.pushTo(
+                                        .initiatives(viewModel: InitiativesViewModel(networkClient: networkClient))
+                                       )
+                                   } else {
+                                       router.pop(to: 
+                                            .initiatives(viewModel: InitiativesViewModel(networkClient: networkClient))
+                                       )
+                                   }
+                               })))
     }
 }
 

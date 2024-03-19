@@ -74,7 +74,8 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
         }
         .background(Color.grey100)
         .toolbarBackground(.visible, for: .navigationBar)
-        .dialog(dialogModel: self.buildResultModel(viewModel: self.viewModel, router: self.router, onConfirmDelete: {
+        .dialog(dialogModel: self.buildDeleteDialog(viewModel: self.viewModel, router: self.router, onConfirmDelete: {
+            self.viewModel.setCancelledStatus()
             router.pushTo(.thankyouPage(result: ResultModel(
                 title: "Operazione annullata",
                 subtitle: "L'importo autorizzato è stato riaccreditato sull'iniziativa del cittadino",
@@ -86,12 +87,12 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
                         title: "Continua",
                         icon: .arrowRight,
                         action: {
-                            router.pushTo(.receipt(receiptModel: ReceiptPdfModel(transaction: self.viewModel.transaction), networkClient: self.viewModel.networkClient))
+                            router.pushTo(.receipt(receiptModel: viewModel.getReceiptPdfModel(), networkClient: self.viewModel.networkClient))
                         }
                     )]
             )))
         }),
-                isPresenting: $viewModel.showErrorDialog)
+                isPresenting: $viewModel.showDeleteDialog)
         .dialog(dialogModel: ResultModel(
             title: "Serve la ricevuta?",
             themeType: .light,
@@ -114,7 +115,7 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
                     iconPosition: .left,
                     action: {
                         viewModel.showReceiptDialog.toggle()
-                        generatedPdfReceiptURL = generatePdfReceipt(model: viewModel.receiptPdfModel)
+                        generatedPdfReceiptURL = generatePdfReceipt(model: viewModel.getReceiptPdfModel())
                         presentShare = true
                     }
                 )

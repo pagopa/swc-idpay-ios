@@ -76,9 +76,9 @@ final class TransactionHistoryDetailUITests: XCTestCase {
         
         XCTAssertTrue(app.staticTexts["Operazione conclusa"].waitForExistence(timeout: 2))
 
-        let goHomeButton = app.buttons["Torna alla home"]
+        let goHomeButton = app.buttons["Accetta nuovo bonus"]
         goHomeButton.tap()
-        XCTAssertTrue(app.staticTexts["Accetta un bonus ID Pay"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.staticTexts["Non ci sono iniziative attive"].waitForExistence(timeout: 2))
     }
     
     func test_delete_transaction_cancel() {

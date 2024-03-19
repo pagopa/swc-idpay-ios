@@ -10,17 +10,7 @@ import Foundation
 struct EmptyResponse: Decodable {}
 
 struct BaseHTTPResponse: Decodable {
-    var errors: [APIResponseError]?
-        
-    enum CodingKeys: CodingKey {
-        case errors
-    }
-    
-    init(from decoder: Decoder) throws {
-        if let container: KeyedDecodingContainer<BaseHTTPResponse.CodingKeys> = try? decoder.container(keyedBy: BaseHTTPResponse.CodingKeys.self) {
-            self.errors = try? container.decodeIfPresent([APIResponseError].self, forKey: BaseHTTPResponse.CodingKeys.errors)
-        } else {
-            self.errors = []
-        }
-    }
+    var statusCode: Int?
+    var errors: [String]?
+    var descriptions: [String]?
 }

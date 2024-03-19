@@ -43,11 +43,11 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
             }
             .padding(Constants.mediumSpacing)
             .transactionToolbar(viewModel: viewModel)
-            .dialog(dialogModel: buildResultModel(viewModel: viewModel, router: router, onConfirmDelete: {
+            .dialog(dialogModel: buildDeleteDialog(viewModel: viewModel, router: router, onConfirmDelete: {
                 Task { @MainActor in
                     router.popToRoot()
                 }
-            }), isPresenting: $viewModel.showErrorDialog)
+            }), isPresenting: $viewModel.showDeleteDialog)
             .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         }
         .onAppear {
@@ -89,29 +89,56 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
             do {
                 try await viewModel.readCIE()
                 let verifyCIEResponse = try await viewModel.verifyCIE()
-                guard let transaction = try await viewModel.pollTransactionStatus() else {
-                    // TODO: Show error
-                    return
-                }
+                let transaction = try await viewModel.pollTransactionStatus()
+                
                 await MainActor.run {
                     router.pushTo(.transactionConfirm(viewModel: TransactionDetailViewModel(networkClient: viewModel.networkClient, transaction: transaction, verifyCIEResponse: verifyCIEResponse, initiative: viewModel.initiative)))
                 }
             } catch {
-                if let cieError = error as? CIEReaderError {
-                    switch cieError {
-                    case .scanNotSupported:
-                        // TODO: Show error NFC not available
-                        print("NFC not available")
-                    default:
-                        break
-                    }
-                } else if let cieAuthError = error as? CIEAuthError {
-                    router.pushTo(.thankyouPage(result: ResultModel(title: "Errore nella verifica della transazione", subtitle:"Non è stato possibile verificare la transazione", themeType: .info, buttons: [
-                        ButtonModel(type: .primaryBordered, themeType: .info, title: "Accetta nuovo bonus", action: {
-                            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
-                        })
-                    ])))
-                } else {
+                switch error {
+                case HTTPResponseError.maxRetriesExceeded, HTTPResponseError.coveredAmountInconsistent:
+                    router.pushTo(
+                        .thankyouPage(
+                            result: ResultModel(
+                                title: "La sessione è scaduta",
+                                subtitle:"Se vuoi procedere con il pagamento, prova ad autorizzarlo di nuovo.",
+                                icon: .pendingDark,
+                                themeType: .info,
+                                buttons: [
+                                    ButtonModel(
+                                        type: .primary,
+                                        themeType: .info,
+                                        title: "Riprova",
+                                        action: {
+                                            router.pop()
+                                        }),
+                                    ButtonModel(
+                                        type: .primaryBordered,
+                                        themeType: .info,
+                                        title: "Accetta nuovo bonus",
+                                        action: {
+                                            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                                        })
+                                ])))
+                case CIEReaderError.scanNotSupported:
+                    print("NFC not available")
+                case is CIEAuthError:
+                    router.pushTo(
+                        .thankyouPage(
+                            result: ResultModel(
+                                title: "Errore nella verifica della transazione",
+                                subtitle:"Non è stato possibile verificare la transazione",
+                                themeType: .info,
+                                buttons: [
+                                    ButtonModel(
+                                        type: .primaryBordered,
+                                        themeType: .info,
+                                        title: "Accetta nuovo bonus",
+                                        action: {
+                                            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                                        })
+                                ])))
+                default:
                     print("Error:\(error.localizedDescription)")
                 }
             }
