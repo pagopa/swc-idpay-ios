@@ -20,10 +20,6 @@ extension Date {
         dateFormatter.dateFormat = "dd MMM yyyy, HH:mm"
         return dateFormatter.string(from: self)
     }
-}
-
-#if DEBUG
-extension Date {
     
     static func randomUTCDateString() -> String {
         Date.randomBetween(start: Date(), end: getLastWeekStartDate()).toUTCString()
@@ -55,4 +51,3 @@ extension Date {
     }
 
 }
-#endif
