@@ -61,8 +61,7 @@ class MockedNetworkClient: Requestable {
     }
     
     func verifyTransactionStatus(milTransactionId: String) async throws -> TransactionModel {
-        let transactions = [TransactionModel.mockedIdentifiedTransaction, TransactionModel.mockedCreatedTransaction]
-        return transactions.randomElement()!
+        return TransactionModel.mockedIdentifiedTransaction
     }
     
     func authorizeTransaction(milTransactionId: String, authCodeBlockData: AuthCodeData) async throws {
@@ -77,11 +76,13 @@ class MockedNetworkClient: Requestable {
     }
     
     func deleteTransaction(milTransactionId: String) async throws -> Bool {
-        if milTransactionId == MockedNetworkClient.validTransactionID {
-            return true
-        } else {
-            throw HTTPResponseError.unauthorized
+        try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
+        if let transactionDeleteSuccess = ProcessInfo.processInfo.environment["-transaction-delete-success"] {
+            if transactionDeleteSuccess == "0" {
+                throw HTTPResponseError.genericError
+            }
         }
+        return true
     }
     
     func transactionHistory() async throws -> [TransactionModel] {
