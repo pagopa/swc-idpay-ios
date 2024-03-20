@@ -34,8 +34,6 @@ struct TransactionDetailView: View, TransactionPaymentDeletableView {
                             subtitle: viewModel.initiative?.name ?? viewModel.transaction.initiativeId
                         )
                         Divider()
-                        // ListItem(title: "CREDITO DISPONIBILE", subtitle: "Sottotitolo")
-                        // Divider()
                     }
                     .padding([.leading, .trailing], Constants.mediumSpacing)
                     
