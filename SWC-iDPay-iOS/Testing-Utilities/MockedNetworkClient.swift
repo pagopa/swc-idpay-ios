@@ -55,12 +55,15 @@ class MockedNetworkClient: Requestable {
     func verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String) async throws -> VerifyCIEResponse {
         try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
         if let cieReadingSuccess = ProcessInfo.processInfo.environment["-cie-reading-success"], cieReadingSuccess == "0" {
-            throw HTTPResponseError.networkError("Unable to read CIE")
+            throw CIEAuthError.walletVerifyError
         }
         return VerifyCIEResponse.mockedSuccessResponse
     }
     
     func verifyTransactionStatus(milTransactionId: String) async throws -> TransactionModel {
+        if let _ = ProcessInfo.processInfo.environment["-polling-max-retries-exceeded"] {
+            return TransactionModel.mockedCreatedTransaction
+        }
         return TransactionModel.mockedIdentifiedTransaction
     }
     

@@ -130,13 +130,21 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
                     router.pushTo(
                         .thankyouPage(
                             result: ResultModel(
-                                title: "Errore nella verifica della transazione",
-                                subtitle:"Non è stato possibile verificare la transazione",
-                                themeType: .info,
+                                title: "Si è verificato un errore imprevisto",
+                                subtitle:"Non è possibile completare l'operazione.",
+                                themeType: .error,
                                 buttons: [
                                     ButtonModel(
+                                        type: .primary,
+                                        themeType: .error,
+                                        title: "Autorizza con",
+                                        icon: .io,
+                                        action: {
+                                            // TODO: Apre flusso QRcode
+                                        }),
+                                    ButtonModel(
                                         type: .primaryBordered,
-                                        themeType: .info,
+                                        themeType: .error,
                                         title: "Accetta nuovo bonus",
                                         action: {
                                             router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))

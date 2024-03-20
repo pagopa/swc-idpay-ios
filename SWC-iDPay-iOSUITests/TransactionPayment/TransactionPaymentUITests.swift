@@ -137,6 +137,39 @@ final class TransactionPaymentUITests: XCTestCase {
         XCTAssert(app.buttons["Accetta bonus ID Pay"].waitForExistence(timeout: 6))
         
     }
+    
+    func test_session_expired_is_shown_on_polling_transaction_status_max_retries_exceeded() {
+        app.launchEnvironment = [
+            "-mock-filename": "InitiativesList",
+            "-cie-reading-success": "1",
+            "-polling-max-retries-exceeded": "1"]
+        app.signIn(success: true)
+        
+        loadInitiativesList()
+        selectOkInitiative()
+        insertAmount()
+        authorizeWithCie()
+
+        XCTAssertTrue(app.staticTexts["La sessione è scaduta"].waitForExistence(timeout: 6))
+        app.buttons["Riprova"].tap()
+        XCTAssertTrue(app.staticTexts["Appoggia la CIE sul dispositivo, in alto"].waitForExistence(timeout: 4))
+    }
+    
+    func test_error_page_is_shown_when_verifyCie_fails() {
+        app.launchEnvironment = [
+            "-mock-filename": "InitiativesList",
+            "-cie-reading-success": "0"]
+        app.signIn(success: true)
+        
+        loadInitiativesList()
+        selectOkInitiative()
+        insertAmount()
+        authorizeWithCie()
+        XCTAssertTrue(app.staticTexts["Si è verificato un errore imprevisto"].waitForExistence(timeout: 6))
+        XCTAssertTrue(app.buttons["Autorizza con"].exists)
+        XCTAssertTrue(app.buttons["Accetta nuovo bonus"].exists)
+
+    }
 }
 
 extension TransactionPaymentUITests {
