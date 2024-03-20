@@ -7,7 +7,6 @@
 
 import Foundation
 
-#if DEBUG
 extension TransactionModel {
     
     init(status: TransactionStatus, date: String, goodsCost: Int, coveredAmount: Int, idPayTransactionId: String, milTransactionId: String, terminalID: String, initiativeID: String, secondFactor: String) {
@@ -71,4 +70,3 @@ extension TransactionModel {
         return TransactionModel(status: transactionStates.randomElement()!, date: Date.randomUTCDateString(), goodsCost: Int.random(in: 100...1000), coveredAmount: 135, idPayTransactionId: String.randomString(length: 16), milTransactionId: String.randomString(length: 16), terminalID: "rwkmek1x", initiativeID: String.randomString(length: 16), secondFactor: String.randomString(length: 16))
     }
 }
-#endif
