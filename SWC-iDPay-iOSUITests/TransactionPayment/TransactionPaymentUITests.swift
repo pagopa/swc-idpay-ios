@@ -83,7 +83,7 @@ final class TransactionPaymentUITests: XCTestCase {
         app.buttons["Nega"].tap()
         
         // Transaction successfully denied
-        XCTAssertTrue(app.staticTexts["L'operazione è stata annullata"].waitForExistence(timeout: 4))
+        XCTAssertTrue(app.staticTexts["L'operazione è stata annullata"].waitForExistence(timeout: 6))
     }
     
     func test_retry_after_transaction_delete_shows_cie_reading() {

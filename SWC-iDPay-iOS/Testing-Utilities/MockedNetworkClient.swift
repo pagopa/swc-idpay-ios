@@ -21,11 +21,10 @@ class MockedNetworkClient: Requestable {
     }
     
     func refreshToken() async throws {
-        
+        try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
     }
     
     func login(username: String, password: String) async throws {
-        print("Wait to login")
         try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
         if UITestingHelper.isUserLoginSuccess {
             return
@@ -35,7 +34,7 @@ class MockedNetworkClient: Requestable {
     }
     
     func getInitiatives() async throws -> [Initiative] {
-        try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
+        try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
 
         if let mockFileName = ProcessInfo.processInfo.environment["-mock-filename"] {
             do {
