@@ -113,19 +113,11 @@ extension ReceiptConfirmView {
     
     func showResidualAmountOutro() {
         guard receiptPdfModel.initiative != nil else { return }
-        router.pushTo(
-            .outro(outroModel:
-                    OutroModel(title: "Operazione conclusa",
-                               subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
-                               actionTitle: "Paga l'importo residuo",
-                               action: {
-                                   router.pushTo(
-                                    .residualAmountPayment(
-                                        viewModel: ResidualAmountViewModel(
-                                            networkClient: networkClient,
-                                            transaction: receiptPdfModel.transaction)
-                                    ))
-                               })))
+        router.pushTo(.residualAmountOutro(viewModel: 
+                                            ResidualAmountOutroViewModel(
+                                                networkClient: networkClient,
+                                                transaction: receiptPdfModel.transaction
+                                            )))
     }
 }
 

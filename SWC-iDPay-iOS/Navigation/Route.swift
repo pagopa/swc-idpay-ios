@@ -18,11 +18,12 @@ enum Route: View {
     case receipt(receiptModel: ReceiptPdfModel, networkClient: Requestable)
     case outro(outroModel: OutroModel)
     case transactionDetail(viewModel: TransactionHistoryDetailViewModel)
+    case residualAmountOutro(viewModel: ResidualAmountOutroViewModel)
     case residualAmountPayment(viewModel: ResidualAmountViewModel)
     
     var showBackButton: Bool {
         switch self {
-        case .thankyouPage, .transactionConfirm, .cieAuth, .pin, .receipt, .outro, .residualAmountPayment:
+        case .thankyouPage, .transactionConfirm, .cieAuth, .pin, .receipt, .outro, .residualAmountOutro, .residualAmountPayment:
             return false
         default:
             return true
@@ -31,7 +32,7 @@ enum Route: View {
     
     var showHomeButton: Bool {
         switch self {
-        case .thankyouPage, .transactionConfirm, .cieAuth, .pin, .receipt, .residualAmountPayment:
+        case .thankyouPage, .transactionConfirm, .cieAuth, .pin, .receipt, .residualAmountOutro, .residualAmountPayment:
             return false
         default:
             return true
@@ -77,6 +78,8 @@ enum Route: View {
             ReceiptConfirmView(receiptPdfModel: receiptModel, networkClient: networkClient)
         case .outro(let model):
             Outro(model: model)
+        case .residualAmountOutro(let viewModel):
+            ResidualAmountOutro(viewModel: viewModel)
         case .residualAmountPayment(let viewModel):
             ResidualAmountView(viewModel: viewModel)
         }
@@ -110,6 +113,8 @@ extension Route: Hashable {
             return lhsReceipt.transaction.milTransactionId == rhsReceipt.transaction.milTransactionId
         case (.outro(let lhsModel), .outro(let rhsModel)):
             return lhsModel.id == rhsModel.id
+        case (.residualAmountOutro(let lhsModel), .residualAmountOutro(let rhsModel)):
+            return lhsModel.transaction.milTransactionId == rhsModel.transaction.milTransactionId
         case (.residualAmountPayment(let lhsModel), .residualAmountPayment(let rhsModel)):
             return lhsModel.transactionID == rhsModel.transactionID
         default:

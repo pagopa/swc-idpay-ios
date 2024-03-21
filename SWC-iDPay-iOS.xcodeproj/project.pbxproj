@@ -46,6 +46,8 @@
 		B8445F8E2B91D266007E58EF /* TransactionHistoryDetailUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8445F8D2B91D266007E58EF /* TransactionHistoryDetailUITests.swift */; };
 		B849E15D2BAC51C3000D8031 /* ResidualAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E15C2BAC51C3000D8031 /* ResidualAmountView.swift */; };
 		B849E15F2BAC527E000D8031 /* ResidualAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E15E2BAC527E000D8031 /* ResidualAmountViewModel.swift */; };
+		B849E1612BAC7305000D8031 /* ResidualAmountOutro.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1602BAC7304000D8031 /* ResidualAmountOutro.swift */; };
+		B849E1632BAC7494000D8031 /* ResidualAmountOutroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1622BAC7494000D8031 /* ResidualAmountOutroViewModel.swift */; };
 		B851C5952BA0A43900DA515D /* DialogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B851C5942BA0A43900DA515D /* DialogManager.swift */; };
 		B861AAFC2B7BA4C2007A86E5 /* BaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */; };
 		B861AAFE2B7BA566007A86E5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */; };
@@ -165,6 +167,8 @@
 		B8445F8D2B91D266007E58EF /* TransactionHistoryDetailUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryDetailUITests.swift; sourceTree = "<group>"; };
 		B849E15C2BAC51C3000D8031 /* ResidualAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidualAmountView.swift; sourceTree = "<group>"; };
 		B849E15E2BAC527E000D8031 /* ResidualAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidualAmountViewModel.swift; sourceTree = "<group>"; };
+		B849E1602BAC7304000D8031 /* ResidualAmountOutro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidualAmountOutro.swift; sourceTree = "<group>"; };
+		B849E1622BAC7494000D8031 /* ResidualAmountOutroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidualAmountOutroViewModel.swift; sourceTree = "<group>"; };
 		B851C5942BA0A43900DA515D /* DialogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogManager.swift; sourceTree = "<group>"; };
 		B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVM.swift; sourceTree = "<group>"; };
 		B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -431,6 +435,8 @@
 			children = (
 				B849E15C2BAC51C3000D8031 /* ResidualAmountView.swift */,
 				B849E15E2BAC527E000D8031 /* ResidualAmountViewModel.swift */,
+				B849E1602BAC7304000D8031 /* ResidualAmountOutro.swift */,
+				B849E1622BAC7494000D8031 /* ResidualAmountOutroViewModel.swift */,
 			);
 			path = ResidualAmount;
 			sourceTree = "<group>";
@@ -846,6 +852,7 @@
 				B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */,
 				B816E70A2B8DF7E600DC0488 /* ReceiptGenerator.swift in Sources */,
 				B816E71B2B8F6DBF00DC0488 /* Initiative+TestExtensions.swift in Sources */,
+				B849E1612BAC7305000D8031 /* ResidualAmountOutro.swift in Sources */,
 				B861AB022B7BBA29007A86E5 /* Date+Extensions.swift in Sources */,
 				B882BF0C2B739F700040C6A6 /* RootView.swift in Sources */,
 				989B12312B861DE400917027 /* TransactionHistoryResponse.swift in Sources */,
@@ -869,6 +876,7 @@
 				B803D8D62B20D85700A7934E /* AppStateManager.swift in Sources */,
 				98874CB02B7D195E00F70DE2 /* TransactionDetailView.swift in Sources */,
 				B8DF96352B7A285000113D4B /* APIEnvironment.swift in Sources */,
+				B849E1632BAC7494000D8031 /* ResidualAmountOutroViewModel.swift in Sources */,
 				B861AB112B7E5D5B007A86E5 /* CIEAuthError.swift in Sources */,
 				B882BF042B7293A40040C6A6 /* AppToolbar.swift in Sources */,
 				B861AAFC2B7BA4C2007A86E5 /* BaseVM.swift in Sources */,
