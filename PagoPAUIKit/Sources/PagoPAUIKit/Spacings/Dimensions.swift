@@ -10,6 +10,7 @@ import Foundation
 public enum Spacings: CGFloat {
     case xsmall     = 8.0
     case small      = 16.0
+    case small1     = 12.0
     case medium     = 24.0
     case large      = 32.0
     case xlarge     = 40.0

@@ -19,6 +19,7 @@ public struct Constants {
     // MARK: - Spacings
     public static let xsmallSpacing : CGFloat = Spacings.xsmall.rawValue * scaleFactor
     public static let smallSpacing  : CGFloat = Spacings.small.rawValue * scaleFactor
+    public static let smallSpacing1 : CGFloat = Spacings.small1.rawValue * scaleFactor
     public static let mediumSpacing : CGFloat = Spacings.medium.rawValue * scaleFactor
     public static let largeSpacing  : CGFloat = Spacings.large.rawValue * scaleFactor
     public static let xlargeSpacing : CGFloat = Spacings.xlarge.rawValue * scaleFactor
