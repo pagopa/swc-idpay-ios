@@ -48,6 +48,7 @@
 		B849E15F2BAC527E000D8031 /* ResidualAmountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E15E2BAC527E000D8031 /* ResidualAmountViewModel.swift */; };
 		B849E1612BAC7305000D8031 /* ResidualAmountOutro.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1602BAC7304000D8031 /* ResidualAmountOutro.swift */; };
 		B849E1632BAC7494000D8031 /* ResidualAmountOutroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1622BAC7494000D8031 /* ResidualAmountOutroViewModel.swift */; };
+		B849E1652BAC7ADB000D8031 /* ResidualAmountToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1642BAC7ADB000D8031 /* ResidualAmountToolbar.swift */; };
 		B851C5952BA0A43900DA515D /* DialogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B851C5942BA0A43900DA515D /* DialogManager.swift */; };
 		B861AAFC2B7BA4C2007A86E5 /* BaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */; };
 		B861AAFE2B7BA566007A86E5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */; };
@@ -169,6 +170,7 @@
 		B849E15E2BAC527E000D8031 /* ResidualAmountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidualAmountViewModel.swift; sourceTree = "<group>"; };
 		B849E1602BAC7304000D8031 /* ResidualAmountOutro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidualAmountOutro.swift; sourceTree = "<group>"; };
 		B849E1622BAC7494000D8031 /* ResidualAmountOutroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidualAmountOutroViewModel.swift; sourceTree = "<group>"; };
+		B849E1642BAC7ADB000D8031 /* ResidualAmountToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidualAmountToolbar.swift; sourceTree = "<group>"; };
 		B851C5942BA0A43900DA515D /* DialogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogManager.swift; sourceTree = "<group>"; };
 		B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVM.swift; sourceTree = "<group>"; };
 		B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 				B882BF012B7293A40040C6A6 /* ToolbarButtons.swift */,
 				B882BF022B7293A40040C6A6 /* AppToolbar.swift */,
 				B8E085F32B8508E700CAE6C5 /* TransactionToolbar.swift */,
+				B849E1642BAC7ADB000D8031 /* ResidualAmountToolbar.swift */,
 			);
 			path = Toolbar;
 			sourceTree = "<group>";
@@ -902,6 +905,7 @@
 				B861AB162B7E69DA007A86E5 /* TransactionDetailViewModel.swift in Sources */,
 				B882BF032B7293A40040C6A6 /* ToolbarButtons.swift in Sources */,
 				B861AB062B7CD04B007A86E5 /* VerifyCIEResponse.swift in Sources */,
+				B849E1652BAC7ADB000D8031 /* ResidualAmountToolbar.swift in Sources */,
 				B8290A252B88AD9C00B275C6 /* ReceiptConfirmView.swift in Sources */,
 				B8FAB1F62B7A5FCA0097E7A1 /* InitiativesResponse.swift in Sources */,
 				B861AB002B7BA6AE007A86E5 /* TransactionHistoryViewModel.swift in Sources */,

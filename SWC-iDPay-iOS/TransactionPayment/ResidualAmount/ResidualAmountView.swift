@@ -96,6 +96,7 @@ struct ResidualAmountView: View, TransactionPaymentDeletableView {
             )
         }
         .background(Color.grey100)
+        .residualAmountToolbar(residualAmount: viewModel.transaction.residualAmount)
         .dialog(dialogModel: buildDeleteDialog(viewModel: viewModel, router: router, onConfirmDelete: {
             guard showRetry == false else { return }
             Task { @MainActor in

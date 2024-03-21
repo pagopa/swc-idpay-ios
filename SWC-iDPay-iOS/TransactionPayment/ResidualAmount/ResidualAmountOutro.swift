@@ -62,6 +62,7 @@ struct ResidualAmountOutro: View {
                             ]),
                 isPresenting: $showDialog,
                 onClose: {})
+        .residualAmountToolbar(residualAmount: viewModel.transaction.residualAmount, tintColor: .white, toolbarBkgColor: .clear)
         .onAppear {
             timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
                 showDialog = true
