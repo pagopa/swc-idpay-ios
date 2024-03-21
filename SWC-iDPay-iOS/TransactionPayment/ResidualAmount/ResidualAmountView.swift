@@ -82,7 +82,7 @@ struct ResidualAmountView: View, TransactionPaymentDeletableView {
                         themeType: .light,
                         title: "Annulla operazione",
                         action: {
-                            // TODO: Annullamento operazione
+                            viewModel.confirmHistoryTransactionDelete()
                         }
                     ),
                      ButtonModel(
@@ -101,10 +101,24 @@ struct ResidualAmountView: View, TransactionPaymentDeletableView {
         .background(Color.grey100)
         .residualAmountToolbar(residualAmount: viewModel.transaction.residualAmount)
         .dialog(dialogModel: buildDeleteDialog(viewModel: viewModel, router: router, onConfirmDelete: {
-            guard showRetry == false else { return }
-            Task { @MainActor in
-                router.popToRoot()
-            }
+            viewModel.setCancelledStatus()
+            router.pushTo(.thankyouPage(result: 
+                                            ResultModel(title: "Operazione annullata",
+                                                        subtitle: "L'importo autorizzato è stato riaccreditato sull'iniziativa del cittadino",
+                                                        themeType: .success,
+                                                        buttons: [
+                                                            ButtonModel(
+                                                                type: .primary,
+                                                                themeType: .success,
+                                                                title: "Continua",
+                                                                icon: .arrowRight,
+                                                                action: {
+                                                                    router.pushTo(.receipt(
+                                                                        receiptModel: viewModel.getReceiptPdfModel(),
+                                                                        networkClient: self.viewModel.networkClient))
+                                                                }
+                                                            )]))
+            )
         }), isPresenting: $viewModel.showDeleteDialog)
         .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         

@@ -75,7 +75,9 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
         })
         .onChange(of: showOutro) { newValue in
             if newValue == true {
-                if receiptPdfModel.transaction.goodsCost > receiptPdfModel.transaction.coveredAmount! {
+                // On cancelled receipt, always show "Accetta nuovo bonus" in Outro
+                if receiptPdfModel.transaction.status != .cancelled,
+                    receiptPdfModel.transaction.goodsCost > receiptPdfModel.transaction.coveredAmount! {
                     showResidualAmountOutro()
                 } else {
                     showTransactionOutro()
@@ -90,7 +92,7 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
 extension ReceiptConfirmView {
     
     func showTransactionOutro() {
-        let forceInitiativesLoading = receiptPdfModel.initiative == nil
+        let forceInitiativesLoading = appManager.state != .acceptBonus
         router.pushTo(
             .outro(outroModel:
                     OutroModel(title: "Operazione conclusa",
