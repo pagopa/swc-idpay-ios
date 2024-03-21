@@ -75,10 +75,19 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
         })
         .onChange(of: showOutro) { newValue in
             if newValue == true {
-                showTransactionOutro()
+                if receiptPdfModel.transaction.goodsCost > receiptPdfModel.transaction.coveredAmount! {
+                    showResidualAmountOutro()
+                } else {
+                    showTransactionOutro()
+                }
             }
         }
     }
+    
+    
+}
+
+extension ReceiptConfirmView {
     
     func showTransactionOutro() {
         let forceInitiativesLoading = receiptPdfModel.initiative == nil
@@ -95,10 +104,27 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
                                         .initiatives(viewModel: InitiativesViewModel(networkClient: networkClient))
                                        )
                                    } else {
-                                       router.pop(to: 
+                                       router.pop(to:
                                             .initiatives(viewModel: InitiativesViewModel(networkClient: networkClient))
                                        )
                                    }
+                               })))
+    }
+    
+    func showResidualAmountOutro() {
+        guard receiptPdfModel.initiative != nil else { return }
+        router.pushTo(
+            .outro(outroModel:
+                    OutroModel(title: "Operazione conclusa",
+                               subtitle: "Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’.",
+                               actionTitle: "Paga l'importo residuo",
+                               action: {
+                                   router.pushTo(
+                                    .residualAmountPayment(
+                                        viewModel: ResidualAmountViewModel(
+                                            networkClient: networkClient,
+                                            transaction: receiptPdfModel.transaction)
+                                    ))
                                })))
     }
 }
