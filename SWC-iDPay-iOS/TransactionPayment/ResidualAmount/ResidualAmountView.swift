@@ -82,7 +82,7 @@ struct ResidualAmountView: View, TransactionPaymentDeletableView {
                         themeType: .light,
                         title: "Annulla operazione",
                         action: {
-                            
+                            // TODO: Annullamento operazione
                         }
                     ),
                      ButtonModel(
@@ -90,7 +90,10 @@ struct ResidualAmountView: View, TransactionPaymentDeletableView {
                         themeType: .light,
                         title: "Paga \(viewModel.residualAmount.formattedCurrency)",
                         action: {
-                            
+                            router.pushTo(.cashPayment(viewModel:
+                                                        CashPaymentViewModel(
+                                                            networkClient: viewModel.networkClient,
+                                                            transaction: viewModel.transaction)))
                         }
                      )]
             )

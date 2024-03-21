@@ -49,6 +49,8 @@
 		B849E1612BAC7305000D8031 /* ResidualAmountOutro.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1602BAC7304000D8031 /* ResidualAmountOutro.swift */; };
 		B849E1632BAC7494000D8031 /* ResidualAmountOutroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1622BAC7494000D8031 /* ResidualAmountOutroViewModel.swift */; };
 		B849E1652BAC7ADB000D8031 /* ResidualAmountToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1642BAC7ADB000D8031 /* ResidualAmountToolbar.swift */; };
+		B849E1672BAC7EB8000D8031 /* CashPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1662BAC7EB8000D8031 /* CashPaymentView.swift */; };
+		B849E1692BAC7EC3000D8031 /* CashPaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1682BAC7EC3000D8031 /* CashPaymentViewModel.swift */; };
 		B851C5952BA0A43900DA515D /* DialogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B851C5942BA0A43900DA515D /* DialogManager.swift */; };
 		B861AAFC2B7BA4C2007A86E5 /* BaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */; };
 		B861AAFE2B7BA566007A86E5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */; };
@@ -171,6 +173,8 @@
 		B849E1602BAC7304000D8031 /* ResidualAmountOutro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidualAmountOutro.swift; sourceTree = "<group>"; };
 		B849E1622BAC7494000D8031 /* ResidualAmountOutroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidualAmountOutroViewModel.swift; sourceTree = "<group>"; };
 		B849E1642BAC7ADB000D8031 /* ResidualAmountToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidualAmountToolbar.swift; sourceTree = "<group>"; };
+		B849E1662BAC7EB8000D8031 /* CashPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashPaymentView.swift; sourceTree = "<group>"; };
+		B849E1682BAC7EC3000D8031 /* CashPaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashPaymentViewModel.swift; sourceTree = "<group>"; };
 		B851C5942BA0A43900DA515D /* DialogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogManager.swift; sourceTree = "<group>"; };
 		B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVM.swift; sourceTree = "<group>"; };
 		B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -439,6 +443,8 @@
 				B849E15E2BAC527E000D8031 /* ResidualAmountViewModel.swift */,
 				B849E1602BAC7304000D8031 /* ResidualAmountOutro.swift */,
 				B849E1622BAC7494000D8031 /* ResidualAmountOutroViewModel.swift */,
+				B849E1662BAC7EB8000D8031 /* CashPaymentView.swift */,
+				B849E1682BAC7EC3000D8031 /* CashPaymentViewModel.swift */,
 			);
 			path = ResidualAmount;
 			sourceTree = "<group>";
@@ -861,6 +867,7 @@
 				989B12312B861DE400917027 /* TransactionHistoryResponse.swift in Sources */,
 				B8CE22CA2B5ACCCD00A4BC67 /* WebView.swift in Sources */,
 				B8CE22C22B5A937C00A4BC67 /* MainView.swift in Sources */,
+				B849E1692BAC7EC3000D8031 /* CashPaymentViewModel.swift in Sources */,
 				B81261272B581512003304C8 /* MenuView.swift in Sources */,
 				B861AB1C2B7F9D36007A86E5 /* BaseHTTPResponse.swift in Sources */,
 				B86D99352B515C10006B4D53 /* Initiative.swift in Sources */,
@@ -925,6 +932,7 @@
 				B8E085F92B85115400CAE6C5 /* TransactionDeleteVM.swift in Sources */,
 				B871E5CA2B5EA439008B67DD /* CIEPinView.swift in Sources */,
 				9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */,
+				B849E1672BAC7EB8000D8031 /* CashPaymentView.swift in Sources */,
 				B8290A162B86152E00B275C6 /* KeyFactory.swift in Sources */,
 				B8FAB1F42B7A5CD30097E7A1 /* SessionManager.swift in Sources */,
 			);

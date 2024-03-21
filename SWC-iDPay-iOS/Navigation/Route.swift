@@ -20,10 +20,11 @@ enum Route: View {
     case transactionDetail(viewModel: TransactionHistoryDetailViewModel)
     case residualAmountOutro(viewModel: ResidualAmountOutroViewModel)
     case residualAmountPayment(viewModel: ResidualAmountViewModel)
+    case cashPayment(viewModel: CashPaymentViewModel)
     
     var showBackButton: Bool {
         switch self {
-        case .thankyouPage, .transactionConfirm, .cieAuth, .pin, .receipt, .outro, .residualAmountOutro, .residualAmountPayment:
+        case .thankyouPage, .transactionConfirm, .cieAuth, .pin, .receipt, .outro, .residualAmountOutro, .residualAmountPayment, .cashPayment:
             return false
         default:
             return true
@@ -41,7 +42,7 @@ enum Route: View {
     
     var tintColor: Color {
         switch self {
-        case .outro:
+        case .outro, .cashPayment:
             return .white
         default:
             return .paPrimary
@@ -50,7 +51,7 @@ enum Route: View {
     
     var toolbarBackgroundColor: Color {
         switch self {
-        case .outro:
+        case .outro, .cashPayment:
             return .paPrimary
         default:
             return .white
@@ -82,6 +83,8 @@ enum Route: View {
             ResidualAmountOutro(viewModel: viewModel)
         case .residualAmountPayment(let viewModel):
             ResidualAmountView(viewModel: viewModel)
+        case .cashPayment(let viewModel):
+            CashPaymentView(viewModel: viewModel)
         }
     }
 
@@ -117,6 +120,8 @@ extension Route: Hashable {
             return lhsModel.transaction.milTransactionId == rhsModel.transaction.milTransactionId
         case (.residualAmountPayment(let lhsModel), .residualAmountPayment(let rhsModel)):
             return lhsModel.transactionID == rhsModel.transactionID
+        case (.cashPayment(let lhsModel), .cashPayment(let rhsModel)):
+            return lhsModel.transaction.milTransactionId == rhsModel.transaction.milTransactionId
         default:
             return false
         }
