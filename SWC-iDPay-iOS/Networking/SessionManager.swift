@@ -54,10 +54,14 @@ class SessionManager {
         }
     }
     
-    func isTokenExpired() throws -> Bool {
-        let accessToken = try getAccessToken()
-        let jwt = try decode(jwt: accessToken)
-        return jwt.expired
+    func isTokenExpired() -> Bool {
+        do {
+            let accessToken = try getAccessToken()
+            let jwt = try decode(jwt: accessToken)
+            return jwt.expired
+        } catch {
+            return true
+        }
     }
     
     func getRefreshToken() throws -> String? {

@@ -22,11 +22,17 @@ class MockedNetworkClient: Requestable {
     
     func refreshToken() async throws {
         try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
+        if let refreshTokenSuccess = ProcessInfo.processInfo.environment["-refresh-token-success"], refreshTokenSuccess == "0" {
+            throw HTTPResponseError.genericError
+        }
     }
     
     func login(username: String, password: String) async throws {
         try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
         if UITestingHelper.isUserLoginSuccess {
+            if let _ = ProcessInfo.processInfo.environment["-refresh-token-success"] {
+                sessionManager.logout()
+            }
             return
         } else {
             throw HTTPResponseError.unauthorized
