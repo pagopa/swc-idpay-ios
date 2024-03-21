@@ -5,6 +5,7 @@
 //  Created by Stefania Castiglioni on 28/02/24.
 //
 
+#if DEBUG
 import Foundation
 
 class MockedNetworkClient: Requestable {
@@ -20,11 +21,10 @@ class MockedNetworkClient: Requestable {
     }
     
     func refreshToken() async throws {
-        
+        try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
     }
     
     func login(username: String, password: String) async throws {
-        print("Wait to login")
         try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
         if UITestingHelper.isUserLoginSuccess {
             return
@@ -34,7 +34,7 @@ class MockedNetworkClient: Requestable {
     }
     
     func getInitiatives() async throws -> [Initiative] {
-        try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
+        try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
 
         if let mockFileName = ProcessInfo.processInfo.environment["-mock-filename"] {
             do {
@@ -52,28 +52,39 @@ class MockedNetworkClient: Requestable {
     }
     
     func verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String) async throws -> VerifyCIEResponse {
-        VerifyCIEResponse.mocked
+        try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
+        if let cieReadingSuccess = ProcessInfo.processInfo.environment["-cie-reading-success"], cieReadingSuccess == "0" {
+            throw CIEAuthError.walletVerifyError
+        }
+        return VerifyCIEResponse.mockedSuccessResponse
     }
     
     func verifyTransactionStatus(milTransactionId: String) async throws -> TransactionModel {
-        let transactions = [TransactionModel.mockedIdentifiedTransaction, TransactionModel.mockedCreatedTransaction]
-        return transactions.randomElement()!
+        if let _ = ProcessInfo.processInfo.environment["-polling-max-retries-exceeded"] {
+            return TransactionModel.mockedCreatedTransaction
+        }
+        return TransactionModel.mockedIdentifiedTransaction
     }
     
     func authorizeTransaction(milTransactionId: String, authCodeBlockData: AuthCodeData) async throws {
-        if milTransactionId == MockedNetworkClient.validTransactionID {
-            return
-        } else {
-            throw HTTPResponseError.unauthorized
+        try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
+        if let transactionSuccess = ProcessInfo.processInfo.environment["-auth-error"] {
+            throw HTTPResponseError.invalidCode
+        } else if let transactionError = ProcessInfo.processInfo.environment["-transaction-generic-error"] {
+            throw HTTPResponseError.genericError
         }
+        
+        return
     }
     
     func deleteTransaction(milTransactionId: String) async throws -> Bool {
-        if milTransactionId == MockedNetworkClient.validTransactionID {
-            return true
-        } else {
-            throw HTTPResponseError.unauthorized
+        try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
+        if let transactionDeleteSuccess = ProcessInfo.processInfo.environment["-transaction-delete-success"] {
+            if transactionDeleteSuccess == "0" {
+                throw HTTPResponseError.genericError
+            }
         }
+        return true
     }
     
     func transactionHistory() async throws -> [TransactionModel] {
@@ -107,3 +118,4 @@ class MockedNetworkClient: Requestable {
     }
     
 }
+#endif

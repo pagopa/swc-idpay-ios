@@ -42,25 +42,27 @@ extension CreateTransactionResponse {
 
     static var mockedCreated: Self {
         return CreateTransactionResponse(
-            idpayTransactionId: "613691ec-15d5-456e-a41c-e469fa4dd060_QRCODE_1694181289491",
-            milTransactionId: "ccadc1c4-3913-431e-a569-6cf2ce60946c",
-            initiativeId: "649c50b5a03f655e6543af06",
-            timestamp: "2023-09-11T12:45:33",
-            goodsCost: 50054,
-            challenge: "NzI3NzZCNkQ2NTZCMzE3OA==",
-            trxCode: "rwkmek1x",
-            status: "CREATED")
+            idpayTransactionId: "fakeIdPayTransactionId",
+            milTransactionId: "fakeMilTransactionId",
+            initiativeId: "fakeInitiativeId",
+            timestamp: Date().toUTCString(),
+            goodsCost: 500,
+            challenge: String.base64StringFromBinary([0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07]),
+            trxCode: "A7UG8GHI3",
+            status: "CREATED",
+            retryAfter: 1,
+            maxRetries: 2)
     }
     
     static var mockedIdentified: Self {
         return CreateTransactionResponse(
-            idpayTransactionId: "613691ec-15d5-456e-a41c-e469fa4dd060_QRCODE_1694181289491",
-            milTransactionId: "ccadc1c4-3913-431e-a569-6cf2ce60946c",
-            initiativeId: "649c50b5a03f655e6543af06",
-            timestamp: "2023-09-11T12:45:33",
-            goodsCost: 50054,
-            challenge: "NzI3NzZCNkQ2NTZCMzE3OA==",
-            trxCode: "rwkmek1x",
+            idpayTransactionId: "fakeIdPayTransactionId",
+            milTransactionId: "fakeMilTransactionId",
+            initiativeId: "fakeInitiativeId",
+            timestamp: Date().toUTCString(),
+            goodsCost: 500,
+            challenge: String.base64StringFromBinary([0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07]),
+            trxCode: "A7UG8GHI3",
             status: "IDENTIFIED")
     }
 }

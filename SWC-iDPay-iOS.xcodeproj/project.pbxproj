@@ -80,6 +80,7 @@
 		B8A32F502B9B6A47002DAAFF /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A32F4F2B9B6A47002DAAFF /* View+Extensions.swift */; };
 		B8A83D832B1A4B3D006CF4BF /* ComponentsDemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */; };
 		B8AC7B8A2B9879B7005D78BB /* InitiativesListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AC7B892B9879B7005D78BB /* InitiativesListUITests.swift */; };
+		B8AC7B8D2B988BE2005D78BB /* TransactionPaymentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AC7B8C2B988BE2005D78BB /* TransactionPaymentUITests.swift */; };
 		B8AE58952B4EA095006FB26C /* ReceiptPdfBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE58942B4EA095006FB26C /* ReceiptPdfBuilderView.swift */; };
 		B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE589A2B50445C006FB26C /* TransactionModel.swift */; };
 		B8AFC6122B63CD6400FEE74C /* CIEScanner in Frameworks */ = {isa = PBXBuildFile; productRef = B8AFC6112B63CD6400FEE74C /* CIEScanner */; };
@@ -196,6 +197,7 @@
 		B8A32F4F2B9B6A47002DAAFF /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		B8A83D822B1A4B3D006CF4BF /* ComponentsDemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsDemoListView.swift; sourceTree = "<group>"; };
 		B8AC7B892B9879B7005D78BB /* InitiativesListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiativesListUITests.swift; sourceTree = "<group>"; };
+		B8AC7B8C2B988BE2005D78BB /* TransactionPaymentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionPaymentUITests.swift; sourceTree = "<group>"; };
 		B8AE58942B4EA095006FB26C /* ReceiptPdfBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptPdfBuilderView.swift; sourceTree = "<group>"; };
 		B8AE589A2B50445C006FB26C /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
 		B8AFC6132B63CEB900FEE74C /* SWC-iDPay-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SWC-iDPay-iOS.entitlements"; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 		9811BC202B177C970063E71B /* SWC-iDPay-iOSUITests */ = {
 			isa = PBXGroup;
 			children = (
+				B8AC7B8B2B988BB3005D78BB /* TransactionPayment */,
 				B8AC7B882B987973005D78BB /* Initiatives */,
 				B816E71D2B8F7B0800DC0488 /* TransactionHistory */,
 				B816E70B2B8E491300DC0488 /* Home */,
@@ -574,6 +577,14 @@
 				B8AC7B892B9879B7005D78BB /* InitiativesListUITests.swift */,
 			);
 			path = Initiatives;
+			sourceTree = "<group>";
+		};
+		B8AC7B8B2B988BB3005D78BB /* TransactionPayment */ = {
+			isa = PBXGroup;
+			children = (
+				B8AC7B8C2B988BE2005D78BB /* TransactionPaymentUITests.swift */,
+			);
+			path = TransactionPayment;
 			sourceTree = "<group>";
 		};
 		B8CE22C02B5A92AC00A4BC67 /* NumberPad */ = {
@@ -912,6 +923,7 @@
 				B81261242B57F1D4003304C8 /* XCUIElement+Extensions.swift in Sources */,
 				B824E6BE2B59290F0050265D /* XCTestCase+Extension.swift in Sources */,
 				B8445F8E2B91D266007E58EF /* TransactionHistoryDetailUITests.swift in Sources */,
+				B8AC7B8D2B988BE2005D78BB /* TransactionPaymentUITests.swift in Sources */,
 				B816E70D2B8E495600DC0488 /* HomeViewUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

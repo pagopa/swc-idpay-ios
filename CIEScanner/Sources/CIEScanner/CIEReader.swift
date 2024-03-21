@@ -30,7 +30,7 @@ public enum CIEReaderError: Error, CustomStringConvertible, Equatable {
     }
 }
 
-public class CIEReader: NSObject {
+public class CIEReader: NSObject, CIEReadable {
     
     private var session: NFCTagReaderSession?
     private var activeContinuation: CheckedContinuation<NisAuthenticated?, Error>?
@@ -41,7 +41,7 @@ public class CIEReader: NSObject {
     var urlLogFile: URL? = nil
     var challenge: String?
     
-    public init(readCardMessage: String = "Avvicina la CIE al lettore", confirmCardReadMessage: String = "Lettura carta OK", logMode: LogMode = .disabled) {
+    required public init(readCardMessage: String = "Avvicina la CIE al lettore", confirmCardReadMessage: String = "Lettura carta OK", logMode: LogMode = .disabled) {
         self.readCardMessage = readCardMessage
         self.confirmCardReadMessage = confirmCardReadMessage
         loggerManager = CIELogger(mode: logMode)
