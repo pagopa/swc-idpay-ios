@@ -11,8 +11,9 @@ import PagoPAUIKit
 struct QRCodeView: View, TransactionPaymentDeletableView {
     @EnvironmentObject var router: Router
     @ObservedObject var viewModel: QRCodeViewModel
-    @State var showQRDialog: Bool = false
-    
+    @State private var showQRDialog: Bool = false
+    @State private var showWaitingView: Bool = false
+
     var body: some View {
         ZStack {
             Color
@@ -58,7 +59,41 @@ struct QRCodeView: View, TransactionPaymentDeletableView {
                                 }
                             }),
                     isPresenting: $viewModel.showDeleteDialog)
+            .waitingView(
+                title: "Attendi autorizzazione",
+                subtitle: "Per proseguire è necessario autorizzare l’operazione sull’app IO",
+                buttons: [
+                    ButtonModel(
+                        type: .plain,
+                        themeType: .info,
+                        title: "Annulla",
+                        action: {
+                            //TODO: Flusso annullamento
+                            print("Annulla operazione")
+                        })
+                ],
+                isPresenting: $showWaitingView)
             .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
+        }
+        .task {
+            do {
+                try await viewModel.pollTransactionStatus()
+            } catch {
+                
+            }
+        }
+        .onChange(of: viewModel.qrCodePollingStatus) { qrCodePollingStatus in
+            
+            switch qrCodePollingStatus {
+            case .identified:
+                showWaitingView = true
+            case .authorized:
+                showWaitingView = false
+                showAuthorizedView()
+            default:
+                showWaitingView = false
+                break
+            }
         }
         
     }
@@ -109,6 +144,33 @@ struct QRCodeView: View, TransactionPaymentDeletableView {
         )
     }
 
+}
+
+extension QRCodeView {
+    
+    func showAuthorizedView() {
+        // TODO: "Hai pagato deve mostrare coveredAmount o goodsCost???"
+        router.pushTo(
+            .thankyouPage(result:
+                            ResultModel(
+                                title: "Hai pagato \(viewModel.transaction!.coveredAmount?.formattedCurrency ?? "-- €")",
+                                themeType: .success,
+                                buttons: [
+                                    ButtonModel(
+                                        type: .primary,
+                                        themeType: .success,
+                                        title: "Continua",
+                                        action: {
+                                            router.pushTo(
+                                                .receipt(receiptModel:
+                                                            ReceiptPdfModel(
+                                                                transaction: viewModel.transaction!,
+                                                                initiative: viewModel.initiative),
+                                                         networkClient: viewModel.networkClient))
+                                        })
+                                ])))
+        
+    }
 }
 
 #Preview {

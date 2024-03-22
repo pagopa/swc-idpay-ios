@@ -113,9 +113,11 @@ struct BonusAmountView : View {
                                 return
                             }
                             router.pushTo(.qrCodeAuth(viewModel:
-                                                        QRCodeViewModel(networkClient: viewModel.networkClient,
-                                                                        transactionData: transactionData
-                                                                       )))
+                                                        QRCodeViewModel(
+                                                            networkClient: viewModel.networkClient,
+                                                            transactionData: transactionData,
+                                                            initiative: viewModel.initiative
+                                                        )))
                         }
                     )
                 ]
