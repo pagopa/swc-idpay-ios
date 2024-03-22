@@ -9,8 +9,8 @@ import Combine
 
 enum TransactionDeleteState {
     case noMessage
-    case confirmDelete
-    case confirmDeleteHistory
+    case confirmAbortTransaction
+    case confirmDeleteTransaction
     case genericError
 }
 
@@ -43,12 +43,12 @@ class TransactionDeleteVM: BaseVM {
     }
 
     
-    func confirmTransactionDelete() {
-        deleteDialogState = .confirmDelete
+    func confirmTransactionAbort() {
+        deleteDialogState = .confirmAbortTransaction
     }
     
-    func confirmHistoryTransactionDelete() {
-        deleteDialogState = .confirmDeleteHistory
+    func confirmTransactionDelete() {
+        deleteDialogState = .confirmDeleteTransaction
     }
     
     func dismissDeleteDialog() {

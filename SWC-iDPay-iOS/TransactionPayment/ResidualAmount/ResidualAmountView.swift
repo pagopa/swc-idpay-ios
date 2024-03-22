@@ -82,7 +82,7 @@ struct ResidualAmountView: View, TransactionPaymentDeletableView {
                         themeType: .light,
                         title: "Annulla operazione",
                         action: {
-                            viewModel.confirmHistoryTransactionDelete()
+                            viewModel.confirmTransactionDelete()
                         }
                     ),
                      ButtonModel(

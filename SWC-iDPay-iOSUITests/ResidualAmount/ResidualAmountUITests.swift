@@ -75,4 +75,64 @@ final class ResidualAmountUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Scegli l'iniziativa"].waitForExistence(timeout: 2))
 
     }
+    
+    func test_residual_amount_cancel_operation() {
+        app.launchEnvironment = [
+            "-mock-filename": "InitiativesList",
+            "-cie-reading-success": "1",
+            "-residual-amount": "1"]
+        app.signIn(success: true)
+        
+        app.loadInitiativesList()
+        app.selectOkInitiative()
+        app.insertAmount()
+        app.authorizeWithCie()
+        
+        // Transaction detail
+        XCTAssertTrue(app.staticTexts["Confermi l'operazione?"].waitForExistence(timeout: 10))
+        app.buttons["Conferma"].tap()
+
+        // Confirm transaction with pin
+        app.insertPin()
+        
+        // Receipt is visible
+        let predicate = NSPredicate(format: "label CONTAINS 'Hai pagato'")
+        XCTAssertTrue(app.staticTexts.containing(predicate).element.waitForExistence(timeout: 2))
+
+        app.buttons["Continua"].tap()
+        let notNowBtn = app.buttons["No, grazie"]
+        XCTAssertTrue(notNowBtn.exists)
+
+        // Proceed without receipt
+        notNowBtn.tap()
+        
+        // Pay residual amount
+        let residualPaymentBtn = app.buttons["Paga l'importo residuo"].firstMatch
+        XCTAssertTrue(residualPaymentBtn.exists)
+        residualPaymentBtn.tap()
+        XCTAssertTrue(app.staticTexts["Pagamento residuo"].waitForExistence(timeout: 2))
+
+        let cancelBtn = app.buttons["Annulla operazione"]
+        XCTAssertTrue(cancelBtn.waitForExistence(timeout: 2))
+        cancelBtn.tap()
+        XCTAssertTrue(app.staticTexts["Vuoi annullare la spesa del bonus ID Pay?"].waitForExistence(timeout: 2))
+
+        let confirmCancelBtn = app.buttons["Annulla operazione"].firstMatch
+        XCTAssertTrue(confirmCancelBtn.exists)
+        confirmCancelBtn.tap()
+        XCTAssertTrue(app.staticTexts["Operazione annullata"].waitForExistence(timeout: 2))
+        let continueBtn = app.buttons["Continua"]
+        continueBtn.tap()
+        let notNowReceiptBtn = app.buttons["No, grazie"]
+        XCTAssertTrue(notNowReceiptBtn.exists)
+
+        // Proceed without receipt
+        notNowReceiptBtn.tap()
+        XCTAssertTrue(app.staticTexts["Operazione conclusa"].waitForExistence(timeout: 2))
+        let acceptNewBonusBtn = app.buttons["Accetta nuovo bonus"]
+        acceptNewBonusBtn.tap()
+        XCTAssertTrue(app.staticTexts["Scegli l'iniziativa"].waitForExistence(timeout: 2))
+
+    }
+
 }

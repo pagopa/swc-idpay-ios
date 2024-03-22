@@ -152,7 +152,7 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
                 themeType: .light,
                 title: "Annulla operazione",
                 action: {
-                    viewModel.confirmHistoryTransactionDelete()
+                    viewModel.confirmTransactionDelete()
                 }
             ))
         }
