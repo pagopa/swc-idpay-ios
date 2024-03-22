@@ -69,6 +69,9 @@ class MockedNetworkClient: Requestable {
         if let _ = ProcessInfo.processInfo.environment["-polling-max-retries-exceeded"] {
             return TransactionModel.mockedCreatedTransaction
         }
+        if let _ = ProcessInfo.processInfo.environment["-residual-amount"] {
+            return TransactionModel.mockedResidualAmountTransaction
+        }
         return TransactionModel.mockedIdentifiedTransaction
     }
     

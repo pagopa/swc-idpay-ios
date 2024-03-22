@@ -51,6 +51,8 @@
 		B849E1652BAC7ADB000D8031 /* ResidualAmountToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1642BAC7ADB000D8031 /* ResidualAmountToolbar.swift */; };
 		B849E1672BAC7EB8000D8031 /* CashPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1662BAC7EB8000D8031 /* CashPaymentView.swift */; };
 		B849E1692BAC7EC3000D8031 /* CashPaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E1682BAC7EC3000D8031 /* CashPaymentViewModel.swift */; };
+		B849E16C2BAC9184000D8031 /* ResidualAmountUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849E16B2BAC9184000D8031 /* ResidualAmountUITests.swift */; };
+		B849E16E2BAC9352000D8031 /* ResidualAmountTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = B849E16D2BAC9352000D8031 /* ResidualAmountTransaction.json */; };
 		B851C5952BA0A43900DA515D /* DialogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B851C5942BA0A43900DA515D /* DialogManager.swift */; };
 		B861AAFC2B7BA4C2007A86E5 /* BaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */; };
 		B861AAFE2B7BA566007A86E5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */; };
@@ -175,6 +177,8 @@
 		B849E1642BAC7ADB000D8031 /* ResidualAmountToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidualAmountToolbar.swift; sourceTree = "<group>"; };
 		B849E1662BAC7EB8000D8031 /* CashPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashPaymentView.swift; sourceTree = "<group>"; };
 		B849E1682BAC7EC3000D8031 /* CashPaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashPaymentViewModel.swift; sourceTree = "<group>"; };
+		B849E16B2BAC9184000D8031 /* ResidualAmountUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidualAmountUITests.swift; sourceTree = "<group>"; };
+		B849E16D2BAC9352000D8031 /* ResidualAmountTransaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ResidualAmountTransaction.json; sourceTree = "<group>"; };
 		B851C5942BA0A43900DA515D /* DialogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogManager.swift; sourceTree = "<group>"; };
 		B861AAFB2B7BA4C2007A86E5 /* BaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVM.swift; sourceTree = "<group>"; };
 		B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -329,6 +333,7 @@
 		9811BC202B177C970063E71B /* SWC-iDPay-iOSUITests */ = {
 			isa = PBXGroup;
 			children = (
+				B849E16A2BAC916B000D8031 /* ResidualAmount */,
 				B8AC7B8B2B988BB3005D78BB /* TransactionPayment */,
 				B8AC7B882B987973005D78BB /* Initiatives */,
 				B816E71D2B8F7B0800DC0488 /* TransactionHistory */,
@@ -449,6 +454,14 @@
 			path = ResidualAmount;
 			sourceTree = "<group>";
 		};
+		B849E16A2BAC916B000D8031 /* ResidualAmount */ = {
+			isa = PBXGroup;
+			children = (
+				B849E16B2BAC9184000D8031 /* ResidualAmountUITests.swift */,
+			);
+			path = ResidualAmount;
+			sourceTree = "<group>";
+		};
 		B861AAFA2B7BA4AF007A86E5 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -504,6 +517,7 @@
 		B86D992D2B51543D006B4D53 /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
+				B849E16D2BAC9352000D8031 /* ResidualAmountTransaction.json */,
 				B816E7202B8F8BC400DC0488 /* TransactionsHistoryList.json */,
 				B816E7132B8F4C8D00DC0488 /* CreatedTransaction.json */,
 				B816E7112B8F4C0800DC0488 /* IdentifiedTransaction.json */,
@@ -825,6 +839,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B816E7172B8F67AD00DC0488 /* InitiativesList.json in Resources */,
+				B849E16E2BAC9352000D8031 /* ResidualAmountTransaction.json in Resources */,
 				B816E7122B8F4C0800DC0488 /* IdentifiedTransaction.json in Resources */,
 				9811BC0E2B177C970063E71B /* Preview Assets.xcassets in Resources */,
 				98B5C2462BA99922004F47BA /* LaunchScreen.storyboard in Resources */,
@@ -958,6 +973,7 @@
 				B812612C2B583EBB003304C8 /* XCUIApplication+Extensions.swift in Sources */,
 				B81261242B57F1D4003304C8 /* XCUIElement+Extensions.swift in Sources */,
 				B824E6BE2B59290F0050265D /* XCTestCase+Extension.swift in Sources */,
+				B849E16C2BAC9184000D8031 /* ResidualAmountUITests.swift in Sources */,
 				B8445F8E2B91D266007E58EF /* TransactionHistoryDetailUITests.swift in Sources */,
 				B8AC7B8D2B988BE2005D78BB /* TransactionPaymentUITests.swift in Sources */,
 				B816E70D2B8E495600DC0488 /* HomeViewUITests.swift in Sources */,

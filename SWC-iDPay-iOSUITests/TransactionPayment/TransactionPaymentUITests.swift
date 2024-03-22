@@ -29,17 +29,17 @@ final class TransactionPaymentUITests: XCTestCase {
             "-cie-reading-success": "1"]
         app.signIn(success: true)
         
-        loadInitiativesList()
-        selectOkInitiative()
-        insertAmount()
-        authorizeWithCie()
+        app.loadInitiativesList()
+        app.selectOkInitiative()
+        app.insertAmount()
+        app.authorizeWithCie()
         
         // Transaction detail
         XCTAssertTrue(app.staticTexts["Confermi l'operazione?"].waitForExistence(timeout: 10))
         app.buttons["Conferma"].tap()
 
         // Confirm transaction with pin
-        insertPin()
+        app.insertPin()
         
         // Receipt is visible
         let predicate = NSPredicate(format: "label CONTAINS 'Hai pagato'")
@@ -73,10 +73,10 @@ final class TransactionPaymentUITests: XCTestCase {
             "-transaction-delete-success": "1"]
         app.signIn(success: true)
         
-        loadInitiativesList()
-        selectOkInitiative()
-        insertAmount()
-        authorizeWithCie()
+        app.loadInitiativesList()
+        app.selectOkInitiative()
+        app.insertAmount()
+        app.authorizeWithCie()
         
         // Deny transaction
         XCTAssertTrue(app.staticTexts["Confermi l'operazione?"].waitForExistence(timeout: 10))
@@ -93,10 +93,10 @@ final class TransactionPaymentUITests: XCTestCase {
             "-transaction-delete-success": "1"]
         app.signIn(success: true)
         
-        loadInitiativesList()
-        selectOkInitiative()
-        insertAmount()
-        authorizeWithCie()
+        app.loadInitiativesList()
+        app.selectOkInitiative()
+        app.insertAmount()
+        app.authorizeWithCie()
         
         // Deny transaction
         XCTAssertTrue(app.staticTexts["Confermi l'operazione?"].waitForExistence(timeout: 4))
@@ -113,10 +113,10 @@ final class TransactionPaymentUITests: XCTestCase {
             "-cie-reading-success": "1"]
         app.signIn(success: true)
         
-        loadInitiativesList()
-        selectOkInitiative()
-        insertAmount()
-        authorizeWithCie()
+        app.loadInitiativesList()
+        app.selectOkInitiative()
+        app.insertAmount()
+        app.authorizeWithCie()
         
         XCTAssertTrue(app.staticTexts["Confermi l'operazione?"].waitForExistence(timeout: 4))
         // Tap home button and close popup
@@ -145,10 +145,10 @@ final class TransactionPaymentUITests: XCTestCase {
             "-polling-max-retries-exceeded": "1"]
         app.signIn(success: true)
         
-        loadInitiativesList()
-        selectOkInitiative()
-        insertAmount()
-        authorizeWithCie()
+        app.loadInitiativesList()
+        app.selectOkInitiative()
+        app.insertAmount()
+        app.authorizeWithCie()
 
         XCTAssertTrue(app.staticTexts["La sessione è scaduta"].waitForExistence(timeout: 6))
         app.buttons["Riprova"].tap()
@@ -161,65 +161,13 @@ final class TransactionPaymentUITests: XCTestCase {
             "-cie-reading-success": "0"]
         app.signIn(success: true)
         
-        loadInitiativesList()
-        selectOkInitiative()
-        insertAmount()
-        authorizeWithCie()
+        app.loadInitiativesList()
+        app.selectOkInitiative()
+        app.insertAmount()
+        app.authorizeWithCie()
         XCTAssertTrue(app.staticTexts["Si è verificato un errore imprevisto"].waitForExistence(timeout: 6))
         XCTAssertTrue(app.buttons["Autorizza con"].exists)
         XCTAssertTrue(app.buttons["Accetta nuovo bonus"].exists)
 
-    }
-}
-
-extension TransactionPaymentUITests {
-    
-    func loadInitiativesList() {
-        let accettaBonusBtn = app.buttons["Accetta bonus ID Pay"].firstMatch
-        XCTAssert(accettaBonusBtn.waitForExistence(timeout: 6))
-        accettaBonusBtn.tap()
-    }
-    
-    func selectOkInitiative() {
-        let intiativeItemButton = app.findRowWithLabelContaining("Iniziativa OK").firstMatch
-        XCTAssertTrue(intiativeItemButton.waitForExistence(timeout: 4))
-        intiativeItemButton.tap()
-    }
-    
-    func insertAmount() {
-        let amountLabel = app.staticTexts["0,00 €"].firstMatch
-        XCTAssert(amountLabel.waitForExistence(timeout: 6))
-
-        app.buttons["5"].tap()
-        app.buttons["00"].tap()
-        
-        XCTAssert(app.staticTexts["5,00 €"].firstMatch.exists)
-        let confirmBtn = app.buttons["Conferma"]
-        XCTAssertTrue(confirmBtn.isHittable)
-        confirmBtn.tap()
-    }
-    
-    func authorizeWithCie() {
-        let authorizeWithCIEBtn = app.buttons["Identificazione con CIE"]
-        XCTAssertTrue(authorizeWithCIEBtn.waitForExistence(timeout: 4))
-        authorizeWithCIEBtn.tap()
-        
-        XCTAssertTrue(app.staticTexts["Appoggia la CIE sul dispositivo, in alto"].waitForExistence(timeout: 2))
-    }
-    
-    func insertPin() {
-        XCTAssertTrue(app.staticTexts["Inserisci il codice ID Pay"].waitForExistence(timeout: 2))
-        let oneNumberBtn = app.buttons["1"]
-        oneNumberBtn.tap()
-        oneNumberBtn.tap()
-        oneNumberBtn.tap()
-        
-        // test should insert at least 4 numbers
-        let confirmPinBtn = app.buttons["Conferma"]
-        XCTAssertFalse(confirmPinBtn.isEnabled)
-        
-        oneNumberBtn.tap()
-        XCTAssertTrue(confirmPinBtn.isEnabled)
-        confirmPinBtn.tap()
     }
 }
