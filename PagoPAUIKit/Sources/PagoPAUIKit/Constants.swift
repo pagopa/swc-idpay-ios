@@ -33,6 +33,8 @@ public struct Constants {
     public static let padButtonSize      : CGFloat = Sizes.padButton.rawValue * scaleFactor
     public static let pinDotSize         : CGFloat = Sizes.pinDot.rawValue * scaleFactor
     public static let listRowHeight      : CGFloat = Sizes.listRowHeight.rawValue * scaleFactor
+    public static let qrCodeSize         : CGFloat = Sizes.qrCodeSize.rawValue * scaleFactor
+
 }
 
 extension UIDevice {
