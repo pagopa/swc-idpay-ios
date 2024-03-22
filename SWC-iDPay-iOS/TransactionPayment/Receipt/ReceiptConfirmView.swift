@@ -75,13 +75,24 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
         })
         .onChange(of: showOutro) { newValue in
             if newValue == true {
-                showTransactionOutro()
+                // On cancelled receipt, always show "Accetta nuovo bonus" in Outro
+                if receiptPdfModel.transaction.status != .cancelled,
+                    receiptPdfModel.transaction.goodsCost > receiptPdfModel.transaction.coveredAmount! {
+                    showResidualAmountOutro()
+                } else {
+                    showTransactionOutro()
+                }
             }
         }
     }
     
+    
+}
+
+extension ReceiptConfirmView {
+    
     func showTransactionOutro() {
-        let forceInitiativesLoading = receiptPdfModel.initiative == nil
+        let forceInitiativesLoading = appManager.state != .acceptBonus
         router.pushTo(
             .outro(outroModel:
                     OutroModel(title: "Operazione conclusa",
@@ -95,11 +106,20 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
                                         .initiatives(viewModel: InitiativesViewModel(networkClient: networkClient))
                                        )
                                    } else {
-                                       router.pop(to: 
+                                       router.pop(to:
                                             .initiatives(viewModel: InitiativesViewModel(networkClient: networkClient))
                                        )
                                    }
                                })))
+    }
+    
+    func showResidualAmountOutro() {
+        guard receiptPdfModel.initiative != nil else { return }
+        router.pushTo(.residualAmountOutro(viewModel: 
+                                            ResidualAmountOutroViewModel(
+                                                networkClient: networkClient,
+                                                transaction: receiptPdfModel.transaction
+                                            )))
     }
 }
 

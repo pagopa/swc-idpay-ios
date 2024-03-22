@@ -40,7 +40,7 @@ struct TransactionToolbarModifier: ViewModifier {
     }
 
     private func confirmDelete() {
-        viewModel.confirmTransactionDelete()
+        viewModel.confirmTransactionAbort()
     }
     
 }
