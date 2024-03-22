@@ -39,7 +39,9 @@ class NetworkClient: Requestable {
     }
     
     func getInitiatives() async throws -> [Initiative] {
-        let response: InitiativesResponse = try await sendRequest(for: .initiatives)
+        guard let response: InitiativesResponse = try await sendRequest(for: .initiatives) else {
+            throw HTTPResponseError.initiativeListError
+        }
         return response.initiatives
     }
     
