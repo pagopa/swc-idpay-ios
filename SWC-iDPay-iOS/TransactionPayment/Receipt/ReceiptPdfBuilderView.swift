@@ -47,7 +47,7 @@ struct ReceiptPdfBuilderView: View {
                             name: "PagoPA S.p.A.",
                             address: "Piazza Colonna, 370 · 00187, Roma"
                         ),
-                    transactionID: receiptTicketVM.transaction.idpayTransactionId,
+                    transactionID: receiptTicketVM.transaction.milTransactionId,
                     terminalID: receiptTicketVM.transaction.terminalID
                 )
             }

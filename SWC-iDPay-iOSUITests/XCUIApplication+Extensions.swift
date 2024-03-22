@@ -87,4 +87,53 @@ extension XCUIApplication {
         XCTAssert(accettaBonusBtn.waitForExistence(timeout: 6))
         accettaBonusBtn.tap()
     }
+    
+    func loadInitiativesList() {
+        let accettaBonusBtn = self.buttons["Accetta bonus ID Pay"].firstMatch
+        XCTAssert(accettaBonusBtn.waitForExistence(timeout: 6))
+        accettaBonusBtn.tap()
+    }
+    
+    func selectOkInitiative() {
+        let intiativeItemButton = self.findRowWithLabelContaining("Iniziativa OK").firstMatch
+        XCTAssertTrue(intiativeItemButton.waitForExistence(timeout: 4))
+        intiativeItemButton.tap()
+    }
+    
+    func insertAmount() {
+        let amountLabel = self.staticTexts["0,00 €"].firstMatch
+        XCTAssert(amountLabel.waitForExistence(timeout: 6))
+
+        self.buttons["5"].tap()
+        self.buttons["00"].tap()
+        
+        XCTAssert(self.staticTexts["5,00 €"].firstMatch.exists)
+        let confirmBtn = self.buttons["Conferma"]
+        XCTAssertTrue(confirmBtn.isHittable)
+        confirmBtn.tap()
+    }
+    
+    func authorizeWithCie() {
+        let authorizeWithCIEBtn = self.buttons["Identificazione con CIE"]
+        XCTAssertTrue(authorizeWithCIEBtn.waitForExistence(timeout: 4))
+        authorizeWithCIEBtn.tap()
+        
+        XCTAssertTrue(self.staticTexts["Appoggia la CIE sul dispositivo, in alto"].waitForExistence(timeout: 2))
+    }
+    
+    func insertPin() {
+        XCTAssertTrue(self.staticTexts["Inserisci il codice ID Pay"].waitForExistence(timeout: 2))
+        let oneNumberBtn = self.buttons["1"]
+        oneNumberBtn.tap()
+        oneNumberBtn.tap()
+        oneNumberBtn.tap()
+        
+        // test should insert at least 4 numbers
+        let confirmPinBtn = self.buttons["Conferma"]
+        XCTAssertFalse(confirmPinBtn.isEnabled)
+        
+        oneNumberBtn.tap()
+        XCTAssertTrue(confirmPinBtn.isEnabled)
+        confirmPinBtn.tap()
+    }
 }

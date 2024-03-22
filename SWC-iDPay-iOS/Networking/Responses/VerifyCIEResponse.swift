@@ -22,27 +22,15 @@ struct VerifyCIEResponse: Decodable {
 
 extension VerifyCIEResponse {
     
-    static var mocked: Self {
+    static var mockedSuccessResponse: Self {
         VerifyCIEResponse(
             kty: "RSA",
             e: "AQAB",
             use: "enc",
             kid: "0ffa8f8d-d92b-46ee-a4e7-8f26651a2a96",
-            exp: 1678975089,
-            iat: 1678888689,
-            n: """
-                    qjcVEWJTTySeKxHsJSsmVGk2cEvXJ4tBC4uyU5MxYwBAiIWuZb_
-                    yDOIjLz7JN8QsJs3QrZtS3vqv18ljW2db6ED90OUo9CVJveSF4eNRozDHOvnHGT0HR-
-                    8Wf5GxcNy63zfQLrnfdp5F9TrhMFRMkEA0TCT7PhT3yF6YvwLtQyMciER1_KKnpGomfAkW-
-                    UpaF2nHfXiFPrOIHMuNb5BoRR1f0349tqloLgLd7vyMy1jg-
-                    BldmEgRV1bcFqjH0Cg3leROjDy9HzdFauRIlSb4VZrqNni2hgaTUHI5Xp7aCwpS9Y_
-                    mf19KpxN0_8d-f3UVRlwtI1dryelpdC5jowxia2Pf8UgSZyMs2ZxDf6eU0SH8wHEvMpeFpwmiBD1XcsISoTan0Yv7w_
-                    CLo6JOqX6EfogDQZUBzKKlVCZSoSinAz0_7Bj2orgWKQ9sbfgJWgJweKkJLH-bNSRaVcu02boxPnlJeay3wROhSAgtiKWZnsU1_
-                    FpPNG0JBFCh_x-VjkuBoREpNEyJM5NvhRCmyObtzocS4eCtAgvmo3EFv_Xa-rp0p5ez4A-_
-                    QUb5OsYOswqYbIV1GbtiAfCTOrNbv6K86LaTllZ9WqYrKgDv7KA-604K37k33LHROqcO9Q-bCN8hKzQDWs7M3DFNP6P5iBUUVs-
-                    gtWncHvIuUWTth-fBXa8
-                """,
-            keyOps: ["wrapKey"]
-        )
+            exp: 1792403695,
+            iat: 1706003695,
+            n: "s5nlBwPCCWmp5DeXnOZIvHAkVxQ5uTLV0kmooPm8oWPi1ZAUWc03uOggBcknifv6219iiI83DQapMIOBfc2VJLDVC0QNLPzHvP8ifZlqMVLijp8CLDfruVXzPVqvlrXzVVjJM+dqBSVJlODI18+QNUWiYP2vHYo29t8hQne/dJEVQx9q+wFCE5j5hfLiB+Ms9twJgfIDYXmAYllWqY+vxL2gNs16N9TRA1JyxApNgJBbxb17z/ijEZKkqs/+eGsi/OtQA1v4uooM1XR1YswsspF1V5d+srCC9fX9+hQTIMUsB/XcTepABx36f7/10jOFPG2FMWroGUNAF9wneNpgQD8zNwXMwf85ElDp2k3BlqFcCTbNAXsFtIKHpI2GRbwLZoosfFqN3dB+3eRAIAkXBtIrzPVGdEg32Ob2DPirDU/KA3D776NCjD/fTyFpgApMkGMXkUFa3X5LMwIJBEvhy37lkLVdHz8j+CKUIPQrU1r4/UgnfY82wO7EyY5QoTtA3vU45VQs8DN4ObBHFOIrsAVYBlDagdnqKC0lIMlcTc6B+x9HwgTQS0X/YjdI3i/JcM2jA45IOZADr5iBLCVnDxOZYyPXImNR+GzAMQjcWpaGhNLzGl6FteaVx6WH250vmecvpTJo7/djB9/3GNnsInq0p4ptS2AKupN7vTIIXV0=",
+            keyOps: ["wrapKey"])
     }
 }

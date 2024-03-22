@@ -60,5 +60,38 @@ final class HomeViewUITests: XCTestCase {
 
         XCTAssertTrue(app.staticTexts["Non ci sono iniziative attive"].waitForExistence(timeout: 4.0))
     }
+    
+    func test_auth_token_expired_renews_successfully() {
+        app.launchEnvironment = [
+            "-refresh-token-success": "1"
+        ]
+        app.signIn(success: true)
+        let acceptBonusBtn = app.buttons["Accetta bonus ID Pay"]
+        XCTAssertTrue(acceptBonusBtn.waitForExistence(timeout: 8.0))
+
+        XCUIDevice.shared.press(.home)
+        XCUIApplication().activate()
+        XCTAssertTrue(app.staticTexts["Stiamo verificando la sessione..."].waitForExistence(timeout: 3))
+        XCTAssertFalse(app.staticTexts["Sessione scaduta"].waitForExistence(timeout: 2))
+        XCTAssertTrue(acceptBonusBtn.exists)
+
+    }
+    
+    func test_session_expired() {
+        app.launchEnvironment = [
+            "-refresh-token-success": "0"
+        ]
+        app.signIn(success: true)
+        XCTAssertTrue(app.buttons["Accetta bonus ID Pay"].waitForExistence(timeout: 8.0))
+
+        XCUIDevice.shared.press(.home)
+        XCUIApplication().activate()
+        XCTAssertTrue(app.staticTexts["Stiamo verificando la sessione..."].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.staticTexts["Sessione scaduta"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.staticTexts["Accedi nuovamente all'app."].exists)
+
+        app.buttons["Accedi"].tap()
+        XCTAssert(app.scrollViews.otherElements.textFields["Username textfield"].waitForExistence(timeout: 2))
+    }
 
 }

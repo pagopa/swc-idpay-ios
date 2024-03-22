@@ -18,32 +18,29 @@ internal struct CIELogger {
     private let mode: LogMode
     
     private var fileName: String = "LogCIE"
+    private var urlLogFile: URL 
     
     internal init(mode: LogMode = .disabled) {
         self.mode = mode
         if mode == .localFile {
-            // create log file
-            _ = FileManager.default.temporaryDirectory
+        urlLogFile = FileManager.default.temporaryDirectory
                 .appendingPathComponent(fileName)
                 .appendingPathExtension("log")
-            
         }
     }
     
     internal func log(_ message: String, file: String = #file, function: String = #function, line: Int = #line) {
 
         guard mode != .disabled else { return }
-//        let shortFileName = file.components(separatedBy: "/").last ?? "---"
         var msg = ""
         if !message.isEmpty { msg = "\(message)" }
-//        msg += "\(shortFileName) - \(function) - line \(line)"
         
         #if DEBUG
         print(msg)
         #else
         if self.mode == .localFile {
-            // Write log to local file
-            msg.write(to: self.urlLogFile, atomically: true, encoding: .utf8)
+            //Write log to local file
+            try? msg.write(to: self.urlLogFile, atomically: true, encoding: .utf8)
         }
         #endif
         
@@ -61,7 +58,6 @@ internal struct CIELogger {
         if let message = message {
             msg = "\(message) \n"
         }
-//        msg += "\(domain.label) - \(function)\n "
         
         if !apduRes.isEmpty {
             msg += apduRes
@@ -81,22 +77,9 @@ internal struct CIELogger {
         print(msg)
     #else
         if self.mode == .localFile {
-            // Write log to local file
-            msg.write(to: self.urlLogFile, atomically: true, encoding: .utf8)
+            //Write log to local file
+            try? msg.write(to: self.urlLogFile, atomically: true, encoding: .utf8)
         }
     #endif
-    }
-    
-    func writeTempFile(books: [Any]) -> URL {
-        let url = FileManager.default.temporaryDirectory
-            .appendingPathComponent("LogCIE")
-            .appendingPathExtension("txt")
-        let string = books
-            .map({_ in 
-                "book"
-            })
-            .joined(separator: "\n")
-        try? string.write(to: url, atomically: true, encoding: .utf8)
-        return url
     }
 }

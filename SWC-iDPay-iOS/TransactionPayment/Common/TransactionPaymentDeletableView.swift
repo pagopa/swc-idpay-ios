@@ -22,7 +22,7 @@ extension TransactionPaymentDeletableView {
             return buildGenericErrorResultModel {
                 viewModel.dismissDeleteDialog()
             }
-        case .confirmDelete:
+        case .confirmAbortTransaction:
             return ResultModel(
                 title: "Vuoi uscire dall’operazione in corso?",
                 subtitle: "L’operazione verrà annullata e sarà necessario ricominciare da capo.",
@@ -39,7 +39,7 @@ extension TransactionPaymentDeletableView {
                         }
                     })
                 ])
-        case .confirmDeleteHistory:
+        case .confirmDeleteTransaction:
             return ResultModel(
                 title: "Vuoi annullare la spesa del bonus ID Pay?",
                 subtitle: "Se annulli l’operazione,l’importo verrà riaccreditato sull’iniziativa del cittadino.",

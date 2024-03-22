@@ -9,8 +9,8 @@ import Combine
 
 enum TransactionDeleteState {
     case noMessage
-    case confirmDelete
-    case confirmDeleteHistory
+    case confirmAbortTransaction
+    case confirmDeleteTransaction
     case genericError
 }
 
@@ -42,21 +42,22 @@ class TransactionDeleteVM: BaseVM {
             .store(in: &cancellables)
     }
 
-    func confirmTransactionDelete() {
-        deleteDialogState = .confirmDelete
+    
+    func confirmTransactionAbort() {
+        deleteDialogState = .confirmAbortTransaction
     }
     
-    func confirmHistoryTransactionDelete() {
-        deleteDialogState = .confirmDeleteHistory
+    func confirmTransactionDelete() {
+        deleteDialogState = .confirmDeleteTransaction
     }
     
     func dismissDeleteDialog() {
         deleteDialogState = .noMessage
     }
 
-    @discardableResult func deleteTransaction() async throws -> Bool {
+    @discardableResult func deleteTransaction(loadingMessage: String = "Annullamento della transazione in corso..") async throws -> Bool {
         do {
-            loadingStateMessage = "Annullamento della transazione in corso.."
+            loadingStateMessage = loadingMessage
             self.isLoading = true
             let transactionDeleted = try await networkClient.deleteTransaction(milTransactionId: transactionID)
             self.isLoading = false

@@ -7,7 +7,6 @@
 
 import Foundation
 
-#if DEBUG
 extension TransactionModel {
     
     init(status: TransactionStatus,
@@ -66,6 +65,14 @@ extension TransactionModel {
         }
     }
     
+    static var mockedResidualAmountTransaction: TransactionModel {
+        do {
+            return try UITestingHelper.getMockedObject(jsonName: "ResidualAmountTransaction")!
+        } catch {
+            return fallbackTransaction
+        }
+    }
+    
     static var mockedCreatedTransaction: TransactionModel {
         do {
             return try UITestingHelper.getMockedObject(jsonName: "CreatedTransaction")!
@@ -95,4 +102,3 @@ extension TransactionModel {
                                 secondFactor: String.randomString(length: 16))
     }
 }
-#endif

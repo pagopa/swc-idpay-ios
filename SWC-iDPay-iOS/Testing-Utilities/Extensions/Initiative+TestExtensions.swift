@@ -7,7 +7,6 @@
 
 import Foundation
 
-#if DEBUG
 extension Initiative {
 
     init(name: String, organization: String) {
@@ -20,4 +19,3 @@ extension Initiative {
         Initiative(name: "Test funzionali Sconto tipo 6", organization: "Ente di test IDPay")
     }
 }
-#endif

@@ -90,14 +90,7 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
                 try await viewModel.readCIE()
                 let verifyCIEResponse = try await viewModel.verifyCIE()
                 let transaction = try await viewModel.pollTransactionStatus()
-                
-                await MainActor.run {
-                    router.pushTo(.transactionConfirm(viewModel:
-                        TransactionDetailViewModel(networkClient: viewModel.networkClient,
-                                                   transaction: transaction,
-                                                   verifyCIEResponse: verifyCIEResponse,
-                                                   initiative: viewModel.initiative)))
-                }
+                router.pushTo(.transactionConfirm(viewModel: TransactionDetailViewModel(networkClient: viewModel.networkClient, transaction: transaction, verifyCIEResponse: verifyCIEResponse, initiative: viewModel.initiative)))
             } catch {
                 switch error {
                 case HTTPResponseError.maxRetriesExceeded, HTTPResponseError.coveredAmountInconsistent:
@@ -114,14 +107,21 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
                                         themeType: .info,
                                         title: "Riprova",
                                         action: {
-                                            router.pop()
+                                            Task {
+                                                try await viewModel.deleteTransaction(loadingMessage: "Aspetta qualche istante")
+                                                // Repeat createTransaction and go to verifyCIE
+                                                repeatTransactionCreate(viewModel: viewModel, router: router)
+                                            }
                                         }),
                                     ButtonModel(
                                         type: .primaryBordered,
                                         themeType: .info,
                                         title: "Accetta nuovo bonus",
                                         action: {
-                                            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                                            Task {
+                                                try await viewModel.deleteTransaction(loadingMessage: "Aspetta qualche istante")
+                                                router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                                            }
                                         })
                                 ])))
                 case CIEReaderError.scanNotSupported:
@@ -130,13 +130,21 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
                     router.pushTo(
                         .thankyouPage(
                             result: ResultModel(
-                                title: "Errore nella verifica della transazione",
-                                subtitle:"Non è stato possibile verificare la transazione",
-                                themeType: .info,
+                                title: "Si è verificato un errore imprevisto",
+                                subtitle:"Non è possibile completare l'operazione.",
+                                themeType: .error,
                                 buttons: [
                                     ButtonModel(
+                                        type: .primary,
+                                        themeType: .error,
+                                        title: "Autorizza con",
+                                        icon: .io,
+                                        action: {
+                                            // TODO: Apre flusso QRcode
+                                        }),
+                                    ButtonModel(
                                         type: .primaryBordered,
-                                        themeType: .info,
+                                        themeType: .error,
                                         title: "Accetta nuovo bonus",
                                         action: {
                                             router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))

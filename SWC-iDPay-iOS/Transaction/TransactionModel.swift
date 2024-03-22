@@ -19,6 +19,10 @@ struct TransactionModel: Decodable {
     var terminalID: String
     var initiativeId: String
     var secondFactor: String?
+    var residualAmount: Int {
+        guard let coveredAmount else { return 0 }
+        return goodsCost - coveredAmount
+    }
     
     enum CodingKeys: CodingKey {
         case status

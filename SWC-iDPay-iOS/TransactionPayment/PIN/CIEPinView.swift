@@ -82,7 +82,7 @@ struct CIEPinView: View, TransactionPaymentDeletableView {
     private var wrongPINCredentialsResultModel: ResultModel  {
         ResultModel(
             title: "Codice errato!",
-            subtitle: "Hai a disposizione ancora \(viewModel.pinRetries) tentativi.",
+            subtitle: "Hai a disposizione ancora \(viewModel.pinRetries) \(viewModel.pinRetries == 1 ? "tentativo" : "tentativi").",
             themeType: ThemeType.warning,
             buttons:[
                 ButtonModel(
@@ -162,18 +162,14 @@ extension CIEPinView {
                     themeType: .warning,
                     title: "Accetta nuovo bonus",
                     action: {
-                        router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                        Task {
+                            try await viewModel.deleteTransaction()
+                            await MainActor.run {
+                                router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                            }
+                        }
                     }
-                ),
-                ButtonModel(
-                    type: .primaryBordered,
-                    themeType: .warning,
-                    title: "Riprova",
-                    action: {
-                        router.pop()
-                        viewModel.pinRetries = 3
-                    })
-            ]
+                )]
         )))
     }
 }
@@ -200,6 +196,6 @@ private struct PinDot: View {
 }
 
 #Preview {
-    CIEPinView(viewModel: CIEPinViewModel(networkClient: NetworkClient(environment: .development), transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mocked, initiative: Initiative.mocked))
+    CIEPinView(viewModel: CIEPinViewModel(networkClient: NetworkClient(environment: .development), transaction: TransactionModel.mockedSuccessTransaction, verifyCIEResponse: VerifyCIEResponse.mockedSuccessResponse, initiative: Initiative.mocked))
             .environmentObject(Router())
 }

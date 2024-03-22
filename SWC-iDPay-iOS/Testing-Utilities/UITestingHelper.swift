@@ -5,7 +5,6 @@
 //  Created by Stefania Castiglioni on 16/01/24.
 //
 
-#if DEBUG
 import Foundation
 
 struct UITestingHelper {
@@ -31,4 +30,3 @@ struct UITestingHelper {
     }
     
 }
-#endif
