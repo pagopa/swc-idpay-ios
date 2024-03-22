@@ -49,6 +49,8 @@ class MockedNetworkClient: Requestable {
             } catch {
                 return []
             }
+        } else if let _ = ProcessInfo.processInfo.environment["-initiative-list-error"] {
+            throw HTTPResponseError.genericError
         }
         return []
     }

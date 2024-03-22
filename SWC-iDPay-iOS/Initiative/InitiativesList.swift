@@ -98,7 +98,7 @@ struct InitiativesList: View {
     fileprivate func getErrorView() -> ThankyouPage {
         return ThankyouPage(
             result: ResultModel(
-                title: HTTPResponseError.initiativeListError.reason,
+                title: "Non è stato possibile recuperare la lista delle iniziative",
                 subtitle: "Riprova tra qualche minuto",
                 themeType: .error,
                 buttons: [

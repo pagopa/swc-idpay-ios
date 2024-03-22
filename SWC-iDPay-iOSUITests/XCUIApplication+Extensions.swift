@@ -51,9 +51,7 @@ extension XCUIApplication {
         self.launchEnvironment = ["-mock-filename": "InitiativesList"]
         self.signIn(success: true)
 
-        let accettaBonusBtn = self.buttons["Accetta bonus ID Pay"].firstMatch
-        XCTAssert(accettaBonusBtn.waitForExistence(timeout: 6))
-        accettaBonusBtn.tap()
+        loadInitiativesList()
         
         let intiativeItemButton = self.findRowWithLabelContaining("Iniziativa OK").firstMatch
         XCTAssertTrue(intiativeItemButton.waitForExistence(timeout: 4))
@@ -83,9 +81,7 @@ extension XCUIApplication {
         }
         self.signIn(success: true)
         
-        let accettaBonusBtn = self.buttons["Accetta bonus ID Pay"].firstMatch
-        XCTAssert(accettaBonusBtn.waitForExistence(timeout: 6))
-        accettaBonusBtn.tap()
+        loadInitiativesList()
     }
     
     func loadInitiativesList() {

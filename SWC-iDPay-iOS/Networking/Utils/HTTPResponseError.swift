@@ -22,8 +22,6 @@ enum HTTPResponseError: Error {
     case invalidCode
     case networkError(String)
     case genericError
-    case historyListError
-    case initiativeListError
     
     var reason: String {
         switch self {
@@ -35,10 +33,6 @@ enum HTTPResponseError: Error {
             return "Internal Server Error"
         case .networkError(let message):
             return message
-        case .historyListError:
-            return "Non è stato possibile recuperare lo storico delle operazioni"
-        case .initiativeListError:
-            return "Non è stato possibile recuperare la lista delle iniziative"
         default:
             return "Generic error"
         }

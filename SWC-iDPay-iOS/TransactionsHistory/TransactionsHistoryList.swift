@@ -104,7 +104,7 @@ struct TransactionsHistoryList: View {
     fileprivate func getErrorView() -> ThankyouPage {
         return ThankyouPage(
             result: ResultModel(
-                title: HTTPResponseError.historyListError.reason,
+                title: "Non è stato possibile recuperare lo storico delle operazioni",
                 subtitle: "Riprova tra qualche minuto",
                 themeType: .error,
                 buttons: [
