@@ -22,11 +22,9 @@ internal struct CIELogger {
     
     internal init(mode: LogMode = .disabled) {
         self.mode = mode
-        if mode == .localFile {
         urlLogFile = FileManager.default.temporaryDirectory
                 .appendingPathComponent(fileName)
                 .appendingPathExtension("log")
-        }
     }
     
     internal func log(_ message: String, file: String = #file, function: String = #function, line: Int = #line) {
