@@ -26,7 +26,9 @@ platform :ios do
       #clean: false,
       #skip_build: true,
       #testplan
+      disable_concurrent_testing: true,
       disable_slide_to_type: true,
+      number_of_retries: 2,
       derived_data_path: './DerivedData', 
       output_directory: './sonar-reports',
       devices: 'iPhone 15 Pro'
