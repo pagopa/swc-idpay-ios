@@ -25,14 +25,32 @@ extension View {
             // Repeat createTransaction and go to verifyCIE
             let createTransactionResponse = try await viewModel.createTransaction()
             await MainActor.run {
-                router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
-                router.pushTo(
-                    .cieAuth(
-                        viewModel: CIEAuthViewModel(
+                let isCieAuth = router.navigationPath.contains(where: { $0.body is CIEAuthView })
+                router.pop(to:.bonusAmount(
+                    viewModel: BonusAmountViewModel(
+                        networkClient: viewModel.networkClient,
+                        initiative: viewModel.initiative!)
+                ))
+//                router.pop(to: .initiatives(
+//                    viewModel: InitiativesViewModel(
+//                        networkClient: viewModel.networkClient)
+//                ))
+                if isCieAuth {
+                    router.pushTo(
+                        .cieAuth(
+                            viewModel: CIEAuthViewModel(
+                                networkClient: viewModel.networkClient,
+                                transactionData: createTransactionResponse,
+                                initiative: viewModel.initiative
+                            )))
+                } else {
+                    router.pushTo(.qrCodeAuth(
+                        viewModel: QRCodeViewModel(
                             networkClient: viewModel.networkClient,
                             transactionData: createTransactionResponse,
-                            initiative: viewModel.initiative
-                        )))
+                            initiative: viewModel.initiative)
+                    ))
+                }
             }
         }
     }

@@ -108,7 +108,7 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
                                         title: "Riprova",
                                         action: {
                                             Task {
-                                                try await viewModel.deleteTransaction(loadingMessage: "Aspetta qualche istante")
+                                                try await viewModel.deleteTransaction(loadingMessage: "Attendi qualche istante")
                                                 // Repeat createTransaction and go to verifyCIE
                                                 repeatTransactionCreate(viewModel: viewModel, router: router)
                                             }
@@ -119,7 +119,7 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
                                         title: "Accetta nuovo bonus",
                                         action: {
                                             Task {
-                                                try await viewModel.deleteTransaction(loadingMessage: "Aspetta qualche istante")
+                                                try await viewModel.deleteTransaction(loadingMessage: "Attendi qualche istante")
                                                 router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
                                             }
                                         })

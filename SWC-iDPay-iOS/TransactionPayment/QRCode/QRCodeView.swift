@@ -79,7 +79,48 @@ struct QRCodeView: View, TransactionPaymentDeletableView {
             do {
                 try await viewModel.pollTransactionStatus()
             } catch {
-                
+                switch error {
+                case HTTPResponseError.maxRetriesExceeded, HTTPResponseError.coveredAmountInconsistent:
+                    router.pushTo(
+                        .thankyouPage(
+                            result: ResultModel(
+                                title: "La sessione è scaduta",
+                                subtitle:"Se vuoi procedere con il pagamento, prova ad autorizzarlo di nuovo.",
+                                icon: .pendingDark,
+                                themeType: .info,
+                                buttons: [
+                                    ButtonModel(
+                                        type: .primary,
+                                        themeType: .info,
+                                        title: "Riprova",
+                                        action: {
+                                            Task {
+                                                try await viewModel.deleteTransaction(
+                                                    loadingMessage: "Attendi qualche istante")
+                                                repeatTransactionCreate(
+                                                    viewModel: viewModel,
+                                                    router: router)
+                                            }
+                                        }),
+                                    ButtonModel(
+                                        type: .primaryBordered,
+                                        themeType: .info,
+                                        title: "Accetta nuovo bonus",
+                                        action: {
+                                            Task {
+                                                try await viewModel.deleteTransaction(
+                                                    loadingMessage: "Attendi qualche istante")
+                                                router.pop(to: .initiatives(
+                                                    viewModel: InitiativesViewModel(
+                                                        networkClient: viewModel.networkClient)))
+                                            }
+                                        })
+                                ])))
+                default:
+                    print("Error:\(error.localizedDescription)")
+                    viewModel.showError()
+                }
+
             }
         }
         .onChange(of: viewModel.qrCodePollingStatus) { qrCodePollingStatus in
@@ -90,6 +131,9 @@ struct QRCodeView: View, TransactionPaymentDeletableView {
             case .authorized:
                 showWaitingView = false
                 showAuthorizedView()
+            case .canceled:
+                showWaitingView = false
+                showOperationCanceled()
             default:
                 showWaitingView = false
                 break
@@ -149,11 +193,10 @@ struct QRCodeView: View, TransactionPaymentDeletableView {
 extension QRCodeView {
     
     func showAuthorizedView() {
-        // TODO: "Hai pagato deve mostrare coveredAmount o goodsCost???"
         router.pushTo(
             .thankyouPage(result:
                             ResultModel(
-                                title: "Hai pagato \(viewModel.transaction!.coveredAmount?.formattedCurrency ?? "-- €")",
+                                title: "Hai pagato \(viewModel.transaction!.coveredAmount!.formattedCurrency)",
                                 themeType: .success,
                                 buttons: [
                                     ButtonModel(
@@ -170,6 +213,40 @@ extension QRCodeView {
                                         })
                                 ])))
         
+    }
+    
+    func showOperationCanceled() {
+        router.pushTo(
+            .thankyouPage(result:
+                            ResultModel(
+                                title: "L'operazione è stata annullata",
+                                themeType: .warning,
+                                buttons: [
+                                    ButtonModel(
+                                        type: .primary,
+                                        themeType: .warning,
+                                        title: "Accetta nuovo bonus",
+                                        action: {
+                                            Task {
+                                                try await viewModel.deleteTransaction(loadingMessage: "Attendi qualche istante")
+                                                router.pop(to: .initiatives(
+                                                    viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                                            }
+                                        }),
+                                    ButtonModel(
+                                        type: .primaryBordered,
+                                        themeType: .warning,
+                                        title: "Riprova",
+                                        action: {
+                                            Task {
+                                                try await viewModel.deleteTransaction(loadingMessage: "Attendi qualche istante")
+                                                repeatTransactionCreate(
+                                                    viewModel: viewModel,
+                                                    router: router)
+                                            }
+                                        })
+                                ])))
+
     }
 }
 

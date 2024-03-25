@@ -26,7 +26,7 @@ final class TransactionHistoryDetailUITests: XCTestCase {
 
     func test_delete_btn_is_visible_when_transaction_is_recent() {
         app.loadMockedHistoryList()
-        XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].exists)
+        XCTAssertTrue(app.staticTexts["Attendi qualche istante"].exists)
                 
         let authorizedItemButton = app.findRowWithLabelContaining("BonusOK").firstMatch
         XCTAssertTrue(authorizedItemButton.waitForExistence(timeout: 4))
@@ -83,7 +83,7 @@ final class TransactionHistoryDetailUITests: XCTestCase {
     
     func test_delete_transaction_cancel() {
         app.loadMockedHistoryList()
-        XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].exists)
+        XCTAssertTrue(app.staticTexts["Attendi qualche istante"].exists)
                 
         let authorizedItemButton = app.findRowWithLabelContaining("BonusOK").firstMatch
         XCTAssertTrue(authorizedItemButton.waitForExistence(timeout: 4))
