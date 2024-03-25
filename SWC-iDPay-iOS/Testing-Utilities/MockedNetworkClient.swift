@@ -16,6 +16,8 @@ class MockedNetworkClient: Requestable {
     static let errorTransactionID = "fakeMilErrorTransactionId"
     static let oldAuthorizedTransactionID = "oldAuthorizedMilTransactionId"
 
+    private var retries: Int = 2
+    
     init(sessionManager: SessionManager = SessionManager()) {
         self.sessionManager = sessionManager
     }
@@ -66,12 +68,45 @@ class MockedNetworkClient: Requestable {
     }
     
     func verifyTransactionStatus(milTransactionId: String) async throws -> TransactionModel {
-        if let _ = ProcessInfo.processInfo.environment["-polling-max-retries-exceeded"] {
+        if UITestingHelper.isMaxRetriesTest {
             return TransactionModel.mockedCreatedTransaction
         }
-        if let _ = ProcessInfo.processInfo.environment["-residual-amount"] {
+        if UITestingHelper.containsInputOption("-residual-amount") {
             return TransactionModel.mockedResidualAmountTransaction
         }
+        if UITestingHelper.containsInputOption("-qrcode-ok") {
+            switch retries {
+            case 2:
+                retries -= 1
+                try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
+                return TransactionModel.mockedIdentifiedTransaction
+            default:
+                try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
+                return TransactionModel.mockedSuccessTransaction
+            }
+        }
+        if UITestingHelper.containsInputOption("-qrcode-help") {
+            return TransactionModel.mockedCreatedTransaction
+        }
+        if UITestingHelper.containsInputOption("-qrcode-ok-residual-amount") {
+            switch retries {
+            case 2:
+                retries -= 1
+                return TransactionModel.mockedIdentifiedTransaction
+            default:
+                return TransactionModel.mockedAuthResidualAmountTransaction
+            }
+        }
+        if UITestingHelper.containsInputOption("-qrcode-canceled") {
+            switch retries {
+            case 2:
+                retries -= 1
+                return TransactionModel.mockedIdentifiedTransaction
+            default:
+                return TransactionModel.mockedCreatedTransaction
+            }
+        }
+        
         return TransactionModel.mockedIdentifiedTransaction
     }
     

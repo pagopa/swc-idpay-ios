@@ -33,6 +33,15 @@ extension TransactionModel {
         }
     }
     
+    static var mockedAuthResidualAmountTransaction: TransactionModel {
+        do {
+            return try UITestingHelper.getMockedObject(jsonName: "AuthorizedTransactionResidualAmount")!
+        } catch {
+            return fallbackTransaction
+        }
+    }
+
+    
     static var mockedCancelledTransaction: TransactionModel {
         do {
             return try UITestingHelper.getMockedObject(jsonName: "CancelledTransaction")!
