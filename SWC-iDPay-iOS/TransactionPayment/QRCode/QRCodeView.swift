@@ -134,6 +134,9 @@ struct QRCodeView: View, TransactionPaymentDeletableView {
             case .canceled:
                 showWaitingView = false
                 showOperationCanceled()
+            case .rejected:
+                showWaitingView = false
+                showOperationRejected()
             default:
                 showWaitingView = false
                 break
@@ -246,8 +249,26 @@ extension QRCodeView {
                                             }
                                         })
                                 ])))
-
     }
+    
+    func showOperationRejected() {
+        router.pushTo(.thankyouPage(result: ResultModel(
+            title: "Autorizzazione negata",
+            subtitle: "Non è stato addebitato alcun importo",
+            themeType: .warning,
+            buttons: [
+                ButtonModel(
+                    type: .primary,
+                    themeType: .warning,
+                    title: "Accetta nuovo bonus",
+                    action: {
+                        router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+                    }
+                )
+            ]
+        )))
+    }
+
 }
 
 #Preview {
