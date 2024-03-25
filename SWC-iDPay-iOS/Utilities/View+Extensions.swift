@@ -31,10 +31,7 @@ extension View {
                         networkClient: viewModel.networkClient,
                         initiative: viewModel.initiative!)
                 ))
-//                router.pop(to: .initiatives(
-//                    viewModel: InitiativesViewModel(
-//                        networkClient: viewModel.networkClient)
-//                ))
+
                 if isCieAuth {
                     router.pushTo(
                         .cieAuth(

@@ -85,6 +85,10 @@ class TransactionDeleteVM: BaseVM {
             throw error
         }
     }
+    
+    func getReceiptPdfModel(transaction: TransactionModel) -> ReceiptPdfModel{
+        return ReceiptPdfModel(transaction: transaction, initiative: initiative)
+    }
 
     func showError() {
         self.isLoading = false

@@ -21,6 +21,7 @@ class QRCodeViewModel: TransactionDeleteVM {
     @Published var transaction: TransactionModel?
     
     private var tempTransactionStatus: TransactionStatus = .created
+    private var shouldPollTransactionStatus: Bool = true
     var transactionData: CreateTransactionResponse
     
     init(networkClient: Requestable, transactionData: CreateTransactionResponse, initiative: Initiative? = nil) {
@@ -31,6 +32,7 @@ class QRCodeViewModel: TransactionDeleteVM {
  
     func pollTransactionStatus(retries: Int? = nil) async throws {
         
+        guard shouldPollTransactionStatus else { return }
         var maxRetries: Int
         
         if retries != nil {
@@ -52,6 +54,10 @@ class QRCodeViewModel: TransactionDeleteVM {
         }
         
         transaction = try await networkClient.verifyTransactionStatus(milTransactionId: transactionData.milTransactionId)
+        
+        guard shouldPollTransactionStatus == true else {
+            return
+        }
         
         guard let transaction else {
             maxRetries -= 1
@@ -86,5 +92,21 @@ class QRCodeViewModel: TransactionDeleteVM {
         try await Task.sleep(nanoseconds: UInt64(retryAfter * 1_000_000_000))
         return try await pollTransactionStatus(retries: maxRetries)
     }
+    
+    func stopPolling() {
+        shouldPollTransactionStatus = false
+    }
 
+    func checkTransactionStatus() async throws -> TransactionStatus {
+        transaction = try await networkClient.verifyTransactionStatus(milTransactionId: transactionData.milTransactionId)
+        guard let transaction else {
+            throw HTTPResponseError.genericError
+        }
+        return transaction.status
+    }
+    
+    func setCancelledStatus() {
+        guard transaction != nil else { return }
+        transaction!.status = .cancelled
+    }
 }

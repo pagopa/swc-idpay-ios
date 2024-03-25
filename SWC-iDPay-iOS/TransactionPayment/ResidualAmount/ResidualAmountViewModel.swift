@@ -28,10 +28,6 @@ class ResidualAmountViewModel: TransactionDeleteVM {
             initiative: initiative)
     }
     
-    func getReceiptPdfModel() -> ReceiptPdfModel{
-        ReceiptPdfModel(transaction: transaction)
-    }
-    
     func setCancelledStatus() {
         transaction.status = .cancelled
     }

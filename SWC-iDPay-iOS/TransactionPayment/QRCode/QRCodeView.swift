@@ -13,6 +13,7 @@ struct QRCodeView: View, TransactionPaymentDeletableView {
     @ObservedObject var viewModel: QRCodeViewModel
     @State private var showQRDialog: Bool = false
     @State private var showWaitingView: Bool = false
+    @State private var showTransactionAbortDialog: Bool = false
 
     var body: some View {
         ZStack {
@@ -59,6 +60,26 @@ struct QRCodeView: View, TransactionPaymentDeletableView {
                                 }
                             }),
                     isPresenting: $viewModel.showDeleteDialog)
+            .dialog(dialogModel: 
+                        ResultModel(
+                            title: "Vuoi annullare la spesa del bonus ID Pay?",
+                            subtitle: "Se annulli l’operazione,l’importo verrà riaccreditato sull’iniziativa del cittadino.",
+                            themeType: .light,
+                            buttons: [
+                                ButtonModel(type: .primary, themeType: .light, title: "Concludi operazione", action: {
+                                    showTransactionAbortDialog = false
+                                    showAuthorizedView()
+                                }),
+                                ButtonModel(type: .plain, themeType: .light, title: "Annulla operazione", action: {
+                                    showTransactionAbortDialog = false
+                                    Task {
+                                        try await viewModel.deleteTransaction(loadingMessage: "Attendi qualche istante")
+                                        viewModel.setCancelledStatus()
+                                        showAuthorizedOperationRewarded()
+                                    }
+                                })
+                            ]),
+                    isPresenting: $showTransactionAbortDialog)
             .waitingView(
                 title: "Attendi autorizzazione",
                 subtitle: "Per proseguire è necessario autorizzare l’operazione sull’app IO",
@@ -68,8 +89,18 @@ struct QRCodeView: View, TransactionPaymentDeletableView {
                         themeType: .info,
                         title: "Annulla",
                         action: {
-                            //TODO: Flusso annullamento
-                            print("Annulla operazione")
+                            showWaitingView = false
+                            // Flusso annullamento
+                            Task {
+                                viewModel.stopPolling()
+                                let transactionStatus = try await viewModel.checkTransactionStatus()
+                                switch transactionStatus {
+                                case .authorized:
+                                    showTransactionAbortDialog = true
+                                default:
+                                    router.pop()
+                                }
+                            }
                         })
                 ],
                 isPresenting: $showWaitingView)
@@ -267,6 +298,25 @@ extension QRCodeView {
                 )
             ]
         )))
+    }
+    
+    func showAuthorizedOperationRewarded() {
+        router.pushTo(.thankyouPage(result:
+                                        ResultModel(title: "Operazione annullata",
+                                                    subtitle: "L'importo autorizzato è stato riaccreditato sull'iniziativa del cittadino",
+                                                    themeType: .success,
+                                                    buttons: [
+                                                        ButtonModel(
+                                                            type: .primary,
+                                                            themeType: .success,
+                                                            title: "Continua",
+                                                            icon: .arrowRight,
+                                                            action: {
+                                                                router.pushTo(.receipt(
+                                                                    receiptModel: viewModel.getReceiptPdfModel(transaction: viewModel.transaction!),
+                                                                    networkClient: self.viewModel.networkClient))
+                                                            }
+                                                        )])))
     }
 
 }
