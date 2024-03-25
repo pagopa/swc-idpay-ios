@@ -130,7 +130,8 @@ struct QRCodeView: View, TransactionPaymentDeletableView {
                                                     loadingMessage: "Attendi qualche istante")
                                                 repeatTransactionCreate(
                                                     viewModel: viewModel,
-                                                    router: router)
+                                                    router: router,
+                                                    isCieAuth: false)
                                             }
                                         }),
                                     ButtonModel(
@@ -276,7 +277,8 @@ extension QRCodeView {
                                                 try await viewModel.deleteTransaction(loadingMessage: "Attendi qualche istante")
                                                 repeatTransactionCreate(
                                                     viewModel: viewModel,
-                                                    router: router)
+                                                    router: router,
+                                                    isCieAuth: false)
                                             }
                                         })
                                 ])))

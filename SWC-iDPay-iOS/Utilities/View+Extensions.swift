@@ -20,12 +20,11 @@ extension View {
             ])
     }
     
-    func repeatTransactionCreate(viewModel: TransactionDeleteVM, router: Router) {
+    func repeatTransactionCreate(viewModel: TransactionDeleteVM, router: Router, isCieAuth: Bool = true) {
         Task {
             // Repeat createTransaction and go to verifyCIE
             let createTransactionResponse = try await viewModel.createTransaction()
             await MainActor.run {
-                let isCieAuth = router.navigationPath.contains(where: { $0.body is CIEAuthView })
                 router.pop(to:.bonusAmount(
                     viewModel: BonusAmountViewModel(
                         networkClient: viewModel.networkClient,
