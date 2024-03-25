@@ -93,6 +93,9 @@
 		B8AE58952B4EA095006FB26C /* ReceiptPdfBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE58942B4EA095006FB26C /* ReceiptPdfBuilderView.swift */; };
 		B8AE589B2B50445C006FB26C /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AE589A2B50445C006FB26C /* TransactionModel.swift */; };
 		B8AFC6122B63CD6400FEE74C /* CIEScanner in Frameworks */ = {isa = PBXBuildFile; productRef = B8AFC6112B63CD6400FEE74C /* CIEScanner */; };
+		B8B497A22BADDE6700CCE1B0 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B497A12BADDE6700CCE1B0 /* QRCodeView.swift */; };
+		B8B497A42BADDE9700CCE1B0 /* QRCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B497A32BADDE9700CCE1B0 /* QRCodeViewModel.swift */; };
+		B8B497A62BADEEEE00CCE1B0 /* QRCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B497A52BADEEEE00CCE1B0 /* QRCodeGenerator.swift */; };
 		B8CE22C22B5A937C00A4BC67 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE22C12B5A937C00A4BC67 /* MainView.swift */; };
 		B8CE22C42B5A944B00A4BC67 /* BonusAmountViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE22C32B5A944B00A4BC67 /* BonusAmountViewUITests.swift */; };
 		B8CE22C72B5ACB0200A4BC67 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE22C62B5ACB0200A4BC67 /* HelpView.swift */; };
@@ -220,6 +223,9 @@
 		B8AE589A2B50445C006FB26C /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
 		B8AFC6132B63CEB900FEE74C /* SWC-iDPay-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SWC-iDPay-iOS.entitlements"; sourceTree = "<group>"; };
 		B8AFC6142B63CF0C00FEE74C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B8B497A12BADDE6700CCE1B0 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
+		B8B497A32BADDE9700CCE1B0 /* QRCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewModel.swift; sourceTree = "<group>"; };
+		B8B497A52BADEEEE00CCE1B0 /* QRCodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator.swift; sourceTree = "<group>"; };
 		B8CE22C12B5A937C00A4BC67 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B8CE22C32B5A944B00A4BC67 /* BonusAmountViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusAmountViewUITests.swift; sourceTree = "<group>"; };
 		B8CE22C62B5ACB0200A4BC67 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
@@ -492,6 +498,9 @@
 		B861AB0B2B7E591F007A86E5 /* QRCode */ = {
 			isa = PBXGroup;
 			children = (
+				B8B497A12BADDE6700CCE1B0 /* QRCodeView.swift */,
+				B8B497A32BADDE9700CCE1B0 /* QRCodeViewModel.swift */,
+				B8B497A52BADEEEE00CCE1B0 /* QRCodeGenerator.swift */,
 			);
 			path = QRCode;
 			sourceTree = "<group>";
@@ -893,10 +902,12 @@
 				B861AB0D2B7E5939007A86E5 /* CIEAuthView.swift in Sources */,
 				B8FAB1F22B7A5CB70097E7A1 /* LoginResponse.swift in Sources */,
 				980107872B765F3C00A58325 /* BonusAmountViewModel.swift in Sources */,
+				B8B497A22BADDE6700CCE1B0 /* QRCodeView.swift in Sources */,
 				B88E8FD02B768AF6005A3737 /* Endpoint.swift in Sources */,
 				B882BF0A2B7296C40040C6A6 /* HomeView.swift in Sources */,
 				B8DF96332B7A1DAF00113D4B /* KeychainManager.swift in Sources */,
 				B8D708CB2B56E09300AF02A0 /* LoginViewModel.swift in Sources */,
+				B8B497A42BADDE9700CCE1B0 /* QRCodeViewModel.swift in Sources */,
 				B882BF112B73D86C0040C6A6 /* TransactionsHistoryList.swift in Sources */,
 				B803D8D62B20D85700A7934E /* AppStateManager.swift in Sources */,
 				98874CB02B7D195E00F70DE2 /* TransactionDetailView.swift in Sources */,
@@ -949,6 +960,7 @@
 				9811BC072B177C950063E71B /* SWC_iDPay_iOSApp.swift in Sources */,
 				B849E1672BAC7EB8000D8031 /* CashPaymentView.swift in Sources */,
 				B8290A162B86152E00B275C6 /* KeyFactory.swift in Sources */,
+				B8B497A62BADEEEE00CCE1B0 /* QRCodeGenerator.swift in Sources */,
 				B8FAB1F42B7A5CD30097E7A1 /* SessionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

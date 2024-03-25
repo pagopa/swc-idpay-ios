@@ -25,4 +25,5 @@ public enum Sizes: CGFloat {
     case padButton    = 56.0
     case pinDot       = 16.0
     case listRowHeight = 38.0
+    case qrCodeSize   = 125.0
 }

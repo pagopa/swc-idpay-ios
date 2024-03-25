@@ -12,6 +12,7 @@ enum Route: View {
     case initiatives(viewModel: InitiativesViewModel)
     case bonusAmount(viewModel: BonusAmountViewModel)
     case cieAuth(viewModel: CIEAuthViewModel)
+    case qrCodeAuth(viewModel: QRCodeViewModel)
     case transactionConfirm(viewModel: TransactionDetailViewModel)
     case thankyouPage(result: ResultModel)
     case pin(viewModel: CIEPinViewModel)
@@ -24,7 +25,16 @@ enum Route: View {
     
     var showBackButton: Bool {
         switch self {
-        case .thankyouPage, .transactionConfirm, .cieAuth, .pin, .receipt, .outro, .residualAmountOutro, .residualAmountPayment, .cashPayment:
+        case .thankyouPage, 
+            .transactionConfirm, 
+            .cieAuth,
+            .qrCodeAuth,
+            .pin,
+            .receipt,
+            .outro,
+            .residualAmountOutro,
+            .residualAmountPayment,
+            .cashPayment:
             return false
         default:
             return true
@@ -33,7 +43,14 @@ enum Route: View {
     
     var showHomeButton: Bool {
         switch self {
-        case .thankyouPage, .transactionConfirm, .cieAuth, .pin, .receipt, .residualAmountOutro, .residualAmountPayment:
+        case .thankyouPage, 
+             .transactionConfirm,
+             .cieAuth,
+             .qrCodeAuth,
+             .pin,
+             .receipt,
+             .residualAmountOutro,
+             .residualAmountPayment:
             return false
         default:
             return true
@@ -66,6 +83,8 @@ enum Route: View {
             BonusAmountView(viewModel: viewModel)
         case .cieAuth(let viewModel):
             CIEAuthView(viewModel: viewModel)
+        case .qrCodeAuth(let viewModel):
+            QRCodeView(viewModel: viewModel)
         case .transactionConfirm(let viewModel):
             TransactionDetailView(viewModel: viewModel)
         case .thankyouPage(let result):
@@ -102,6 +121,8 @@ extension Route: Hashable {
         case (.bonusAmount, .bonusAmount):
             return true
         case (.cieAuth(let lhsVM), .cieAuth(let rhsVM)):
+            return lhsVM.transactionData.milTransactionId == rhsVM.transactionData.milTransactionId
+        case (.qrCodeAuth(let lhsVM), .qrCodeAuth(let rhsVM)):
             return lhsVM.transactionData.milTransactionId == rhsVM.transactionData.milTransactionId
         case (.transactionConfirm(let lhsVM), .transactionConfirm(let rhsVM)):
             return lhsVM.transaction.milTransactionId == rhsVM.transaction.milTransactionId

@@ -107,7 +107,15 @@ struct BonusAmountView: View {
                         title: "Identificazione con ",
                         icon: .io,
                         action: {
-                            print("Vai a autorizzazione con QRcode")
+                            viewModel.showAuthDialog = false
+                            guard let transactionData = viewModel.transactionData else {
+                                // TODO: Show error if transactionData i nil
+                                return
+                            }
+                            router.pushTo(.qrCodeAuth(viewModel:
+                                                        QRCodeViewModel(networkClient: viewModel.networkClient,
+                                                                        transactionData: transactionData
+                                                                       )))
                         }
                     )
                 ]

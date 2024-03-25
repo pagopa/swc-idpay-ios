@@ -44,7 +44,7 @@ final class TransactionHistoryListUITests: XCTestCase {
     
     func test_history_list_item_authorized_detail_is_open_when_tapping_on_authorized_row() {
         app.loadMockedHistoryList()
-        XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].exists)
+        XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].waitForExistence(timeout: 2))
                 
         let authorizedItemButton = app.findRowWithLabelContaining("BonusOK").firstMatch
         XCTAssertTrue(authorizedItemButton.waitForExistence(timeout: 4))

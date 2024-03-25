@@ -49,6 +49,7 @@ extension CreateTransactionResponse {
             goodsCost: 500,
             challenge: String.base64StringFromBinary([0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07]),
             trxCode: "A7UG8GHI3",
+            qrCode: "Nm2dtfgFFtr9ID9NwZB4QRpvdvd1Pd9a",
             status: "CREATED",
             retryAfter: 1,
             maxRetries: 2)

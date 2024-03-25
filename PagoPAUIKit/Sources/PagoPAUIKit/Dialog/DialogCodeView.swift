@@ -92,16 +92,13 @@ struct DialogCodeModifier: ViewModifier {
     var onClose: () -> Void
     
     func body(content: Content) -> some View {
-        ZStack {
-            content
-            DialogCodeView(
-                title: title,
-                subtitle: subtitle,
-                codeValue: codeValue,
-                isPresenting: $isPresenting,
-                onClose: onClose
-            )
+        content
+        .fullScreenCover(isPresented: $isPresenting) {
+            DialogCodeView(title: title, subtitle: subtitle, codeValue: codeValue, isPresenting: $isPresenting, onClose: onClose)
         }
+        .transaction({ transaction in
+            transaction.disablesAnimations = true
+        })
     }
 }
 
