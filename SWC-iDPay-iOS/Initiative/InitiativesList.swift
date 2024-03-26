@@ -78,7 +78,7 @@ struct InitiativesList: View {
             
             Text("Nessuna iniziativa trovata")
                 .font(.PAFont.h3)
-            Text("Al momento non sono disponibili iniziative")
+            Text("Se hai bisogno di aiuto contatta l'assistenza")
                 .font(.PAFont.body)
             
             Button {
