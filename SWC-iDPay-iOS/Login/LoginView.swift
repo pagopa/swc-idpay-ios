@@ -62,7 +62,7 @@ struct LoginView: View {
     @ViewBuilder
     private var loginForm: some View {
         Form {
-            InputField(type: .text, text: $viewModel.username, placeholder: "Username", autofocus: true)
+            InputField(type: .text, text: $viewModel.username, placeholder: "Nome utente", autofocus: true)
                 .focused($focusedField, equals: .username)
                 .submitLabel(.next)
                 .onSubmit {
