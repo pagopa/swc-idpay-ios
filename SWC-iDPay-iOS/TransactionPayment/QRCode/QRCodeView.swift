@@ -255,6 +255,7 @@ extension QRCodeView {
             .thankyouPage(result:
                             ResultModel(
                                 title: "L'operazione è stata annullata",
+                                subtitle: "Se hai annullato per errore, prova ad autorizzare di nuovo il pagamento.",
                                 themeType: .warning,
                                 buttons: [
                                     ButtonModel(
@@ -287,7 +288,7 @@ extension QRCodeView {
     func showOperationRejected() {
         router.pushTo(.thankyouPage(result: ResultModel(
             title: "Autorizzazione negata",
-            subtitle: "Non è stato addebitato alcun importo",
+            subtitle: "Non è stato addebitato alcun importo.",
             themeType: .warning,
             buttons: [
                 ButtonModel(
