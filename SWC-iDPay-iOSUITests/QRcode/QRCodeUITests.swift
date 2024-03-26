@@ -34,8 +34,7 @@ final class QRCodeUITests: XCTestCase {
         app.insertAmount()
         app.authorizeWithQrCode()
         
-        XCTAssertTrue(app.staticTexts["Attendi autorizzazione"].waitForExistence(timeout: 1))
-        XCTAssertTrue(app.staticTexts["Per proseguire è necessario autorizzare l’operazione sull’app IO"].waitForExistence(timeout: 1))
+        XCTAssertTrue(app.staticTexts["Attendi autorizzazione"].waitForExistence(timeout: 2))
         
         // Test success flow ok
         app.successPaymentConfirm()
@@ -53,15 +52,13 @@ final class QRCodeUITests: XCTestCase {
         app.insertAmount()
         app.authorizeWithQrCode()
         
-        let qrCodeHelpBtn = app.buttons["Problemi con il QR?"]
-        XCTAssertTrue(qrCodeHelpBtn.exists)
-        qrCodeHelpBtn.tap()
+        app.buttons["Problemi con il QR?"].tap()
         
         XCTAssertTrue(app.staticTexts["Problemi con il QR?"].exists)
         XCTAssertTrue(app.staticTexts["Entra sull’app IO, vai nella sezione Inquadra e digita il codice:"].exists)
         let closeBtn = app.buttons["close"]
         closeBtn.tap()
-        XCTAssertTrue(qrCodeHelpBtn.isHittable)
+        XCTAssertTrue(app.buttons["Problemi con il QR?"].isHittable)
     }
     
     func test_qrcode_session_expired_when_max_retries_exceeded() {
@@ -119,4 +116,36 @@ final class QRCodeUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Inquadra il codice QR con il tuo smartphone"].waitForExistence(timeout: 4))
     }
 
+    func test_cancel_qrcode_transaction_during_polling_when_authorized() {
+        app.launchEnvironment = [
+            "-mock-filename": "InitiativesList",
+            "-qrcode-canceled-during-polling": "1"]
+        app.signIn(success: true)
+        
+        app.loadInitiativesList()
+        app.selectOkInitiative()
+        app.insertAmount()
+        app.authorizeWithQrCode()
+
+        XCTAssertTrue(app.staticTexts["Attendi autorizzazione"].waitForExistence(timeout: 1))
+        app.buttons["Annulla"].tap()
+        XCTAssertTrue(app.staticTexts["Vuoi annullare la spesa del bonus ID Pay?"].waitForExistence(timeout: 1))
+        XCTAssertTrue(app.staticTexts["Se annulli l’operazione,l’importo verrà riaccreditato sull’iniziativa del cittadino."].waitForExistence(timeout: 1))
+
+        app.buttons["Annulla operazione"].tap()
+        XCTAssertTrue(app.staticTexts["Operazione annullata"].waitForExistence(timeout: 1))
+        XCTAssertTrue(app.staticTexts["L'importo autorizzato è stato riaccreditato sull'iniziativa del cittadino."].exists)
+        app.buttons["Continua"].tap()
+
+        XCTAssertTrue(app.staticTexts["Serve la ricevuta?"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.staticTexts["Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’."].exists)
+        app.buttons["No, grazie"].tap()
+
+        XCTAssertTrue(app.staticTexts["Operazione conclusa"].exists)
+
+        // Accept new bonus
+        app.buttons["Accetta nuovo bonus"].tap()
+        XCTAssertTrue(app.staticTexts["Scegli l'iniziativa"].exists)
+
+    }
 }

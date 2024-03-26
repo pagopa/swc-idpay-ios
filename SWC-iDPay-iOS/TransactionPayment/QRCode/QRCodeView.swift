@@ -306,7 +306,7 @@ extension QRCodeView {
     func showAuthorizedOperationRewarded() {
         router.pushTo(.thankyouPage(result:
                                         ResultModel(title: "Operazione annullata",
-                                                    subtitle: "L'importo autorizzato è stato riaccreditato sull'iniziativa del cittadino",
+                                                    subtitle: "L'importo autorizzato è stato riaccreditato sull'iniziativa del cittadino.",
                                                     themeType: .success,
                                                     buttons: [
                                                         ButtonModel(

@@ -106,6 +106,18 @@ class MockedNetworkClient: Requestable {
                 return TransactionModel.mockedCreatedTransaction
             }
         }
+        // Cancel authorized transaction during qrcode polling
+        if UITestingHelper.containsInputOption("-qrcode-canceled-during-polling") {
+            switch retries {
+            case 2, 1:
+                retries -= 1
+                try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
+                return TransactionModel.mockedIdentifiedTransaction
+            default:
+                try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
+                return TransactionModel.mockedSuccessTransaction
+            }
+        }
         
         return TransactionModel.mockedIdentifiedTransaction
     }
