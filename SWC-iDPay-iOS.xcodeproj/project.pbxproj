@@ -100,6 +100,7 @@
 		B8CE22C42B5A944B00A4BC67 /* BonusAmountViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE22C32B5A944B00A4BC67 /* BonusAmountViewUITests.swift */; };
 		B8CE22C72B5ACB0200A4BC67 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE22C62B5ACB0200A4BC67 /* HelpView.swift */; };
 		B8CE22CA2B5ACCCD00A4BC67 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE22C92B5ACCCD00A4BC67 /* WebView.swift */; };
+		B8D190302BB32B3C0002B177 /* RejectedTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = B8D1902F2BB32B3C0002B177 /* RejectedTransaction.json */; };
 		B8D29B012BB1C8DA00BF9A54 /* QRCodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D29B002BB1C8DA00BF9A54 /* QRCodeUITests.swift */; };
 		B8D29B032BB1CE0300BF9A54 /* AuthorizedTransactionResidualAmount.json in Resources */ = {isa = PBXBuildFile; fileRef = B8D29B022BB1CE0200BF9A54 /* AuthorizedTransactionResidualAmount.json */; };
 		B8D708C82B56D81A00AF02A0 /* UITestingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D708C72B56D81A00AF02A0 /* UITestingHelper.swift */; };
@@ -232,6 +233,7 @@
 		B8CE22C32B5A944B00A4BC67 /* BonusAmountViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusAmountViewUITests.swift; sourceTree = "<group>"; };
 		B8CE22C62B5ACB0200A4BC67 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		B8CE22C92B5ACCCD00A4BC67 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		B8D1902F2BB32B3C0002B177 /* RejectedTransaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RejectedTransaction.json; sourceTree = "<group>"; };
 		B8D29B002BB1C8DA00BF9A54 /* QRCodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUITests.swift; sourceTree = "<group>"; };
 		B8D29B022BB1CE0200BF9A54 /* AuthorizedTransactionResidualAmount.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AuthorizedTransactionResidualAmount.json; sourceTree = "<group>"; };
 		B8D708C72B56D81A00AF02A0 /* UITestingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestingHelper.swift; sourceTree = "<group>"; };
@@ -538,6 +540,7 @@
 				B86D99302B51593A006B4D53 /* CancelledTransaction.json */,
 				B86D992E2B5154CE006B4D53 /* AuthorizedTransaction.json */,
 				B8D29B022BB1CE0200BF9A54 /* AuthorizedTransactionResidualAmount.json */,
+				B8D1902F2BB32B3C0002B177 /* RejectedTransaction.json */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -861,6 +864,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8D190302BB32B3C0002B177 /* RejectedTransaction.json in Resources */,
 				B816E7172B8F67AD00DC0488 /* InitiativesList.json in Resources */,
 				B849E16E2BAC9352000D8031 /* ResidualAmountTransaction.json in Resources */,
 				B816E7122B8F4C0800DC0488 /* IdentifiedTransaction.json in Resources */,

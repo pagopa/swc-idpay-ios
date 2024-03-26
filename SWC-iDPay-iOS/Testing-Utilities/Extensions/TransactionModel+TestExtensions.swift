@@ -74,6 +74,14 @@ extension TransactionModel {
         }
     }
     
+    static var mockedRejectedTransaction: TransactionModel {
+        do {
+            return try UITestingHelper.getMockedObject(jsonName: "RejectedTransaction")!
+        } catch {
+            return fallbackTransaction
+        }
+    }
+    
     static var randomTransactionsList: [TransactionModel] {
         var transactions: [TransactionModel] = []
         (0...Int.random(in: 5...10)).forEach { _ in

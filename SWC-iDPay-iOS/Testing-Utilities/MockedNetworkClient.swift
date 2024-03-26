@@ -56,7 +56,12 @@ class MockedNetworkClient: Requestable {
     }
     
     func createTransaction(initiativeId: String, amount: Int) async throws -> CreateTransactionResponse {
-        CreateTransactionResponse.mockedCreated
+        if UITestingHelper.containsInputOption("-qrcode-load-home") {
+            // Has 10 retries to ensure we can tap home button while loading
+            return CreateTransactionResponse.mockedCreatedHighRetries
+        } else {
+            return CreateTransactionResponse.mockedCreated
+        }
     }
     
     func verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String) async throws -> VerifyCIEResponse {
@@ -68,6 +73,9 @@ class MockedNetworkClient: Requestable {
     }
     
     func verifyTransactionStatus(milTransactionId: String) async throws -> TransactionModel {
+
+        try? await Task.sleep(nanoseconds: 1 * 500_000_000)
+
         if UITestingHelper.isMaxRetriesTest {
             return TransactionModel.mockedCreatedTransaction
         }
@@ -78,10 +86,8 @@ class MockedNetworkClient: Requestable {
             switch retries {
             case 2:
                 retries -= 1
-                try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
                 return TransactionModel.mockedIdentifiedTransaction
             default:
-                try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
                 return TransactionModel.mockedSuccessTransaction
             }
         }
@@ -111,12 +117,24 @@ class MockedNetworkClient: Requestable {
             switch retries {
             case 2, 1:
                 retries -= 1
-                try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
                 return TransactionModel.mockedIdentifiedTransaction
             default:
-                try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
                 return TransactionModel.mockedSuccessTransaction
             }
+        }
+        // Transaction rejected
+        if UITestingHelper.containsInputOption("-qrcode-rejected") {
+            switch retries {
+            case 2:
+                retries -= 1
+                return TransactionModel.mockedIdentifiedTransaction
+            default:
+                return TransactionModel.mockedRejectedTransaction
+            }
+        }
+        // Load home in qrcode payment
+        if UITestingHelper.containsInputOption("-qrcode-load-home") {
+            return TransactionModel.mockedCreatedTransaction
         }
         
         return TransactionModel.mockedIdentifiedTransaction

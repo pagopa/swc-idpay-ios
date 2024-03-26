@@ -75,6 +75,10 @@ final class QRCodeUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["La sessione è scaduta"].waitForExistence(timeout: 4))
         app.buttons["Riprova"].tap()
         XCTAssertTrue(app.staticTexts["Inquadra il codice QR con il tuo smartphone"].waitForExistence(timeout: 4))
+        
+        XCTAssertTrue(app.staticTexts["La sessione è scaduta"].waitForExistence(timeout: 6))
+        app.buttons["Accetta nuovo bonus"].tap()
+        XCTAssertTrue(app.staticTexts["Scegli l'iniziativa"].waitForExistence(timeout: 4))
     }
     
     func test_qrcode_canceled_transaction() {
@@ -147,5 +151,53 @@ final class QRCodeUITests: XCTestCase {
         app.buttons["Accetta nuovo bonus"].tap()
         XCTAssertTrue(app.staticTexts["Scegli l'iniziativa"].exists)
 
+    }
+    
+    func test_qrcode_rejected_transaction() {
+        app.launchEnvironment = [
+            "-mock-filename": "InitiativesList",
+            "-qrcode-rejected": "1"]
+        app.signIn(success: true)
+        
+        app.loadInitiativesList()
+        app.selectOkInitiative()
+        app.insertAmount()
+        app.authorizeWithQrCode()
+
+        XCTAssertTrue(app.staticTexts["Autorizzazione negata"].waitForExistence(timeout: 4))
+        XCTAssertTrue(app.staticTexts["Non è stato addebitato alcun importo."].exists)
+        XCTAssertTrue(app.images["toBeRefunded-dark"].exists)
+
+        app.buttons["Accetta nuovo bonus"].tap()
+        XCTAssertTrue(app.staticTexts["Scegli l'iniziativa"].waitForExistence(timeout: 4))
+    }
+    
+    func test_home_btn_shows_cancel_confirm_alert_and_loads_home() {
+        app.launchEnvironment = [
+            "-mock-filename": "InitiativesList",
+            "-qrcode-load-home": "1"]
+        app.signIn(success: true)
+        
+        app.loadInitiativesList()
+        app.selectOkInitiative()
+        app.insertAmount()
+        app.authorizeWithQrCode()
+
+        // Tap home button and close popup
+        let homeButton = app.navigationBars.firstMatch.buttons["home"]
+        XCTAssertTrue(homeButton.waitForExistence(timeout: 4))
+
+        homeButton.tap()
+        XCTAssertTrue(app.staticTexts["Vuoi uscire dall’operazione in corso?"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.staticTexts["L’operazione verrà annullata e sarà necessario ricominciare da capo."].waitForExistence(timeout: 2))
+        app.buttons["Annulla"].tap()
+        XCTAssertTrue(app.staticTexts["Inquadra il codice QR con il tuo smartphone"].waitForExistence(timeout: 4))
+        
+        // Tap home button and load home
+        homeButton.tap()
+        XCTAssertTrue(app.staticTexts["Vuoi uscire dall’operazione in corso?"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.staticTexts["L’operazione verrà annullata e sarà necessario ricominciare da capo."].waitForExistence(timeout: 2))
+        app.buttons["Esci dal pagamento"].tap()
+        XCTAssert(app.buttons["Accetta bonus ID Pay"].waitForExistence(timeout: 6))
     }
 }
