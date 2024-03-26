@@ -25,7 +25,7 @@ struct TransactionsHistoryList: View {
                 .ignoresSafeArea()
             if viewModel.transactionHistoryList.count > 0 {
                 ScrollView {
-                    VStack {
+                  
                         VStack(alignment: .leading) {
                             Text("Storico operazioni")
                                 .font(.PAFont.h3)
@@ -35,9 +35,12 @@ struct TransactionsHistoryList: View {
                                 .font(.PAFont.body)
                                 .foregroundStyle(.black)
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding([.leading, .trailing], Constants.mediumSpacing)
+
                         
-                        Spacer()
-                    }
+                       
+                    
                     
                     ForEach(viewModel.transactionHistoryList, id: \.milTransactionId) { transaction in
                         Button(action: {
@@ -123,6 +126,5 @@ struct TransactionsHistoryList: View {
 }
 
 #Preview {
-    TransactionsHistoryList(viewModel: TransactionHistoryViewModel(networkClient: NetworkClient(environment: .staging)))
-        .environmentObject(Router())
+    TransactionsHistoryList(viewModel: TransactionHistoryViewModel(networkClient: MockedNetworkClient()))
 }

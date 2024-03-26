@@ -25,7 +25,7 @@ extension ListItemHistory {
         self.init(
             iconLeft: icon,
             titleText: transaction.initiativeId,
-            subTitleText: transaction.date?.formattedDateTime ?? String.emptyDataPlaceholder,
+            subTitleText: transaction.date?.formattedDateTime?.uppercased() ?? String.emptyDataPlaceholder,
             amountText: transaction.coveredAmount?.formattedCurrency)
     }
 }
