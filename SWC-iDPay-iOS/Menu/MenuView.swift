@@ -18,7 +18,7 @@ struct MenuView: View {
         VStack(alignment: .leading, spacing: Constants.xxlargeSpacing) {
             
             VStack(alignment: .leading, spacing: 0) {
-                MenuItem(title: "Accetta bonus ID Pay", icon: .bonus, showMenu: $showMenu) {
+                MenuItem(title: "Accetta un bonus ID Pay", icon: .bonus, showMenu: $showMenu) {
                     appManager.moveTo(.acceptBonus)
                 }
                 Divider()

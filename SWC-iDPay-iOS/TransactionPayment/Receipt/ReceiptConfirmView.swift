@@ -40,8 +40,7 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
                     icon: .mail,
                     iconPosition: .left,
                     action: {
-                        generatedPdfReceiptURL = generatePdfReceipt(model: self.receiptPdfModel)
-                        // TODO: Chiamare servizio di invio email
+                        // TODO: Manca integrazione servizio di invio email
                         showOutro = true
                     }
                 ),
@@ -69,8 +68,8 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
         )
         .sheet(isPresented: $presentShare, content: {
             ActivityViewController(
-                fileURL: self.$generatedPdfReceiptURL,
-                hasDoneAction: self.$showOutro
+                fileURL: $generatedPdfReceiptURL,
+                hasDoneAction: $showOutro
             )
         })
         .onChange(of: showOutro) { newValue in

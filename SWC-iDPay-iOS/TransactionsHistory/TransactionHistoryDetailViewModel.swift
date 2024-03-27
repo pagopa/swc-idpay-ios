@@ -22,10 +22,6 @@ class TransactionHistoryDetailViewModel: TransactionDeleteVM {
         super.init(networkClient: networkClient, transactionID: transaction.milTransactionId, goodsCost: transaction.goodsCost)
 
     }
-
-    func getReceiptPdfModel() -> ReceiptPdfModel{
-        return ReceiptPdfModel(transaction: self.transaction)
-    }
     
     func setCancelledStatus() {
         self.transaction.status = .cancelled

@@ -114,7 +114,7 @@ struct ResidualAmountView: View, TransactionPaymentDeletableView {
                                                                 icon: .arrowRight,
                                                                 action: {
                                                                     router.pushTo(.receipt(
-                                                                        receiptModel: viewModel.getReceiptPdfModel(),
+                                                                        receiptModel: viewModel.getReceiptPdfModel(transaction: viewModel.transaction),
                                                                         networkClient: self.viewModel.networkClient))
                                                                 }
                                                             )]))

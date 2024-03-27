@@ -26,7 +26,7 @@ final class TransactionHistoryListUITests: XCTestCase {
     func test_history_list_loads_when_transactions_are_loaded() {
         app.signIn(success: true)
         app.openMenuSection("Storico operazioni")
-        XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].exists)
+        XCTAssertTrue(app.staticTexts["Attendi qualche istante"].exists)
         
         let app = XCUIApplication()
         let elementsQuery = app.scrollViews.otherElements
@@ -35,7 +35,7 @@ final class TransactionHistoryListUITests: XCTestCase {
     
     func test_history_list_item_icon_is_checkmark_when_status_is_authorized() {
         app.loadMockedHistoryList()
-        XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].exists)
+        XCTAssertTrue(app.staticTexts["Attendi qualche istante"].exists)
 
         let authorizedItemButton = app.findRowWithLabelContaining("BonusOK")
         XCTAssertTrue(authorizedItemButton.waitForExistence(timeout: 4))
@@ -44,7 +44,7 @@ final class TransactionHistoryListUITests: XCTestCase {
     
     func test_history_list_item_authorized_detail_is_open_when_tapping_on_authorized_row() {
         app.loadMockedHistoryList()
-        XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.staticTexts["Attendi qualche istante"].waitForExistence(timeout: 2))
                 
         let authorizedItemButton = app.findRowWithLabelContaining("BonusOK").firstMatch
         XCTAssertTrue(authorizedItemButton.waitForExistence(timeout: 4))
@@ -56,7 +56,7 @@ final class TransactionHistoryListUITests: XCTestCase {
 
     func test_history_list_item_icon_is_cancelled_when_status_is_cancelled() {
         app.loadMockedHistoryList()
-        XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].exists)
+        XCTAssertTrue(app.staticTexts["Attendi qualche istante"].exists)
                 
         let cancelledItemButton = app.findRowWithLabelContaining("BonusCancelled").firstMatch
         XCTAssertTrue(cancelledItemButton.waitForExistence(timeout: 4))
@@ -65,7 +65,7 @@ final class TransactionHistoryListUITests: XCTestCase {
     
     func test_history_list_item_cancelled_detail_is_open_when_tapping_on_cancelled_row() {
         app.loadMockedHistoryList()
-        XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].exists)
+        XCTAssertTrue(app.staticTexts["Attendi qualche istante"].exists)
                 
         let cancelledItemButton = app.findRowWithLabelContaining("BonusCancelled").firstMatch
         XCTAssertTrue(cancelledItemButton.waitForExistence(timeout: 4))

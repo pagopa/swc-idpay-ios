@@ -117,6 +117,14 @@ extension XCUIApplication {
         XCTAssertTrue(self.staticTexts["Appoggia la CIE sul dispositivo, in alto"].waitForExistence(timeout: 2))
     }
     
+    func authorizeWithQrCode() {
+        let authorizeWithQrcodeBtn = self.buttons.images["iO"]
+        XCTAssertTrue(authorizeWithQrcodeBtn.waitForExistence(timeout: 4))
+        authorizeWithQrcodeBtn.tap()
+        
+        XCTAssertTrue(self.staticTexts["Inquadra il codice QR con il tuo smartphone"].waitForExistence(timeout: 2))
+    }
+    
     func insertPin() {
         XCTAssertTrue(self.staticTexts["Inserisci il codice ID Pay"].waitForExistence(timeout: 2))
         let oneNumberBtn = self.buttons["1"]
@@ -131,5 +139,31 @@ extension XCUIApplication {
         oneNumberBtn.tap()
         XCTAssertTrue(confirmPinBtn.isEnabled)
         confirmPinBtn.tap()
+    }
+    
+    func successPaymentConfirm() {
+        let predicate = NSPredicate(format: "label CONTAINS 'Hai pagato'")
+        XCTAssertTrue(staticTexts.containing(predicate).element.waitForExistence(timeout: 2))
+
+        buttons["Continua"].tap()
+        XCTAssertTrue(staticTexts["Serve la ricevuta?"].waitForExistence(timeout: 2))
+        XCTAssertTrue(staticTexts["Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’."].exists)
+        XCTAssertTrue(buttons["Invia via e-mail"].exists)
+        XCTAssertTrue(buttons["Condividi"].exists)
+        let notNowBtn = buttons["No, grazie"]
+        XCTAssertTrue(notNowBtn.exists)
+
+        // Proceed without receipt
+        notNowBtn.tap()
+        XCTAssertTrue(staticTexts["Operazione conclusa"].exists)
+        XCTAssertTrue(staticTexts["Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’."].exists)
+
+        // Accept new bonus
+        let acceptNewBonusBtn = buttons["Accetta nuovo bonus"]
+        XCTAssertTrue(acceptNewBonusBtn.exists)
+        acceptNewBonusBtn.tap()
+        
+        XCTAssertTrue(staticTexts["Scegli l'iniziativa"].exists)
+
     }
 }

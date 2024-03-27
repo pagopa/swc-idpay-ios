@@ -87,7 +87,7 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
                         title: "Continua",
                         icon: .arrowRight,
                         action: {
-                            router.pushTo(.receipt(receiptModel: viewModel.getReceiptPdfModel(), networkClient: self.viewModel.networkClient))
+                            router.pushTo(.receipt(receiptModel: viewModel.getReceiptPdfModel(transaction: viewModel.transaction), networkClient: self.viewModel.networkClient))
                         }
                     )]
             )))
@@ -104,7 +104,8 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
                     icon: .mail,
                     iconPosition: .left,
                     action: {
-                        print("MANDA EMAIL")
+                        // TODO: Manca integrazione servizio di invio email
+                        showOutro = true
                     }
                 ),
                 ButtonModel(
@@ -115,7 +116,10 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
                     iconPosition: .left,
                     action: {
                         viewModel.showReceiptDialog.toggle()
-                        generatedPdfReceiptURL = generatePdfReceipt(model: viewModel.getReceiptPdfModel())
+                        generatedPdfReceiptURL = generatePdfReceipt(
+                            model: viewModel.getReceiptPdfModel(
+                                transaction: viewModel.transaction)
+                        )
                         presentShare = true
                     }
                 )
