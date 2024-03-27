@@ -25,22 +25,18 @@ struct TransactionsHistoryList: View {
                 .ignoresSafeArea()
             if viewModel.transactionHistoryList.count > 0 {
                 ScrollView {
-                    VStack {
-                        VStack(alignment: .leading) {
-                            Text("Storico operazioni")
-                                .font(.PAFont.h3)
-                                .foregroundStyle(Color.paBlack)
-                            
-                            Text("Seleziona un elemento per visualizzare i dettagli," +
-                                 "annullarlo o riemettere una ricevuta"
-                            )
+                    VStack(alignment: .leading) {
+                        Text("Storico operazioni")
+                            .font(.PAFont.h3)
+                            .foregroundStyle(Color.paBlack)
+                        
+                        Text("Seleziona un elemento per visualizzare i dettagli, annullarlo o riemettere una ricevuta")
                             .font(.PAFont.body)
                             .foregroundStyle(.black)
-                        }
-                        
-                        Spacer()
                     }
-                    
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding([.leading, .trailing], Constants.mediumSpacing)
+
                     ForEach(viewModel.transactionHistoryList, id: \.milTransactionId) { transaction in
                         Button(action: {
                             router.pushTo(
@@ -68,6 +64,8 @@ struct TransactionsHistoryList: View {
         .onAppear {
             viewModel.getTransactionHistory()
         }
+        .customToolbar(tintColor: .paPrimary, toolbarBackgroundColor: .white)
+        .environment(\.isBackButtonVisibile, false)
         .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
         .fullScreenCover(isPresented: $showHelp) {
             HelpView()
@@ -127,6 +125,5 @@ struct TransactionsHistoryList: View {
 }
 
 #Preview {
-    TransactionsHistoryList(viewModel: TransactionHistoryViewModel(networkClient: NetworkClient(environment: .staging)))
-        .environmentObject(Router())
+    TransactionsHistoryList(viewModel: TransactionHistoryViewModel(networkClient: MockedNetworkClient()))
 }

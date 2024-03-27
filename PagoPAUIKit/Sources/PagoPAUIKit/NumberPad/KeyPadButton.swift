@@ -25,7 +25,7 @@ struct KeyPadButton: View {
             if let icon = icon {
                 Image(icon: icon)
             } else {
-                Text(key)
+                Text(key).font(.PAFont.h3)
             }
         }
         .padding()

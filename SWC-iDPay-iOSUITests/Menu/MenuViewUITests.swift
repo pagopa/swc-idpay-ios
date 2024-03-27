@@ -30,7 +30,7 @@ final class MenuViewUITests: XCTestCase {
         XCTAssert(menuButton.waitForExistence(timeout: 4))
         menuButton.tap()
         
-        let firstMenuItem = app.buttons["Accetta bonus ID Pay"]
+        let firstMenuItem = app.buttons["Accetta un bonus ID Pay"]
         XCTAssert(firstMenuItem.waitForExistence(timeout: 4))
     }
     

@@ -40,8 +40,7 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
                     icon: .mail,
                     iconPosition: .left,
                     action: {
-                        generatedPdfReceiptURL = generatePdfReceipt(model: self.receiptPdfModel)
-                        // TODO: Chiamare servizio di invio email
+                        // TODO: Manca integrazione servizio di invio email
                         showOutro = true
                     }
                 ),
