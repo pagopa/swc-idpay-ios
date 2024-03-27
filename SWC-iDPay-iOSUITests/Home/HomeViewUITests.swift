@@ -58,7 +58,7 @@ final class HomeViewUITests: XCTestCase {
         XCTAssertTrue(acceptBonusBtn.waitForExistence(timeout: 8.0))
         acceptBonusBtn.tap()
 
-        XCTAssertTrue(app.staticTexts["Non ci sono iniziative attive"].waitForExistence(timeout: 4.0))
+        XCTAssertTrue(app.staticTexts["Nessuna iniziativa trovata"].waitForExistence(timeout: 4.0))
     }
     
     func test_auth_token_expired_renews_successfully() {

@@ -35,10 +35,27 @@ final class InitiativesListUITests: XCTestCase {
     func test_empty_state_view_is_visible_when_initiatives_list_is_empty() {
         app.loadMockedIntiativesList(empty: true)
         XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].exists)
-        XCTAssertTrue(app.staticTexts["Non ci sono iniziative attive"].waitForExistence(timeout: 4))
+        XCTAssertTrue(app.staticTexts["Nessuna iniziativa trovata"].waitForExistence(timeout: 4))
         
-        app.buttons["Riprova"].tap()
+        let helpButton = app.buttons["Vai all'assistenza"]
+
+        XCTAssertTrue(helpButton.waitForExistence(timeout: 4))
+        helpButton.tap()
+        
+        XCTAssertTrue(app.navigationBars.firstMatch.staticTexts["Assistenza"].waitForExistence(timeout: 4))
+    }
+    
+    func test_initiatives_list_when_service_fails() {
+        app.launchEnvironment = ["-initiative-list-error": "1"]
+        app.signIn(success: true)
+        
+        app.loadInitiativesList()
         XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].exists)
-        XCTAssertTrue(app.staticTexts["Non ci sono iniziative attive"].waitForExistence(timeout: 4))
+        XCTAssertTrue(app.staticTexts["Non è stato possibile recuperare la lista delle iniziative"].waitForExistence(timeout: 4))
+        
+        let homeButton = app.buttons["Torna alla home"]
+        XCTAssertTrue(homeButton.waitForExistence(timeout: 4))
+        homeButton.tap()
+        XCTAssertTrue(app.staticTexts["Accetta un bonus ID Pay"].waitForExistence(timeout: 4))
     }
 }

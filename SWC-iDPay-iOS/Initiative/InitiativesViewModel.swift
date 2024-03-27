@@ -13,6 +13,7 @@ class InitiativesViewModel: BaseVM {
     
     @Published var initiatives: [Initiative] = []
     @Published var isLoading: Bool = false
+    @Published var showError: Bool = false
     @Published var loadingStateMessage: String = "Aspetta qualche istante"
     
     func loadInitiatives() {
@@ -24,6 +25,7 @@ class InitiativesViewModel: BaseVM {
                 isLoading = false
             } catch {
                 isLoading = false
+                showError = true
             }
         }
     }

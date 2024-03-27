@@ -39,7 +39,9 @@ class NetworkClient: Requestable {
     }
     
     func getInitiatives() async throws -> [Initiative] {
-        let response: InitiativesResponse = try await sendRequest(for: .initiatives)
+        guard let response: InitiativesResponse = try await sendRequest(for: .initiatives) else {
+            throw HTTPResponseError.genericError
+        }
         return response.initiatives
     }
     
@@ -80,7 +82,7 @@ class NetworkClient: Requestable {
     
     func transactionHistory() async throws -> [TransactionModel] {
         guard let transactionHistory: TransactionHistoryResponse = try await sendRequest(for: .transactionHistory) else {
-            throw HTTPResponseError.historyListError
+            throw HTTPResponseError.genericError
         }
         return transactionHistory.transactions
     }
