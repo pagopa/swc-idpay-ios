@@ -90,7 +90,12 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
                 try await viewModel.readCIE()
                 let verifyCIEResponse = try await viewModel.verifyCIE()
                 let transaction = try await viewModel.pollTransactionStatus()
-                router.pushTo(.transactionConfirm(viewModel: TransactionDetailViewModel(networkClient: viewModel.networkClient, transaction: transaction, verifyCIEResponse: verifyCIEResponse, initiative: viewModel.initiative)))
+                router.pushTo(.transactionConfirm(viewModel:
+                                    TransactionDetailViewModel(networkClient:
+                                                                viewModel.networkClient,
+                                                               transaction: transaction,
+                                                               verifyCIEResponse: verifyCIEResponse,
+                                                               initiative: viewModel.initiative)))
             } catch {
                 switch error {
                 case HTTPResponseError.maxRetriesExceeded, HTTPResponseError.coveredAmountInconsistent:

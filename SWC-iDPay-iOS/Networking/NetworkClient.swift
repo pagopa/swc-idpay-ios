@@ -72,7 +72,14 @@ class NetworkClient: Requestable {
     
     func authorizeTransaction(milTransactionId: String, authCodeBlockData: AuthCodeData) async throws {
         do {
-            let _: EmptyResponse = try await sendRequest(for: .authorize(milTransactionId: milTransactionId, kid: authCodeBlockData.kid, encSessionKey: authCodeBlockData.encSessionKey, authCodeBlock: authCodeBlockData.authCodeBlock))
+            let _: EmptyResponse = try await sendRequest(for: 
+                    .authorize(
+                        milTransactionId: milTransactionId,
+                        kid: authCodeBlockData.kid,
+                        encSessionKey: authCodeBlockData.encSessionKey,
+                        authCodeBlock: authCodeBlockData.authCodeBlock
+                    )
+            )
             return
         } catch {
             print("Error:\(error.localizedDescription)")
