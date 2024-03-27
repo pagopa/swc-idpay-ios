@@ -115,7 +115,7 @@ extension CIEPinView {
     /// Payment confirmation TYP and redirects to Receipt
     private func showPaymentConfirm() {
         router.pushTo(.thankyouPage(result: ResultModel(
-            title: "Hai pagato \(viewModel.goodsCost.formattedCurrency)!",
+            title: "Hai pagato \(viewModel.transaction.coveredAmount!.formattedCurrency)!",
             themeType: .success,
             buttons: [
                 ButtonModel(

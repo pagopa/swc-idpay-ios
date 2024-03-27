@@ -12,7 +12,8 @@ struct BonusAmountView : View {
     @EnvironmentObject var router: Router
     @ObservedObject var viewModel: BonusAmountViewModel
     @State var isReadingCIE: Bool = false
-    
+    @State var shouldShowAuthModeDialog: Bool = false
+
     var body: some View {
         ZStack {
             backgroundView
@@ -38,7 +39,7 @@ struct BonusAmountView : View {
             .padding(Constants.mediumSpacing)
             .dialog(
                 dialogModel: showAuthDialog(),
-                isPresenting: $viewModel.showAuthDialog,
+                isPresenting: $shouldShowAuthModeDialog,
                 onClose: {}
             )
             .dialog(dialogModel: buildGenericErrorResultModel {
@@ -71,6 +72,17 @@ struct BonusAmountView : View {
             isLoading: $viewModel.isCreatingTransaction) {
                 Task {
                     try await viewModel.createTransaction()
+                    #if DEBUG
+                    if UITestingHelper.isUITesting {
+                       shouldShowAuthModeDialog = true
+                        return
+                    }
+                    #endif
+                    guard CIEReader.isNFCEnabled() else {
+                        proceedToQrCodeAuth()
+                        return
+                    }
+                    shouldShowAuthModeDialog = true
                 }
             } label: {
                 Text("Conferma")
@@ -88,17 +100,8 @@ struct BonusAmountView : View {
                         themeType: .light,
                         title: "Identificazione con CIE",
                         action: {
-                            viewModel.showAuthDialog = false
-                            guard let transactionData = viewModel.transactionData else {
-                                // TODO: Show error if transactionData i nil
-                                return
-                            }
-                            router.pushTo(.cieAuth(viewModel: 
-                                                    CIEAuthViewModel(
-                                                        networkClient: viewModel.networkClient,
-                                                        transactionData: transactionData,
-                                                        initiative: viewModel.initiative
-                                                    )))
+                            shouldShowAuthModeDialog = false
+                            proceedToCieAuth()
                         }
                     ),
                     ButtonModel(
@@ -107,20 +110,39 @@ struct BonusAmountView : View {
                         title: "Identificazione con ",
                         icon: .io,
                         action: {
-                            viewModel.showAuthDialog = false
-                            guard let transactionData = viewModel.transactionData else {
-                                // TODO: Show error if transactionData i nil
-                                return
-                            }
-                            router.pushTo(.qrCodeAuth(viewModel:
-                                                        QRCodeViewModel(networkClient: viewModel.networkClient,
-                                                                        transactionData: transactionData
-                                                                       )))
+                            shouldShowAuthModeDialog = false
+                            proceedToQrCodeAuth()
                         }
                     )
                 ]
             )
         
+    }
+    
+    private func proceedToCieAuth() {
+        guard let transactionData = viewModel.transactionData else {
+            // TODO: Show error if transactionData i nil
+            return
+        }
+        router.pushTo(.cieAuth(viewModel:
+                                CIEAuthViewModel(
+                                    networkClient: viewModel.networkClient,
+                                    transactionData: transactionData,
+                                    initiative: viewModel.initiative
+                                )))
+    }
+    
+    private func proceedToQrCodeAuth() {
+        guard let transactionData = viewModel.transactionData else {
+            // TODO: Show error if transactionData i nil
+            return
+        }
+        router.pushTo(.qrCodeAuth(viewModel:
+                                    QRCodeViewModel(
+                                        networkClient: viewModel.networkClient,
+                                        transactionData: transactionData,
+                                        initiative: viewModel.initiative
+                                    )))
     }
 }
 
