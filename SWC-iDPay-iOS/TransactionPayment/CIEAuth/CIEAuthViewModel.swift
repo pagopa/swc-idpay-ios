@@ -57,27 +57,14 @@ class CIEAuthViewModel: TransactionDeleteVM {
 
         loadingStateMessage = "Stiamo verificando il tuo portafoglio ID Pay"
         self.isLoading = true
-        var maxRetries: Int
-        
-        if retries != nil {
-            maxRetries = retries!
-        } else {
-            guard let transactionRetries = transactionData.maxRetries else {
-                self.isLoading = false
-                throw CIEAuthError.walletVerifyError
-            }
-            maxRetries = transactionRetries
-        }
+        var maxRetries: Int = retries ?? transactionData.maxRetries ?? 10
         
         guard maxRetries > 0 else {
             self.isLoading = false
             throw HTTPResponseError.maxRetriesExceeded
         }
         
-        guard let retryAfter = transactionData.retryAfter else {
-            self.isLoading = false
-            throw CIEAuthError.walletVerifyError
-        }
+        var retryAfter = transactionData.retryAfter ?? 5
 
         let transaction = try await networkClient.verifyTransactionStatus(
             milTransactionId: transactionData.milTransactionId

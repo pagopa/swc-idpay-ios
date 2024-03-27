@@ -47,6 +47,10 @@ public class CIEReader: NSObject, CIEReadable {
         loggerManager = CIELogger(mode: logMode)
     }
     
+    public static func isNFCEnabled() -> Bool {
+        NFCTagReaderSession.readingAvailable
+    }
+    
     public func scan(challenge: String) async throws -> NisAuthenticated? {
         guard NFCTagReaderSession.readingAvailable else {
             throw CIEReaderError.scanNotSupported

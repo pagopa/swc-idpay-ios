@@ -26,7 +26,7 @@ final class TransactionHistoryDetailUITests: XCTestCase {
 
     func test_delete_btn_is_visible_when_transaction_is_recent() {
         app.loadMockedHistoryList()
-        XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].exists)
+        XCTAssertTrue(app.staticTexts["Attendi qualche istante"].exists)
                 
         let authorizedItemButton = app.findRowWithLabelContaining("BonusOK").firstMatch
         XCTAssertTrue(authorizedItemButton.waitForExistence(timeout: 4))
@@ -77,12 +77,12 @@ final class TransactionHistoryDetailUITests: XCTestCase {
 
         let goHomeButton = app.buttons["Accetta nuovo bonus"]
         goHomeButton.tap()
-        XCTAssertTrue(app.staticTexts["Non ci sono iniziative attive"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.staticTexts["Nessuna iniziativa trovata"].waitForExistence(timeout: 2))
     }
     
     func test_delete_transaction_cancel() {
         app.loadMockedHistoryList()
-        XCTAssertTrue(app.staticTexts["Aspetta qualche istante"].exists)
+        XCTAssertTrue(app.staticTexts["Attendi qualche istante"].exists)
                 
         let authorizedItemButton = app.findRowWithLabelContaining("BonusOK").firstMatch
         XCTAssertTrue(authorizedItemButton.waitForExistence(timeout: 4))
@@ -127,7 +127,6 @@ final class TransactionHistoryDetailUITests: XCTestCase {
         XCTAssertTrue(shareBtn.exists)
         shareBtn.tap()
 
-        let activity = app.scrollViews.otherElements["receipt, PDF Document"]
         let closeBtn = app.navigationBars.buttons["Close"]
         XCTAssertTrue(closeBtn.waitForExistence(timeout: 6))
         closeBtn.tap()

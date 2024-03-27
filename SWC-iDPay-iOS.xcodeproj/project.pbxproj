@@ -100,6 +100,9 @@
 		B8CE22C42B5A944B00A4BC67 /* BonusAmountViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE22C32B5A944B00A4BC67 /* BonusAmountViewUITests.swift */; };
 		B8CE22C72B5ACB0200A4BC67 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE22C62B5ACB0200A4BC67 /* HelpView.swift */; };
 		B8CE22CA2B5ACCCD00A4BC67 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CE22C92B5ACCCD00A4BC67 /* WebView.swift */; };
+		B8D190302BB32B3C0002B177 /* RejectedTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = B8D1902F2BB32B3C0002B177 /* RejectedTransaction.json */; };
+		B8D29B012BB1C8DA00BF9A54 /* QRCodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D29B002BB1C8DA00BF9A54 /* QRCodeUITests.swift */; };
+		B8D29B032BB1CE0300BF9A54 /* AuthorizedTransactionResidualAmount.json in Resources */ = {isa = PBXBuildFile; fileRef = B8D29B022BB1CE0200BF9A54 /* AuthorizedTransactionResidualAmount.json */; };
 		B8D708C82B56D81A00AF02A0 /* UITestingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D708C72B56D81A00AF02A0 /* UITestingHelper.swift */; };
 		B8D708CB2B56E09300AF02A0 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D708CA2B56E09300AF02A0 /* LoginViewModel.swift */; };
 		B8DF962C2B7A110C00113D4B /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DF962B2B7A110C00113D4B /* NetworkClient.swift */; };
@@ -230,6 +233,9 @@
 		B8CE22C32B5A944B00A4BC67 /* BonusAmountViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusAmountViewUITests.swift; sourceTree = "<group>"; };
 		B8CE22C62B5ACB0200A4BC67 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		B8CE22C92B5ACCCD00A4BC67 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		B8D1902F2BB32B3C0002B177 /* RejectedTransaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RejectedTransaction.json; sourceTree = "<group>"; };
+		B8D29B002BB1C8DA00BF9A54 /* QRCodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUITests.swift; sourceTree = "<group>"; };
+		B8D29B022BB1CE0200BF9A54 /* AuthorizedTransactionResidualAmount.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AuthorizedTransactionResidualAmount.json; sourceTree = "<group>"; };
 		B8D708C72B56D81A00AF02A0 /* UITestingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestingHelper.swift; sourceTree = "<group>"; };
 		B8D708CA2B56E09300AF02A0 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		B8DF962B2B7A110C00113D4B /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
@@ -339,6 +345,7 @@
 		9811BC202B177C970063E71B /* SWC-iDPay-iOSUITests */ = {
 			isa = PBXGroup;
 			children = (
+				B8D29AFF2BB1C8B300BF9A54 /* QRcode */,
 				B849E16A2BAC916B000D8031 /* ResidualAmount */,
 				B8AC7B8B2B988BB3005D78BB /* TransactionPayment */,
 				B8AC7B882B987973005D78BB /* Initiatives */,
@@ -532,6 +539,8 @@
 				B816E7112B8F4C0800DC0488 /* IdentifiedTransaction.json */,
 				B86D99302B51593A006B4D53 /* CancelledTransaction.json */,
 				B86D992E2B5154CE006B4D53 /* AuthorizedTransaction.json */,
+				B8D29B022BB1CE0200BF9A54 /* AuthorizedTransactionResidualAmount.json */,
+				B8D1902F2BB32B3C0002B177 /* RejectedTransaction.json */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -662,6 +671,14 @@
 				B861AAFD2B7BA566007A86E5 /* HomeViewModel.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		B8D29AFF2BB1C8B300BF9A54 /* QRcode */ = {
+			isa = PBXGroup;
+			children = (
+				B8D29B002BB1C8DA00BF9A54 /* QRCodeUITests.swift */,
+			);
+			path = QRcode;
 			sourceTree = "<group>";
 		};
 		B8D708C62B56D80200AF02A0 /* Testing-Utilities */ = {
@@ -847,11 +864,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8D190302BB32B3C0002B177 /* RejectedTransaction.json in Resources */,
 				B816E7172B8F67AD00DC0488 /* InitiativesList.json in Resources */,
 				B849E16E2BAC9352000D8031 /* ResidualAmountTransaction.json in Resources */,
 				B816E7122B8F4C0800DC0488 /* IdentifiedTransaction.json in Resources */,
 				9811BC0E2B177C970063E71B /* Preview Assets.xcassets in Resources */,
 				98B5C2462BA99922004F47BA /* LaunchScreen.storyboard in Resources */,
+				B8D29B032BB1CE0300BF9A54 /* AuthorizedTransactionResidualAmount.json in Resources */,
 				B816E7212B8F8BC500DC0488 /* TransactionsHistoryList.json in Resources */,
 				B86D992F2B5154CE006B4D53 /* AuthorizedTransaction.json in Resources */,
 				B816E7142B8F4C8D00DC0488 /* CreatedTransaction.json in Resources */,
@@ -989,6 +1008,7 @@
 				B8445F8E2B91D266007E58EF /* TransactionHistoryDetailUITests.swift in Sources */,
 				B8AC7B8D2B988BE2005D78BB /* TransactionPaymentUITests.swift in Sources */,
 				B816E70D2B8E495600DC0488 /* HomeViewUITests.swift in Sources */,
+				B8D29B012BB1C8DA00BF9A54 /* QRCodeUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

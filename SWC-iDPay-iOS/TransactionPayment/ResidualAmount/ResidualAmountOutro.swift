@@ -12,9 +12,7 @@ struct ResidualAmountOutro: View {
         
     @EnvironmentObject var router: Router
     @ObservedObject var viewModel: ResidualAmountOutroViewModel
-
     @State private var showDialog: Bool = false
-    @State private var timer: Timer?
 
     init(viewModel: ResidualAmountOutroViewModel) {
         self.viewModel = viewModel
@@ -62,14 +60,12 @@ struct ResidualAmountOutro: View {
                             ]),
                 isPresenting: $showDialog,
                 onClose: {})
-        .residualAmountToolbar(residualAmount: viewModel.transaction.residualAmount, tintColor: .white, toolbarBkgColor: .clear)
+        .residualAmountToolbar(
+            residualAmount: viewModel.transaction.residualAmount,
+            tintColor: .white,
+            toolbarBkgColor: .clear)
         .onAppear {
-            timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
-                showDialog = true
-            }
-        }
-        .onDisappear {
-            timer?.invalidate()
+            showDialog = true
         }
     }
     

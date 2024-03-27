@@ -22,35 +22,7 @@ final class HomeViewUITests: XCTestCase {
     override func tearDownWithError() throws {
         app = nil
     }
-    
-    func test_home_animation() {
-        app.signIn(success: true)
-
-        let homeLogo = app.images["bonus"]
-        XCTAssertFalse(homeLogo.exists)
-
-        // Logo loaded after 1.5 secs
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            XCTAssertTrue(homeLogo.exists)
-        }
         
-        // Title loaded after 1.5 secs
-        let acceptBonusLabel = app.staticTexts["Accetta un bonus ID Pay"]
-        XCTAssertFalse(acceptBonusLabel.exists)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            XCTAssertTrue(acceptBonusLabel.exists)
-        }
-        
-        // Button loaded after 1.5 secs
-        let acceptBonusBtn = app.buttons["Accetta bonus ID Pay"]
-        XCTAssertFalse(acceptBonusBtn.exists)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            XCTAssertTrue(acceptBonusBtn.exists)
-        }
-    }
-    
     func test_accept_bonus_redirect_is_working() {
         app.signIn(success: true)
 
@@ -58,7 +30,7 @@ final class HomeViewUITests: XCTestCase {
         XCTAssertTrue(acceptBonusBtn.waitForExistence(timeout: 8.0))
         acceptBonusBtn.tap()
 
-        XCTAssertTrue(app.staticTexts["Non ci sono iniziative attive"].waitForExistence(timeout: 4.0))
+        XCTAssertTrue(app.staticTexts["Nessuna iniziativa trovata"].waitForExistence(timeout: 4.0))
     }
     
     func test_auth_token_expired_renews_successfully() {

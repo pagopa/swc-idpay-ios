@@ -12,7 +12,7 @@ class TransactionHistoryViewModel: BaseVM {
     
     @Published var isLoading: Bool = false
     @Published var showError: Bool = false
-    @Published var loadingStateMessage: String = "Aspetta qualche istante"
+    @Published var loadingStateMessage: String = "Attendi qualche istante"
     @Published var transactionHistoryList: [TransactionModel] = []
     
     func getTransactionHistory() {

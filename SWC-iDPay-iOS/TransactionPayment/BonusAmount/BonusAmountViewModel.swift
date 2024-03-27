@@ -14,7 +14,6 @@ class BonusAmountViewModel: BaseVM {
     @Published var isLoading: Bool = false
     @Published var amountText: String = "0,00"
     @Published var loadingStateMessage: String = ""
-    @Published var showAuthDialog: Bool = false
     @Published var showError: Bool = false
 
     var initiative: Initiative
@@ -36,7 +35,6 @@ class BonusAmountViewModel: BaseVM {
             showError = true
             return
         }
-        showAuthDialog = true
     }
     
 }
