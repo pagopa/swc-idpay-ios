@@ -20,9 +20,9 @@ jobs:
         SONAR_HOST_URL: "https://sonarcloud.io:443"
       with:
         args: >
-          -Dsonar.organization=pagopa
-          -Dsonar.projectKey=pagopa_swc-idpay-ios
+          -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
           -Dsonar.python.coverage.reportPaths=coverage.xml
           -Dsonar.sources=./
-          -Dsonar.test.exclusions=.swiftpm/**, .build/**, build/**, DerivedData/**/**, fastlane/**, *Tests/**, *Tests.*, sonar-reports/**, **/ComponentsDemoListView.swift, PagoPAUIKit/**
+          -Dsonar.test.exclusions=.swiftpm/**, build/**, DerivedData/**/**, fastlane/**, *Tests/**, *Tests.*, sonar-reports/**, **/ComponentsDemoListView.swift, PagoPAUIKit/**
           -Dsonar.verbose=true
