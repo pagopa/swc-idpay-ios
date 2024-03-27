@@ -200,4 +200,21 @@ final class QRCodeUITests: XCTestCase {
         app.buttons["Esci dal pagamento"].tap()
         XCTAssert(app.buttons["Accetta bonus ID Pay"].waitForExistence(timeout: 6))
     }
+    
+    func test_qrcode_polling_error() {
+        app.launchEnvironment = [
+            "-mock-filename": "InitiativesList",
+            "-qrcode-polling-error": "1"]
+        app.signIn(success: true)
+        
+        app.loadInitiativesList()
+        app.selectOkInitiative()
+        app.insertAmount()
+        app.authorizeWithQrCode()
+
+        let okBtn = app.buttons["Ok, ho capito"]
+        XCTAssertTrue(okBtn.waitForExistence(timeout: 2))
+        okBtn.tap()
+        XCTAssertTrue(app.staticTexts["Inquadra il codice QR con il tuo smartphone"].exists)
+    }
 }

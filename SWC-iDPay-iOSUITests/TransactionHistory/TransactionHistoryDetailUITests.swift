@@ -129,7 +129,6 @@ final class TransactionHistoryDetailUITests: XCTestCase {
         XCTAssertTrue(shareBtn.exists)
         shareBtn.tap()
 
-        let activity = app.scrollViews.otherElements["receipt, PDF Document"]
         let closeBtn = app.navigationBars.buttons["Close"]
         XCTAssertTrue(closeBtn.waitForExistence(timeout: 6))
         closeBtn.tap()

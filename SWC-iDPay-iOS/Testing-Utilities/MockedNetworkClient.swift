@@ -32,7 +32,7 @@ class MockedNetworkClient: Requestable {
     func login(username: String, password: String) async throws {
         try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
         if UITestingHelper.isUserLoginSuccess {
-            if let _ = ProcessInfo.processInfo.environment["-refresh-token-success"] {
+            if UITestingHelper.containsInputOption("-refresh-token-success") {
                 sessionManager.logout()
             }
             return
@@ -46,7 +46,7 @@ class MockedNetworkClient: Requestable {
 
         if let mockFileName = ProcessInfo.processInfo.environment["-mock-filename"] {
             do {
-                var initiativesResponse: InitiativesResponse = try UITestingHelper.getMockedObject(jsonName: mockFileName)!
+                let initiativesResponse: InitiativesResponse = try UITestingHelper.getMockedObject(jsonName: mockFileName)!
                 return initiativesResponse.initiatives
             } catch {
                 return []
@@ -136,15 +136,18 @@ class MockedNetworkClient: Requestable {
         if UITestingHelper.containsInputOption("-qrcode-load-home") {
             return TransactionModel.mockedCreatedTransaction
         }
+        if UITestingHelper.containsInputOption("-qrcode-polling-error") {
+            throw HTTPResponseError.genericError
+        }
         
         return TransactionModel.mockedIdentifiedTransaction
     }
     
     func authorizeTransaction(milTransactionId: String, authCodeBlockData: AuthCodeData) async throws {
         try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
-        if let transactionSuccess = ProcessInfo.processInfo.environment["-auth-error"] {
+        if UITestingHelper.containsInputOption("-auth-error") {
             throw HTTPResponseError.invalidCode
-        } else if let transactionError = ProcessInfo.processInfo.environment["-transaction-generic-error"] {
+        } else if UITestingHelper.containsInputOption("-transaction-generic-error") {
             throw HTTPResponseError.genericError
         }
         
@@ -166,8 +169,8 @@ class MockedNetworkClient: Requestable {
         try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
         if let mockFileName = ProcessInfo.processInfo.environment["-mock-filename"] {
             do {
-                var transactionsList: TransactionHistoryResponse = try UITestingHelper.getMockedObject(jsonName: mockFileName)!
-                var transactions = transactionsList.transactions
+                let transactionsList: TransactionHistoryResponse = try UITestingHelper.getMockedObject(jsonName: mockFileName)!
+                let transactions = transactionsList.transactions
                 
                 return transactions.map {
                     var modifiedTransaction = $0

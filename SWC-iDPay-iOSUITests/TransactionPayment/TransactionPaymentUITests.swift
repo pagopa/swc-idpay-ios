@@ -134,7 +134,7 @@ final class TransactionPaymentUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Appoggia la CIE sul dispositivo, in alto"].waitForExistence(timeout: 4))
     }
     
-    func test_error_page_is_shown_when_verifyCie_fails() {
+    func test_error_dialog_is_shown_when_verifyCie_fails() {
         app.launchEnvironment = [
             "-mock-filename": "InitiativesList",
             "-cie-reading-success": "0"]
@@ -144,9 +144,9 @@ final class TransactionPaymentUITests: XCTestCase {
         app.selectOkInitiative()
         app.insertAmount()
         app.authorizeWithCie()
+        
         XCTAssertTrue(app.staticTexts["Si è verificato un errore imprevisto"].waitForExistence(timeout: 6))
-        XCTAssertTrue(app.buttons["Autorizza con"].exists)
-        XCTAssertTrue(app.buttons["Accetta nuovo bonus"].exists)
-
+        app.buttons["Ok, ho capito"].tap()
+        XCTAssertTrue(app.staticTexts["Appoggia la CIE sul dispositivo, in alto"].waitForExistence(timeout: 4))
     }
 }
