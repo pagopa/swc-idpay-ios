@@ -46,7 +46,6 @@ public struct ListItem: View {
                             .foregroundColor(Color.grey650)
                             .textCase(.uppercase)
                         Text(subTitleText)
-                            .lineLimit(1)
                             .font(.PAFont.body)
                             .foregroundColor(Color.paBlack)
                     }
