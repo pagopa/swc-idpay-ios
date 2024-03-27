@@ -21,6 +21,21 @@ struct UITestingHelper {
         ProcessInfo.processInfo.environment["-empty-state"] == "1"
     }
     
+    static var isMaxRetriesTest: Bool {
+        ProcessInfo.processInfo.environment["-polling-max-retries-exceeded"] == "1"
+    }
+    
+    static func containsInputOption(_ string: String) -> Bool {
+       ProcessInfo.processInfo.environment[string] != nil
+    }
+    
+    static func isTrue(_ string: String) -> Bool {
+        guard let option = ProcessInfo.processInfo.environment[string], option == "1" else {
+            return false
+        }
+        return true
+    }
+    
     static func getMockedObject<T: Decodable>(jsonName: String) throws -> T? {
         guard let path = Bundle.main.path(forResource: jsonName, ofType: "json"),
               let data = try? NSData(contentsOfFile: path, options: .mappedIfSafe) else {

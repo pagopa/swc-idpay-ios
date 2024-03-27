@@ -41,29 +41,8 @@ final class TransactionPaymentUITests: XCTestCase {
         // Confirm transaction with pin
         app.insertPin()
         
-        // Receipt is visible
-        let predicate = NSPredicate(format: "label CONTAINS 'Hai pagato'")
-        XCTAssertTrue(app.staticTexts.containing(predicate).element.waitForExistence(timeout: 2))
-
-        app.buttons["Continua"].tap()
-        XCTAssertTrue(app.staticTexts["Serve la ricevuta?"].waitForExistence(timeout: 2))
-        XCTAssertTrue(app.staticTexts["Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’."].exists)
-        XCTAssertTrue(app.buttons["Invia via e-mail"].exists)
-        XCTAssertTrue(app.buttons["Condividi"].exists)
-        let notNowBtn = app.buttons["No, grazie"]
-        XCTAssertTrue(notNowBtn.exists)
-
-        // Proceed without receipt
-        notNowBtn.tap()
-        XCTAssertTrue(app.staticTexts["Operazione conclusa"].exists)
-        XCTAssertTrue(app.staticTexts["Puoi riemettere la ricevuta in un momento successivo dalla sezione ‘Storico operazioni’."].exists)
-        
-        // Accept new bonus
-        let acceptNewBonusBtn = app.buttons["Accetta nuovo bonus"]
-        XCTAssertTrue(acceptNewBonusBtn.exists)
-        acceptNewBonusBtn.tap()
-        
-        XCTAssertTrue(app.staticTexts["Scegli l'iniziativa"].exists)
+        // Test success flow ok
+        app.successPaymentConfirm()
     }
     
     func test_deleted_alert_is_shown_on_deny_transaction() {
@@ -155,7 +134,7 @@ final class TransactionPaymentUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Appoggia la CIE sul dispositivo, in alto"].waitForExistence(timeout: 4))
     }
     
-    func test_error_page_is_shown_when_verifyCie_fails() {
+    func test_error_dialog_is_shown_when_verifyCie_fails() {
         app.launchEnvironment = [
             "-mock-filename": "InitiativesList",
             "-cie-reading-success": "0"]
@@ -165,9 +144,9 @@ final class TransactionPaymentUITests: XCTestCase {
         app.selectOkInitiative()
         app.insertAmount()
         app.authorizeWithCie()
+        
         XCTAssertTrue(app.staticTexts["Si è verificato un errore imprevisto"].waitForExistence(timeout: 6))
-        XCTAssertTrue(app.buttons["Autorizza con"].exists)
-        XCTAssertTrue(app.buttons["Accetta nuovo bonus"].exists)
-
+        app.buttons["Ok, ho capito"].tap()
+        XCTAssertTrue(app.staticTexts["Appoggia la CIE sul dispositivo, in alto"].waitForExistence(timeout: 4))
     }
 }

@@ -69,8 +69,8 @@ public struct ReceiptConfirmView: View, ReceiptGenerator {
         )
         .sheet(isPresented: $presentShare, content: {
             ActivityViewController(
-                fileURL: self.$generatedPdfReceiptURL,
-                hasDoneAction: self.$showOutro
+                fileURL: $generatedPdfReceiptURL,
+                hasDoneAction: $showOutro
             )
         })
         .onChange(of: showOutro) { newValue in

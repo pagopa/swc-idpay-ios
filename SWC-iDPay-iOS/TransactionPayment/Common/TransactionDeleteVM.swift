@@ -71,7 +71,7 @@ class TransactionDeleteVM: BaseVM {
     
     func createTransaction() async throws -> CreateTransactionResponse {
         do {
-            loadingStateMessage = "Aspetta qualche istante"
+            loadingStateMessage = "Attendi qualche istante"
             self.isLoading = true
             guard let initiativeID = initiative?.id else {
                 showError()
@@ -84,6 +84,10 @@ class TransactionDeleteVM: BaseVM {
             showError()
             throw error
         }
+    }
+    
+    func getReceiptPdfModel(transaction: TransactionModel) -> ReceiptPdfModel{
+        return ReceiptPdfModel(transaction: transaction, initiative: initiative)
     }
 
     func showError() {

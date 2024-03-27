@@ -12,7 +12,8 @@ struct InitiativesList: View {
     
     @EnvironmentObject var router: Router
     @ObservedObject var viewModel: InitiativesViewModel
-
+    @State private var showHelp: Bool = false
+    
     init(viewModel: InitiativesViewModel) {
         self.viewModel = viewModel
     }
@@ -62,21 +63,28 @@ struct InitiativesList: View {
             viewModel.loadInitiatives()
         }
         .showLoadingView(message: $viewModel.loadingStateMessage, isLoading: $viewModel.isLoading)
+        .fullScreenCover(isPresented: $showHelp) {
+            HelpView()
+                .ignoresSafeArea()
+        }
+        .fullScreenCover(isPresented: $viewModel.showError) {
+            getErrorView()
+        }
     }
     
     private var emptyStateView: some View {
         VStack {
             Spacer()
             
-            Text("Non ci sono iniziative attive")
+            Text("Nessuna iniziativa trovata")
                 .font(.PAFont.h3)
-            Text("Al momento non sono disponibili iniziative")
+            Text("Se hai bisogno di aiuto contatta l'assistenza")
                 .font(.PAFont.body)
             
             Button {
-                viewModel.loadInitiatives()
+                showHelp.toggle()
             } label: {
-                Text("Riprova")
+                Text("Vai all'assistenza")
             }
             .pagoPAButtonStyle(buttonType: .primaryBordered, fullwidth: false)
             .padding(.vertical, Constants.xlargeSpacing)
@@ -85,6 +93,26 @@ struct InitiativesList: View {
         }
         .foregroundColor(.paBlack)
         .padding(Constants.mediumSpacing)
+    }
+    
+    fileprivate func getErrorView() -> ThankyouPage {
+        return ThankyouPage(
+            result: ResultModel(
+                title: "Non è stato possibile recuperare la lista delle iniziative",
+                subtitle: "Riprova tra qualche minuto",
+                themeType: .error,
+                buttons: [
+                    ButtonModel(
+                        type: .primary,
+                        themeType: .error,
+                        title: "Torna alla home",
+                        action: {
+                            router.pop()
+                        }
+                    )
+                ]
+            )
+        )
     }
     
 }
