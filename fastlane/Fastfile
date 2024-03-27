@@ -16,23 +16,23 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Description of what the lane does"
+  desc "Test and update coverage"
   lane :tests do
     
     # Run xcode tests and export as junit to be used by Gitlab
-    scan(
-      scheme: "SWC-iDPay-iOS",
-      code_coverage: true,
-      #clean: false,
-      #skip_build: true,
-      #testplan
-      disable_concurrent_testing: true,
-      disable_slide_to_type: true,
-      number_of_retries: 2,
-      derived_data_path: './DerivedData', 
-      output_directory: './sonar-reports',
-      devices: 'iPhone 15 Pro'
-    )
+    # scan(
+    #   scheme: "SWC-iDPay-iOS",
+    #   code_coverage: true,
+    #   #clean: false,
+    #   #skip_build: true,
+    #   #testplan
+    #   disable_concurrent_testing: true,
+    #   disable_slide_to_type: true,
+    #   number_of_retries: 2,
+    #   derived_data_path: './DerivedData', 
+    #   output_directory: './sonar-reports',
+    #   devices: 'iPhone 15 Pro'
+    # )
     
     # Evaluate test coverage (this is used by SonarQube)
     slather(
@@ -44,7 +44,12 @@ platform :ios do
       #ignore:['../../*']
     )
 
-    sonar
+    sonar(
+      sonar_login: ENV("SONAR_TOKEN"),
+      project_key: ENV("SONAR_PROJECT_KEY"),
+      sonar_organization: ENV("SONAR_ORGANIZATION"),
+      sonar_url: ENV("SONAR_HOST_URL")
+    )
 
   end
 end

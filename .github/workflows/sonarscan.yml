@@ -14,14 +14,9 @@ jobs:
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       
     - name: SonarQube Scan
-      uses: sonarsource/sonarcloud-github-action@v2.1.1
+      run: fastlane tests
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: "https://sonarcloud.io:443"
-      with:
-        args: >
-          -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-          -Dsonar.python.coverage.reportPaths=coverage.xml
-          -Dsonar.sources=./
-          -Dsonar.verbose=true
+        SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
+        SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
