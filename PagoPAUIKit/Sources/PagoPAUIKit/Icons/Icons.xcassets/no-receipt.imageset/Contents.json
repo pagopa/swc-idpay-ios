@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "no-receipt.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "idpayTransactionId": "613691ec-15d5-456e-a41c-e469fa4dd060_QRCODE_1694181289491",
+  "milTransactionId": "asdrfgcv-3922-221h-f365-8dhi3dl5bf84",
+  "initiativeId": "649c50b5a03f655e6543af06",
+  "timestamp": "2023-12-13T11:23:11",
+  "goodsCost": 7854,
+  "trxCode": "rwkmek1x",
+  "coveredAmount": 2400,
+  "secondFactor": "0000907783632457",
+  "status": "CANCELLED"
+}

@@ -1,0 +1,24 @@
+{
+    "initiatives": [
+        {
+            "id": "IniziativaOK4",
+            "name": "Iniziativa OK",
+            "organization": "Organization1"
+        },
+        {
+            "id": "IniziativaKO4",
+            "name": "Iniziativa KO",
+            "organization": "Organization1"
+        },
+        {
+            "id": "IniziativaOKfast4",
+            "name": "Iniziativa OK fast",
+            "organization": "Organization1"
+        },
+        {
+            "id": "iniziativaNonIdentificata4",
+            "name": "iniziativa non identificata",
+            "organization": "Organization1"
+        }
+    ]
+}

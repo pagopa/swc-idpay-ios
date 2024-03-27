@@ -1,0 +1,54 @@
+{
+    "transactions": [
+        {
+            "idpayTransactionId": "613691ec-15d5-456e-a41c-e469fa4dd060_QRCODE_1694181289491",
+            "milTransactionId": "fakeMilValidTransactionId",
+            "initiativeId": "BonusOK",
+            "timestamp": "2023-09-11T12:45:33",
+            "goodsCost": 800,
+            "trxCode": "rwkmek1x",
+            "coveredAmount": 120,
+            "status": "AUTHORIZED"
+          },
+          {
+            "idpayTransactionId": "613691ec-15d5-456e-a41c-e469fa4dd060_QRCODE_1694181289491",
+            "milTransactionId": "fakeMilErrorTransactionId",
+            "initiativeId": "BonusOK",
+            "timestamp": "2023-09-11T12:45:33",
+            "goodsCost": 1340,
+            "trxCode": "rwkmek1x",
+            "coveredAmount": 1000,
+            "status": "AUTHORIZED"
+          },
+          {
+            "idpayTransactionId": "613691ec-15d5-456e-a41c-e469fa4dd060_QRCODE_1694181289491",
+            "milTransactionId": "oldAuthorizedMilTransactionId",
+            "initiativeId": "BonusOK",
+            "timestamp": "2023-09-11T12:45:33",
+            "goodsCost": 3200,
+            "trxCode": "rwkmek1x",
+            "coveredAmount": 1000,
+            "status": "AUTHORIZED"
+          },
+          {
+            "idpayTransactionId": "613691ec-15d5-456e-a41c-e469fa4dd060_QRCODE_1694181289491",
+            "milTransactionId": "3",
+            "initiativeId": "BonusOK",
+            "timestamp": "2023-09-11T12:45:33",
+            "goodsCost": 2200,
+            "trxCode": "rwkmek1x",
+            "coveredAmount": 800,
+            "status": "AUTHORIZED"
+          },
+          {
+            "idpayTransactionId": "613691ec-15d5-456e-a41c-e469fa4dd060_QRCODE_1694181289491",
+            "milTransactionId": "4",
+            "initiativeId": "BonusCancelled",
+            "timestamp": "2023-12-13T11:23:11",
+            "goodsCost": 7854,
+            "trxCode": "rwkmek1x",
+            "coveredAmount": 2400,
+            "status": "CANCELLED"
+          }                    
+    ]
+}
