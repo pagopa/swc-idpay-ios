@@ -20,8 +20,6 @@ jobs:
         SONAR_HOST_URL: "https://sonarcloud.io:443"
       with:
         args: >
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-          -Dsonar.host.url="https://sonarcloud.io:443"
           -Dsonar.organization=pagopa
           -Dsonar.projectKey=pagopa_swc-idpay-ios
           -Dsonar.python.coverage.reportPaths=coverage.xml
