@@ -104,7 +104,8 @@ struct TransactionHistoryDetailView: View, TransactionPaymentDeletableView, Rece
                     icon: .mail,
                     iconPosition: .left,
                     action: {
-                        print("MANDA EMAIL")
+                        // TODO: Manca integrazione servizio di invio email
+                        showOutro = true
                     }
                 ),
                 ButtonModel(
