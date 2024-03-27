@@ -124,34 +124,44 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
                                             }
                                         })
                                 ])))
-                case CIEReaderError.scanNotSupported:
-                    print("NFC not available")
-                case is CIEAuthError:
-                    router.pushTo(
-                        .thankyouPage(
-                            result: ResultModel(
-                                title: "Si è verificato un errore imprevisto",
-                                subtitle:"Non è possibile completare l'operazione.",
-                                themeType: .error,
-                                buttons: [
-                                    ButtonModel(
-                                        type: .primary,
-                                        themeType: .error,
-                                        title: "Autorizza con",
-                                        icon: .io,
-                                        action: {
-                                            // TODO: Apre flusso QRcode
-                                        }),
-                                    ButtonModel(
-                                        type: .primaryBordered,
-                                        themeType: .error,
-                                        title: "Accetta nuovo bonus",
-                                        action: {
-                                            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
-                                        })
-                                ])))
+                    // TODO: Gestione errori verifyCIE specifici
+//                case is CIEAuthError:
+//                    router.pushTo(
+//                        .thankyouPage(
+//                            result: ResultModel(
+//                                title: "Si è verificato un errore imprevisto",
+//                                subtitle:"Non è possibile completare l'operazione.",
+//                                themeType: .error,
+//                                buttons: [
+//                                    ButtonModel(
+//                                        type: .primary,
+//                                        themeType: .error,
+//                                        title: "Autorizza con",
+//                                        icon: .io,
+//                                        action: {
+//                                            //Errore verifyCie: riparte da flusso QRcode
+//                                            router.pop(to: .bonusAmount(
+//                                                viewModel: BonusAmountViewModel(
+//                                                    networkClient: viewModel.networkClient,
+//                                                    initiative: viewModel.initiative!)))
+//                                            router.pushTo(.qrCodeAuth(
+//                                                viewModel: QRCodeViewModel(
+//                                                    networkClient: viewModel.networkClient,
+//                                                    transactionData: viewModel.transactionData)))
+//                                        }),
+//                                    ButtonModel(
+//                                        type: .primaryBordered,
+//                                        themeType: .error,
+//                                        title: "Accetta nuovo bonus",
+//                                        action: {
+//                                            router.pop(to: .initiatives(viewModel: InitiativesViewModel(networkClient: viewModel.networkClient)))
+//                                        })
+//                                ])))
                 default:
+                    #if DEBUG
                     print("Error:\(error.localizedDescription)")
+                    #endif
+                    viewModel.showError()
                 }
             }
         }

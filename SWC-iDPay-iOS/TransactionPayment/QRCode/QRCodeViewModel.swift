@@ -33,25 +33,13 @@ class QRCodeViewModel: TransactionDeleteVM {
     func pollTransactionStatus(retries: Int? = nil) async throws {
         
         guard shouldPollTransactionStatus else { return }
-        var maxRetries: Int
-        
-        if retries != nil {
-            maxRetries = retries!
-        } else {
-            guard let transactionRetries = transactionData.maxRetries else {
-                self.isLoading = false
-                throw CIEAuthError.walletVerifyError
-            }
-            maxRetries = transactionRetries
-        }
+        var maxRetries: Int = retries ?? transactionData.maxRetries ?? 10
         
         guard maxRetries > 0 else {
             throw HTTPResponseError.maxRetriesExceeded
         }
         
-        guard let retryAfter = transactionData.retryAfter else {
-            throw HTTPResponseError.genericError
-        }
+        var retryAfter = transactionData.retryAfter ?? 5
         
         transaction = try await networkClient.verifyTransactionStatus(milTransactionId: transactionData.milTransactionId)
         
