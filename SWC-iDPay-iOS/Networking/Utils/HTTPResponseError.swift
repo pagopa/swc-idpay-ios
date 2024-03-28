@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum HTTPResponseError: Error {
+enum HTTPResponseError: Error, Equatable {
     
     case internalServiceError
     case invalidEndpoint

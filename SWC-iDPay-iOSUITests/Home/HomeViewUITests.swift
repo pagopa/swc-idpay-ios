@@ -49,7 +49,7 @@ final class HomeViewUITests: XCTestCase {
 
     }
     
-    func test_session_expired() {
+    func test_session_expired_on_app_active() {
         app.launchEnvironment = [
             "-refresh-token-success": "0"
         ]

@@ -34,7 +34,7 @@ class CIEAuthViewModel: TransactionDeleteVM {
         nisAuthenticated = try await reader.scan(challenge: transactionData.challenge)
     }
     
-    func verifyCIE() async throws -> VerifyCIEResponse {
+    func verifyCIE() async throws -> VerifyCIEResponse? {
         do {
             guard let nisAuthenticated = nisAuthenticated else {
                 isLoading = false
@@ -44,6 +44,9 @@ class CIEAuthViewModel: TransactionDeleteVM {
             loadingStateMessage = "Stiamo verificando la CIE"
             return try await networkClient.verifyCIE(milTransactionId: transactionData.milTransactionId, nis: nisAuthenticated.nis, ciePublicKey: nisAuthenticated.kpubIntServ, signature: nisAuthenticated.challengeSigned, sod: nisAuthenticated.sod)
         } catch {
+            if let error = error as? HTTPResponseError, error == .unauthorized {
+                return nil
+            }
             isLoading = false
             throw error
         }

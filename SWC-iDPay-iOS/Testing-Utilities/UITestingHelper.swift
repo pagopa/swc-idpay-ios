@@ -43,5 +43,14 @@ struct UITestingHelper {
         }
         return try JSONDecoder().decode(T.self, from: data as Data)
     }
-    
+ 
+    static func isSessionExpiredTesting(scope: String? = nil) -> Bool {
+        let sessionExpiredOption = (scope != nil) ? "-refresh-token-\(scope!)-success" : "-refresh-token-success"
+        guard
+            let refreshTokenOpt = ProcessInfo.processInfo.environment[sessionExpiredOption],
+                refreshTokenOpt == "0" else {
+            return false
+        }
+        return true
+    }
 }

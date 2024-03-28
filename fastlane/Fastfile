@@ -26,6 +26,7 @@ platform :ios do
       #clean: false,
       #skip_build: true,
       #testplan
+      max_concurrent_simulators: 1,
       disable_concurrent_testing: true,
       disable_slide_to_type: true,
       number_of_retries: 2,

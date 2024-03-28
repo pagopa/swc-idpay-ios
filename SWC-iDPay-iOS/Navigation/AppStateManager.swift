@@ -53,31 +53,23 @@ class AppStateManager: ObservableObject {
 
 extension AppStateManager {
     
-    @MainActor
-    func isSessionExpired() async throws -> Bool {
-        switch state {
-        case .splash, .login:
-            break
-        default:
-            if sessionManager.isTokenExpired() {
-                DialogManager.shared.present(content:
-                                                WaitingView(
-                                                    title: "Stiamo verificando la sessione...",
-                                                    subtitle: "",
-                                                    icon: .infoFilled))
-                do {
+    func checkSession() {
+        Task {
+            switch state {
+            case .splash, .login:
+                break
+            default:
+                if sessionManager.isTokenExpired() {
+                    DialogManager.shared.present(content:
+                                                    WaitingView(
+                                                        title: "Stiamo verificando la sessione...",
+                                                        subtitle: "",
+                                                        icon: .infoFilled))
                     try await networkClient.refreshToken()
                     DialogManager.shared.dismiss()
-                    return false
-                } catch {
-                    #if DEBUG
-                    print("Error on refresh token:\(error.localizedDescription)")
-                    #endif
-                    return true
                 }
             }
         }
-        return false
     }
 
 }

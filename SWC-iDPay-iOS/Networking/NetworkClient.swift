@@ -39,9 +39,7 @@ class NetworkClient: Requestable {
     }
     
     func getInitiatives() async throws -> [Initiative] {
-        guard let response: InitiativesResponse = try await sendRequest(for: .initiatives) else {
-            throw HTTPResponseError.genericError
-        }
+        let response: InitiativesResponse = try await sendRequest(for: .initiatives)
         return response.initiatives
     }
     
@@ -61,29 +59,17 @@ class NetworkClient: Requestable {
     }
     
     func authorizeTransaction(milTransactionId: String, authCodeBlockData: AuthCodeData) async throws {
-        do {
-            let _: EmptyResponse = try await sendRequest(for: .authorize(milTransactionId: milTransactionId, kid: authCodeBlockData.kid, encSessionKey: authCodeBlockData.encSessionKey, authCodeBlock: authCodeBlockData.authCodeBlock))
-            return
-        } catch {
-            print("Error:\(error.localizedDescription)")
-            throw error
-        }
+        let _: EmptyResponse = try await sendRequest(for: .authorize(milTransactionId: milTransactionId, kid: authCodeBlockData.kid, encSessionKey: authCodeBlockData.encSessionKey, authCodeBlock: authCodeBlockData.authCodeBlock))
+        return
     }
     
     func deleteTransaction(milTransactionId: String) async throws -> Bool {
-        do {
-            let _: EmptyResponse = try await sendRequest(for: .deleteTransaction(milTransactionId))
-            return true
-        } catch {
-            print("Error:\(error.localizedDescription)")
-            throw error
-        }
+        let _: EmptyResponse = try await sendRequest(for: .deleteTransaction(milTransactionId))
+        return true
     }
     
     func transactionHistory() async throws -> [TransactionModel] {
-        guard let transactionHistory: TransactionHistoryResponse = try await sendRequest(for: .transactionHistory) else {
-            throw HTTPResponseError.genericError
-        }
+        let transactionHistory: TransactionHistoryResponse = try await sendRequest(for: .transactionHistory)
         return transactionHistory.transactions
     }
 
@@ -115,15 +101,19 @@ extension NetworkClient {
         case .login, .refreshToken:
             break
         default:
-            var accessToken = try sessionManager.getAccessToken()
+            do {
+                var accessToken = try sessionManager.getAccessToken()
                 
-            if try sessionManager.isTokenExpired() {
-                // REFRESH TOKEN
-                try await refreshToken()
-                accessToken = try sessionManager.getAccessToken()
+                if sessionManager.isTokenExpired() {
+                    // REFRESH TOKEN
+                    try await refreshToken()
+                    accessToken = try sessionManager.getAccessToken()
+                    apiRequest.addHeaders(["Authorization": "Bearer \(accessToken)"])
+                }
+            } catch {
+                NotificationCenter.default.post(name: .sessionExpired, object: nil)
+                throw error
             }
-            
-            apiRequest.addHeaders(["Authorization": "Bearer \(accessToken)"])
         }
         
         print("----------------------------------------INPUT----------------------------------------------------------")

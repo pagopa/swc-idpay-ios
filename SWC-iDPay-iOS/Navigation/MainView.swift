@@ -41,18 +41,29 @@ struct MainView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-            Task {
-                if try await appManager.isSessionExpired() {
-                    DialogManager.shared.showDialog(dialogModel:
-                                                        sessionExpiredDialogModel(
-                                                            appManager: appManager,
-                                                            router: router))
-                }
-            }
+            appManager.checkSession()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name.sessionExpired)) { object in
+            showSessionExpiredDialog()
+        }
+    }
+}
+
+extension MainView {
+    func showSessionExpiredDialog() {
+        DispatchQueue.main.async {
+            DialogManager.shared.showDialog(dialogModel:
+                                                sessionExpiredDialogModel(
+                                                    appManager: appManager,
+                                                    router: router))
         }
     }
 }
 
 #Preview {
     MainView()
+}
+
+extension Notification.Name {
+    static let sessionExpired = Notification.Name("SessionExpiredNotification")
 }

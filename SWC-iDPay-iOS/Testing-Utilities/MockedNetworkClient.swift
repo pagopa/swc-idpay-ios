@@ -24,9 +24,18 @@ class MockedNetworkClient: Requestable {
     
     func refreshToken() async throws {
         try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
-        if let refreshTokenSuccess = ProcessInfo.processInfo.environment["-refresh-token-success"], refreshTokenSuccess == "0" {
-            throw HTTPResponseError.genericError
+        print("Environment:\(ProcessInfo.processInfo.environment)")
+        if let refreshTokenOpt = ProcessInfo.processInfo.environment.filter({
+            $0.key.contains("-refresh-token")}).first {
+            if refreshTokenOpt.key == "-refresh-token-success", refreshTokenOpt.value == "1" {
+                return
+            }
+            try await MainActor.run {
+                NotificationCenter.default.post(name: .sessionExpired, object: nil)
+                throw HTTPResponseError.unauthorized
+            }
         }
+        return
     }
     
     func login(username: String, password: String) async throws {
@@ -42,8 +51,9 @@ class MockedNetworkClient: Requestable {
     }
     
     func getInitiatives() async throws -> [Initiative] {
-        try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
+        try await checkSessionExpiredTesting(scope: "initiatives")
 
+        try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
         if let mockFileName = ProcessInfo.processInfo.environment["-mock-filename"] {
             do {
                 let initiativesResponse: InitiativesResponse = try UITestingHelper.getMockedObject(jsonName: mockFileName)!
@@ -53,7 +63,7 @@ class MockedNetworkClient: Requestable {
             }
         } else if let _ = ProcessInfo.processInfo.environment["-initiative-list-error"] {
             throw HTTPResponseError.genericError
-        }
+        } 
         return []
     }
     
@@ -61,21 +71,25 @@ class MockedNetworkClient: Requestable {
         if UITestingHelper.containsInputOption("-qrcode-load-home") {
             // Has 10 retries to ensure we can tap home button while loading
             return CreateTransactionResponse.mockedCreatedHighRetries
-        } else {
-            return CreateTransactionResponse.mockedCreated
+        } else if UITestingHelper.isSessionExpiredTesting(scope: "create") {
+            try await refreshToken()
         }
+        return CreateTransactionResponse.mockedCreated
     }
     
     func verifyCIE(milTransactionId: String, nis: String, ciePublicKey: String, signature: String, sod: String) async throws -> VerifyCIEResponse {
         try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
         if let cieReadingSuccess = ProcessInfo.processInfo.environment["-cie-reading-success"], cieReadingSuccess == "0" {
             throw CIEAuthError.walletVerifyError
+        } else if UITestingHelper.isSessionExpiredTesting(scope: "verify-cie") {
+            try await refreshToken()
         }
         return VerifyCIEResponse.mockedSuccessResponse
     }
     
     func verifyTransactionStatus(milTransactionId: String) async throws -> TransactionModel {
 
+        try await checkSessionExpiredTesting(scope: "polling")
         try? await Task.sleep(nanoseconds: 1 * 500_000_000)
 
         if UITestingHelper.isMaxRetriesTest {
@@ -146,6 +160,7 @@ class MockedNetworkClient: Requestable {
     }
     
     func authorizeTransaction(milTransactionId: String, authCodeBlockData: AuthCodeData) async throws {
+        try await checkSessionExpiredTesting(scope: "auth")
         try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
         if UITestingHelper.containsInputOption("-auth-error") {
             throw HTTPResponseError.invalidCode
@@ -157,6 +172,7 @@ class MockedNetworkClient: Requestable {
     }
     
     func deleteTransaction(milTransactionId: String) async throws -> Bool {
+        try await checkSessionExpiredTesting(scope: "delete")
         try? await Task.sleep(nanoseconds: 1 * 1_000_000_000)
         if let transactionDeleteSuccess = ProcessInfo.processInfo.environment["-transaction-delete-success"] {
             if transactionDeleteSuccess == "0" {
@@ -167,7 +183,6 @@ class MockedNetworkClient: Requestable {
     }
     
     func transactionHistory() async throws -> [TransactionModel] {
-        print("Delay transaction history loading")
         try? await Task.sleep(nanoseconds: 1 * 2_000_000_000)
         if let mockFileName = ProcessInfo.processInfo.environment["-mock-filename"] {
             do {
@@ -192,9 +207,19 @@ class MockedNetworkClient: Requestable {
         } else if UITestingHelper.isEmptyStateTest {
             return []
         } else {
-            return TransactionModel.randomTransactionsList
+            try await checkSessionExpiredTesting(scope: "history")
         }
+        
+        return TransactionModel.randomTransactionsList
     }
     
+}
+
+extension MockedNetworkClient {
+    func checkSessionExpiredTesting(scope: String) async throws {
+        if UITestingHelper.isSessionExpiredTesting(scope: scope) {
+            try await refreshToken()
+        }
+    }
 }
 #endif

@@ -88,7 +88,9 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
         Task {
             do {
                 try await viewModel.readCIE()
-                let verifyCIEResponse = try await viewModel.verifyCIE()
+                guard let verifyCIEResponse = try await viewModel.verifyCIE() else {
+                    return
+                }
                 let transaction = try await viewModel.pollTransactionStatus()
                 router.pushTo(.transactionConfirm(viewModel: TransactionDetailViewModel(networkClient: viewModel.networkClient, transaction: transaction, verifyCIEResponse: verifyCIEResponse, initiative: viewModel.initiative)))
             } catch {
@@ -161,6 +163,9 @@ struct CIEAuthView: View, TransactionPaymentDeletableView {
                     #if DEBUG
                     print("Error:\(error.localizedDescription)")
                     #endif
+                    if let error = error as? HTTPResponseError, error == .unauthorized {
+                        return
+                    }
                     viewModel.showError()
                 }
             }
