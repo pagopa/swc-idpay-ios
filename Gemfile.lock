@@ -182,6 +182,8 @@ GEM
     nkf (0.2.0)
     nokogiri (1.15.5-x86_64-darwin)
       racc (~> 1.4)
+    nokogiri (1.15.5-x86_64-linux)
+      racc (~> 1.4)
     optparse (0.4.0)
     os (1.1.4)
     plist (3.7.1)
@@ -239,6 +241,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   fastlane
