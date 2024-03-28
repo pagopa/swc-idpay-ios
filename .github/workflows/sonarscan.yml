@@ -12,7 +12,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
-      
+    - name: Set up ruby env
+       uses: ruby/setup-ruby@v1.173.0
+       with:
+         ruby-version: 3.3.0
+         bundler-cache: true
+    - run: bundle install
     - name: SonarQube Scan
       run: bundle exec fastlane tests
       env:
